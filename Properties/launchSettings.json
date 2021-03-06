@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "gangwars": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\lbyte\\Desktop\\GW-server\\server-files\\ragemp-server.exe",
+      "workingDirectory": "C:\\Users\\lbyte\\Desktop\\GW-server\\server-files"
+    }
+  }
+}
