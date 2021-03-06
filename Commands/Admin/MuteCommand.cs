@@ -21,7 +21,7 @@ namespace Gamemode.Commands.Admin
             }
             catch (Exception)
             {
-                NAPI.Chat.SendChatMessageToPlayer(player, Properties.Localization.ErrorMuteMinutesDuration);
+                NAPI.Chat.SendChatMessageToPlayer(player, Resources.Localization.ErrorMuteMinutesDuration);
                 return;
             }
 

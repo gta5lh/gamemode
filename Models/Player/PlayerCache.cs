@@ -21,14 +21,6 @@ namespace Gamemode
 
         public string ChatColor { get; }
 
-        public string Language { get; set; }
-
-        
-        //public void SetLanguage(string language)
-        //{
-        //    this.Language = language
-        //}
-
         public static PlayerCache GetPlayerCache(Player player)
         {
             if (player.HasData(DataKey.PlayerCache))
@@ -38,7 +30,6 @@ namespace Gamemode
 
             return LoadPlayerCache(player);
         }
-
 
         private static PlayerCache LoadPlayerCache(Player player)
         {

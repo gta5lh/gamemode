@@ -2,11 +2,13 @@
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
-using GTANetworkAPI;
-using System.Threading.Tasks;
-
 namespace Gamemode.Commands.Player
 {
+    using System.Threading.Tasks;
+    using Gamemode.Api;
+    using Gamemode.Models.User;
+    using GTANetworkAPI;
+
     public class RegisterCommand : Script
     {
         [Command("register", "Usage: /register {адрес электронной почты} {имя} {пароль} {подтверждение_пароль}", SensitiveInfo = true, GreedyArg = true)]
@@ -30,11 +32,20 @@ namespace Gamemode.Commands.Player
                 return;
             }
 
-            //bool exists = await UserRepository.Instance.UserByEmailExists(email);
-            //if (exists)
-            //{
-            //    NAPI.Task.Run(() => player.SendChatMessage("Введенный адрес электронной почты уже занят"));
-            //}
+            User user = await Client.GetUserByEmailAsync(email);
+            if (user != null)
+            {
+                NAPI.Task.Run(() => player.SendChatMessage("Введенный адрес электронной почты уже занят"));
+                return;
+            }
+
+            User newUser = new User();
+            newUser.Email = email;
+            newUser.Password = password;
+            newUser.Username = name;
+
+            User createdUser = await Client.CreateUser(newUser);
+            NAPI.Task.Run(() => player.SendChatMessage(createdUser.Id));
         }
 
         [Command("n", "Usage: /register {адрес электронной почты} {имя} {пароль} {подтверждение_пароль}", SensitiveInfo = true, GreedyArg = true)]

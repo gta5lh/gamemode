@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gamemode", "Gamemode.csproj", "{4162A344-9675-4053-A745-A1DFDFDA203A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gamemode", "Gamemode.csproj", "{4162A344-9675-4053-A745-A1DFDFDA203A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E52123C3-3DF2-44F2-A90B-C8387221B9DA}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

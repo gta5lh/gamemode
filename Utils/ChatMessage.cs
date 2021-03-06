@@ -8,7 +8,7 @@ namespace Gamemode.Utils
     {
         public static string AnnouncementAdminMutedPlayer(string adminName, string targetName, double durationMinutes, string reason)
         {
-            return string.Format(Properties.Localization.AnnouncementAdminMutedPlayer, adminName, targetName, durationMinutes, reason);
+            return string.Format(Resources.Localization.AnnouncementAdminMutedPlayer, adminName, targetName, durationMinutes, reason);
         }
     }
 }
