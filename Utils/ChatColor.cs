@@ -6,6 +6,7 @@ namespace Gamemode.Utils
 {
     public static class ChatColor
     {
-        public const string AdminAnnouncementColor = "!{#ff4633} ";
+        public const string AdminAnnouncementColor = "!{#ff4633}";
+        public const string AdminChatColor = "!{#ffa321}";
     }
 }
