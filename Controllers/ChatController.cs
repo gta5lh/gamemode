@@ -16,11 +16,11 @@ namespace Gamemode
             if (isMuted && player.MuteState.HasMuteExpired())
             {
                 player.Unmute();
-                player.SendChatMessage("Ваша затычка была снята. Не нарушайте правила сервера. Приятной игры!");
+                player.SendChatMessage("Срок действия вашего мута истек. Не нарушайте правила сервера. Приятной игры!");
             }
             else if (isMuted)
             {
-                player.SendChatMessage($"Администратор выдал вам затычку. Осталось {player.MuteState.GetMinutesLeft():0.##} минут.");
+                player.SendChatMessage($"Администратор выдал вам мут. Осталось {player.MuteState.GetMinutesLeft():0.##} минут.");
                 return;
             }
 
