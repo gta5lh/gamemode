@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 
 namespace Gamemode.Models.Player
 {
@@ -15,7 +16,14 @@ namespace Gamemode.Models.Player
 
         public static ushort? DynamicIdByStatic(string id)
         {
-            return staticDynamicPairs.TryGetValue(long.Parse(id), out ushort dynamicId) ? (ushort?)dynamicId : null;
+            try
+            {
+                return staticDynamicPairs.TryGetValue(long.Parse(id), out ushort dynamicId) ? (ushort?)dynamicId : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public static long? StaticIdByDynamic(ushort id)
@@ -25,7 +33,14 @@ namespace Gamemode.Models.Player
 
         public static long? StaticIdByDynamic(string id)
         {
-            return dynamicStaticPairs.TryGetValue(ushort.Parse(id), out long staticId) ? (long?)staticId : null;
+            try
+            {
+                return dynamicStaticPairs.TryGetValue(ushort.Parse(id), out long staticId) ? (long?)staticId : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public static void LoadIdsToCache(ushort dynamicId, long staticId)
