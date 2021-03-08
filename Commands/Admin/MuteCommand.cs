@@ -1,4 +1,4 @@
-﻿// <copyright file="Mute.cs" company="lbyte00">
+﻿// <copyright file="MuteCommand.cs" company="lbyte00">
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
@@ -16,8 +16,8 @@ namespace Gamemode.Commands.Admin
     public class MuteCommand : BaseCommandHandler
     {
         private const string MuteCommandUsage = "Использование: /mute {static_id} {минуты} {причина}. Пример: /mute 1 100 Оскорбления";
-        private const string UnmuteCommandUsage = "Использование: /mute {static_id}.~n~ Пример: /unmute 1";
-        private const int monthInMinutes = 44640;
+        private const string UnmuteCommandUsage = "Использование: /mute {static_id}. Пример: /unmute 1";
+        private const int MonthInMinutes = 44640;
 
         [AdminMiddleware(AdminRank.Junior)]
         [Command("mute", MuteCommandUsage, Alias = "m", GreedyArg = true, Hide = true)]
@@ -43,9 +43,9 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            if (duration == 0 || duration > monthInMinutes)
+            if (duration == 0 || duration > MonthInMinutes)
             {
-                admin.SendChatMessage($"Мут можно выдать минимум на 1 минуту, максимум на {monthInMinutes}");
+                admin.SendChatMessage($"Мут можно выдать минимум на 1 минуту, максимум на {MonthInMinutes}");
                 return;
             }
 
