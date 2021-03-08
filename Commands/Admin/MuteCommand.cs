@@ -17,9 +17,10 @@ namespace Gamemode.Commands.Admin
     {
         private const string MuteCommandUsage = "Использование: /mute {static_id} {минуты} {причина}.~n~ Пример: /mute 1 100 Оскорбления";
         private const string UnmuteCommandUsage = "Использование: /mute {static_id}.~n~ Пример: /unmute 1";
+        private const int monthInMinutes = 44640;
 
-        [Command("mute", MuteCommandUsage, Alias = "m", GreedyArg = true, Hide = true)]
         [AdminMiddleware(AdminRank.Junior)]
+        [Command("mute", MuteCommandUsage, Alias = "m", GreedyArg = true, Hide = true)]
         public async Task Mute(CustomPlayer admin, string playerId = null, string durationMinutes = null, string reason = null)
         {
             if (playerId == null || durationMinutes == null || reason == null)
@@ -42,9 +43,9 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            if (duration == 0)
+            if (duration == 0 || duration > monthInMinutes)
             {
-                admin.SendChatMessage(MuteCommandUsage);
+                admin.SendChatMessage($"Мут можно выдать минимум на 1 минуту, максимум на {monthInMinutes}");
                 return;
             }
 
