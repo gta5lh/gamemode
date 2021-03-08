@@ -37,7 +37,7 @@ namespace Gamemode
             admin.SetIntoVehicle(vehicle, 0);
 
             string vehicleDisplayName = vehicle.DisplayName != null ? vehicle.DisplayName : vehicleName;
-            AdminsCache.SendMessageToAllAdmins($"{admin.Name} создал автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
+            AdminsCache.SendMessageToAllAdmins($"{admin.Name} [{admin.StaticId}] создал автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
             this.Logger.Warn($"Administrator {admin.Name} created vehicle {vehicle.DisplayName}");
         }
     }
