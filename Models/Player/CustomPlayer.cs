@@ -42,6 +42,10 @@ namespace Gamemode.Models.Player
             player.Name = user.Username;
             player.AdminRank = user.AdminRank;
             player.MuteState = (user.MuteState == null) ? new MuteState() : user.MuteState;
+            if (player.AdminRank.IsAdmin())
+            {
+                AdminsCache.LoadAdminToCache(player.StaticId, player.Name);
+            }
 
             Logger.Debug($"Loaded player to cache. ID={player.StaticId}");
             return player;
@@ -50,6 +54,11 @@ namespace Gamemode.Models.Player
         public static void UnloadPlayerCache(CustomPlayer player)
         {
             player.ResetData();
+            if (player.AdminRank.IsAdmin())
+            {
+                AdminsCache.UnloadAdminFromCache(player.StaticId);
+            }
+
             IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
             Logger.Debug($"Unloaded player from cache. ID={player.StaticId}");
         }
