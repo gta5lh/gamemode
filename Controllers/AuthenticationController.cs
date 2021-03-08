@@ -36,6 +36,13 @@ namespace Gamemode.Controllers
 
             NAPI.Task.Run(() =>
             {
+                if (PlayerUtil.GetByStaticId(user.Id) != null)
+                {
+                    invalidFieldNames = new List<string>(new string[] { "email" });
+                    NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
+                    return;
+                }
+
                 CustomPlayer.LoadPlayerCache(player, user);
                 NAPI.ClientEvent.TriggerClientEvent(player, "LogIn");
             });
@@ -77,11 +84,20 @@ namespace Gamemode.Controllers
             User createdUser = await UserRepository.CreateUser(newUser);
             if (createdUser == null)
             {
+                invalidFieldNames = new List<string>(new string[] { "email" });
+                NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RegisterSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
                 return;
             }
 
             NAPI.Task.Run(() =>
             {
+                if (PlayerUtil.GetByStaticId(createdUser.Id) != null)
+                {
+                    invalidFieldNames = new List<string>(new string[] { "email" });
+                    NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RegisterSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
+                    return;
+                }
+
                 CustomPlayer.LoadPlayerCache(player, createdUser);
                 NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LogIn");
             });
