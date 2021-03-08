@@ -15,7 +15,7 @@ namespace Gamemode.Commands.Admin
 
     public class MuteCommand : BaseCommandHandler
     {
-        private const string MuteCommandUsage = "Использование: /mute {static_id} {минуты} {причина}.~n~ Пример: /mute 1 100 Оскорбления";
+        private const string MuteCommandUsage = "Использование: /mute {static_id} {минуты} {причина}. Пример: /mute 1 100 Оскорбления";
         private const string UnmuteCommandUsage = "Использование: /mute {static_id}.~n~ Пример: /unmute 1";
         private const int monthInMinutes = 44640;
 
