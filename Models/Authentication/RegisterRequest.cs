@@ -1,4 +1,4 @@
-﻿// <copyright file="LoginRequest.cs" company="lbyte00">
+﻿// <copyright file="RegisterRequest.cs" company="lbyte00">
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
@@ -6,11 +6,15 @@ namespace Gamemode.Models.Authentication
 {
     using System.Collections.Generic;
 
-    public class LoginRequest
+    public class RegisterRequest
     {
         public string Email { get; set; }
 
+        public string Username { get; set; }
+
         public string Password { get; set; }
+
+        public string ConfirmPassword { get; set; }
 
         public List<string> Validate()
         {
@@ -21,9 +25,19 @@ namespace Gamemode.Models.Authentication
                 invalidFieldNames.Add("email");
             }
 
+            if (string.IsNullOrEmpty(this.Username) || this.Username.Length < 1 || this.Username.Length > 32)
+            {
+                invalidFieldNames.Add("username");
+            }
+
             if (string.IsNullOrEmpty(this.Password) || this.Password.Length < 6 || this.Password.Length > 50)
             {
                 invalidFieldNames.Add("password");
+            }
+
+            if (string.IsNullOrEmpty(this.ConfirmPassword) || !this.Password.Equals(this.ConfirmPassword))
+            {
+                invalidFieldNames.Add("confirm_password");
             }
 
             return invalidFieldNames;

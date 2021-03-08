@@ -1,4 +1,4 @@
-// <copyright file="MuteState.cs" company="lbyte00">
+﻿// <copyright file="MuteState.cs" company="lbyte00">
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
@@ -8,26 +8,46 @@ namespace Gamemode
 
     public class MuteState
     {
-        private DateTime? mutedUntil;
+        public DateTime? MutedUntil { get; set; }
+
+        public string? Reason { get; set; }
+
+        public long? MutedBy { get; set; }
+
+        public MuteState(int? duration = null, long? mutedBy = null, string? reason = null)
+        {
+            this.MutedUntil = duration.HasValue ? (DateTime?)DateTime.UtcNow.AddMinutes(duration.Value) : null;
+            this.MutedBy = mutedBy;
+            this.Reason = reason;
+        }
 
         public bool IsMuted()
         {
-            return this.mutedUntil != null;
+            return this.MutedUntil != null;
         }
 
         public bool HasMuteExpired()
         {
-            return DateTime.Compare(DateTime.UtcNow, (DateTime)this.mutedUntil) >= 0;
+            return DateTime.Compare(DateTime.UtcNow, (DateTime)this.MutedUntil) >= 0;
         }
 
-        public void Mute(int durationMinutes)
+        public void Mute(int durationMinutes, long mutedBy, string reason)
         {
-            this.mutedUntil = DateTime.UtcNow.AddMinutes(durationMinutes);
+            this.MutedUntil = DateTime.UtcNow.AddMinutes(durationMinutes);
+            this.MutedBy = mutedBy;
+            this.Reason = reason;
         }
 
         public void Unmute()
         {
-            this.mutedUntil = null;
+            this.MutedUntil = null;
+            this.MutedBy = null;
+            this.Reason = null;
+        }
+
+        public double GetMinutesLeft()
+        {
+            return ((TimeSpan)(this.MutedUntil - DateTime.UtcNow)).TotalMinutes;
         }
     }
 }

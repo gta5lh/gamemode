@@ -1,4 +1,4 @@
-// <copyright file="Teleport.cs" company="lbyte00">
+﻿// <copyright file="Teleport.cs" company="lbyte00">
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
@@ -11,7 +11,8 @@ namespace Gamemode
         [Command("teleport", "Usage: /teleport {player_id}", Alias = "tp", SensitiveInfo = true, GreedyArg = true)]
         public void CMDVehicle(Player player, string playerID)
         {
-            Player playerTo = PlayerUtil.GetByID(playerID);
+
+            Player playerTo = PlayerUtil.GetById(ushort.Parse(playerID));
             if (playerTo == null)
             {
                 player.SendChatMessage("Player with specified ID does not exist");

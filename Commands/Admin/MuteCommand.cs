@@ -5,29 +5,109 @@
 namespace Gamemode.Commands.Admin
 {
     using System;
+    using System.Threading.Tasks;
+    using Gamemode.Models.Admin;
+    using Gamemode.Models.Player;
+    using Gamemode.Models.User;
+    using Gamemode.Repository;
     using Gamemode.Utils;
     using GTANetworkAPI;
 
-    public class MuteCommand : Script
+    public class MuteCommand : BaseCommandHandler
     {
-        [Command("mute", "Usage: /mute {static_id} {минуты} {причина}", Alias = "m", SensitiveInfo = true, GreedyArg = true)]
-        public void Mute(Player player, string playerID, string durationMinutes, string reason)
+        private const string MuteCommandUsage = "Использование: /mute {static_id} {минуты} {причина}.~n~ Пример: /mute 1 100 Оскорбления";
+        private const string UnmuteCommandUsage = "Использование: /mute {static_id}.~n~ Пример: /unmute 1";
+
+        [Command("mute", MuteCommandUsage, Alias = "m", GreedyArg = true, Hide = true)]
+        [AdminMiddleware(AdminRank.Junior)]
+        public async Task Mute(CustomPlayer admin, string playerId = null, string durationMinutes = null, string reason = null)
         {
+            if (playerId == null || durationMinutes == null || reason == null)
+            {
+                admin.SendChatMessage(MuteCommandUsage);
+                return;
+            }
+
+            long targetId;
             int duration;
 
             try
             {
+                targetId = long.Parse(playerId);
                 duration = int.Parse(durationMinutes);
             }
             catch (Exception)
             {
-                NAPI.Chat.SendChatMessageToPlayer(player, Resources.Localization.ErrorMuteMinutesDuration);
+                admin.SendChatMessage(MuteCommandUsage);
                 return;
             }
 
-            Player targetPlayer = PlayerUtil.GetByID(playerID);
-            PlayerCache.GetPlayerCache(targetPlayer).MuteState.Mute(duration);
-            Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, ChatMessage.AnnouncementAdminMutedPlayer(player.Name, targetPlayer.Name, duration, reason));
+            if (duration == 0)
+            {
+                admin.SendChatMessage(MuteCommandUsage);
+                return;
+            }
+
+            User target = await UserRepository.Mute(targetId, duration, reason, admin.StaticId);
+            if (target == null)
+            {
+                NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetId} не найден"));
+                return;
+            }
+
+            NAPI.Task.Run(() =>
+            {
+                CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(targetId);
+                if (targetPlayer != null)
+                {
+                    targetPlayer.MuteState = target.MuteState;
+                }
+
+                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал мут {target.Username} на {duration} минут. Причина: {reason}");
+                this.Logger.Warn($"Administrator {admin.Name} muted {target.Username} for {duration} minutes");
+            });
+        }
+
+        [Command("unmute", UnmuteCommandUsage, Alias = "um", GreedyArg = true, Hide = true)]
+        [AdminMiddleware(AdminRank.Junior)]
+        public async Task Unmute(CustomPlayer admin, string playerId = null)
+        {
+            if (playerId == null)
+            {
+                admin.SendChatMessage(UnmuteCommandUsage);
+                return;
+            }
+
+            long targetId;
+
+            try
+            {
+                targetId = long.Parse(playerId);
+            }
+            catch (Exception)
+            {
+                admin.SendChatMessage(UnmuteCommandUsage);
+                return;
+            }
+
+            User target = await UserRepository.Unmute(targetId);
+            if (target == null)
+            {
+                NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetId} не найден"));
+                return;
+            }
+
+            NAPI.Task.Run(() =>
+            {
+                CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(targetId);
+                if (targetPlayer != null)
+                {
+                    targetPlayer.MuteState = new MuteState();
+                }
+
+                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял мут {target.Username}");
+                this.Logger.Warn($"Administrator {admin.Name} unmuted {target.Username}");
+            });
         }
     }
 }

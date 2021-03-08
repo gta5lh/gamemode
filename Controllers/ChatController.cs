@@ -1,30 +1,30 @@
-// <copyright file="ChatController.cs" company="lbyte00">
+﻿// <copyright file="ChatController.cs" company="lbyte00">
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
 namespace Gamemode
 {
+    using Gamemode.Models.Player;
     using GTANetworkAPI;
 
     public class ChatController : Script
     {
         [ServerEvent(Event.ChatMessage)]
-        private void ChatMessage(Player player, string message)
+        private void ChatMessage(CustomPlayer player, string message)
         {
-            PlayerCache playerCache = PlayerCache.GetPlayerCache(player);
-
-            bool isMuted = playerCache.MuteState.IsMuted();
-            if (isMuted && playerCache.MuteState.HasMuteExpired())
+            bool isMuted = player.MuteState.IsMuted();
+            if (isMuted && player.MuteState.HasMuteExpired())
             {
-                playerCache.MuteState.Unmute();
+                player.Unmute();
+                player.SendChatMessage("Ваша затычка была снята. Не нарушайте правила сервера. Приятной игры!");
             }
             else if (isMuted)
             {
-                NAPI.Chat.SendChatMessageToPlayer(player, "You are muted!");
+                player.SendChatMessage($"Администратор выдал вам затычку. Осталось {player.MuteState.GetMinutesLeft():0.##} минут.");
                 return;
             }
 
-            NAPI.Chat.SendChatMessageToAll(string.Format("{0}{1} [{2}]:~s~ {3}", playerCache.ChatColor, player.Name, player.Id, message));
+            NAPI.Chat.SendChatMessageToAll(string.Format("{0}{1} [{2}]:~s~ {3}", player.ChatColor, player.Name, player.Id, message));
         }
     }
 }
