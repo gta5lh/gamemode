@@ -11,12 +11,22 @@ namespace Gamemode.Models.Player
 
         public static void LoadAdminToCache(long staticId, string name)
         {
+            if (Admins.ContainsKey(staticId))
+            {
+                return;
+            }
+
             Admins[staticId] = name;
             Logger.Debug($"Loaded admin to cache. static_id={staticId}");
         }
 
         public static void UnloadAdminFromCache(long staticId)
         {
+            if (!Admins.ContainsKey(staticId))
+            {
+                return;
+            }
+
             Admins.TryRemove(staticId, out _);
             Logger.Debug($"Unloaded admin from cache. static_id={staticId}");
         }

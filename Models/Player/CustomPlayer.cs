@@ -12,6 +12,7 @@ namespace Gamemode.Models.Player
     public class CustomPlayer : Player
     {
         private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
+        private AdminRank adminRank;
 
         public CustomPlayer(NetHandle handle)
     : base(handle)
@@ -26,7 +27,24 @@ namespace Gamemode.Models.Player
 
         public long StaticId { get; set; }
 
-        public AdminRank AdminRank { get; set; }
+        public AdminRank AdminRank
+        {
+            get => this.adminRank;
+
+            set
+            {
+                this.adminRank = value;
+
+                if (this.adminRank.IsAdmin())
+                {
+                    AdminsCache.LoadAdminToCache(this.StaticId, this.Name);
+                }
+                else
+                {
+                    AdminsCache.UnloadAdminFromCache(this.StaticId);
+                }
+            }
+        }
 
         public void Unmute()
         {
