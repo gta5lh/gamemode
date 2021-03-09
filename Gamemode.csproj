@@ -7,6 +7,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <OutputPath></OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -59,12 +60,12 @@
 
   <ItemGroup>
     <Reference Include="Bootstrapper">
-      <HintPath>C:\Users\lbyte\Desktop\GW-server\server-files\dotnet\runtime\Bootstrapper.dll</HintPath>
+      <HintPath>C:\Users\lbyte\Desktop\gw\server-files\dotnet\runtime\Bootstrapper.dll</HintPath>
       <Private Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">False</Private>
     </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="del &quot;C:\Users\lbyte\Desktop\GW-server\server-files\dotnet\resources\gamemode\*.*&quot; /Q&#xD;&#xA;xcopy &quot;$(OutDir)*&quot; &quot;C:\Users\lbyte\Desktop\GW-server\server-files\dotnet\resources\gamemode&quot; /Y" />
+    <Exec Command="del &quot;C:\Users\lbyte\Desktop\gw\server-files\dotnet\resources\gamemode\*.*&quot; /Q&#xD;&#xA;xcopy &quot;$(OutDir)*&quot; &quot;C:\Users\lbyte\Desktop\gw\server-files\dotnet\resources\gamemode&quot; /Y" />
   </Target>
 </Project>
