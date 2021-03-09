@@ -7,6 +7,7 @@ namespace Gamemode.Repository
     using System;
     using System.Threading.Tasks;
     using Gamemode.Logger;
+    using Gamemode.Models.Admin;
     using Gamemode.Models.Settings;
     using Gamemode.Models.User;
     using MongoDB.Bson;
@@ -50,9 +51,9 @@ namespace Gamemode.Repository
             userRepository = new UserRepository(settings);
         }
 
-        public Task<User> Get(long id)
+        public static Task<User> Get(long id)
         {
-            return users.Find(user => user.Id == id).Project<User>(Builders<User>.Projection.Exclude(user => user.Password)).FirstOrDefaultAsync();
+            return userRepository.users.Find(user => user.Id == id).Project<User>(Builders<User>.Projection.Exclude(user => user.Password)).FirstOrDefaultAsync();
         }
 
         public static Task<User> GetUserByEmailOrUsername(string email, string username)
@@ -77,6 +78,18 @@ namespace Gamemode.Repository
 
             return user;
         }
+
+        public static async Task<long?> GetIdByUsername(string username)
+        {
+            User user = await userRepository.users.Find(user => user.Username == username).Project<User>(Builders<User>.Projection.Include(user => user.Id)).FirstOrDefaultAsync();
+            if (user == null)
+            {
+                return null;
+            }
+
+            return user.Id;
+        }
+
 
         public static async Task<User> CreateUser(User user)
         {
@@ -126,6 +139,15 @@ namespace Gamemode.Repository
         public static Task<User> Unmute(long targetId)
         {
             var update = new UpdateDefinitionBuilder<User>().Set(user => user.MuteState, null);
+            var opts = new FindOneAndUpdateOptions<User>();
+            opts.ReturnDocument = ReturnDocument.After;
+            opts.Projection = new ProjectionDefinitionBuilder<User>().Exclude(user => user.Password);
+            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId, update, opts);
+        }
+
+        public static Task<User> SetAdminRank(long targetId, AdminRank rank)
+        {
+            var update = new UpdateDefinitionBuilder<User>().Set(user => user.AdminRank, rank);
             var opts = new FindOneAndUpdateOptions<User>();
             opts.ReturnDocument = ReturnDocument.After;
             opts.Projection = new ProjectionDefinitionBuilder<User>().Exclude(user => user.Password);
