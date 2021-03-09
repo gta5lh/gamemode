@@ -55,9 +55,8 @@ namespace Gamemode.Models.Player
             if (dynamicStaticPairs.TryRemove(id, out long staticId))
             {
                 staticDynamicPairs.TryRemove(staticId, out _);
+                logger.Debug($"Unloaded player ids from cache. dynamic_id={id}");
             }
-
-            logger.Debug($"Unloaded player ids from cache. dynamic_id={id}");
         }
     }
 }
