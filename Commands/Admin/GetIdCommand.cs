@@ -4,48 +4,69 @@
 
 namespace Gamemode.Commands.Admin
 {
+    using System;
+    using System.Threading.Tasks;
     using Gamemode.Models.Admin;
     using Gamemode.Models.Player;
+    using Gamemode.Repository;
     using GTANetworkAPI;
 
     public class GetIdCommand : Script
     {
         private const string IdTypeStatic = "s";
         private const string IdTypeDynamic = "d";
-        private const string GetIdCommandUsage = "Использование: /getid {s-статичный или d-динамичный} {id}. Пример: /getid s 100";
+        private const string GetIdCommandUsage = "Использование: /getid {s-статичный или d-динамичный} {id или имя}. Примеры: [/getid s 100], [/getid s lbyte00]";
 
         [Command("getid", GetIdCommandUsage, Alias = "gid", SensitiveInfo = true, GreedyArg = true, Hide = true)]
         [AdminMiddleware(AdminRank.Junior)]
-        public void GetId(Player player, string idType = null, string id = null)
+        public async Task GetId(Player player, string idType = null, string idOrUsername = null)
         {
-            if (idType == null || id == null || (idType != "s" && idType != "d"))
+            if (idType == null || idOrUsername == null || (idType != "s" && idType != "d"))
             {
                 player.SendChatMessage(GetIdCommandUsage);
                 return;
             }
 
+            long? staticId = null;
+
+            try
+            {
+                _ = long.Parse(idOrUsername);
+            }
+            catch (Exception)
+            {
+                staticId = await UserRepository.GetIdByUsername(idOrUsername);
+            }
+
             long? expectedId = null;
 
-            switch (idType)
+            if (idType == IdTypeStatic)
             {
-                case IdTypeStatic:
-                    expectedId = IdsCache.StaticIdByDynamic(id);
-
-                    break;
-
-                case IdTypeDynamic:
-                    expectedId = IdsCache.DynamicIdByStatic(id);
-
-                    break;
+                expectedId = staticId == null ? IdsCache.StaticIdByDynamic(idOrUsername) : staticId;
+            }
+            else
+            {
+                expectedId = staticId == null ? IdsCache.DynamicIdByStatic(idOrUsername) : IdsCache.DynamicIdByStatic(staticId.Value);
             }
 
-            if (expectedId == null)
+            NAPI.Task.Run(() =>
             {
-                player.SendChatMessage($"Пользователь с ID {id} не найден");
-                return;
-            }
+                if (expectedId == null)
+                {
+                    if (staticId == null)
+                    {
+                        player.SendChatMessage($"Пользователь с ID {idOrUsername} не найден");
+                    }
+                    else
+                    {
+                        player.SendChatMessage($"Пользователь с именем {idOrUsername} не найден");
+                    }
 
-            player.SendChatMessage($"ID  = {expectedId}");
+                    return;
+                }
+
+                player.SendChatMessage($"ID  = {expectedId}");
+            });
         }
     }
 }
