@@ -27,6 +27,8 @@ namespace Gamemode.Models.Player
 
         public long StaticId { get; set; }
 
+        public bool EspEnabled { get; set; }
+
         public AdminRank AdminRank
         {
             get => this.adminRank;
@@ -57,6 +59,7 @@ namespace Gamemode.Models.Player
         {
             IdsCache.LoadIdsToCache(player.Id, user.Id);
             player.StaticId = user.Id;
+            player.SetSharedData(DataKey.StaticId, player.StaticId);
             player.Name = user.Username;
             player.AdminRank = user.AdminRank;
             player.MuteState = (user.MuteState == null) ? new MuteState() : user.MuteState;
@@ -72,6 +75,7 @@ namespace Gamemode.Models.Player
         public static void UnloadPlayerCache(CustomPlayer player)
         {
             player.ResetData();
+            player.ResetSharedData(DataKey.StaticId);
             if (player.AdminRank.IsAdmin())
             {
                 AdminsCache.UnloadAdminFromCache(player.StaticId);
