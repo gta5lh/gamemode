@@ -31,6 +31,8 @@ namespace Gamemode.Models.Player
 
         private InventoryWeapons InventoryWeapons;
 
+        public bool Freezed { get; set; }
+
         public AdminRank AdminRank
         {
             get => this.adminRank;
