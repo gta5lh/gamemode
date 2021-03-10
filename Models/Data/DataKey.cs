@@ -30,5 +30,10 @@ namespace Gamemode
         {
             get { return "static_id"; }
         }
+
+        public static string IsAdmin
+        {
+            get { return "is_admin"; }
+        }
     }
 }

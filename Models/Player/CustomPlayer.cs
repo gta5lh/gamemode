@@ -27,8 +27,6 @@ namespace Gamemode.Models.Player
 
         public long StaticId { get; set; }
 
-        public bool EspEnabled { get; set; }
-
         public AdminRank AdminRank
         {
             get => this.adminRank;
@@ -40,10 +38,12 @@ namespace Gamemode.Models.Player
                 if (this.adminRank.IsAdmin())
                 {
                     AdminsCache.LoadAdminToCache(this.StaticId, this.Name);
+                    this.SetSharedData(DataKey.IsAdmin, true);
                 }
                 else
                 {
                     AdminsCache.UnloadAdminFromCache(this.StaticId);
+                    this.ResetSharedData(DataKey.IsAdmin);
                 }
             }
         }
@@ -63,10 +63,6 @@ namespace Gamemode.Models.Player
             player.Name = user.Username;
             player.AdminRank = user.AdminRank;
             player.MuteState = (user.MuteState == null) ? new MuteState() : user.MuteState;
-            if (player.AdminRank.IsAdmin())
-            {
-                AdminsCache.LoadAdminToCache(player.StaticId, player.Name);
-            }
 
             Logger.Debug($"Loaded player to cache. ID={player.StaticId}");
             return player;
@@ -76,11 +72,7 @@ namespace Gamemode.Models.Player
         {
             player.ResetData();
             player.ResetSharedData(DataKey.StaticId);
-            if (player.AdminRank.IsAdmin())
-            {
-                AdminsCache.UnloadAdminFromCache(player.StaticId);
-            }
-
+            player.AdminRank = 0;
             IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
             Logger.Debug($"Unloaded player from cache. ID={player.StaticId}");
         }
