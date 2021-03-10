@@ -14,5 +14,14 @@ namespace Gamemode.Commands.Admin
         {
             NAPI.ClientEvent.TriggerClientEvent(admin, "SetGodmod");
         }
+
+        private const string InvisibilityCommandUsage = "Использование: /invisibility. Пример: /i";
+
+        [AdminMiddleware(AdminRank.Junior)]
+        [Command("invisibility", InvisibilityCommandUsage, Alias = "i", GreedyArg = true, Hide = true)]
+        public void Invisibility(CustomPlayer admin)
+        {
+            NAPI.ClientEvent.TriggerClientEvent(admin, "SetInvisibility");
+        }
     }
 }
