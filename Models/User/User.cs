@@ -1,4 +1,5 @@
 ﻿using Gamemode.Models.Admin;
+using GTANetworkAPI;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Gamemode.Models.User
@@ -17,5 +18,20 @@ namespace Gamemode.Models.User
         public AdminRank AdminRank { get; set; }
 
         public MuteState? MuteState { get; set; }
+
+        public Weapon[] Weapons { get; set; }
+    }
+
+    public class Weapon
+    {
+        public WeaponHash WeaponHash { get; set; }
+
+        public int Amount { get; set; }
+
+        public Weapon(WeaponHash weaponHash, int amount)
+        {
+            this.WeaponHash = weaponHash;
+            this.Amount = amount;
+        }
     }
 }

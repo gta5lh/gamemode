@@ -4,6 +4,8 @@
 
 namespace Gamemode.Models.Player
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Gamemode.Models.Admin;
     using Gamemode.Models.User;
     using Gamemode.Repository;
@@ -27,6 +29,8 @@ namespace Gamemode.Models.Player
 
         public long StaticId { get; set; }
 
+        private InventoryWeapons InventoryWeapons;
+
         public AdminRank AdminRank
         {
             get => this.adminRank;
@@ -48,6 +52,18 @@ namespace Gamemode.Models.Player
             }
         }
 
+        public void CustomGiveWeapon(WeaponHash weaponHash, int amount)
+        {
+            this.GiveWeapon(weaponHash, amount);
+            this.InventoryWeapons.AddWeapon(weaponHash);
+        }
+
+        public void CustomRemoveWeapon(WeaponHash weaponHash)
+        {
+            this.RemoveWeapon(weaponHash);
+            this.InventoryWeapons.RemoveWeapon(weaponHash);
+        }
+
         public void Unmute()
         {
             this.MuteState.Unmute();
@@ -63,17 +79,34 @@ namespace Gamemode.Models.Player
             player.Name = user.Username;
             player.AdminRank = user.AdminRank;
             player.MuteState = (user.MuteState == null) ? new MuteState() : user.MuteState;
+            player.InventoryWeapons = new InventoryWeapons();
+
+            if (user.Weapons != null)
+            {
+                foreach (Weapon weapon in user.Weapons)
+                {
+                    player.CustomGiveWeapon(weapon.WeaponHash, weapon.Amount);
+                }
+            }
 
             Logger.Debug($"Loaded player to cache. ID={player.StaticId}");
             return player;
         }
 
-        public static void UnloadPlayerCache(CustomPlayer player)
+        public static async Task UnloadPlayerCache(CustomPlayer player)
         {
             player.ResetData();
             player.ResetSharedData(DataKey.StaticId);
             player.AdminRank = 0;
             IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
+
+            List<Weapon> weapons = new List<Weapon>();
+            foreach (WeaponHash weaponHash in player.InventoryWeapons.GetAllWeapons())
+            {
+                weapons.Add(new Weapon(weaponHash, player.GetWeaponAmmo(weaponHash)));
+            }
+
+            await UserRepository.UpdateWeapons(player.StaticId, weapons);
             Logger.Debug($"Unloaded player from cache. ID={player.StaticId}");
         }
     }

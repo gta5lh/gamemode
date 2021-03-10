@@ -104,9 +104,12 @@ namespace Gamemode.Controllers
         }
 
         [ServerEvent(Event.PlayerDisconnected)]
-        private void OnPlayerDisconnected(CustomPlayer player, DisconnectionType disconnectType, string reason)
+        private async Task OnPlayerDisconnected(CustomPlayer player, DisconnectionType disconnectType, string reason)
         {
-            CustomPlayer.UnloadPlayerCache(player);
+            if (IdsCache.DynamicIdByStatic(player.StaticId) != null)
+            {
+                await CustomPlayer.UnloadPlayerCache(player);
+            }
         }
     }
 }

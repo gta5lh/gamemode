@@ -5,11 +5,13 @@
 namespace Gamemode.Repository
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Gamemode.Logger;
     using Gamemode.Models.Admin;
     using Gamemode.Models.Settings;
     using Gamemode.Models.User;
+    using GTANetworkAPI;
     using MongoDB.Bson;
     using MongoDB.Driver;
     using MongoDB.Driver.Core.Events;
@@ -152,6 +154,31 @@ namespace Gamemode.Repository
             opts.ReturnDocument = ReturnDocument.After;
             opts.Projection = new ProjectionDefinitionBuilder<User>().Exclude(user => user.Password);
             return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId, update, opts);
+        }
+
+        public static Task<User> GiveWeapon(long targetId, Weapon weapon)
+        {
+            var update = new UpdateDefinitionBuilder<User>().Push(user => user.Weapons, weapon);
+            var opts = new FindOneAndUpdateOptions<User>();
+            opts.ReturnDocument = ReturnDocument.After;
+            opts.Projection = new ProjectionDefinitionBuilder<User>().Exclude(user => user.Password);
+            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId, update, opts);
+        }
+
+        public static Task<User> RemoveWeapon(long targetId, WeaponHash weaponHash)
+        {
+            var update = new UpdateDefinitionBuilder<User>().PullFilter(user => user.Weapons, weapon => weapon.WeaponHash == weaponHash);
+            var opts = new FindOneAndUpdateOptions<User>();
+            opts.ReturnDocument = ReturnDocument.After;
+            opts.Projection = new ProjectionDefinitionBuilder<User>().Exclude(user => user.Password);
+            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId, update, opts);
+        }
+
+
+        public static Task UpdateWeapons(long targetId, List<Weapon> weapons)
+        {
+            var update = new UpdateDefinitionBuilder<User>().Set(user => user.Weapons, weapons.ToArray());
+            return userRepository.users.UpdateOneAsync(user => user.Id == targetId, update);
         }
     }
 }
