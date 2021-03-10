@@ -25,7 +25,7 @@ namespace Gamemode
                 return;
             }
 
-            VehicleHash vehicleHash = NAPI.Util.VehicleNameToModel(vehicleName);
+            uint vehicleHash = NAPI.Util.GetHashKey(vehicleName);
             if (vehicleHash == 0)
             {
                 admin.SendChatMessage($"Автомобиль с названием {vehicleName} отсутствует");
@@ -33,7 +33,7 @@ namespace Gamemode
             }
 
             Color randomColor = new Color(this.random.Next(0, 255), this.random.Next(0, 255), this.random.Next(0, 255));
-            Vehicle vehicle = NAPI.Vehicle.CreateVehicle(vehicleHash, admin.Position, 0, randomColor, randomColor, "ADM");
+            Vehicle vehicle = NAPI.Vehicle.CreateVehicle(vehicleHash, admin.Position, admin.Rotation.Z, randomColor.ToInt32(), randomColor.ToInt32(), "ADM");
             admin.SetIntoVehicle(vehicle, 0);
 
             string vehicleDisplayName = vehicle.DisplayName != null ? vehicle.DisplayName : vehicleName;
