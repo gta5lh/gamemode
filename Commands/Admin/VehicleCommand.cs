@@ -38,7 +38,45 @@ namespace Gamemode
 
             string vehicleDisplayName = vehicle.DisplayName != null ? vehicle.DisplayName : vehicleName;
             AdminsCache.SendMessageToAllAdmins($"{admin.Name} [{admin.StaticId}] создал автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
-            this.Logger.Warn($"Administrator {admin.Name} created vehicle {vehicle.DisplayName}");
+            this.Logger.Warn($"Administrator {admin.Name} created vehicle {vehicleDisplayName}");
+        }
+
+        private const string VehicleFixCommandUsage = "Использование: /vehiclefix {vehicle_id}. Пример: /vehiclefix 10";
+
+        [Command("vehiclefix", VehicleFixCommandUsage, Alias = "vf", SensitiveInfo = true, GreedyArg = true, Hide = true)]
+        [AdminMiddleware(AdminRank.Junior)]
+        public void VehicleFix(CustomPlayer admin, string vehicleIdInput = null)
+        {
+            if (vehicleIdInput == null)
+            {
+                admin.SendChatMessage(VehicleFixCommandUsage);
+                return;
+            }
+
+            ushort vehicleId = 0;
+
+            try
+            {
+                vehicleId = ushort.Parse(vehicleIdInput);
+            }
+            catch (Exception)
+            {
+                admin.SendChatMessage(VehicleFixCommandUsage);
+                return;
+            }
+
+            Vehicle vehicle = VehicleUtil.GetById(vehicleId);
+            if (vehicle == null)
+            {
+                admin.SendChatMessage($"Автомобиль с ID {vehicleId} не найден");
+                return;
+            }
+
+            vehicle.Repair();
+
+            string vehicleDisplayName = vehicle.DisplayName != null ? vehicle.DisplayName : string.Empty;
+            AdminsCache.SendMessageToAllAdmins($"{admin.Name} [{admin.StaticId}] починил автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
+            this.Logger.Warn($"Administrator {admin.Name} fixed vehicle {vehicleDisplayName}");
         }
     }
 }
