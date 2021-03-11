@@ -90,7 +90,7 @@ namespace Gamemode.Commands.Admin
             User user = await UserRepository.Unban(staticId);
             if (user == null)
             {
-                NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {staticId} не найден"));
+                NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {staticId} не найден, либо бан отсутствует"));
                 return;
             }
 

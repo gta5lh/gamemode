@@ -144,7 +144,7 @@ namespace Gamemode.Repository
             var opts = new FindOneAndUpdateOptions<User>();
             opts.ReturnDocument = ReturnDocument.After;
             opts.Projection = new ProjectionDefinitionBuilder<User>().Exclude(user => user.Password);
-            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId && user.AdminRank == 0, update, opts);
+            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId && user.AdminRank == 0 && user.MuteState != null, update, opts);
         }
 
         public static Task<User> SetAdminRank(long targetId, AdminRank rank)
@@ -196,7 +196,7 @@ namespace Gamemode.Repository
             var opts = new FindOneAndUpdateOptions<User>();
             opts.ReturnDocument = ReturnDocument.After;
             opts.Projection = new ProjectionDefinitionBuilder<User>().Exclude(user => user.Password);
-            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId && user.AdminRank == 0, update, opts);
+            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId && user.AdminRank == 0 && user.BanState != null, update, opts);
         }
     }
 }

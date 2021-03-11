@@ -94,7 +94,7 @@ namespace Gamemode.Commands.Admin
             User target = await UserRepository.Unmute(targetId);
             if (target == null)
             {
-                NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetId} не найден"));
+                NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetId} не найден, либо мут отсутствует"));
                 return;
             }
 
