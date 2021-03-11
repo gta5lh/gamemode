@@ -60,7 +60,7 @@ namespace Gamemode.Commands.Admin
                 CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(staticId);
                 if (targetPlayer != null)
                 {
-                    admin.Ban();
+                    targetPlayer.Ban();
                 }
             });
         }
