@@ -12,5 +12,10 @@ namespace Gamemode
         {
             return NAPI.Entity.GetEntityFromHandle<Vehicle>(new NetHandle(vehicleId, EntityType.Vehicle));
         }
+
+        public static string DisplayName(Vehicle vehicle, string defaultName)
+        {
+            return vehicle.DisplayName != null ? vehicle.DisplayName : defaultName;
+        }
     }
 }
