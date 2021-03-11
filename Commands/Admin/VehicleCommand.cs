@@ -39,7 +39,7 @@ namespace Gamemode
             admin.SetIntoVehicle(vehicle, 0);
 
             string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, vehicleName);
-            AdminsCache.SendMessageToAllAdmins($"{admin.Name} [{admin.StaticId}] создал автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
+            AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] создал автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
             this.Logger.Warn($"Administrator {admin.Name} created vehicle {vehicleDisplayName}");
         }
 
@@ -75,7 +75,7 @@ namespace Gamemode
             vehicle.Repair();
 
             string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, string.Empty);
-            AdminsCache.SendMessageToAllAdmins($"{admin.Name} [{admin.StaticId}] починил автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
+            AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] починил автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
             this.Logger.Warn($"Administrator {admin.Name} fixed vehicle {vehicleDisplayName}");
         }
 
@@ -111,7 +111,7 @@ namespace Gamemode
             vehicle.Delete();
 
             string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, string.Empty);
-            AdminsCache.SendMessageToAllAdmins($"{admin.Name} [{admin.StaticId}] удалил автомобиль {vehicleDisplayName} [{vehicle.Id}]");
+            AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] удалил автомобиль {vehicleDisplayName} [{vehicle.Id}]");
             this.Logger.Warn($"Administrator {admin.Name} deleted vehicle {vehicleDisplayName}");
         }
     }

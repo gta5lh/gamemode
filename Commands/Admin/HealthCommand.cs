@@ -49,7 +49,7 @@ namespace Gamemode.Commands.Admin
             }
 
             string healthTypeString = healthType == "h" ? "здоровье" : "броню";
-            AdminsCache.SendMessageToAllAdmins($"{admin.Name} [{admin.StaticId}] восстановил {healthTypeString} {targetPlayer.Name} [{targetPlayer.StaticId}]");
+            AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] восстановил {healthTypeString} {targetPlayer.Name} [{targetPlayer.StaticId}]");
             this.Logger.Warn($"Administrator {admin.Name} healed({healthType}) {targetPlayer.Name}");
         }
     }

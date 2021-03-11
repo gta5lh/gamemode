@@ -47,7 +47,7 @@ namespace Gamemode.Commands.Admin
             NAPI.ClientEvent.TriggerClientEvent(targetPlayer, "FreezePlayer", targetPlayer.Freezed);
 
             string freezeString = targetPlayer.Freezed ? "заморозил" : "разморозил";
-            AdminsCache.SendMessageToAllAdmins($"{admin.Name} [{admin.StaticId}] {freezeString} {targetPlayer.Name} [{targetPlayer.StaticId}]");
+            AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] {freezeString} {targetPlayer.Name} [{targetPlayer.StaticId}]");
             this.Logger.Warn($"Administrator {admin.Name} freezed({targetPlayer.Freezed}) {targetPlayer.Name}");
         }
     }

@@ -36,13 +36,20 @@ namespace Gamemode.Models.Player
             return string.Join(", ", Admins.Values);
         }
 
-        public static void SendMessageToAllAdmins(string message)
+        public static void SendMessageToAllAdminsAction(string message)
+        {
+            foreach (long adminStaticId in Admins.Keys)
+            {
+                NAPI.Chat.SendChatMessageToPlayer(PlayerUtil.GetByStaticId(adminStaticId), $"{ChatColor.AdminActionColor}[Admin] {message}");
+            }
+        }
+
+        public static void SendMessageToAllAdminsChat(string message)
         {
             foreach (long adminStaticId in Admins.Keys)
             {
                 NAPI.Chat.SendChatMessageToPlayer(PlayerUtil.GetByStaticId(adminStaticId), $"{ChatColor.AdminChatColor}[Admin] {message}");
             }
         }
-
     }
 }

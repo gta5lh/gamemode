@@ -72,7 +72,7 @@ namespace Gamemode
             NAPI.Task.Run(() =>
             {
                 string targetName = targetPlayer == null ? targetUser.Username : targetPlayer.Name;
-                AdminsCache.SendMessageToAllAdmins($"{admin.Name} [{admin.StaticId}] выдал оружие {targetName} [{targetStaticId}]. Название: {weaponName}. Кол-во патрон: {amount}");
+                AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] выдал оружие {targetName} [{targetStaticId}]. Название: {weaponName}. Кол-во патрон: {amount}");
                 this.Logger.Warn($"Administrator {admin.Name} gave weapon to {targetName}. Name: {weaponName}. Amount: {amount}");
             });
         }
@@ -131,7 +131,7 @@ namespace Gamemode
             NAPI.Task.Run(() =>
             {
                 string targetName = targetPlayer == null ? targetUser.Username : targetPlayer.Name;
-                AdminsCache.SendMessageToAllAdmins($"{admin.Name} [{admin.StaticId}] забрал оружие у {targetName} [{targetStaticId}]. Название: {weaponName}");
+                AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] забрал оружие у {targetName} [{targetStaticId}]. Название: {weaponName}");
                 this.Logger.Warn($"Administrator {admin.Name} removed weapon from {targetName}. Name: {weaponName}");
             });
         }
