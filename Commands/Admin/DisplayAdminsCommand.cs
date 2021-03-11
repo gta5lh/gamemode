@@ -1,10 +1,14 @@
-﻿using Gamemode.Models.Admin;
-using Gamemode.Models.Player;
-using GTANetworkAPI;
+﻿// <copyright file="DisplayAdminsCommand.cs" company="lbyte00">
+// Copyright (c) lbyte00. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Commands.Admin
 {
-    class DisplayAdminsCommand : Script
+    using Gamemode.Models.Admin;
+    using Gamemode.Models.Player;
+    using GTANetworkAPI;
+
+    public class DisplayAdminsCommand : Script
     {
         private const string DisplayAdminsCommandUsage = "Использование: /admins";
 

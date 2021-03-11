@@ -20,6 +20,8 @@ namespace Gamemode.Models.User
         public MuteState? MuteState { get; set; }
 
         public Weapon[] Weapons { get; set; }
+
+        public BanState BanState { get; set; }
     }
 
     public class Weapon

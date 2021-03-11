@@ -135,7 +135,7 @@ namespace Gamemode.Repository
             var opts = new FindOneAndUpdateOptions<User>();
             opts.ReturnDocument = ReturnDocument.After;
             opts.Projection = new ProjectionDefinitionBuilder<User>().Exclude(user => user.Password);
-            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId, update, opts);
+            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId && user.AdminRank == 0, update, opts);
         }
 
         public static Task<User> Unmute(long targetId)
@@ -144,7 +144,7 @@ namespace Gamemode.Repository
             var opts = new FindOneAndUpdateOptions<User>();
             opts.ReturnDocument = ReturnDocument.After;
             opts.Projection = new ProjectionDefinitionBuilder<User>().Exclude(user => user.Password);
-            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId, update, opts);
+            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId && user.AdminRank == 0, update, opts);
         }
 
         public static Task<User> SetAdminRank(long targetId, AdminRank rank)
@@ -174,11 +174,29 @@ namespace Gamemode.Repository
             return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId, update, opts);
         }
 
-
         public static Task UpdateWeapons(long targetId, List<Weapon> weapons)
         {
             var update = new UpdateDefinitionBuilder<User>().Set(user => user.Weapons, weapons.ToArray());
             return userRepository.users.UpdateOneAsync(user => user.Id == targetId, update);
+        }
+
+        public static Task<User> Ban(long targetId, int duration, string reason, long bannedBy)
+        {
+            BanState banState = new BanState(duration, bannedBy, reason);
+            var update = new UpdateDefinitionBuilder<User>().Set(user => user.BanState, banState);
+            var opts = new FindOneAndUpdateOptions<User>();
+            opts.ReturnDocument = ReturnDocument.After;
+            opts.Projection = new ProjectionDefinitionBuilder<User>().Exclude(user => user.Password);
+            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId && user.AdminRank == 0, update, opts);
+        }
+
+        public static Task<User> Unban(long targetId)
+        {
+            var update = new UpdateDefinitionBuilder<User>().Set(user => user.BanState, null);
+            var opts = new FindOneAndUpdateOptions<User>();
+            opts.ReturnDocument = ReturnDocument.After;
+            opts.Projection = new ProjectionDefinitionBuilder<User>().Exclude(user => user.Password);
+            return userRepository.users.FindOneAndUpdateAsync<User>(user => user.Id == targetId && user.AdminRank == 0, update, opts);
         }
     }
 }

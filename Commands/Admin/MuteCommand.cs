@@ -15,8 +15,8 @@ namespace Gamemode.Commands.Admin
 
     public class MuteCommand : BaseCommandHandler
     {
-        private const string MuteCommandUsage = "Использование: /mute {static_id} {минуты} {причина}. Пример: /mute 1 100 Оскорбления";
-        private const string UnmuteCommandUsage = "Использование: /mute {static_id}. Пример: /unmute 1";
+        private const string MuteCommandUsage = "Использование: /mute {static_id} {минуты} {причина}. Пример: /m 1 100 Оскорбления";
+        private const string UnmuteCommandUsage = "Использование: /unmute {static_id}. Пример: /um 1";
         private const int MonthInMinutes = 44640;
 
         [AdminMiddleware(AdminRank.Junior)]
@@ -43,7 +43,7 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            if (duration == 0 || duration > MonthInMinutes)
+            if (duration <= 0 || duration > MonthInMinutes)
             {
                 admin.SendChatMessage($"Мут можно выдать минимум на 1 минуту, максимум на {MonthInMinutes}");
                 return;

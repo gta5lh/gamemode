@@ -36,6 +36,13 @@ namespace Gamemode.Controllers
 
             NAPI.Task.Run(() =>
             {
+                if (user.BanState != null)
+                {
+                    invalidFieldNames = new List<string>(new string[] { "banned" });
+                    NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
+                    return;
+                }
+
                 if (PlayerUtil.GetByStaticId(user.Id) != null)
                 {
                     invalidFieldNames = new List<string>(new string[] { "email" });
