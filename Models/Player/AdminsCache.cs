@@ -17,7 +17,7 @@ namespace Gamemode.Models.Player
             }
 
             Admins[staticId] = name;
-            Logger.Debug($"Loaded admin to cache. static_id={staticId}");
+            Logger.Info($"Loaded admin to cache. static_id={staticId}");
         }
 
         public static void UnloadAdminFromCache(long staticId)
@@ -28,7 +28,7 @@ namespace Gamemode.Models.Player
             }
 
             Admins.TryRemove(staticId, out _);
-            Logger.Debug($"Unloaded admin from cache. static_id={staticId}");
+            Logger.Info($"Unloaded admin from cache. static_id={staticId}");
         }
 
         public static string GetAdminNames()

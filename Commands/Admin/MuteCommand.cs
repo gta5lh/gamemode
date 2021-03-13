@@ -6,9 +6,8 @@ namespace Gamemode.Commands.Admin
 {
     using System;
     using System.Threading.Tasks;
-    using Gamemode.Models.Admin;
     using Gamemode.Models.Player;
-    using Gamemode.Models.User;
+    using Gamemode.Repositories.Models;
     using Gamemode.Repository;
     using Gamemode.Utils;
     using GTANetworkAPI;
@@ -19,7 +18,7 @@ namespace Gamemode.Commands.Admin
         private const string UnmuteCommandUsage = "Использование: /unmute {static_id}. Пример: /um 1";
         private const int MonthInMinutes = 44640;
 
-        [AdminMiddleware(AdminRank.Junior)]
+        [AdminMiddleware(Models.Admin.AdminRank.Junior)]
         [Command("mute", MuteCommandUsage, Alias = "m", GreedyArg = true, Hide = true)]
         public async Task Mute(CustomPlayer admin, string playerId = null, string durationMinutes = null, string reason = null)
         {
@@ -61,16 +60,16 @@ namespace Gamemode.Commands.Admin
                 CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(targetId);
                 if (targetPlayer != null)
                 {
-                    targetPlayer.MuteState = target.MuteState;
+                    targetPlayer.MuteState = new MuteState(target.MutedUntil, target.MutedById, target.MuteReason);
                 }
 
-                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал мут {target.Username} на {duration} минут. Причина: {reason}");
-                this.Logger.Warn($"Administrator {admin.Name} muted {target.Username} for {duration} minutes");
+                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал мут {target.Name} на {duration} минут. Причина: {reason}");
+                this.Logger.Warn($"Administrator {admin.Name} muted {target.Name} for {duration} minutes");
             });
         }
 
         [Command("unmute", UnmuteCommandUsage, Alias = "um", GreedyArg = true, Hide = true)]
-        [AdminMiddleware(AdminRank.Junior)]
+        [AdminMiddleware(Models.Admin.AdminRank.Junior)]
         public async Task Unmute(CustomPlayer admin, string playerId = null)
         {
             if (playerId == null)
@@ -106,8 +105,8 @@ namespace Gamemode.Commands.Admin
                     targetPlayer.MuteState = new MuteState();
                 }
 
-                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял мут {target.Username}");
-                this.Logger.Warn($"Administrator {admin.Name} unmuted {target.Username}");
+                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял мут {target.Name}");
+                this.Logger.Warn($"Administrator {admin.Name} unmuted {target.Name}");
             });
         }
     }

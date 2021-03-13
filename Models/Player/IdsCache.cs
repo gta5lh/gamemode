@@ -47,7 +47,7 @@ namespace Gamemode.Models.Player
         {
             dynamicStaticPairs[dynamicId] = staticId;
             staticDynamicPairs[staticId] = dynamicId;
-            logger.Debug($"Loaded player ids to cache. dynamic_id={dynamicId}, static_id={staticId}");
+            logger.Info($"Loaded player ids to cache. dynamic_id={dynamicId}, static_id={staticId}");
         }
 
         public static void UnloadIdsFromCacheByDynamicId(ushort id)
@@ -55,7 +55,7 @@ namespace Gamemode.Models.Player
             if (dynamicStaticPairs.TryRemove(id, out long staticId))
             {
                 staticDynamicPairs.TryRemove(staticId, out _);
-                logger.Debug($"Unloaded player ids from cache. dynamic_id={id}");
+                logger.Info($"Unloaded player ids from cache. dynamic_id={id}");
             }
         }
     }

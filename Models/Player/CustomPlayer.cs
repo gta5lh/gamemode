@@ -7,14 +7,14 @@ namespace Gamemode.Models.Player
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Gamemode.Models.Admin;
-    using Gamemode.Models.User;
+    using Gamemode.Repositories.Models;
     using Gamemode.Repository;
     using GTANetworkAPI;
 
     public class CustomPlayer : Player
     {
         private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
-        private AdminRank adminRank;
+        private Models.Admin.AdminRank adminRank;
 
         public CustomPlayer(NetHandle handle)
     : base(handle)
@@ -33,7 +33,7 @@ namespace Gamemode.Models.Player
 
         public bool Freezed { get; set; }
 
-        public AdminRank AdminRank
+        public Models.Admin.AdminRank AdminRank
         {
             get => this.adminRank;
 
@@ -70,28 +70,29 @@ namespace Gamemode.Models.Player
         {
             this.MuteState.Unmute();
             UserRepository.Unmute(this.StaticId);
-            Logger.Debug($"Player mute has expired. ID={this.StaticId}");
+            Logger.Info($"Player mute has expired. ID={this.StaticId}");
         }
 
-        public static CustomPlayer LoadPlayerCache(CustomPlayer player, User user)
+        public static CustomPlayer LoadPlayerCache(CustomPlayer player, Repositories.Models.User user)
         {
             IdsCache.LoadIdsToCache(player.Id, user.Id);
             player.StaticId = user.Id;
             player.SetSharedData(DataKey.StaticId, player.StaticId);
-            player.Name = user.Username;
-            player.AdminRank = user.AdminRank;
-            player.MuteState = (user.MuteState == null) ? new MuteState() : user.MuteState;
+            player.Name = user.Name;
+            player.AdminRank = user.AdminRankId != null ? (Models.Admin.AdminRank)user.AdminRankId : 0;
+            player.MuteState = new MuteState(user.MutedUntil, user.MutedById, user.MuteReason);
+
             player.InventoryWeapons = new InventoryWeapons();
 
             if (user.Weapons != null)
             {
-                foreach (Weapon weapon in user.Weapons)
+                foreach (Repositories.Models.Weapon weapon in user.Weapons)
                 {
-                    player.CustomGiveWeapon(weapon.WeaponHash, weapon.Amount);
+                    player.CustomGiveWeapon(weapon.Hash, weapon.Amount);
                 }
             }
 
-            Logger.Debug($"Loaded player to cache. ID={player.StaticId}");
+            Logger.Info($"Loaded player to cache. ID={player.StaticId}");
             return player;
         }
 
@@ -105,11 +106,11 @@ namespace Gamemode.Models.Player
             List<Weapon> weapons = new List<Weapon>();
             foreach (WeaponHash weaponHash in player.InventoryWeapons.GetAllWeapons())
             {
-                weapons.Add(new Weapon(weaponHash, player.GetWeaponAmmo(weaponHash)));
+                weapons.Add(new Weapon(weaponHash, player.GetWeaponAmmo(weaponHash), player.StaticId));
             }
 
             await UserRepository.UpdateWeapons(player.StaticId, weapons);
-            Logger.Debug($"Unloaded player from cache. ID={player.StaticId}");
+            Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
         }
     }
 }

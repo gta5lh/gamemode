@@ -7,9 +7,8 @@ namespace Gamemode
     using System;
     using System.Threading.Tasks;
     using Gamemode.Commands.Admin;
-    using Gamemode.Models.Admin;
     using Gamemode.Models.Player;
-    using Gamemode.Models.User;
+    using Gamemode.Repositories.Models;
     using Gamemode.Repository;
     using GTANetworkAPI;
 
@@ -18,7 +17,7 @@ namespace Gamemode
         private const string WeaponCommandUsage = "Usage: /weapon {static_id} {название} {кол-во_патрон}. Пример: /weapon 0 pistol 100";
 
         [Command("weapon", WeaponCommandUsage, Alias = "w", SensitiveInfo = true, GreedyArg = true, Hide = true)]
-        [AdminMiddleware(AdminRank.Senior)]
+        [AdminMiddleware(Models.Admin.AdminRank.Senior)]
         public async Task Weapon(CustomPlayer admin, string targetStaticIdInput = null, string weaponName = null, string amountInput = null)
         {
             if (targetStaticIdInput == null || weaponName == null || amountInput == null)
@@ -48,7 +47,7 @@ namespace Gamemode
                 return;
             }
 
-            User targetUser = null;
+            User? targetUser = null;
             CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(targetStaticId);
             if (targetPlayer != null)
             {
@@ -61,7 +60,7 @@ namespace Gamemode
             }
             else
             {
-                targetUser = await UserRepository.GiveWeapon(targetStaticId, new Weapon(weaponHash, amount));
+                targetUser = await UserRepository.GiveWeapon(targetStaticId, new Repositories.Models.Weapon(weaponHash, amount, targetStaticId));
                 if (targetUser == null)
                 {
                     NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetStaticId} не найден"));
@@ -71,7 +70,7 @@ namespace Gamemode
 
             NAPI.Task.Run(() =>
             {
-                string targetName = targetPlayer == null ? targetUser.Username : targetPlayer.Name;
+                string targetName = targetPlayer == null ? targetUser.Name : targetPlayer.Name;
                 AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] выдал оружие {targetName} [{targetStaticId}]. Название: {weaponName}. Кол-во патрон: {amount}");
                 this.Logger.Warn($"Administrator {admin.Name} gave weapon to {targetName}. Name: {weaponName}. Amount: {amount}");
             });
@@ -80,7 +79,7 @@ namespace Gamemode
         private const string RemoveWeaponCommandUsage = "Usage: /removeweapon {static_id} {название}. Пример: /weapon 0 pistol";
 
         [Command("removeweapon", RemoveWeaponCommandUsage, Alias = "rw", SensitiveInfo = true, GreedyArg = true, Hide = true)]
-        [AdminMiddleware(AdminRank.Senior)]
+        [AdminMiddleware(Models.Admin.AdminRank.Senior)]
         public async Task TakeWeapon(CustomPlayer admin, string targetStaticIdInput = null, string weaponName = null)
         {
             if (targetStaticIdInput == null || weaponName == null)
@@ -108,7 +107,7 @@ namespace Gamemode
                 return;
             }
 
-            User targetUser = null;
+            User? targetUser = null;
             CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(targetStaticId);
             if (targetPlayer != null)
             {
@@ -130,7 +129,7 @@ namespace Gamemode
 
             NAPI.Task.Run(() =>
             {
-                string targetName = targetPlayer == null ? targetUser.Username : targetPlayer.Name;
+                string targetName = targetPlayer == null ? targetUser.Name : targetPlayer.Name;
                 AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] забрал оружие у {targetName} [{targetStaticId}]. Название: {weaponName}");
                 this.Logger.Warn($"Administrator {admin.Name} removed weapon from {targetName}. Name: {weaponName}");
             });

@@ -8,7 +8,6 @@ namespace Gamemode.Commands.Admin
     using System.Threading.Tasks;
     using Gamemode.Models.Admin;
     using Gamemode.Models.Player;
-    using Gamemode.Models.User;
     using Gamemode.Repository;
     using Gamemode.Utils;
     using GTANetworkAPI;
@@ -41,7 +40,7 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            User targetUser = await UserRepository.Get(targetStaticId);
+            Repositories.Models.User targetUser = await UserRepository.GetAdminRankById(targetStaticId);
             if (targetUser == null)
             {
                 NAPI.Task.Run(() =>
@@ -52,7 +51,7 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            AdminRank adminRankBeforeUpdate = targetUser.AdminRank;
+            AdminRank adminRankBeforeUpdate = targetUser.AdminRankId != null ? (Models.Admin.AdminRank)targetUser.AdminRankId : 0;
 
             targetUser = await UserRepository.SetAdminRank(targetStaticId, adminRank);
             NAPI.Task.Run(() =>
@@ -73,20 +72,20 @@ namespace Gamemode.Commands.Admin
 
                 if ((adminRankBeforeUpdate >= adminRank && adminRank != 0) || (adminRankBeforeUpdate == 0 && adminRank == 0))
                 {
-                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] сменил должность администратора {targetUser.Username} [{targetUser.Id}] на {adminRank.ToPosition()}");
-                    this.Logger.Warn($"Administrator {admin.Name} set {targetUser.Username} as administrator [{adminRank}]");
+                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] сменил должность администратора {targetUser.Name} [{targetUser.Id}] на {adminRank.ToPosition()}");
+                    this.Logger.Warn($"Administrator {admin.Name} set {targetUser.Name} as administrator [{adminRank}]");
                     return;
                 }
 
                 if (isNewRankAdmin)
                 {
-                    Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} назначил {targetUser.Username} на должность {adminRank.ToPosition()} администратор. Наши поздравления!");
-                    this.Logger.Warn($"Administrator {admin.Name} set {targetUser.Username} as administrator [{adminRank}]");
+                    Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} назначил {targetUser.Name} на должность {adminRank.ToPosition()} администратор. Наши поздравления!");
+                    this.Logger.Warn($"Administrator {admin.Name} set {targetUser.Name} as administrator [{adminRank}]");
                 }
                 else
                 {
-                    Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял {targetUser.Username} с должности администратора");
-                    this.Logger.Warn($"Administrator {admin.Name} removed {targetUser.Username} from administrators");
+                    Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял {targetUser.Name} с должности администратора");
+                    this.Logger.Warn($"Administrator {admin.Name} removed {targetUser.Name} from administrators");
                 }
             });
         }

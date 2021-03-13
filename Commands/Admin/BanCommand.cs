@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Gamemode.Models.Admin;
 using Gamemode.Models.Player;
-using Gamemode.Models.User;
+using Gamemode.Repositories.Models;
 using Gamemode.Repository;
 using Gamemode.Utils;
 using GTANetworkAPI;
@@ -16,7 +15,7 @@ namespace Gamemode.Commands.Admin
         private const int BanInDays = 99999;
 
         [Command("ban", BanCommandUsage, SensitiveInfo = true, Hide = true)]
-        [AdminMiddleware(AdminRank.Junior)]
+        [AdminMiddleware(Models.Admin.AdminRank.Junior)]
         public async Task Ban(CustomPlayer admin, string staticIdInput = null, string durationDays = null, string reason = null)
         {
             if (staticIdInput == null || durationDays == null || reason == null)
@@ -54,8 +53,8 @@ namespace Gamemode.Commands.Admin
 
             NAPI.Task.Run(() =>
             {
-                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал бан {user.Username} на {duration} дней. Причина: {reason}");
-                this.Logger.Warn($"Administrator {admin.Name} banned {user.Username} for {duration} days");
+                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал бан {user.Name} на {duration} дней. Причина: {reason}");
+                this.Logger.Warn($"Administrator {admin.Name} banned {user.Name} for {duration} days");
 
                 CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(staticId);
                 if (targetPlayer != null)
@@ -66,7 +65,7 @@ namespace Gamemode.Commands.Admin
         }
 
         [Command("unban", UnbanCommandUsage, SensitiveInfo = true, Hide = true)]
-        [AdminMiddleware(AdminRank.Junior)]
+        [AdminMiddleware(Models.Admin.AdminRank.Junior)]
         public async Task Unban(CustomPlayer admin, string staticIdInput = null)
         {
             if (staticIdInput == null)
@@ -96,8 +95,8 @@ namespace Gamemode.Commands.Admin
 
             NAPI.Task.Run(() =>
             {
-                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял бан {user.Username}");
-                this.Logger.Warn($"Administrator {admin.Name} unbanned {user.Username}");
+                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял бан {user.Name}");
+                this.Logger.Warn($"Administrator {admin.Name} unbanned {user.Name}");
             });
         }
     }

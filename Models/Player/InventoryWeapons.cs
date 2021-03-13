@@ -18,7 +18,7 @@ namespace Gamemode.Models.Player
         {
             if (this.inventoryWeapons.TryAdd(weaponHash, true))
             {
-                logger.Debug($"Added weapon to inventory. weapon_hash={weaponHash}");
+                logger.Info($"Added weapon to inventory. weapon_hash={weaponHash}");
             }
         }
 
@@ -26,7 +26,7 @@ namespace Gamemode.Models.Player
         {
             if (this.inventoryWeapons.TryRemove(weaponHash, out _))
             {
-                logger.Debug($"Removed weapon from inventory. weapon_hash={weaponHash}");
+                logger.Info($"Removed weapon from inventory. weapon_hash={weaponHash}");
             }
         }
 

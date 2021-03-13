@@ -14,9 +14,24 @@ namespace Gamemode
 
         public long? MutedBy { get; set; }
 
+        public MuteState()
+        {
+            this.MutedUntil = null;
+            this.MutedBy = null;
+            this.Reason = null;
+        }
+
+
         public MuteState(int? duration = null, long? mutedBy = null, string? reason = null)
         {
             this.MutedUntil = duration.HasValue ? (DateTime?)DateTime.UtcNow.AddMinutes(duration.Value) : null;
+            this.MutedBy = mutedBy;
+            this.Reason = reason;
+        }
+
+        public MuteState(DateTime? mutedUntil = null, long? mutedBy = null, string? reason = null)
+        {
+            this.MutedUntil = mutedUntil;
             this.MutedBy = mutedBy;
             this.Reason = reason;
         }

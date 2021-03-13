@@ -8,7 +8,6 @@ namespace Gamemode.Controllers
     using System.Threading.Tasks;
     using Gamemode.Models.Authentication;
     using Gamemode.Models.Player;
-    using Gamemode.Models.User;
     using Gamemode.Repository;
     using GTANetworkAPI;
     using Newtonsoft.Json;
@@ -26,7 +25,7 @@ namespace Gamemode.Controllers
                 return;
             }
 
-            User user = await UserRepository.GetByEmailAndPassword(loginRequest.Email, loginRequest.Password);
+            Gamemode.Repositories.Models.User? user = await UserRepository.GetByEmailAndPassword(loginRequest.Email, loginRequest.Password);
             if (user == null)
             {
                 invalidFieldNames = new List<string>(new string[] { "email", "password" });
@@ -36,7 +35,7 @@ namespace Gamemode.Controllers
 
             NAPI.Task.Run(() =>
             {
-                if (user.BanState != null)
+                if (user.BannedUntil != null)
                 {
                     invalidFieldNames = new List<string>(new string[] { "banned" });
                     NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
@@ -66,7 +65,7 @@ namespace Gamemode.Controllers
                 return;
             }
 
-            User user = await UserRepository.GetUserByEmailOrUsername(registerRequest.Email, registerRequest.Username);
+            Repositories.Models.User user = await UserRepository.GetUserByEmailOrUsername(registerRequest.Email, registerRequest.Username);
             if (user != null)
             {
                 if (user.Email == registerRequest.Email)
@@ -74,7 +73,7 @@ namespace Gamemode.Controllers
                     invalidFieldNames.Add("email_exists");
                 }
 
-                if (user.Username == registerRequest.Username)
+                if (user.Name == registerRequest.Username)
                 {
                     invalidFieldNames.Add("username_exists");
                 }
@@ -83,12 +82,12 @@ namespace Gamemode.Controllers
                 return;
             }
 
-            User newUser = new User();
+            Repositories.Models.User newUser = new Repositories.Models.User();
             newUser.Email = registerRequest.Email;
-            newUser.Username = registerRequest.Username;
+            newUser.Name = registerRequest.Username;
             newUser.Password = registerRequest.Password;
 
-            User createdUser = await UserRepository.CreateUser(newUser);
+            Repositories.Models.User createdUser = await UserRepository.CreateUser(newUser);
             if (createdUser == null)
             {
                 invalidFieldNames = new List<string>(new string[] { "email" });
