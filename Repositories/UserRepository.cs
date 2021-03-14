@@ -90,7 +90,7 @@ namespace Gamemode.Repository
         {
             using (var db = new UserContext())
             {
-                Repositories.Models.User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRank == null);
+                Repositories.Models.User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRankId == null);
                 if (user == null)
                 {
                     return null;
@@ -109,7 +109,7 @@ namespace Gamemode.Repository
         {
             using (var db = new UserContext())
             {
-                Repositories.Models.User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRank == null && u.MutedUntil != null);
+                Repositories.Models.User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRankId == null && u.MutedUntil != null);
                 if (user == null)
                 {
                     return null;
@@ -227,7 +227,7 @@ namespace Gamemode.Repository
         {
             using (var db = new UserContext())
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRank == null);
+                User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRankId == null);
                 if (user == null)
                 {
                     return null;
@@ -246,7 +246,7 @@ namespace Gamemode.Repository
         {
             using (var db = new UserContext())
             {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRank == null && u.BannedUntil != null);
+                User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRankId == null && u.BannedUntil != null);
                 if (user == null)
                 {
                     return null;
