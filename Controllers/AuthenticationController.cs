@@ -17,6 +17,12 @@ namespace Gamemode.Controllers
         [RemoteEvent("LoginSubmitted")]
         private async Task OnLoginSubmitted(CustomPlayer player, string request)
         {
+            if (ResourceStartController.ShouldWait(player.Id))
+            {
+                NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "WaitAuthenticationAction");
+                return;
+            }
+
             LoginRequest loginRequest = JsonConvert.DeserializeObject<LoginRequest>(request);
             List<string> invalidFieldNames = loginRequest.Validate();
             if (invalidFieldNames.Count > 0)
@@ -57,6 +63,12 @@ namespace Gamemode.Controllers
         [RemoteEvent("RegisterSubmitted")]
         private async Task OnRegisterSubmitted(CustomPlayer player, string request)
         {
+            if (ResourceStartController.ShouldWait(player.Id))
+            {
+                NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "WaitAuthenticationAction");
+                return;
+            }
+
             RegisterRequest registerRequest = JsonConvert.DeserializeObject<RegisterRequest>(request);
             List<string> invalidFieldNames = registerRequest.Validate();
             if (invalidFieldNames.Count > 0)
