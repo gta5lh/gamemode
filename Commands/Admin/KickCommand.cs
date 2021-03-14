@@ -33,7 +33,7 @@ namespace Gamemode.Commands.Admin
             }
 
             CustomPlayer targetPlayer = PlayerUtil.GetById(targetId);
-            if (targetPlayer == null)
+            if (targetPlayer == null || targetPlayer.AdminRank != 0)
             {
                 admin.SendChatMessage($"Пользователь с DID {targetId} не найден");
                 return;
