@@ -8,8 +8,8 @@ namespace Gamemode.Commands.Admin
     {
         private const string GodmodCommandUsage = "Использование: /godmod. Пример: /gm";
 
-        [AdminMiddleware(AdminRank.Junior)]
         [Command("godmod", GodmodCommandUsage, Alias = "gm", GreedyArg = true, Hide = true)]
+        [AdminMiddleware(AdminRank.Junior)]
         public void Godmod(CustomPlayer admin)
         {
             NAPI.ClientEvent.TriggerClientEvent(admin, "SetGodmod");
