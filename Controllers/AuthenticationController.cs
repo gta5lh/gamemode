@@ -6,9 +6,9 @@ namespace Gamemode.Controllers
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Gamemode.Models.Authentication;
     using Gamemode.Models.Player;
     using Gamemode.Repository;
+    using GamemodeCommon.Authentication.Models;
     using GTANetworkAPI;
     using Newtonsoft.Json;
 
@@ -44,7 +44,7 @@ namespace Gamemode.Controllers
 
                 if (PlayerUtil.GetByStaticId(user.Id) != null)
                 {
-                    invalidFieldNames = new List<string>(new string[] { "email" });
+                    invalidFieldNames = new List<string>(new string[] { "already_online" });
                     NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
                     return;
                 }
@@ -90,20 +90,13 @@ namespace Gamemode.Controllers
             Repositories.Models.User createdUser = await UserRepository.CreateUser(newUser);
             if (createdUser == null)
             {
-                invalidFieldNames = new List<string>(new string[] { "email" });
+                invalidFieldNames = new List<string>(new string[] { "internal_server_error" });
                 NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RegisterSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
                 return;
             }
 
             NAPI.Task.Run(() =>
             {
-                if (PlayerUtil.GetByStaticId(createdUser.Id) != null)
-                {
-                    invalidFieldNames = new List<string>(new string[] { "email" });
-                    NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RegisterSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
-                    return;
-                }
-
                 CustomPlayer.LoadPlayerCache(player, createdUser);
                 NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LogIn");
             });
