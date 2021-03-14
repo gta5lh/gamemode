@@ -127,6 +127,9 @@ namespace Gamemode.Migrations
                 table: "weapon",
                 columns: new[] { "user_id", "hash" },
                 unique: true);
+
+            migrationBuilder.Sql("SELECT audit.audit_table('users')");
+            migrationBuilder.Sql("SELECT audit.audit_table('weapon')");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -139,6 +142,9 @@ namespace Gamemode.Migrations
 
             migrationBuilder.DropTable(
                 name: "admin_rank");
+
+            migrationBuilder.Sql("DROP TRIGGER audit_trigger_row on users; DROP TRIGGER audit_trigger_stm on users;");
+            migrationBuilder.Sql("DROP TRIGGER audit_trigger_row on weapon; DROP TRIGGER audit_trigger_stm on weapon;");
         }
     }
 }
