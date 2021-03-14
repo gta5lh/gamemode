@@ -14,7 +14,7 @@ namespace Gamemode.Commands.Admin
         private const string UnbanCommandUsage = "Использование: /unban {static_id}";
         private const int BanInDays = 99999;
 
-        [Command("ban", BanCommandUsage, SensitiveInfo = true, Hide = true)]
+        [Command("ban", BanCommandUsage, SensitiveInfo = true, GreedyArg = true, Hide = true)]
         [AdminMiddleware(Models.Admin.AdminRank.Junior)]
         public async Task Ban(CustomPlayer admin, string staticIdInput = null, string durationDays = null, string reason = null)
         {

@@ -10,7 +10,7 @@ namespace Gamemode.Commands.Admin
     {
         private const string KickCommandUsage = "Использование: /kick {player_id} {причина}. Пример: /ban 1 Бот";
 
-        [Command("kick", KickCommandUsage, SensitiveInfo = true, Hide = true)]
+        [Command("kick", KickCommandUsage, SensitiveInfo = true, GreedyArg = true, Hide = true)]
         [AdminMiddleware(AdminRank.Junior)]
         public void Ban(CustomPlayer admin, string targetIdInput = null, string reason = null)
         {
