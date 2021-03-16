@@ -21,7 +21,19 @@ namespace Gamemode.Commands.Admin
         [Command("invisibility", InvisibilityCommandUsage, Alias = "i", GreedyArg = true, Hide = true)]
         public void Invisibility(CustomPlayer admin)
         {
+            admin.Invisible = !admin.Invisible;
             NAPI.ClientEvent.TriggerClientEvent(admin, "SetInvisibility");
+        }
+
+        [RemoteEvent("SetNoclip")]
+        private void OnSetNoclip(CustomPlayer admin, string request)
+        {
+            if (admin.AdminRank == 0)
+            {
+                return;
+            }
+
+            admin.Noclip = bool.Parse(request);
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Gamemode.Models.Player
     {
         private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
         private Models.Admin.AdminRank adminRank;
+        private bool invisible;
+        private bool noclip;
 
         public CustomPlayer(NetHandle handle)
     : base(handle)
@@ -32,6 +34,56 @@ namespace Gamemode.Models.Player
         private InventoryWeapons InventoryWeapons;
 
         public bool Freezed { get; set; }
+
+        public bool Invisible
+        {
+            get => this.invisible;
+
+            set
+            {
+                if (this.Noclip)
+                {
+                    return;
+                }
+
+                this.invisible = value;
+
+                if (this.Invisible)
+                {
+                    this.Transparency = 0;
+                    this.RemoveAllWeapons();
+                }
+                else
+                {
+                    this.Transparency = 255;
+                }
+            }
+        }
+
+        public bool Noclip
+        {
+            get => this.noclip;
+
+            set
+            {
+                this.noclip = value;
+
+                if (this.Invisible)
+                {
+                    return;
+                }
+
+                if (this.noclip)
+                {
+                    this.Transparency = 0;
+                    this.RemoveAllWeapons();
+                }
+                else
+                {
+                    this.Transparency = 255;
+                }
+            }
+        }
 
         public Models.Admin.AdminRank AdminRank
         {
