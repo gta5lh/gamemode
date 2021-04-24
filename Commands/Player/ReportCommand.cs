@@ -8,7 +8,7 @@ namespace Gamemode.Commands.Player
         private const string ReportCommandUsage = "Использование: /report {сообщение}. Пример: /r ИД 10 читер";
 
         [Command("report", ReportCommandUsage, Alias = "r", GreedyArg = true)]
-        public void AdminChat(CustomPlayer player, string message = null)
+        public void Report(CustomPlayer player, string message = null)
         {
             if (message == null)
             {
