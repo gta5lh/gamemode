@@ -4,6 +4,7 @@
 namespace Gamemode
 {
     using System;
+    using Gamemode.Models.Npc;
     using Gamemode.Models.Player;
     using GTANetworkAPI;
     using Microsoft.Extensions.Caching.Memory;
@@ -17,6 +18,7 @@ namespace Gamemode
         private void ResourceStartEx(string resourceName)
         {
             this.SetServerSettings();
+            SpawnNpcs.CreateSpawnNpcs();
 
             RAGE.Entities.Players.CreateEntity = (NetHandle handle) => new CustomPlayer(handle);
 
