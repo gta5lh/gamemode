@@ -72,7 +72,7 @@ namespace Gamemode.Commands.Admin
 
                 if ((adminRankBeforeUpdate >= adminRank && adminRank != 0) || (adminRankBeforeUpdate == 0 && adminRank == 0))
                 {
-                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} [{admin.StaticId}] сменил должность администратора {targetUser.Name} [{targetUser.Id}] на {adminRank.ToPosition()}");
+                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} сменил должность администратора {targetUser.Name} на {adminRank.ToPosition()}");
                     this.Logger.Warn($"Administrator {admin.Name} set {targetUser.Name} as administrator [{adminRank}]");
                     return;
                 }

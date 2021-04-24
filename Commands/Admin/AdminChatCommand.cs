@@ -24,7 +24,7 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            AdminsCache.SendMessageToAllAdminsChat($"{admin.Name} [{admin.StaticId}]: {message}");
+            AdminsCache.SendMessageToAllAdminsChat($"{admin.Name}: {message}");
         }
 
         [Command("adminannouncement", AdminAnnouncementChatCommandUsage, Alias = "aa", SensitiveInfo = true, GreedyArg = true, Hide = true)]

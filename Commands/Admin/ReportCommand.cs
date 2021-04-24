@@ -39,8 +39,8 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            targetPlayer.SendChatMessage($"{ChatColor.AdminReportAnswerColor}Администратор {admin.Name} [{admin.Id}] ответил вам: {message}");
-            AdminsCache.SendMessageToAllAdminsReportAnswer($"{admin.Name} [{admin.Id}] ответил {targetPlayer.Name} [{targetPlayer.Id}]: {message}");
+            targetPlayer.SendChatMessage($"{ChatColor.AdminReportAnswerColor}Администратор {admin.Name} ответил вам: {message}");
+            AdminsCache.SendMessageToAllAdminsReportAnswer($"{admin.Name} ответил {targetPlayer.Name} [{targetPlayer.Id}]: {message}");
         }
     }
 }
