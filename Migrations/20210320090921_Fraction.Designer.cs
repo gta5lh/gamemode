@@ -3,15 +3,17 @@ using System;
 using Gamemode.Repositories.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Gamemode.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20210320090921_Fraction")]
+    partial class Fraction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -120,10 +122,6 @@ namespace Gamemode.Migrations
                         .HasColumnType("varchar(20)")
                         .HasColumnName("name");
 
-                    b.Property<short>("RequiredExperienceToRankUp")
-                        .HasColumnType("smallint")
-                        .HasColumnName("required_experience_to_rank_up");
-
                     b.Property<byte>("Tier")
                         .HasColumnType("smallint")
                         .HasColumnName("tier");
@@ -146,7 +144,6 @@ namespace Gamemode.Migrations
                             Id = (byte)1,
                             FractionId = (byte)1,
                             Name = "Bloods1",
-                            RequiredExperienceToRankUp = (short)21,
                             Tier = (byte)1
                         },
                         new
@@ -154,7 +151,6 @@ namespace Gamemode.Migrations
                             Id = (byte)2,
                             FractionId = (byte)1,
                             Name = "Bloods2",
-                            RequiredExperienceToRankUp = (short)35,
                             Tier = (byte)2
                         },
                         new
@@ -162,7 +158,6 @@ namespace Gamemode.Migrations
                             Id = (byte)3,
                             FractionId = (byte)1,
                             Name = "Bloods3",
-                            RequiredExperienceToRankUp = (short)49,
                             Tier = (byte)3
                         },
                         new
@@ -170,7 +165,6 @@ namespace Gamemode.Migrations
                             Id = (byte)4,
                             FractionId = (byte)1,
                             Name = "Bloods4",
-                            RequiredExperienceToRankUp = (short)63,
                             Tier = (byte)4
                         },
                         new
@@ -178,7 +172,6 @@ namespace Gamemode.Migrations
                             Id = (byte)5,
                             FractionId = (byte)1,
                             Name = "Bloods5",
-                            RequiredExperienceToRankUp = (short)77,
                             Tier = (byte)5
                         },
                         new
@@ -186,7 +179,6 @@ namespace Gamemode.Migrations
                             Id = (byte)6,
                             FractionId = (byte)1,
                             Name = "Bloods6",
-                            RequiredExperienceToRankUp = (short)91,
                             Tier = (byte)6
                         },
                         new
@@ -194,7 +186,6 @@ namespace Gamemode.Migrations
                             Id = (byte)7,
                             FractionId = (byte)1,
                             Name = "Bloods7",
-                            RequiredExperienceToRankUp = (short)105,
                             Tier = (byte)7
                         },
                         new
@@ -202,7 +193,6 @@ namespace Gamemode.Migrations
                             Id = (byte)8,
                             FractionId = (byte)1,
                             Name = "Bloods8",
-                            RequiredExperienceToRankUp = (short)119,
                             Tier = (byte)8
                         },
                         new
@@ -210,7 +200,6 @@ namespace Gamemode.Migrations
                             Id = (byte)9,
                             FractionId = (byte)1,
                             Name = "Bloods9",
-                            RequiredExperienceToRankUp = (short)140,
                             Tier = (byte)9
                         },
                         new
@@ -218,7 +207,6 @@ namespace Gamemode.Migrations
                             Id = (byte)10,
                             FractionId = (byte)1,
                             Name = "Bloods10",
-                            RequiredExperienceToRankUp = (short)0,
                             Tier = (byte)10
                         },
                         new
@@ -226,7 +214,6 @@ namespace Gamemode.Migrations
                             Id = (byte)11,
                             FractionId = (byte)2,
                             Name = "Блайд",
-                            RequiredExperienceToRankUp = (short)21,
                             Tier = (byte)1
                         },
                         new
@@ -234,7 +221,6 @@ namespace Gamemode.Migrations
                             Id = (byte)12,
                             FractionId = (byte)2,
                             Name = "Бастер",
-                            RequiredExperienceToRankUp = (short)35,
                             Tier = (byte)2
                         },
                         new
@@ -242,7 +228,6 @@ namespace Gamemode.Migrations
                             Id = (byte)13,
                             FractionId = (byte)2,
                             Name = "Крэкер",
-                            RequiredExperienceToRankUp = (short)49,
                             Tier = (byte)3
                         },
                         new
@@ -250,7 +235,6 @@ namespace Gamemode.Migrations
                             Id = (byte)14,
                             FractionId = (byte)2,
                             Name = "Гун бро",
-                            RequiredExperienceToRankUp = (short)63,
                             Tier = (byte)4
                         },
                         new
@@ -258,7 +242,6 @@ namespace Gamemode.Migrations
                             Id = (byte)15,
                             FractionId = (byte)2,
                             Name = "Ап бро",
-                            RequiredExperienceToRankUp = (short)77,
                             Tier = (byte)5
                         },
                         new
@@ -266,7 +249,6 @@ namespace Gamemode.Migrations
                             Id = (byte)16,
                             FractionId = (byte)2,
                             Name = "Гангстер",
-                            RequiredExperienceToRankUp = (short)91,
                             Tier = (byte)6
                         },
                         new
@@ -274,7 +256,6 @@ namespace Gamemode.Migrations
                             Id = (byte)17,
                             FractionId = (byte)2,
                             Name = "Федерал блок",
-                            RequiredExperienceToRankUp = (short)105,
                             Tier = (byte)7
                         },
                         new
@@ -282,7 +263,6 @@ namespace Gamemode.Migrations
                             Id = (byte)18,
                             FractionId = (byte)2,
                             Name = "Фолкс",
-                            RequiredExperienceToRankUp = (short)119,
                             Tier = (byte)8
                         },
                         new
@@ -290,7 +270,6 @@ namespace Gamemode.Migrations
                             Id = (byte)19,
                             FractionId = (byte)2,
                             Name = "Райч нига",
-                            RequiredExperienceToRankUp = (short)140,
                             Tier = (byte)9
                         },
                         new
@@ -298,7 +277,6 @@ namespace Gamemode.Migrations
                             Id = (byte)20,
                             FractionId = (byte)2,
                             Name = "Биг вилли",
-                            RequiredExperienceToRankUp = (short)0,
                             Tier = (byte)10
                         },
                         new
@@ -306,7 +284,6 @@ namespace Gamemode.Migrations
                             Id = (byte)21,
                             FractionId = (byte)3,
                             Name = "Bloods11",
-                            RequiredExperienceToRankUp = (short)21,
                             Tier = (byte)1
                         },
                         new
@@ -314,7 +291,6 @@ namespace Gamemode.Migrations
                             Id = (byte)22,
                             FractionId = (byte)3,
                             Name = "Bloods12",
-                            RequiredExperienceToRankUp = (short)35,
                             Tier = (byte)2
                         },
                         new
@@ -322,7 +298,6 @@ namespace Gamemode.Migrations
                             Id = (byte)23,
                             FractionId = (byte)3,
                             Name = "Bloods13",
-                            RequiredExperienceToRankUp = (short)49,
                             Tier = (byte)3
                         },
                         new
@@ -330,7 +305,6 @@ namespace Gamemode.Migrations
                             Id = (byte)24,
                             FractionId = (byte)3,
                             Name = "Bloods14",
-                            RequiredExperienceToRankUp = (short)63,
                             Tier = (byte)4
                         },
                         new
@@ -338,7 +312,6 @@ namespace Gamemode.Migrations
                             Id = (byte)25,
                             FractionId = (byte)3,
                             Name = "Bloods15",
-                            RequiredExperienceToRankUp = (short)77,
                             Tier = (byte)5
                         },
                         new
@@ -346,7 +319,6 @@ namespace Gamemode.Migrations
                             Id = (byte)26,
                             FractionId = (byte)3,
                             Name = "Bloods16",
-                            RequiredExperienceToRankUp = (short)91,
                             Tier = (byte)6
                         },
                         new
@@ -354,7 +326,6 @@ namespace Gamemode.Migrations
                             Id = (byte)27,
                             FractionId = (byte)3,
                             Name = "Bloods17",
-                            RequiredExperienceToRankUp = (short)105,
                             Tier = (byte)7
                         },
                         new
@@ -362,7 +333,6 @@ namespace Gamemode.Migrations
                             Id = (byte)28,
                             FractionId = (byte)3,
                             Name = "Bloods18",
-                            RequiredExperienceToRankUp = (short)119,
                             Tier = (byte)8
                         },
                         new
@@ -370,7 +340,6 @@ namespace Gamemode.Migrations
                             Id = (byte)29,
                             FractionId = (byte)3,
                             Name = "Bloods19",
-                            RequiredExperienceToRankUp = (short)140,
                             Tier = (byte)9
                         },
                         new
@@ -378,7 +347,6 @@ namespace Gamemode.Migrations
                             Id = (byte)30,
                             FractionId = (byte)3,
                             Name = "Bloods20",
-                            RequiredExperienceToRankUp = (short)0,
                             Tier = (byte)10
                         },
                         new
@@ -386,7 +354,6 @@ namespace Gamemode.Migrations
                             Id = (byte)31,
                             FractionId = (byte)4,
                             Name = "Bloods21",
-                            RequiredExperienceToRankUp = (short)21,
                             Tier = (byte)1
                         },
                         new
@@ -394,7 +361,6 @@ namespace Gamemode.Migrations
                             Id = (byte)32,
                             FractionId = (byte)4,
                             Name = "Bloods22",
-                            RequiredExperienceToRankUp = (short)35,
                             Tier = (byte)2
                         },
                         new
@@ -402,7 +368,6 @@ namespace Gamemode.Migrations
                             Id = (byte)33,
                             FractionId = (byte)4,
                             Name = "Bloods23",
-                            RequiredExperienceToRankUp = (short)49,
                             Tier = (byte)3
                         },
                         new
@@ -410,7 +375,6 @@ namespace Gamemode.Migrations
                             Id = (byte)34,
                             FractionId = (byte)4,
                             Name = "Bloods24",
-                            RequiredExperienceToRankUp = (short)63,
                             Tier = (byte)4
                         },
                         new
@@ -418,7 +382,6 @@ namespace Gamemode.Migrations
                             Id = (byte)35,
                             FractionId = (byte)4,
                             Name = "Bloods25",
-                            RequiredExperienceToRankUp = (short)77,
                             Tier = (byte)5
                         },
                         new
@@ -426,7 +389,6 @@ namespace Gamemode.Migrations
                             Id = (byte)36,
                             FractionId = (byte)4,
                             Name = "Bloods26",
-                            RequiredExperienceToRankUp = (short)91,
                             Tier = (byte)6
                         },
                         new
@@ -434,7 +396,6 @@ namespace Gamemode.Migrations
                             Id = (byte)37,
                             FractionId = (byte)4,
                             Name = "Bloods27",
-                            RequiredExperienceToRankUp = (short)105,
                             Tier = (byte)7
                         },
                         new
@@ -442,7 +403,6 @@ namespace Gamemode.Migrations
                             Id = (byte)38,
                             FractionId = (byte)4,
                             Name = "Bloods28",
-                            RequiredExperienceToRankUp = (short)119,
                             Tier = (byte)8
                         },
                         new
@@ -450,7 +410,6 @@ namespace Gamemode.Migrations
                             Id = (byte)39,
                             FractionId = (byte)4,
                             Name = "Bloods29",
-                            RequiredExperienceToRankUp = (short)140,
                             Tier = (byte)9
                         },
                         new
@@ -458,7 +417,6 @@ namespace Gamemode.Migrations
                             Id = (byte)40,
                             FractionId = (byte)4,
                             Name = "Bloods30",
-                            RequiredExperienceToRankUp = (short)0,
                             Tier = (byte)10
                         },
                         new
@@ -466,7 +424,6 @@ namespace Gamemode.Migrations
                             Id = (byte)41,
                             FractionId = (byte)5,
                             Name = "Bloods31",
-                            RequiredExperienceToRankUp = (short)21,
                             Tier = (byte)1
                         },
                         new
@@ -474,7 +431,6 @@ namespace Gamemode.Migrations
                             Id = (byte)42,
                             FractionId = (byte)5,
                             Name = "Bloods32",
-                            RequiredExperienceToRankUp = (short)35,
                             Tier = (byte)2
                         },
                         new
@@ -482,7 +438,6 @@ namespace Gamemode.Migrations
                             Id = (byte)43,
                             FractionId = (byte)5,
                             Name = "Bloods33",
-                            RequiredExperienceToRankUp = (short)49,
                             Tier = (byte)3
                         },
                         new
@@ -490,7 +445,6 @@ namespace Gamemode.Migrations
                             Id = (byte)44,
                             FractionId = (byte)5,
                             Name = "Bloods34",
-                            RequiredExperienceToRankUp = (short)63,
                             Tier = (byte)4
                         },
                         new
@@ -498,7 +452,6 @@ namespace Gamemode.Migrations
                             Id = (byte)45,
                             FractionId = (byte)5,
                             Name = "Bloods35",
-                            RequiredExperienceToRankUp = (short)77,
                             Tier = (byte)5
                         },
                         new
@@ -506,7 +459,6 @@ namespace Gamemode.Migrations
                             Id = (byte)46,
                             FractionId = (byte)5,
                             Name = "Bloods36",
-                            RequiredExperienceToRankUp = (short)91,
                             Tier = (byte)6
                         },
                         new
@@ -514,7 +466,6 @@ namespace Gamemode.Migrations
                             Id = (byte)47,
                             FractionId = (byte)5,
                             Name = "Bloods37",
-                            RequiredExperienceToRankUp = (short)105,
                             Tier = (byte)7
                         },
                         new
@@ -522,7 +473,6 @@ namespace Gamemode.Migrations
                             Id = (byte)48,
                             FractionId = (byte)5,
                             Name = "Bloods38",
-                            RequiredExperienceToRankUp = (short)119,
                             Tier = (byte)8
                         },
                         new
@@ -530,7 +480,6 @@ namespace Gamemode.Migrations
                             Id = (byte)49,
                             FractionId = (byte)5,
                             Name = "Bloods39",
-                            RequiredExperienceToRankUp = (short)140,
                             Tier = (byte)9
                         },
                         new
@@ -538,7 +487,6 @@ namespace Gamemode.Migrations
                             Id = (byte)50,
                             FractionId = (byte)5,
                             Name = "Bloods40",
-                            RequiredExperienceToRankUp = (short)0,
                             Tier = (byte)10
                         });
                 });
@@ -570,10 +518,6 @@ namespace Gamemode.Migrations
                     b.Property<DateTime?>("BannedUntil")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("banned_until");
-
-                    b.Property<short>("CurrentExperience")
-                        .HasColumnType("smallint")
-                        .HasColumnName("current_experience");
 
                     b.Property<string>("Email")
                         .IsRequired()

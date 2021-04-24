@@ -30,6 +30,21 @@ namespace Gamemode.Repositories.Models
 
         public AdminRank? AdminRank { get; set; }
 
+        [Column("fraction_id")]
+        [ForeignKey("Fraction")]
+        public byte? FractionId { get; set; }
+
+        public Fraction? Fraction { get; set; }
+
+        [Column("fraction_rank_id")]
+        [ForeignKey("FractionRank")]
+        public byte? FractionRankId { get; set; }
+
+        public FractionRank? FractionRank { get; set; }
+
+        [Column("current_experience", TypeName = "smallint")]
+        public short CurrentExperience { get; set; }
+
         [Column("muted_by_id")]
         [ForeignKey("MutedBy")]
         public long? MutedById { get; set; }

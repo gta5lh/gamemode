@@ -1,9 +1,10 @@
-// <copyright file="Gang.cs" company="lbyte00">
+﻿// <copyright file="Gang.cs" company="lbyte00">
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
 namespace Gamemode
 {
+    using Gamemode.Models.Spawn;
     using GTANetworkAPI;
 
     public abstract class Gang
@@ -15,6 +16,8 @@ namespace Gamemode
         public Marker ItemMarker { get; set; }
 
         public Marker CarMarker { get; set; }
+
+        public Spawn Spawn { get; set; }
 
         public void Create()
         {

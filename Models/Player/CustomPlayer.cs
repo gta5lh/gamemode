@@ -7,6 +7,7 @@ namespace Gamemode.Models.Player
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Gamemode.Models.Admin;
+    using Gamemode.Models.Gangs;
     using Gamemode.Repositories.Models;
     using Gamemode.Repository;
     using GTANetworkAPI;
@@ -33,7 +34,35 @@ namespace Gamemode.Models.Player
 
         private InventoryWeapons InventoryWeapons;
 
+        public byte? fraction { get; set; }
+        public byte? FractionRank { get; set; }
+        public string? FractionRankName { get; set; }
+
+        public short CurrentExperience { get; set; }
+        public short? RequiredExperience { get; set; }
+
+
         public bool Freezed { get; set; }
+
+        public byte? Fraction
+        {
+            get => this.fraction;
+
+            set
+            {
+                if (this.fraction != null)
+                {
+                    FractionsCache.UnloadFractionMemberFromCache((byte)this.fraction, this.StaticId);
+                }
+
+                this.fraction = value;
+
+                if (this.fraction != null)
+                {
+                    FractionsCache.LoadFractionMemberToCache((byte)this.fraction, this.StaticId, this.Name);
+                }
+            }
+        }
 
         public bool Invisible
         {
@@ -106,6 +135,36 @@ namespace Gamemode.Models.Player
             }
         }
 
+        public async Task RankUp()
+        {
+            if (this.FractionRank >= 10)
+            {
+                return;
+            }
+
+            this.FractionRank++;
+            this.CurrentExperience = 0;
+            FractionRank fractionRank = await UserRepository.GetFractionRankByFractionAndTier((byte)this.Fraction, (byte)this.FractionRank);
+            await UserRepository.SetFractionRank(this.StaticId, fractionRank.Id);
+            this.RequiredExperience = fractionRank.RequiredExperienceToRankUp;
+            this.FractionRankName = fractionRank.Name;
+        }
+
+        public async Task RankDown()
+        {
+            if (this.FractionRank <= 1)
+            {
+                return;
+            }
+
+            this.FractionRank--;
+            FractionRank fractionRank = await UserRepository.GetFractionRankByFractionAndTier((byte)this.Fraction, (byte)this.FractionRank);
+            await UserRepository.SetFractionRank(this.StaticId, fractionRank.Id);
+            this.CurrentExperience = (short)(fractionRank.RequiredExperienceToRankUp - 1);
+            this.RequiredExperience = fractionRank.RequiredExperienceToRankUp;
+            this.FractionRankName = fractionRank.Name;
+        }
+
         public void CustomGiveWeapon(WeaponHash weaponHash, int amount)
         {
             this.GiveWeapon(weaponHash, amount);
@@ -133,8 +192,17 @@ namespace Gamemode.Models.Player
             player.Name = user.Name;
             player.AdminRank = user.AdminRankId != null ? (Models.Admin.AdminRank)user.AdminRankId : 0;
             player.MuteState = new MuteState(user.MutedUntil, user.MutedById, user.MuteReason);
-
+            player.Fraction = user.FractionId;
+            player.FractionRank = user.FractionRank != null ? (byte?)user.FractionRank.Tier : null;
+            player.FractionRankName = user.FractionRank != null ? user.FractionRank.Name : null; ;
             player.InventoryWeapons = new InventoryWeapons();
+            player.CurrentExperience = user.CurrentExperience;
+            player.RequiredExperience = user.FractionRank != null ? (short?)user.FractionRank.RequiredExperienceToRankUp : null;
+
+            if (user.FractionRankId != null)
+            {
+                player.SetClothes(Clothes.GangClothes[(byte)user.FractionRankId]);
+            }
 
             if (user.Weapons != null)
             {
@@ -153,6 +221,7 @@ namespace Gamemode.Models.Player
             player.ResetData();
             player.ResetSharedData(DataKey.StaticId);
             player.AdminRank = 0;
+            player.Fraction = null;
             IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
 
             List<Weapon> weapons = new List<Weapon>();
@@ -161,7 +230,7 @@ namespace Gamemode.Models.Player
                 weapons.Add(new Weapon(weaponHash, player.GetWeaponAmmo(weaponHash), player.StaticId));
             }
 
-            await UserRepository.UpdateWeapons(player.StaticId, weapons);
+            await UserRepository.SaveUser(player.StaticId, weapons, player.CurrentExperience);
             Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
         }
     }

@@ -18,7 +18,7 @@ namespace Gamemode.Repository
         {
             using (var db = new UserContext())
             {
-                Repositories.Models.User user = await db.Users.Include(u => u.Weapons).FirstOrDefaultAsync(u => u.Email == email);
+                Repositories.Models.User user = await db.Users.Include(u => u.Weapons).Include(u => u.FractionRank).FirstOrDefaultAsync(u => u.Email == email);
                 if (user == null)
                 {
                     return null;
@@ -73,6 +73,22 @@ namespace Gamemode.Repository
             }
         }
 
+        public static async Task<FractionRank> GetFractionRankByFractionAndTier(byte fractionId, byte tier)
+        {
+            using (var db = new UserContext())
+            {
+                return await db.FractionRanks.FirstOrDefaultAsync(fr => fr.FractionId == fractionId && fr.Tier == tier);
+            }
+        }
+
+        public static async Task SetFractionRank(long userId, byte rankId)
+        {
+            using (var db = new UserContext())
+            {
+                await db.Database.ExecuteSqlRawAsync($"UPDATE users SET fraction_rank_id={rankId}, current_experience=0 WHERE id = {userId}");
+                await db.SaveChangesAsync();
+            }
+        }
 
         public static async Task<Repositories.Models.User> CreateUser(Repositories.Models.User user)
         {
@@ -200,18 +216,14 @@ namespace Gamemode.Repository
             }
         }
 
-        public static async Task UpdateWeapons(long id, List<Weapon> weapons)
+        public static async Task SaveUser(long id, List<Weapon> weapons, short currentExperience)
         {
             using var db = new UserContext();
             using var transaction = await db.Database.BeginTransactionAsync();
 
             try
             {
-                if (!await db.Users.AnyAsync(u => u.Id == id))
-                {
-                    return;
-                }
-
+                await db.Database.ExecuteSqlRawAsync($"UPDATE users SET current_experience = {currentExperience} WHERE id = {id}");
                 await db.Database.ExecuteSqlRawAsync($"DELETE FROM weapon WHERE user_id = {id}");
                 await db.Weapons.AddRangeAsync(weapons);
                 await db.SaveChangesAsync();
@@ -256,6 +268,39 @@ namespace Gamemode.Repository
                 user.BannedAt = null;
                 user.BanReason = null;
                 user.BannedById = null;
+                await db.SaveChangesAsync();
+                return user;
+            }
+        }
+        public static async Task<User> SetFraction(long id, byte fraction, byte rank)
+        {
+            using (var db = new UserContext())
+            {
+                User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
+                if (user == null)
+                {
+                    return null;
+                }
+
+                if (fraction != 0)
+                {
+                    FractionRank fractionRank = await db.FractionRanks.FirstOrDefaultAsync(f => f.FractionId == fraction && f.Tier == rank);
+                    if (fractionRank == null)
+                    {
+                        return null;
+                    }
+
+                    user.FractionId = fraction;
+                    user.FractionRankId = fractionRank.Id;
+                }
+                else
+                {
+                    user.FractionId = null;
+                    user.FractionRankId = null;
+                    user.Fraction = null;
+                    user.FractionRank = null;
+                }
+
                 await db.SaveChangesAsync();
                 return user;
             }

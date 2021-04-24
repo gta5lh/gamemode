@@ -11,5 +11,6 @@ namespace Gamemode.Utils
         public const string AdminChatColor = "!{#ffdd33}";
         public const string AdminReportColor = "!{#36baf7}";
         public const string AdminReportAnswerColor = "!{#00ab2d}";
+        public const string FractionChatColor = "!{#3dcedf}";
     }
 }
