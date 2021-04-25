@@ -114,5 +114,45 @@ namespace Gamemode
             vehicle.Rotation = admin.Rotation;
             admin.SendChatMessage($"Вы телепортировали автомобиль {vehicleIdInput} к себе");
         }
+
+        private Vector3[] locations = new Vector3[] {
+            Bloods.SpawnLocation,
+            Ballas.SpawnLocation,
+            TheFamilies.SpawnLocation,
+        };
+
+        private const string TeleportLocationCommandUsage = "Использование: /tpl {location_id}. Пример: [/tpl 0]";
+
+        [Command("teleportlocation", TeleportCommandUsage, Alias = "tpl", SensitiveInfo = true, GreedyArg = true, Hide = true)]
+        [AdminMiddleware(AdminRank.Junior)]
+        public void Teleport(CustomPlayer admin, string locationIdInput = null)
+        {
+            if (locationIdInput == null)
+            {
+                admin.SendChatMessage(TeleportLocationCommandUsage);
+                return;
+            }
+
+            ushort locationId;
+
+            try
+            {
+                locationId = ushort.Parse(locationIdInput);
+            }
+            catch (Exception)
+            {
+                admin.SendChatMessage(TeleportLocationCommandUsage);
+                return;
+            }
+
+            if (locationId < 0 || locationId >= locations.Length)
+            {
+                admin.SendChatMessage($"Максимальный ID локации = {locations.Length-1}");
+                return;
+            }
+
+            admin.Position = locations[locationId];
+            admin.SendChatMessage($"Вы телепортировались в локацию {locationId}");
+        }
     }
 }
