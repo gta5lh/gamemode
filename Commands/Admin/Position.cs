@@ -4,15 +4,18 @@
 
 namespace Gamemode
 {
+    using Gamemode.Commands.Admin;
+    using Gamemode.Models.Admin;
+    using Gamemode.Models.Player;
     using GTANetworkAPI;
 
     public class Position : Script
     {
-        [Command("position", "Usage: /position {player_id}", SensitiveInfo = true, GreedyArg = true)]
-        public void CMDPosition(Player player, string playerID)
+        [Command("position", "Usage: /position {player_id}", Alias = "pos", SensitiveInfo = true, GreedyArg = true)]
+        [AdminMiddleware(AdminRank.Junior)]
+        public void CMDPosition(CustomPlayer admin, string playerID)
         {
-            Vector3 playerPos = NAPI.Entity.GetEntityPosition(player);
-            NAPI.Chat.SendChatMessageToPlayer(player, string.Format("X: {0}, Y: {1}, Z: {2}", playerPos.X, playerPos.Y, playerPos.Z));
+            admin.SendChatMessage($"X: {admin.Position.X}, Y: {admin.Position.Y}, Z: {admin.Position.Z}, Heading: {admin.Heading}");
         }
     }
 }
