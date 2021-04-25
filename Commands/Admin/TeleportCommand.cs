@@ -120,6 +120,7 @@ namespace Gamemode
             Ballas.SpawnLocation,
             TheFamilies.SpawnLocation,
             Vagos.SpawnLocation,
+            Marabunta.SpawnLocation,
         };
 
         private const string TeleportLocationCommandUsage = "Использование: /tpl {location_id}. Пример: [/tpl 0]";
