@@ -305,5 +305,19 @@ namespace Gamemode.Repository
                 return user;
             }
         }
+
+        public static void Ping()
+        {
+            using var db = new UserContext();
+
+            try
+            {
+                 db.Database.ExecuteSqlRaw($"SELECT current_timestamp");
+            }
+            catch(Exception)
+            {
+
+            }
+        }
     }
 }

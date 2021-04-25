@@ -6,6 +6,7 @@ namespace Gamemode
     using System;
     using Gamemode.Models.Npc;
     using Gamemode.Models.Player;
+    using Gamemode.Repository;
     using GTANetworkAPI;
     using Microsoft.Extensions.Caching.Memory;
     using NLog.Extensions.Logging;
@@ -17,6 +18,8 @@ namespace Gamemode
         [ServerEvent(Event.ResourceStartEx)]
         private void ResourceStartEx(string resourceName)
         {
+            UserRepository.Ping();
+
             this.SetServerSettings();
             SpawnNpcs.CreateSpawnNpcs();
 
