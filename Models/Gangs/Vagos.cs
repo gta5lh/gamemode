@@ -5,17 +5,22 @@
 namespace Gamemode
 {
     using Gamemode.Models.Npc;
+    using Gamemode.Models.Spawn;
     using GTANetworkAPI;
 
     public class Vagos : Gang
     {
+        public static readonly Vector3 SpawnLocation = new Vector3(336, -2054, 20.84);
+
         public Vagos()
         {
             this.Name = "Vagos";
             this.Color = new Color(255, 243, 63);
-            this.CarMarker = new Marker(new Vector3(-414, 1130, 326), this.Color, (MarkerType)36, "Car", new CarSelectionEvent());
-            this.ItemMarker = new Marker(new Vector3(-414, 1133, 326), this.Color, (MarkerType)41, "Weapon", new ItemSelectionEvent());
-            this.Npc = new Npc(new Vector3(86.7, -1950, -20.8), -54, "Старший", PedHash.Beach01AFM);
+            this.Spawn = new Spawn(SpawnLocation, 3.16f);
+            this.CarMarker = new Marker(new Vector3(330, -2042, 20.8), this.Color, (MarkerType)36, "Car", new CarSelectionEvent());
+            this.CarSpawn = new Spawn(new Vector3(330, -2042, 20.85), -42.1f);
+            this.ItemMarker = new Marker(new Vector3(327, -2049, 20.84), this.Color, (MarkerType)41, "Weapon", new ItemSelectionEvent());
+            this.Npc = new Npc(new Vector3(345.5, -2049, 21.6), 52.5f, "Старший", PedHash.Beach01AFM);
         }
     }
 }
