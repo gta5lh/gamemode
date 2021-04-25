@@ -8,6 +8,7 @@ namespace Gamemode
     using Gamemode.Commands.Admin;
     using Gamemode.Models.Admin;
     using Gamemode.Models.Player;
+    using Gamemode.Models.Spawn;
     using GTANetworkAPI;
 
     public class TeleportCommand : Script
@@ -115,12 +116,12 @@ namespace Gamemode
             admin.SendChatMessage($"Вы телепортировали автомобиль {vehicleIdInput} к себе");
         }
 
-        private Vector3[] locations = new Vector3[] {
-            Bloods.SpawnLocation,
-            Ballas.SpawnLocation,
-            TheFamilies.SpawnLocation,
-            Vagos.SpawnLocation,
-            Marabunta.SpawnLocation,
+        private Spawn[] spawns = new Spawn[] {
+            Bloods.Spawn,
+            Ballas.Spawn,
+            TheFamilies.Spawn,
+            Vagos.Spawn,
+            Marabunta.Spawn,
         };
 
         private const string TeleportLocationCommandUsage = "Использование: /tpl {location_id}. Пример: [/tpl 0]";
@@ -147,13 +148,15 @@ namespace Gamemode
                 return;
             }
 
-            if (locationId < 0 || locationId >= locations.Length)
+            if (locationId < 0 || locationId >= spawns.Length)
             {
-                admin.SendChatMessage($"Максимальный ID локации = {locations.Length-1}");
+                admin.SendChatMessage($"Максимальный ID локации = {spawns.Length-1}");
                 return;
             }
 
-            admin.Position = locations[locationId];
+            Spawn spawn = spawns[locationId];
+            admin.Position = spawn.Position;
+            admin.Heading = spawn.Heading;
             admin.SendChatMessage($"Вы телепортировались в локацию {locationId}");
         }
     }

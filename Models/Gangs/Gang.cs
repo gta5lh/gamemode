@@ -14,11 +14,13 @@ namespace Gamemode
 
         public Color Color { get; set; }
 
+        public byte BlipColor { get; set; }
+
         public Marker ItemMarker { get; set; }
 
         public Marker CarMarker { get; set; }
 
-        public Spawn Spawn { get; set; }
+        public Spawn PlayerSpawn { get; set; }
 
         public Npc Npc { get; set; }
 
@@ -29,6 +31,7 @@ namespace Gamemode
             this.CarMarker.Create();
             this.ItemMarker.Create();
             this.Npc.Create();
+            NAPI.Blip.CreateBlip(543, this.PlayerSpawn.Position, 1, this.BlipColor, this.Name, 255, 0, true);
         }
     }
 }

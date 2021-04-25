@@ -10,17 +10,18 @@ namespace Gamemode
 
     public class Vagos : Gang
     {
-        public static readonly Vector3 SpawnLocation = new Vector3(336, -2054, 20.84);
+        public static readonly Spawn Spawn = new Spawn(new Vector3(336, -2054, 20.84), 3.16f);
 
         public Vagos()
         {
             this.Name = "Vagos";
             this.Color = new Color(255, 243, 63);
-            this.Spawn = new Spawn(SpawnLocation, 3.16f);
+            this.PlayerSpawn = Spawn;
             this.CarMarker = new Marker(new Vector3(330, -2042, 20.8), this.Color, (MarkerType)36, "Car", new CarSelectionEvent());
             this.CarSpawn = new Spawn(new Vector3(330, -2042, 20.85), -42.1f);
             this.ItemMarker = new Marker(new Vector3(327, -2049, 20.84), this.Color, (MarkerType)41, "Weapon", new ItemSelectionEvent());
             this.Npc = new Npc(new Vector3(345.5, -2049, 21.6), 52.5f, "Старший", PedHash.Beach01AFM);
+            this.BlipColor = 46;
         }
     }
 }

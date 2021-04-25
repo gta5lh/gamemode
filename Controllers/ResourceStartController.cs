@@ -31,6 +31,7 @@ namespace Gamemode
         private void SetServerSettings()
         {
             NAPI.Server.SetGlobalServerChat(false);
+            NAPI.Server.SetAutoSpawnOnConnect(false);
         }
 
         public static bool ShouldWait(ushort playerId)

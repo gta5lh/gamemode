@@ -57,6 +57,7 @@ namespace Gamemode.Controllers
 
                 CustomPlayer.LoadPlayerCache(player, user);
                 NAPI.ClientEvent.TriggerClientEvent(player, "LogIn");
+                NAPI.Player.SpawnPlayer(player, new Vector3(0,0,0));
             });
         }
 
