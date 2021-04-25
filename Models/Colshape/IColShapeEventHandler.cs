@@ -2,12 +2,13 @@
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
-namespace Gamemode
+namespace Gamemode.Colshape
 {
     using GTANetworkAPI;
 
-    public interface IColShapeEnterEvent
+    public interface IColShapeEventHandler
     {
         void OnEntityEnterColShape(ColShape shape, Player player);
+        void OnEntityExitColShape(ColShape shape, Player player);
     }
 }

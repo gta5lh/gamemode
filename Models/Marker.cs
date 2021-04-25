@@ -12,9 +12,9 @@ namespace Gamemode
         private readonly Color color;
         private readonly MarkerType markerType;
         private readonly string text;
-        private readonly IColShapeEnterEvent colShapeEnterEvent;
+        private readonly Colshape.IColShapeEventHandler colShapeEnterEvent;
 
-        public Marker(Vector3 position, Color color, MarkerType markerType, string text, IColShapeEnterEvent colShapeEnterEvent)
+        public Marker(Vector3 position, Color color, MarkerType markerType, string text, Colshape.IColShapeEventHandler colShapeEnterEvent)
         {
             this.position = position;
             this.color = color;

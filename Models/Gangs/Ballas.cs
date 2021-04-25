@@ -4,6 +4,7 @@
 
 namespace Gamemode
 {
+    using Gamemode.Colshape;
     using Gamemode.Models.Npc;
     using Gamemode.Models.Spawn;
     using GTANetworkAPI;
