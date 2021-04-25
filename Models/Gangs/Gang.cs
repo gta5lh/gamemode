@@ -4,6 +4,7 @@
 
 namespace Gamemode
 {
+    using Gamemode.Models.Npc;
     using Gamemode.Models.Spawn;
     using GTANetworkAPI;
 
@@ -19,10 +20,15 @@ namespace Gamemode
 
         public Spawn Spawn { get; set; }
 
+        public Npc Npc { get; set; }
+
+        public Spawn CarSpawn { get; set; }
+
         public void Create()
         {
             this.CarMarker.Create();
             this.ItemMarker.Create();
+            this.Npc.Create();
         }
     }
 }
