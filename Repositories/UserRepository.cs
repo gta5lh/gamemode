@@ -14,34 +14,6 @@ namespace Gamemode.Repository
 
     public class UserRepository
     {
-        public static async Task<Gamemode.Repositories.Models.User?> GetByEmailAndPassword(string email, string password)
-        {
-            using (var db = new UserContext())
-            {
-                Repositories.Models.User user = await db.Users.Include(u => u.Weapons).Include(u => u.FractionRank).FirstOrDefaultAsync(u => u.Email == email);
-                if (user == null)
-                {
-                    return null;
-                }
-
-                if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
-                {
-                    return null;
-                }
-
-                user.Password = string.Empty;
-
-                return user;
-            }
-        }
-
-        public static async Task<bool> ExistsById(long id)
-        {
-            using (var db = new UserContext())
-            {
-                return await db.Users.AnyAsync(u => u.Id == id);
-            }
-        }
 
         public static async Task<Repositories.Models.User> GetAdminRankById(long id)
         {
@@ -51,27 +23,6 @@ namespace Gamemode.Repository
             }
         }
 
-        public static async Task<Repositories.Models.User> GetUserByEmailOrUsername(string email, string username)
-        {
-            using (var db = new UserContext())
-            {
-                return await db.Users.Select(u => new Repositories.Models.User { Email = u.Email, Name = u.Name }).FirstOrDefaultAsync(u => u.Email == email || u.Name == username);
-            }
-        }
-
-        public static async Task<long?> GetIdByUsername(string username)
-        {
-            using (var db = new UserContext())
-            {
-                User user = await db.Users.Select(u => new Repositories.Models.User { Name = u.Name, Id = u.Id }).FirstOrDefaultAsync(u => u.Name == username);
-                if (user == null)
-                {
-                    return null;
-                }
-
-                return user.Id;
-            }
-        }
 
         public static async Task<FractionRank> GetFractionRankByFractionAndTier(byte fractionId, byte tier)
         {
@@ -87,18 +38,6 @@ namespace Gamemode.Repository
             {
                 await db.Database.ExecuteSqlRawAsync($"UPDATE users SET fraction_rank_id={rankId}, current_experience=0 WHERE id = {userId}");
                 await db.SaveChangesAsync();
-            }
-        }
-
-        public static async Task<Repositories.Models.User> CreateUser(Repositories.Models.User user)
-        {
-            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-
-            using (var db = new UserContext())
-            {
-                await db.Users.AddAsync(user);
-                await db.SaveChangesAsync();
-                return user;
             }
         }
 
@@ -312,9 +251,9 @@ namespace Gamemode.Repository
 
             try
             {
-                 db.Database.ExecuteSqlRaw($"SELECT current_timestamp");
+                db.Database.ExecuteSqlRaw($"SELECT current_timestamp");
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
