@@ -4,8 +4,10 @@
 
 namespace Gamemode.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Gamemode.ApiClient.Models;
     using Gamemode.Models.Player;
     using Gamemode.Repository;
     using GamemodeCommon.Authentication.Models;
@@ -55,9 +57,9 @@ namespace Gamemode.Controllers
                     return;
                 }
 
-                CustomPlayer.LoadPlayerCache(player, user);
+                //CustomPlayer.LoadPlayerCache(player, user);
                 NAPI.ClientEvent.TriggerClientEvent(player, "LogIn");
-                NAPI.Player.SpawnPlayer(player, new Vector3(0,0,0));
+                NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
             });
         }
 
@@ -78,39 +80,22 @@ namespace Gamemode.Controllers
                 return;
             }
 
-            Repositories.Models.User user = await UserRepository.GetUserByEmailOrUsername(registerRequest.Email, registerRequest.Username);
-            if (user != null)
+            User registeredUser;
+
+            try
             {
-                if (user.Email == registerRequest.Email)
-                {
-                    invalidFieldNames.Add("email_exists");
-                }
-
-                if (user.Name == registerRequest.Username)
-                {
-                    invalidFieldNames.Add("username_exists");
-                }
-
-                NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RegisterSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
-                return;
+                registeredUser = await ApiClient.ApiClient.RegisterUser(registerRequest.Email, registerRequest.Username, registerRequest.Password);
             }
-
-            Repositories.Models.User newUser = new Repositories.Models.User();
-            newUser.Email = registerRequest.Email;
-            newUser.Name = registerRequest.Username;
-            newUser.Password = registerRequest.Password;
-
-            Repositories.Models.User createdUser = await UserRepository.CreateUser(newUser);
-            if (createdUser == null)
+            catch (Exception e)
             {
-                invalidFieldNames = new List<string>(new string[] { "internal_server_error" });
+                invalidFieldNames.Add(e.Message);
                 NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RegisterSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
                 return;
             }
 
             NAPI.Task.Run(() =>
             {
-                CustomPlayer.LoadPlayerCache(player, createdUser);
+                CustomPlayer.LoadPlayerCache(player, registeredUser);
                 NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LogIn");
             });
         }

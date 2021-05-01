@@ -184,7 +184,7 @@ namespace Gamemode.Models.Player
             Logger.Info($"Player mute has expired. ID={this.StaticId}");
         }
 
-        public static CustomPlayer LoadPlayerCache(CustomPlayer player, Repositories.Models.User user)
+        public static CustomPlayer LoadPlayerCache(CustomPlayer player, ApiClient.Models.User user)
         {
             IdsCache.LoadIdsToCache(player.Id, user.Id);
             player.StaticId = user.Id;
@@ -196,17 +196,17 @@ namespace Gamemode.Models.Player
             player.FractionRank = user.FractionRank != null ? (byte?)user.FractionRank.Tier : null;
             player.FractionRankName = user.FractionRank != null ? user.FractionRank.Name : null; ;
             player.InventoryWeapons = new InventoryWeapons();
-            player.CurrentExperience = user.CurrentExperience;
-            player.RequiredExperience = user.FractionRank != null ? (short?)user.FractionRank.RequiredExperienceToRankUp : null;
+            player.CurrentExperience = user.Experience;
+            player.RequiredExperience = user.FractionRank != null ? (short?)user.FractionRank.RequiredExperience : null;
 
-            if (user.FractionRankId != null)
+            if (user.FractionRank != null)
             {
-                player.SetClothes(Clothes.GangClothes[(byte)user.FractionRankId]);
+                player.SetClothes(Clothes.GangClothes[(byte)user.FractionRank.Id]);
             }
 
             if (user.Weapons != null)
             {
-                foreach (Repositories.Models.Weapon weapon in user.Weapons)
+                foreach (ApiClient.Models.Weapon weapon in user.Weapons)
                 {
                     player.CustomGiveWeapon(weapon.Hash, weapon.Amount);
                 }
