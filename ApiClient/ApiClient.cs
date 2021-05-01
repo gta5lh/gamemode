@@ -45,5 +45,18 @@ namespace Gamemode.ApiClient
 
             return JsonConvert.DeserializeObject<User>(response);
         }
+
+        public static async Task<long?> IDByName(string name)
+        {
+            HttpResponseMessage httpResponseMessage = await client.GetAsync($"http://localhost:8000/v1/users/{name}/id");
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<long?>(response);
+        }
     }
 }

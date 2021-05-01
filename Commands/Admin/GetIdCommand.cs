@@ -8,7 +8,6 @@ namespace Gamemode.Commands.Admin
     using System.Threading.Tasks;
     using Gamemode.Models.Admin;
     using Gamemode.Models.Player;
-    using Gamemode.Repository;
     using GTANetworkAPI;
 
     public class GetIdCommand : Script
@@ -35,7 +34,14 @@ namespace Gamemode.Commands.Admin
             }
             catch (Exception)
             {
-                staticId = await UserRepository.GetIdByUsername(idOrUsername);
+                try
+                {
+                    staticId = await ApiClient.ApiClient.IDByName(idOrUsername);
+                }
+                catch (Exception)
+                {
+
+                }
             }
 
             long? expectedId = null;
