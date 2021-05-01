@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Gamemode.ApiClient.Models;
@@ -57,6 +58,24 @@ namespace Gamemode.ApiClient
             }
 
             return JsonConvert.DeserializeObject<long?>(response);
+        }
+
+        public static async Task<string> MuteUser(long userId, string reason, long mutedBy, DateTime mutedAt, DateTime mutedUntil)
+        {
+            MuteUserRequest request = new MuteUserRequest(reason, mutedBy, mutedAt, mutedUntil);
+
+            string json = JsonConvert.SerializeObject(request);
+            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/mute", data);
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<string>(response);
         }
     }
 }

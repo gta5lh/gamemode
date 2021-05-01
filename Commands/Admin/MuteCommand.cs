@@ -48,8 +48,16 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            User target = await UserRepository.Mute(targetId, duration, reason, admin.StaticId);
-            if (target == null)
+            DateTime mutedUntil = DateTime.UtcNow.AddMinutes(duration);
+            DateTime mutedAt = DateTime.UtcNow;
+
+            string targetName;
+
+            try
+            {
+                targetName = await ApiClient.ApiClient.MuteUser(targetId, reason, admin.StaticId, mutedAt, mutedUntil);
+            }
+            catch (Exception)
             {
                 NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetId} не найден"));
                 return;
@@ -60,11 +68,11 @@ namespace Gamemode.Commands.Admin
                 CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(targetId);
                 if (targetPlayer != null)
                 {
-                    targetPlayer.MuteState = new MuteState(target.MutedUntil, target.MutedById, target.MuteReason);
+                    targetPlayer.MuteState = new MuteState(mutedUntil, admin.StaticId, reason);
                 }
 
-                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал мут {target.Name} на {duration} минут. Причина: {reason}");
-                this.Logger.Warn($"Administrator {admin.Name} muted {target.Name} for {duration} minutes");
+                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал мут {targetName} на {duration} минут. Причина: {reason}");
+                this.Logger.Warn($"Administrator {admin.Name} muted {targetName} for {duration} minutes");
             });
         }
 

@@ -41,25 +41,6 @@ namespace Gamemode.Repository
             }
         }
 
-        public static async Task<User> Mute(long id, int duration, string reason, long mutedBy)
-        {
-            using (var db = new UserContext())
-            {
-                Repositories.Models.User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRankId == null);
-                if (user == null)
-                {
-                    return null;
-                }
-
-                user.MutedUntil = DateTime.UtcNow.AddMinutes(duration);
-                user.MutedAt = DateTime.UtcNow;
-                user.MuteReason = reason;
-                user.MutedById = mutedBy;
-                await db.SaveChangesAsync();
-                return user;
-            }
-        }
-
         public static async Task<User> Unmute(long id)
         {
             using (var db = new UserContext())
