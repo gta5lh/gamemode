@@ -1,17 +1,17 @@
-﻿using System.Text.Json.Serialization;
-using GTANetworkAPI;
+﻿using GTANetworkAPI;
+using Newtonsoft.Json;
 
 namespace Gamemode.ApiClient.Models
 {
     public class Weapon
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public long Id { get; set; }
 
-        [JsonPropertyName("hash")]
+        [JsonProperty("hash")]
         public WeaponHash Hash { get; set; }
 
-        [JsonPropertyName("amount")]
+        [JsonProperty("amount")]
         public int Amount { get; set; }
     }
 }

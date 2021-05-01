@@ -1,42 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Gamemode.ApiClient.Models
 {
     public class User
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public long Id { get; set; }
 
-        [JsonPropertyName("email")]
+        [JsonProperty("email")]
         public string Email { get; set; }
 
-        [JsonPropertyName("name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("admin_rank_id")]
+        [JsonProperty("admin_rank_id")]
         public short? AdminRankId { get; set; }
 
-        [JsonPropertyName("muted_until")]
+        [JsonProperty("muted_until")]
         public DateTime? MutedUntil { get; set; }
 
-        [JsonPropertyName("muted_by_id")]
+        [JsonProperty("muted_by_id")]
         public long? MutedById { get; set; }
 
-        [JsonPropertyName("mute_reason")]
+        [JsonProperty("mute_reason")]
         public string? MuteReason { get; set; }
 
-        [JsonPropertyName("fraction_id")]
+        [JsonProperty("banned_until")]
+        public DateTime? BannedUntil { get; set; }
+
+        [JsonProperty("banned_by_id")]
+        public long? BannedById { get; set; }
+
+        [JsonProperty("ban_reason")]
+        public string? BanReason { get; set; }
+
+        [JsonProperty("fraction_id")]
         public byte? FractionId { get; set; }
 
-        [JsonPropertyName("fraction_rank")]
+        [JsonProperty("fraction_rank")]
         public FractionRank? FractionRank { get; set; }
 
-        [JsonPropertyName("experience")]
+        [JsonProperty("experience")]
         public short Experience { get; set; }
 
-        [JsonPropertyName("weapons")]
+        [JsonProperty("weapons")]
         public ICollection<Weapon>? Weapons { get; set; }
     }
 }

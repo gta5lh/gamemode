@@ -1,19 +1,19 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Gamemode.ApiClient.Models
 {
     public class FractionRank
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public byte Id { get; set; }
 
-        [JsonPropertyName("tier")]
+        [JsonProperty("tier")]
         public byte Tier { get; set; }
 
-        [JsonPropertyName("name")]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonPropertyName("required_experience")]
+        [JsonProperty("required_experience")]
         public short RequiredExperience { get; set; }
     }
 }

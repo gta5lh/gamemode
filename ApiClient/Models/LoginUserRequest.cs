@@ -2,21 +2,17 @@
 
 namespace Gamemode.ApiClient.Models
 {
-    public class RegisterUserRequest
+    public class LoginUserRequest
     {
         [JsonProperty("email")]
         public string Email { get; set; }
 
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
         [JsonProperty("password")]
         public string Password { get; set; }
 
-        public RegisterUserRequest(string email, string name, string password)
+        public LoginUserRequest(string email, string password)
         {
             this.Email = email;
-            this.Name = name;
             this.Password = password;
         }
     }

@@ -9,7 +9,6 @@ namespace Gamemode.Controllers
     using System.Threading.Tasks;
     using Gamemode.ApiClient.Models;
     using Gamemode.Models.Player;
-    using Gamemode.Repository;
     using GamemodeCommon.Authentication.Models;
     using GTANetworkAPI;
     using Newtonsoft.Json;
@@ -33,8 +32,13 @@ namespace Gamemode.Controllers
                 return;
             }
 
-            Gamemode.Repositories.Models.User? user = await UserRepository.GetByEmailAndPassword(loginRequest.Email, loginRequest.Password);
-            if (user == null)
+            User user;
+
+            try
+            {
+                user = await ApiClient.ApiClient.LoginUser(loginRequest.Email, loginRequest.Password);
+            }
+            catch (Exception e)
             {
                 invalidFieldNames = new List<string>(new string[] { "email", "password" });
                 NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
@@ -57,7 +61,7 @@ namespace Gamemode.Controllers
                     return;
                 }
 
-                //CustomPlayer.LoadPlayerCache(player, user);
+                CustomPlayer.LoadPlayerCache(player, user);
                 NAPI.ClientEvent.TriggerClientEvent(player, "LogIn");
                 NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
             });
@@ -80,11 +84,11 @@ namespace Gamemode.Controllers
                 return;
             }
 
-            User registeredUser;
+            User user;
 
             try
             {
-                registeredUser = await ApiClient.ApiClient.RegisterUser(registerRequest.Email, registerRequest.Username, registerRequest.Password);
+                user = await ApiClient.ApiClient.RegisterUser(registerRequest.Email, registerRequest.Username, registerRequest.Password);
             }
             catch (Exception e)
             {
@@ -95,7 +99,7 @@ namespace Gamemode.Controllers
 
             NAPI.Task.Run(() =>
             {
-                CustomPlayer.LoadPlayerCache(player, registeredUser);
+                CustomPlayer.LoadPlayerCache(player, user);
                 NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LogIn");
                 NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
             });
