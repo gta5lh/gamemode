@@ -77,5 +77,23 @@ namespace Gamemode.ApiClient
 
             return JsonConvert.DeserializeObject<string>(response);
         }
+
+        public static async Task<string> UnmuteUser(long userId, long unmutedBy)
+        {
+            UnmuteUserRequest request = new UnmuteUserRequest(unmutedBy);
+
+            string json = JsonConvert.SerializeObject(request);
+            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/unmute", data);
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<string>(response);
+        }
     }
 }

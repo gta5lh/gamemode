@@ -4,6 +4,7 @@
 
 namespace Gamemode.Models.Player
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Gamemode.Models.Admin;
@@ -177,10 +178,18 @@ namespace Gamemode.Models.Player
             this.InventoryWeapons.RemoveWeapon(weaponHash);
         }
 
-        public void Unmute()
+        public async void Unmute()
         {
+            try
+            {
+                await ApiClient.ApiClient.UnmuteUser(this.StaticId, this.StaticId);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
             this.MuteState.Unmute();
-            UserRepository.Unmute(this.StaticId);
             Logger.Info($"Player mute has expired. ID={this.StaticId}");
         }
 

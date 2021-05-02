@@ -41,25 +41,6 @@ namespace Gamemode.Repository
             }
         }
 
-        public static async Task<User> Unmute(long id)
-        {
-            using (var db = new UserContext())
-            {
-                Repositories.Models.User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRankId == null && u.MutedUntil != null);
-                if (user == null)
-                {
-                    return null;
-                }
-
-                user.MutedUntil = null;
-                user.MutedAt = null;
-                user.MuteReason = null;
-                user.MutedById = null;
-                await db.SaveChangesAsync();
-                return user;
-            }
-        }
-
         public static async Task<Repositories.Models.User> SetAdminRank(long id, Models.Admin.AdminRank rank)
         {
             using (var db = new UserContext())

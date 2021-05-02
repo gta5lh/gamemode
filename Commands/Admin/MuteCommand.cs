@@ -7,8 +7,6 @@ namespace Gamemode.Commands.Admin
     using System;
     using System.Threading.Tasks;
     using Gamemode.Models.Player;
-    using Gamemode.Repositories.Models;
-    using Gamemode.Repository;
     using Gamemode.Utils;
     using GTANetworkAPI;
 
@@ -98,8 +96,13 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            User target = await UserRepository.Unmute(targetId);
-            if (target == null)
+            string targetName;
+
+            try
+            {
+                targetName = await ApiClient.ApiClient.UnmuteUser(targetId, admin.StaticId);
+            }
+            catch (Exception)
             {
                 NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetId} не найден, либо мут отсутствует"));
                 return;
@@ -113,8 +116,8 @@ namespace Gamemode.Commands.Admin
                     targetPlayer.MuteState = new MuteState();
                 }
 
-                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял мут {target.Name}");
-                this.Logger.Warn($"Administrator {admin.Name} unmuted {target.Name}");
+                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял мут {targetName}");
+                this.Logger.Warn($"Administrator {admin.Name} unmuted {targetName}");
             });
         }
     }
