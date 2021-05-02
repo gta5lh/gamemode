@@ -7,9 +7,9 @@ namespace Gamemode.Models.Player
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Gamemode.ApiClient.Models;
     using Gamemode.Models.Admin;
     using Gamemode.Models.Gangs;
-    using Gamemode.Repositories.Models;
     using Gamemode.Repository;
     using GTANetworkAPI;
 
@@ -143,12 +143,22 @@ namespace Gamemode.Models.Player
                 return;
             }
 
-            this.FractionRank++;
+            byte fractionRank = (byte)(this.FractionRank + 1);
+            SetFractionResponse setFractionResponse;
+
+            try
+            {
+                setFractionResponse = await ApiClient.ApiClient.SetFraction(this.StaticId, (byte)this.Fraction, fractionRank, this.StaticId);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            this.FractionRank = fractionRank;
             this.CurrentExperience = 0;
-            FractionRank fractionRank = await UserRepository.GetFractionRankByFractionAndTier((byte)this.Fraction, (byte)this.FractionRank);
-            await UserRepository.SetFractionRank(this.StaticId, fractionRank.Id);
-            this.RequiredExperience = fractionRank.RequiredExperienceToRankUp;
-            this.FractionRankName = fractionRank.Name;
+            this.RequiredExperience = setFractionResponse.TierRequiredExperience;
+            this.FractionRankName = setFractionResponse.TierName;
         }
 
         public async Task RankDown()
@@ -158,12 +168,22 @@ namespace Gamemode.Models.Player
                 return;
             }
 
-            this.FractionRank--;
-            FractionRank fractionRank = await UserRepository.GetFractionRankByFractionAndTier((byte)this.Fraction, (byte)this.FractionRank);
-            await UserRepository.SetFractionRank(this.StaticId, fractionRank.Id);
-            this.CurrentExperience = (short)(fractionRank.RequiredExperienceToRankUp - 1);
-            this.RequiredExperience = fractionRank.RequiredExperienceToRankUp;
-            this.FractionRankName = fractionRank.Name;
+            byte fractionRank = (byte)(this.FractionRank - 1);
+            SetFractionResponse setFractionResponse;
+
+            try
+            {
+                setFractionResponse = await ApiClient.ApiClient.SetFraction(this.StaticId, (byte)this.Fraction, fractionRank, this.StaticId);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
+            this.FractionRank = fractionRank;
+            this.CurrentExperience = (short)(setFractionResponse.TierRequiredExperience - 1);
+            this.RequiredExperience = setFractionResponse.TierRequiredExperience;
+            this.FractionRankName = setFractionResponse.TierName;
         }
 
         public void CustomGiveWeapon(WeaponHash weaponHash, int amount)
@@ -233,10 +253,10 @@ namespace Gamemode.Models.Player
             player.Fraction = null;
             IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
 
-            List<Weapon> weapons = new List<Weapon>();
+            List<Repositories.Models.Weapon> weapons = new List<Repositories.Models.Weapon>();
             foreach (WeaponHash weaponHash in player.InventoryWeapons.GetAllWeapons())
             {
-                weapons.Add(new Weapon(weaponHash, player.GetWeaponAmmo(weaponHash), player.StaticId));
+                weapons.Add(new Repositories.Models.Weapon(weaponHash, player.GetWeaponAmmo(weaponHash), player.StaticId));
             }
 
             await UserRepository.SaveUser(player.StaticId, weapons, player.CurrentExperience);

@@ -23,24 +23,6 @@ namespace Gamemode.Repository
             }
         }
 
-
-        public static async Task<FractionRank> GetFractionRankByFractionAndTier(byte fractionId, byte tier)
-        {
-            using (var db = new UserContext())
-            {
-                return await db.FractionRanks.FirstOrDefaultAsync(fr => fr.FractionId == fractionId && fr.Tier == tier);
-            }
-        }
-
-        public static async Task SetFractionRank(long userId, byte rankId)
-        {
-            using (var db = new UserContext())
-            {
-                await db.Database.ExecuteSqlRawAsync($"UPDATE users SET fraction_rank_id={rankId}, current_experience=0 WHERE id = {userId}");
-                await db.SaveChangesAsync();
-            }
-        }
-
         public static async Task<User?> GiveWeapon(long id, Weapon weapon)
         {
             using (var db = new UserContext())
