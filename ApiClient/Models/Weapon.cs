@@ -13,5 +13,12 @@ namespace Gamemode.ApiClient.Models
 
         [JsonProperty("amount")]
         public int Amount { get; set; }
+
+        public Weapon(long id, WeaponHash hash, int amount)
+        {
+            this.Id = id;
+            this.Hash = hash;
+            this.Amount = amount;
+        }
     }
 }

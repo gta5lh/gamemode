@@ -5,7 +5,6 @@
 namespace Gamemode.Models.Player
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Gamemode.ApiClient.Models;
     using Gamemode.Models.Admin;
@@ -252,11 +251,11 @@ namespace Gamemode.Models.Player
             player.Fraction = null;
             IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
 
-            List<Repositories.Models.Weapon> weapons = new List<Repositories.Models.Weapon>();
-            foreach (WeaponHash weaponHash in player.InventoryWeapons.GetAllWeapons())
-            {
-                weapons.Add(new Repositories.Models.Weapon(weaponHash, player.GetWeaponAmmo(weaponHash), player.StaticId));
-            }
+            //List<Weapon> weapons = new List<Weapon>();
+            //foreach (WeaponHash weaponHash in player.InventoryWeapons.GetAllWeapons())
+            //{
+            //    weapons.Add(new Weapon(weaponHash, player.GetWeaponAmmo(weaponHash), player.StaticId));
+            //}
 
             try
             {

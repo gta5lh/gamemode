@@ -6,10 +6,9 @@ namespace Gamemode
 {
     using System;
     using System.Threading.Tasks;
+    using Gamemode.ApiClient.Models;
     using Gamemode.Commands.Admin;
     using Gamemode.Models.Player;
-    using Gamemode.Repositories.Models;
-    using Gamemode.Repository;
     using GTANetworkAPI;
 
     public class WeaponCommand : BaseCommandHandler
@@ -60,12 +59,12 @@ namespace Gamemode
             }
             else
             {
-                targetUser = await UserRepository.GiveWeapon(targetStaticId, new Repositories.Models.Weapon(weaponHash, amount, targetStaticId));
-                if (targetUser == null)
-                {
-                    NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetStaticId} не найден"));
-                    return;
-                }
+                //targetUser = await UserRepository.GiveWeapon(targetStaticId, new Repositories.Models.Weapon(weaponHash, amount, targetStaticId));
+                //if (targetUser == null)
+                //{
+                //    NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetStaticId} не найден"));
+                //    return;
+                //}
             }
 
             NAPI.Task.Run(() =>
@@ -119,12 +118,12 @@ namespace Gamemode
             }
             else
             {
-                targetUser = await UserRepository.RemoveWeapon(targetStaticId, weaponHash);
-                if (targetUser == null)
-                {
-                    NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetStaticId} не найден"));
-                    return;
-                }
+                //targetUser = await UserRepository.RemoveWeapon(targetStaticId, weaponHash);
+                //if (targetUser == null)
+                //{
+                //    NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetStaticId} не найден"));
+                //    return;
+                //}
             }
 
             NAPI.Task.Run(() =>
