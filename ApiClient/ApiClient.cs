@@ -95,5 +95,41 @@ namespace Gamemode.ApiClient
 
             return JsonConvert.DeserializeObject<string>(response);
         }
+
+        public static async Task<string> BanUser(long userId, string reason, long bannedBy, DateTime bannedAt, DateTime bannedUntil)
+        {
+            BanUserRequest request = new BanUserRequest(reason, bannedBy, bannedAt, bannedUntil);
+
+            string json = JsonConvert.SerializeObject(request);
+            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/ban", data);
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<string>(response);
+        }
+
+        public static async Task<string> UnbanUser(long userId, long unbannedBy)
+        {
+            UnbanUserRequest request = new UnbanUserRequest(unbannedBy);
+
+            string json = JsonConvert.SerializeObject(request);
+            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/unban", data);
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<string>(response);
+        }
     }
 }

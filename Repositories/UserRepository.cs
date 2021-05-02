@@ -136,43 +136,6 @@ namespace Gamemode.Repository
             }
         }
 
-        public static async Task<User> Ban(long id, int duration, string reason, long bannedBy)
-        {
-            using (var db = new UserContext())
-            {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRankId == null);
-                if (user == null)
-                {
-                    return null;
-                }
-
-                user.BannedUntil = DateTime.UtcNow.AddMinutes(duration);
-                user.BannedAt = DateTime.UtcNow;
-                user.BanReason = reason;
-                user.BannedById = bannedBy;
-                await db.SaveChangesAsync();
-                return user;
-            }
-        }
-
-        public static async Task<User> Unban(long id)
-        {
-            using (var db = new UserContext())
-            {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id && u.AdminRankId == null && u.BannedUntil != null);
-                if (user == null)
-                {
-                    return null;
-                }
-
-                user.BannedUntil = null;
-                user.BannedAt = null;
-                user.BanReason = null;
-                user.BannedById = null;
-                await db.SaveChangesAsync();
-                return user;
-            }
-        }
         public static async Task<User> SetFraction(long id, byte fraction, byte rank)
         {
             using (var db = new UserContext())

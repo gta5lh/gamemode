@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Gamemode.Models.Player;
-using Gamemode.Repositories.Models;
-using Gamemode.Repository;
 using Gamemode.Utils;
 using GTANetworkAPI;
 
@@ -44,8 +42,17 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            User user = await UserRepository.Ban(staticId, duration, reason, admin.StaticId);
-            if (user == null)
+
+            DateTime bannedUntil = DateTime.UtcNow.AddDays(duration);
+            DateTime bannedAt = DateTime.UtcNow;
+
+            string targetName;
+
+            try
+            {
+                targetName = await ApiClient.ApiClient.BanUser(staticId, reason, admin.StaticId, bannedAt, bannedUntil);
+            }
+            catch (Exception)
             {
                 NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {staticId} не найден"));
                 return;
@@ -53,8 +60,8 @@ namespace Gamemode.Commands.Admin
 
             NAPI.Task.Run(() =>
             {
-                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал бан {user.Name} на {duration} дней. Причина: {reason}");
-                this.Logger.Warn($"Administrator {admin.Name} banned {user.Name} for {duration} days");
+                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал бан {targetName} на {duration} дней. Причина: {reason}");
+                this.Logger.Warn($"Administrator {admin.Name} banned {targetName} for {duration} days");
 
                 CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(staticId);
                 if (targetPlayer != null)
@@ -86,8 +93,13 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            User user = await UserRepository.Unban(staticId);
-            if (user == null)
+            string targetName;
+
+            try
+            {
+                targetName = await ApiClient.ApiClient.UnbanUser(staticId, admin.StaticId);
+            }
+            catch (Exception)
             {
                 NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {staticId} не найден, либо бан отсутствует"));
                 return;
@@ -95,8 +107,8 @@ namespace Gamemode.Commands.Admin
 
             NAPI.Task.Run(() =>
             {
-                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял бан {user.Name}");
-                this.Logger.Warn($"Administrator {admin.Name} unbanned {user.Name}");
+                Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял бан {targetName}");
+                this.Logger.Warn($"Administrator {admin.Name} unbanned {targetName}");
             });
         }
     }
