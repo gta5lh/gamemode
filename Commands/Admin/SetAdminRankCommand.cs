@@ -6,9 +6,9 @@ namespace Gamemode.Commands.Admin
 {
     using System;
     using System.Threading.Tasks;
+    using Gamemode.ApiClient.Models;
     using Gamemode.Models.Admin;
     using Gamemode.Models.Player;
-    using Gamemode.Repository;
     using Gamemode.Utils;
     using GTANetworkAPI;
 
@@ -40,8 +40,13 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            Repositories.Models.User targetUser = await UserRepository.GetAdminRankById(targetStaticId);
-            if (targetUser == null)
+            SetAdminRankResponse setAdminRankResponse;
+
+            try
+            {
+                setAdminRankResponse = await ApiClient.ApiClient.SetAdminRank(targetStaticId, adminRank, admin.StaticId);
+            }
+            catch (Exception)
             {
                 NAPI.Task.Run(() =>
                 {
@@ -51,17 +56,10 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            AdminRank adminRankBeforeUpdate = targetUser.AdminRankId != null ? (Models.Admin.AdminRank)targetUser.AdminRankId : 0;
+            AdminRank adminRankBeforeUpdate = setAdminRankResponse.RankBefore != null ? (Models.Admin.AdminRank)setAdminRankResponse.RankBefore : 0;
 
-            targetUser = await UserRepository.SetAdminRank(targetStaticId, adminRank);
             NAPI.Task.Run(() =>
             {
-                if (targetUser == null)
-                {
-                    admin.SendChatMessage($"Пользователь с static_id {targetStaticId} отсутствует");
-                    return;
-                }
-
                 CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(targetStaticId);
                 if (targetPlayer != null)
                 {
@@ -72,20 +70,20 @@ namespace Gamemode.Commands.Admin
 
                 if ((adminRankBeforeUpdate >= adminRank && adminRank != 0) || (adminRankBeforeUpdate == 0 && adminRank == 0))
                 {
-                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} сменил должность администратора {targetUser.Name} на {adminRank.ToPosition()}");
-                    this.Logger.Warn($"Administrator {admin.Name} set {targetUser.Name} as administrator [{adminRank}]");
+                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} сменил должность администратора {setAdminRankResponse.Name} на {adminRank.ToPosition()}");
+                    this.Logger.Warn($"Administrator {admin.Name} set {setAdminRankResponse.Name} as administrator [{adminRank}]");
                     return;
                 }
 
                 if (isNewRankAdmin)
                 {
-                    Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} назначил {targetUser.Name} на должность {adminRank.ToPosition()} администратор. Наши поздравления!");
-                    this.Logger.Warn($"Administrator {admin.Name} set {targetUser.Name} as administrator [{adminRank}]");
+                    Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} назначил {setAdminRankResponse.Name} на должность {adminRank.ToPosition()} администратор. Наши поздравления!");
+                    this.Logger.Warn($"Administrator {admin.Name} set {setAdminRankResponse.Name} as administrator [{adminRank}]");
                 }
                 else
                 {
-                    Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял {targetUser.Name} с должности администратора");
-                    this.Logger.Warn($"Administrator {admin.Name} removed {targetUser.Name} from administrators");
+                    Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял {setAdminRankResponse.Name} с должности администратора");
+                    this.Logger.Warn($"Administrator {admin.Name} removed {setAdminRankResponse.Name} from administrators");
                 }
             });
         }

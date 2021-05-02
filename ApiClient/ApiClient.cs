@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Gamemode.ApiClient.Models;
+using Gamemode.Models.Admin;
 using Newtonsoft.Json;
 
 namespace Gamemode.ApiClient
@@ -130,6 +131,24 @@ namespace Gamemode.ApiClient
             }
 
             return JsonConvert.DeserializeObject<string>(response);
+        }
+
+        public static async Task<SetAdminRankResponse> SetAdminRank(long userId, AdminRank rank, long setBy)
+        {
+            SetAdminRankRequest request = new SetAdminRankRequest(rank, setBy);
+
+            string json = JsonConvert.SerializeObject(request);
+            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/admin-rank", data);
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<SetAdminRankResponse>(response);
         }
     }
 }

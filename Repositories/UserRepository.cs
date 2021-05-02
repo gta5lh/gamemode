@@ -41,22 +41,6 @@ namespace Gamemode.Repository
             }
         }
 
-        public static async Task<Repositories.Models.User> SetAdminRank(long id, Models.Admin.AdminRank rank)
-        {
-            using (var db = new UserContext())
-            {
-                Repositories.Models.User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
-                if (user == null)
-                {
-                    return null;
-                }
-
-                user.AdminRankId = rank != 0 ? (byte?)rank : null;
-                await db.SaveChangesAsync();
-                return user;
-            }
-        }
-
         public static async Task<User?> GiveWeapon(long id, Weapon weapon)
         {
             using (var db = new UserContext())
