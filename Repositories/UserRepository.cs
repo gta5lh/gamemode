@@ -120,40 +120,6 @@ namespace Gamemode.Repository
             }
         }
 
-        public static async Task<User> SetFraction(long id, byte fraction, byte rank)
-        {
-            using (var db = new UserContext())
-            {
-                User user = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
-                if (user == null)
-                {
-                    return null;
-                }
-
-                if (fraction != 0)
-                {
-                    FractionRank fractionRank = await db.FractionRanks.FirstOrDefaultAsync(f => f.FractionId == fraction && f.Tier == rank);
-                    if (fractionRank == null)
-                    {
-                        return null;
-                    }
-
-                    user.FractionId = fraction;
-                    user.FractionRankId = fractionRank.Id;
-                }
-                else
-                {
-                    user.FractionId = null;
-                    user.FractionRankId = null;
-                    user.Fraction = null;
-                    user.FractionRank = null;
-                }
-
-                await db.SaveChangesAsync();
-                return user;
-            }
-        }
-
         public static void Ping()
         {
             using var db = new UserContext();

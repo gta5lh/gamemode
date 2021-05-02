@@ -150,5 +150,23 @@ namespace Gamemode.ApiClient
 
             return JsonConvert.DeserializeObject<SetAdminRankResponse>(response);
         }
+
+        public static async Task<SetFractionResponse> SetFraction(long userId, short fraction, short tier, long setBy)
+        {
+            SetFractionRequest request = new SetFractionRequest(fraction, tier, setBy);
+
+            string json = JsonConvert.SerializeObject(request);
+            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/fraction", data);
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<SetFractionResponse>(response);
+        }
     }
 }

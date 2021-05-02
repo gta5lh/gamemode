@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Gamemode.ApiClient.Models;
 using Gamemode.Models.Gangs;
 using Gamemode.Models.Player;
-using Gamemode.Repositories.Models;
-using Gamemode.Repository;
 using GTANetworkAPI;
 
 namespace Gamemode.Commands.Admin
@@ -38,8 +37,13 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            User user = await UserRepository.SetFraction(staticId, fractionId, rankId);
-            if (user == null)
+            SetFractionResponse setFractionResponse;
+
+            try
+            {
+                setFractionResponse = await ApiClient.ApiClient.SetFraction(staticId, fractionId, rankId, admin.StaticId);
+            }
+            catch (Exception)
             {
                 NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {staticId} не найден"));
                 return;
@@ -49,24 +53,24 @@ namespace Gamemode.Commands.Admin
             {
                 if (fractionId != 0)
                 {
-                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} сменил фракцию {user.Name} на ID={user.FractionId}, ранг={user.FractionRank.Tier}");
-                    this.Logger.Warn($"Administrator {admin.Name} set fraction of {user.Name} to Fraction={user.FractionId}. Tier={user.FractionRank.Tier}");
+                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} сменил фракцию {setFractionResponse.Name} на ID={fractionId}, ранг={rankId}");
+                    this.Logger.Warn($"Administrator {admin.Name} set fraction of {setFractionResponse.Name} to ID={fractionId}. Tier={rankId}");
                 }
                 else
                 {
-                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} убрал из фракции {user.Name}");
-                    this.Logger.Warn($"Administrator {admin.Name} unset fraction of {user.Name}");
+                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} убрал из фракции {setFractionResponse.Name}");
+                    this.Logger.Warn($"Administrator {admin.Name} unset fraction of {setFractionResponse.Name}");
                 }
 
                 CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(staticId);
                 if (targetPlayer != null)
                 {
-                    targetPlayer.Fraction = user.FractionId;
-                    targetPlayer.FractionRank = user.FractionRank != null ? (byte?)user.FractionRank.Tier : null;
-                    targetPlayer.FractionRankName = user.FractionRank != null ? user.FractionRank.Name : null;
-                    targetPlayer.RequiredExperience = user.FractionRank != null ? (short?)user.FractionRank.RequiredExperienceToRankUp : null;
+                    targetPlayer.Fraction = fractionId != 0 ? (byte?)fractionId : null;
+                    targetPlayer.FractionRank = fractionId != 0 ? (byte?)rankId : null;
+                    targetPlayer.FractionRankName = setFractionResponse.TierName != null ? setFractionResponse.TierName : null;
+                    targetPlayer.RequiredExperience = setFractionResponse.TierRequiredExperience != null ? (short?)setFractionResponse.TierRequiredExperience : null;
                     targetPlayer.CurrentExperience = 0;
-                    targetPlayer.SetClothes(Clothes.GangClothes[user.FractionId != null ? (byte)user.FractionId : (byte)0]);
+                    targetPlayer.SetClothes(Clothes.GangClothes[fractionId]);
                 }
             });
         }
