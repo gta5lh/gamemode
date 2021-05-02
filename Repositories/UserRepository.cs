@@ -15,14 +15,6 @@ namespace Gamemode.Repository
     public class UserRepository
     {
 
-        public static async Task<Repositories.Models.User> GetAdminRankById(long id)
-        {
-            using (var db = new UserContext())
-            {
-                return await db.Users.Select(u => new Repositories.Models.User { Id = u.Id, AdminRankId = u.AdminRankId }).FirstOrDefaultAsync(u => u.Id == id);
-            }
-        }
-
         public static async Task<User?> GiveWeapon(long id, Weapon weapon)
         {
             using (var db = new UserContext())

@@ -10,7 +10,6 @@ namespace Gamemode.Models.Player
     using Gamemode.ApiClient.Models;
     using Gamemode.Models.Admin;
     using Gamemode.Models.Gangs;
-    using Gamemode.Repository;
     using GTANetworkAPI;
 
     public class CustomPlayer : Player
@@ -259,7 +258,14 @@ namespace Gamemode.Models.Player
                 weapons.Add(new Repositories.Models.Weapon(weaponHash, player.GetWeaponAmmo(weaponHash), player.StaticId));
             }
 
-            await UserRepository.SaveUser(player.StaticId, weapons, player.CurrentExperience);
+            try
+            {
+                await ApiClient.ApiClient.SaveUser(player.StaticId, player.CurrentExperience);
+            }
+            catch (Exception)
+            {
+            }
+
             Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
         }
     }
