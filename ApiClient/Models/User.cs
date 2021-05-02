@@ -40,7 +40,10 @@ namespace Gamemode.ApiClient.Models
         public byte? FractionId { get; set; }
 
         [JsonProperty("fraction_rank")]
-        public FractionRank? FractionRank { get; set; }
+        public FractionRank FractionRank { get; set; }
+
+        [JsonProperty("fraction_rank_id")]
+        public short? FractionRankId { get; set; }
 
         [JsonProperty("experience")]
         public short Experience { get; set; }

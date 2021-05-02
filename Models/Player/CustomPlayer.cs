@@ -202,15 +202,15 @@ namespace Gamemode.Models.Player
             player.AdminRank = user.AdminRankId != null ? (Models.Admin.AdminRank)user.AdminRankId : 0;
             player.MuteState = new MuteState(user.MutedUntil, user.MutedById, user.MuteReason);
             player.Fraction = user.FractionId;
-            player.FractionRank = user.FractionRank != null ? (byte?)user.FractionRank.Tier : null;
-            player.FractionRankName = user.FractionRank != null ? user.FractionRank.Name : null; ;
+            player.FractionRank = user.FractionRank.Tier;
+            player.FractionRankName = user.FractionRank.Name;
             player.InventoryWeapons = new InventoryWeapons();
             player.CurrentExperience = user.Experience;
-            player.RequiredExperience = user.FractionRank != null ? (short?)user.FractionRank.RequiredExperience : null;
+            player.RequiredExperience = user.FractionRank.RequiredExperience;
 
-            if (user.FractionRank != null)
+            if (user.FractionRankId != null)
             {
-                player.SetClothes(Clothes.GangClothes[(byte)user.FractionRank.Id]);
+                player.SetClothes(Clothes.GangClothes[(byte)user.FractionRankId]);
             }
 
             if (user.Weapons != null)
