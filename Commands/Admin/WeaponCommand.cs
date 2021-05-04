@@ -46,10 +46,12 @@ namespace Gamemode
                 return;
             }
 
-            User? targetUser = null;
+            string targetName = "";
             CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(targetStaticId);
+
             if (targetPlayer != null)
             {
+                targetName = targetPlayer.Name;
                 targetPlayer.CustomGiveWeapon(weaponHash, amount);
 
                 if (targetPlayer.StaticId != admin.StaticId)
@@ -59,17 +61,19 @@ namespace Gamemode
             }
             else
             {
-                //targetUser = await UserRepository.GiveWeapon(targetStaticId, new Repositories.Models.Weapon(weaponHash, amount, targetStaticId));
-                //if (targetUser == null)
-                //{
-                //    NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetStaticId} не найден"));
-                //    return;
-                //}
+                try
+                {
+                    targetName = await ApiClient.ApiClient.GiveWeapon(targetStaticId, weaponHash, amount, admin.StaticId);
+                }
+                catch (Exception)
+                {
+                    NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetStaticId} не найден"));
+                    return;
+                }
             }
 
             NAPI.Task.Run(() =>
             {
-                string targetName = targetPlayer == null ? targetUser.Name : targetPlayer.Name;
                 AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} выдал оружие {targetName}. Название: {weaponName}. Кол-во патрон: {amount}");
                 this.Logger.Warn($"Administrator {admin.Name} gave weapon to {targetName}. Name: {weaponName}. Amount: {amount}");
             });

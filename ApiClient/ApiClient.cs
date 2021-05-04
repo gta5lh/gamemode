@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Gamemode.ApiClient.Models;
 using Gamemode.Models.Admin;
+using GTANetworkAPI;
 using Newtonsoft.Json;
 
 namespace Gamemode.ApiClient
@@ -183,6 +184,24 @@ namespace Gamemode.ApiClient
             {
                 throw new System.Exception(response);
             }
+        }
+
+        public static async Task<string> GiveWeapon(long userId, WeaponHash weaponHash, int amount, long givenBy)
+        {
+            GiveWeaponRequest request = new GiveWeaponRequest(weaponHash, amount, givenBy);
+
+            string json = JsonConvert.SerializeObject(request);
+            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/give-weapon", data);
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<string>(response);
         }
     }
 }
