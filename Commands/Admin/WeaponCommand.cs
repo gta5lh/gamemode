@@ -6,7 +6,6 @@ namespace Gamemode
 {
     using System;
     using System.Threading.Tasks;
-    using Gamemode.ApiClient.Models;
     using Gamemode.Commands.Admin;
     using Gamemode.Models.Player;
     using GTANetworkAPI;
@@ -110,11 +109,14 @@ namespace Gamemode
                 return;
             }
 
-            User? targetUser = null;
+            string targetName = "";
             CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(targetStaticId);
+
             if (targetPlayer != null)
             {
+                targetName = targetPlayer.Name;
                 targetPlayer.CustomRemoveWeapon(weaponHash);
+
                 if (targetPlayer.StaticId != admin.StaticId)
                 {
                     targetPlayer.SendChatMessage($"Администратор {admin.Name} [{admin.StaticId}] забрал ваше оружие. Название: {weaponName}");
@@ -122,17 +124,19 @@ namespace Gamemode
             }
             else
             {
-                //targetUser = await UserRepository.RemoveWeapon(targetStaticId, weaponHash);
-                //if (targetUser == null)
-                //{
-                //    NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetStaticId} не найден"));
-                //    return;
-                //}
+                try
+                {
+                    targetName = await ApiClient.ApiClient.RemoveWeapon(targetStaticId, weaponHash, admin.StaticId);
+                }
+                catch (Exception)
+                {
+                    NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {targetStaticId} не найден"));
+                    return;
+                }
             }
 
             NAPI.Task.Run(() =>
             {
-                string targetName = targetPlayer == null ? targetUser.Name : targetPlayer.Name;
                 AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} забрал оружие у {targetName}. Название: {weaponName}");
                 this.Logger.Warn($"Administrator {admin.Name} removed weapon from {targetName}. Name: {weaponName}");
             });
