@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -170,9 +171,9 @@ namespace Gamemode.ApiClient
             return JsonConvert.DeserializeObject<SetFractionResponse>(response);
         }
 
-        public static async Task SaveUser(long userId, short experience)
+        public static async Task SaveUser(long userId, short experience, ICollection<Weapon>? weapons)
         {
-            SaveUserRequest request = new SaveUserRequest(experience);
+            SaveUserRequest request = new SaveUserRequest(experience, weapons);
 
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
