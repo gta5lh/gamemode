@@ -122,6 +122,9 @@ namespace Gamemode
             TheFamilies.Spawn,
             Vagos.Spawn,
             Marabunta.Spawn,
+            PlayerSpawns.SpawnPositions[0],
+            PlayerSpawns.SpawnPositions[1],
+            PlayerSpawns.SpawnPositions[2],
         };
 
         private const string TeleportLocationCommandUsage = "Использование: /tpl {location_id}. Пример: [/tpl 0]";
@@ -150,7 +153,7 @@ namespace Gamemode
 
             if (locationId < 0 || locationId >= spawns.Length)
             {
-                admin.SendChatMessage($"Максимальный ID локации = {spawns.Length-1}");
+                admin.SendChatMessage($"Максимальный ID локации = {spawns.Length - 1}");
                 return;
             }
 
