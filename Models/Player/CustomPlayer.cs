@@ -211,7 +211,7 @@ namespace Gamemode.Models.Player
             Logger.Info($"Player mute has expired. ID={this.StaticId}");
         }
 
-        public static CustomPlayer LoadPlayerCache(CustomPlayer player, ApiClient.Models.User user)
+        public static CustomPlayer LoadPlayerCache(CustomPlayer player, User user)
         {
             IdsCache.LoadIdsToCache(player.Id, user.Id);
             player.StaticId = user.Id;
