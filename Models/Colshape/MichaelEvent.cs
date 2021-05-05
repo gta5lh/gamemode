@@ -10,11 +10,22 @@ namespace Gamemode.Colshape
     {
         public void OnEntityEnterColShape(ColShape shape, Player player)
         {
+
+            if (PlayerUtil.GetById(player.Id).Fraction != null)
+            {
+                return;
+            }
+
             NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", true);
         }
 
         public void OnEntityExitColShape(ColShape shape, Player player)
         {
+            if (PlayerUtil.GetById(player.Id).Fraction != null)
+            {
+                return;
+            }
+
             NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", false);
         }
     }

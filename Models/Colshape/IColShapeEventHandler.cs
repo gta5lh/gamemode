@@ -1,4 +1,4 @@
-// <copyright file="IColShapeEnterEvent.cs" company="lbyte00">
+﻿// <copyright file="IColShapeEnterEvent.cs" company="lbyte00">
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
