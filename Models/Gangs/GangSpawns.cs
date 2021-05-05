@@ -14,5 +14,14 @@ namespace Gamemode.Models.Gangs
             { 4, Vagos.Spawn},
             { 5, Marabunta.Spawn}
         };
+
+        public static readonly Dictionary<string, Spawn> SpawnByGangName = new Dictionary<string, Spawn>()
+        {
+            { "bloods", Bloods.Spawn},
+            { "ballas", Ballas.Spawn},
+            { "the_families", TheFamilies.Spawn},
+            { "vagos", Vagos.Spawn},
+            { "marabunta", Marabunta.Spawn}
+        };
     }
 }
