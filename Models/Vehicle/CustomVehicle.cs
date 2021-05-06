@@ -4,7 +4,7 @@
 
     public class CustomVehicle : Vehicle
     {
-        public long OwnerPlayerId { get; set; }
+        public ushort OwnerPlayerId { get; set; }
 
         public CustomVehicle(NetHandle handle)
 : base(handle)
