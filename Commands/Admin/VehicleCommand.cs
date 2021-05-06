@@ -113,7 +113,7 @@ namespace Gamemode
                 return;
             }
 
-            CustomPlayer vehicleOwner = PlayerUtil.GetByStaticId(vehicle.OwnerPlayerId);
+            CustomPlayer vehicleOwner = PlayerUtil.GetById(vehicle.OwnerPlayerId);
             if (vehicleOwner != null)
             {
                 vehicleOwner.SpawnNpcVehicleId = null;
