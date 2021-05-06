@@ -12,7 +12,7 @@ namespace Gamemode
     {
         public string Name { get; set; }
 
-        public Color Color { get; set; }
+        public Color GangColor { get; set; }
 
         public byte BlipColor { get; set; }
 

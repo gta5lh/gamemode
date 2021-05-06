@@ -1,34 +1,46 @@
-// <copyright file="GangUtil.cs" company="lbyte00">
+﻿// <copyright file="GangUtil.cs" company="lbyte00">
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
+
+using System.Collections.Generic;
+using GTANetworkAPI;
 
 namespace Gamemode
 {
     public static class GangUtil
     {
-        public const string Ballas = "Ballas";
-        public const string Bloods = "Bloods";
-        public const string Marabunta = "Marabunta";
-        public const string TheFamilies = "TheFamilies";
-        public const string Vagos = "Vagos";
+        public static readonly Dictionary<string, Color> GangColorByName = new Dictionary<string, Color>()
+        {
+            { "ballas", Ballas.Color},
+            { "bloods", Bloods.Color},
+            { "marabunta", Marabunta.Color},
+            { "the_families", TheFamilies.Color},
+            { "vagos", Vagos.Color},
+        };
+
+        public const string BallasName = "Ballas";
+        public const string BloodsName = "Bloods";
+        public const string MarabuntaName = "Marabunta";
+        public const string TheFamiliesName = "TheFamilies";
+        public const string VagosName = "Vagos";
 
         public static string ChatColorFromGangName(string gangName)
         {
             switch (gangName)
             {
-                case Ballas:
+                case BallasName:
                     return "~p~";
 
-                case Bloods:
+                case BloodsName:
                     return "~q~";
 
-                case Marabunta:
+                case MarabuntaName:
                     return "~b~";
 
-                case TheFamilies:
+                case TheFamiliesName:
                     return "~g~";
 
-                case Vagos:
+                case VagosName:
                     return "~y~";
             }
 
