@@ -35,7 +35,11 @@ namespace Gamemode
             }
 
             Color randomColor = new Color(this.random.Next(0, 255), this.random.Next(0, 255), this.random.Next(0, 255));
-            Vehicle vehicle = NAPI.Vehicle.CreateVehicle(vehicleHash, admin.Position, admin.Rotation.Z, randomColor.ToInt32(), randomColor.ToInt32(), "ADM");
+            Vehicle vehicle = NAPI.Vehicle.CreateVehicle(vehicleHash, admin.Position, admin.Rotation.Z, 0, 0, "ADM");
+            vehicle.CustomPrimaryColor = randomColor;
+            vehicle.CustomSecondaryColor = randomColor;
+            vehicle.Rotation = new Vector3(0, 0, admin.Heading);
+
             admin.SetIntoVehicle(vehicle, 0);
 
             string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, vehicleName);
