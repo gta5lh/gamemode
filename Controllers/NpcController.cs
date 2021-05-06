@@ -39,6 +39,16 @@ namespace Gamemode.Controllers
             NAPI.ClientEvent.TriggerClientEvent(player, "CreateWaypoint", markerLocation.Position.X, markerLocation.Position.Y);
         }
 
+        [ServerEvent(Event.PlayerDisconnected)]
+        private void OnPlayerDisconnected(CustomPlayer player, DisconnectionType type, string reason)
+        {
+            if (player.SpawnNpcVehicleId == null)
+            {
+                return;
+            }
+
+            VehicleUtil.GetById(player.SpawnNpcVehicleId.Value).Delete();
+        }
     }
 
     public class PlayerSelectedGangRequest
