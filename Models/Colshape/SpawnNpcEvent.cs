@@ -6,8 +6,15 @@ namespace Gamemode.Colshape
 {
     using GTANetworkAPI;
 
-    public class MichaelEvent : IColShapeEventHandler
+    public class SpawnNpcEvent : IColShapeEventHandler
     {
+        private string NpcName;
+
+        public SpawnNpcEvent(string npcName)
+        {
+            NpcName = npcName;
+        }
+
         public void OnEntityEnterColShape(ColShape shape, Player player)
         {
 
@@ -16,7 +23,7 @@ namespace Gamemode.Colshape
                 return;
             }
 
-            NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", true);
+            NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", true, this.NpcName);
         }
 
         public void OnEntityExitColShape(ColShape shape, Player player)
@@ -26,7 +33,7 @@ namespace Gamemode.Colshape
                 return;
             }
 
-            NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", false);
+            NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", false, this.NpcName);
         }
     }
 }
