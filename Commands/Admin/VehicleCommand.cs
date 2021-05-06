@@ -8,6 +8,7 @@ namespace Gamemode
     using Gamemode.Commands.Admin;
     using Gamemode.Models.Admin;
     using Gamemode.Models.Player;
+    using Gamemode.Models.Vehicle;
     using GTANetworkAPI;
 
     public class VehicleCommand : BaseCommandHandler
@@ -105,11 +106,17 @@ namespace Gamemode
                 return;
             }
 
-            Vehicle vehicle = VehicleUtil.GetById(vehicleId);
+            CustomVehicle vehicle = (CustomVehicle)VehicleUtil.GetById(vehicleId);
             if (vehicle == null)
             {
                 admin.SendChatMessage($"Автомобиль с ID {vehicleId} не найден");
                 return;
+            }
+
+            CustomPlayer vehicleOwner = PlayerUtil.GetByStaticId(vehicle.OwnerPlayerId);
+            if (vehicleOwner != null)
+            {
+                vehicleOwner.SpawnNpcVehicleId = null;
             }
 
             vehicle.Delete();

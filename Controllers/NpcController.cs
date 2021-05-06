@@ -1,6 +1,7 @@
 ﻿using Gamemode.Models.Gangs;
 using Gamemode.Models.Player;
 using Gamemode.Models.Spawn;
+using Gamemode.Models.Vehicle;
 using GTANetworkAPI;
 using Newtonsoft.Json;
 
@@ -29,7 +30,8 @@ namespace Gamemode.Controllers
                 VehicleUtil.GetById(player.SpawnNpcVehicleId.Value).Delete();
             }
 
-            Vehicle vehicle = NAPI.Vehicle.CreateVehicle(VehicleHash.Voodoo2, vehicleSpawnLocation.Position, vehicleSpawnLocation.Heading, 0, 0, "NEWBIE");
+            CustomVehicle vehicle = (CustomVehicle)NAPI.Vehicle.CreateVehicle(VehicleHash.Voodoo2, vehicleSpawnLocation.Position, vehicleSpawnLocation.Heading, 0, 0, "NEWBIE");
+            vehicle.OwnerPlayerId = player.Id;
             vehicle.CustomPrimaryColor = gangColor;
             vehicle.CustomSecondaryColor = gangColor;
             vehicle.Rotation = new Vector3(0, 0, vehicleSpawnLocation.Heading);

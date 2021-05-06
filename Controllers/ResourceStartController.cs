@@ -6,6 +6,7 @@ namespace Gamemode
     using System;
     using Gamemode.Models.Npc;
     using Gamemode.Models.Player;
+    using Gamemode.Models.Vehicle;
     using GTANetworkAPI;
     using Microsoft.Extensions.Caching.Memory;
     using NLog.Extensions.Logging;
@@ -21,6 +22,7 @@ namespace Gamemode
             SpawnNpcs.CreateSpawnNpcs();
 
             RAGE.Entities.Players.CreateEntity = (NetHandle handle) => new CustomPlayer(handle);
+            RAGE.Entities.Vehicles.CreateEntity = (NetHandle handle) => new CustomVehicle(handle);
 
             Cache = new MemoryCache(new MemoryCacheOptions { }, new NLogLoggerFactory());
         }
