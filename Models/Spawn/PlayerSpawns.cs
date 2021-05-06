@@ -15,7 +15,7 @@ namespace Gamemode.Models.Spawn
         public static readonly Dictionary<string, Spawn> VehicleSpawnByNpcName = new Dictionary<string, Spawn>()
         {
             { "michael", new Spawn(new Vector3(-390.25, 1189.7, 325.15), 101)},
-            { "franklin", new Spawn(new Vector3(415.8, -643.9, 27.8), 66)},
+            { "franklin", new Spawn(new Vector3(416.26, -644.19, 27.975), -99.1f)},
             { "trevor", new Spawn(new Vector3(-1033, -2730, 19.62), -120.16f)},
         };
     }
