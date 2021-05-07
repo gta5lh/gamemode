@@ -45,6 +45,9 @@ namespace Gamemode.ApiClient.Models
         [JsonProperty("fraction_rank_id")]
         public short? FractionRankId { get; set; }
 
+        [JsonProperty("money")]
+        public long Money { get; set; }
+
         [JsonProperty("experience")]
         public short Experience { get; set; }
 

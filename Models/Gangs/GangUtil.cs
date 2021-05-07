@@ -18,6 +18,20 @@ namespace Gamemode
             { "vagos", Vagos.Color},
         };
 
+        public static readonly Dictionary<byte, long> RewardByRank = new Dictionary<byte, long>()
+        {
+            { 1, 10},
+            { 2, 20},
+            { 3, 30},
+            { 4, 40},
+            { 5, 50},
+            { 6, 60},
+            { 7, 70},
+            { 8, 80},
+            { 9, 90},
+            { 10, 100},
+        };
+
         public const string BallasName = "Ballas";
         public const string BloodsName = "Bloods";
         public const string MarabuntaName = "Marabunta";

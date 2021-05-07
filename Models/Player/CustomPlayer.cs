@@ -43,6 +43,8 @@ namespace Gamemode.Models.Player
         public short CurrentExperience { get; set; }
         public short? RequiredExperience { get; set; }
 
+        public long Money { get; set; }
+
 
         public bool Freezed { get; set; }
 
@@ -224,6 +226,7 @@ namespace Gamemode.Models.Player
             player.MuteState = new MuteState(user.MutedUntil, user.MutedById, user.MuteReason);
             player.InventoryWeapons = new InventoryWeapons();
             player.CurrentExperience = user.Experience;
+            player.Money = user.Money;
 
             if (user.FractionRank != null)
             {
@@ -262,7 +265,7 @@ namespace Gamemode.Models.Player
 
             try
             {
-                await ApiClient.ApiClient.SaveUser(player.StaticId, player.CurrentExperience, weapons);
+                await ApiClient.ApiClient.SaveUser(player.StaticId, player.CurrentExperience, weapons, player.Money);
             }
             catch (Exception)
             {

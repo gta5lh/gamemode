@@ -21,7 +21,6 @@
 
             if (killer.Fraction == null)
             {
-
                 // TODO: Punish if newby killed gang member?
                 return;
             }

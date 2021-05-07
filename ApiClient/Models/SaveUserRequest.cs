@@ -11,10 +11,14 @@ namespace Gamemode.ApiClient.Models
         [JsonProperty("weapons")]
         public ICollection<Weapon>? Weapons { get; set; }
 
-        public SaveUserRequest(short experience, ICollection<Weapon>? weapons)
+        [JsonProperty("money")]
+        public long Money { get; set; }
+
+        public SaveUserRequest(short experience, ICollection<Weapon>? weapons, long money)
         {
             this.Experience = experience;
             this.Weapons = weapons;
+            this.Money = money;
         }
     }
 }

@@ -171,9 +171,9 @@ namespace Gamemode.ApiClient
             return JsonConvert.DeserializeObject<SetFractionResponse>(response);
         }
 
-        public static async Task SaveUser(long userId, short experience, ICollection<Weapon>? weapons)
+        public static async Task SaveUser(long userId, short experience, ICollection<Weapon>? weapons, long money)
         {
-            SaveUserRequest request = new SaveUserRequest(experience, weapons);
+            SaveUserRequest request = new SaveUserRequest(experience, weapons, money);
 
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
