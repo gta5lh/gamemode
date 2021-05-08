@@ -2,6 +2,7 @@
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
+using Gamemode.Models.Player;
 using GTANetworkAPI;
 
 namespace Gamemode.Colshape
@@ -9,15 +10,21 @@ namespace Gamemode.Colshape
     public class GangNpcEvent : IColShapeEventHandler
     {
         private string NpcName;
+        private byte FractionId;
 
-        public GangNpcEvent(string npcName)
+        public GangNpcEvent(string npcName, byte fractionId)
         {
             this.NpcName = npcName;
+            this.FractionId = fractionId;
         }
 
         public void OnEntityEnterColShape(ColShape shape, Player player)
         {
             string state = this.State(player);
+            if (state == string.Empty)
+            {
+                return;
+            }
 
             NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", true, this.NpcName, state);
         }
@@ -25,20 +32,28 @@ namespace Gamemode.Colshape
         public void OnEntityExitColShape(ColShape shape, Player player)
         {
             string state = this.State(player);
+            if (state == string.Empty)
+            {
+                return;
+            }
 
             NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", false, this.NpcName, state);
         }
 
         private string State(Player player)
         {
-            string state = "join";
-
-            if (PlayerUtil.GetById(player.Id).Fraction != null)
+            CustomPlayer customPlayer = PlayerUtil.GetById(player.Id);
+            if (customPlayer.Fraction == null)
             {
-                state = "leave";
+                return "join";
             }
 
-            return state;
+            if (customPlayer.Fraction.Value != this.FractionId)
+            {
+                return string.Empty;
+            }
+
+            return "leave";
         }
     }
 }

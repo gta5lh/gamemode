@@ -9,13 +9,19 @@ namespace Gamemode
 {
     public static class GangUtil
     {
+        public static readonly byte NpcIdBloods = 1;
+        public static readonly byte NpcIdBallas = 2;
+        public static readonly byte NpcIdTheFamilies = 3;
+        public static readonly byte NpcIdVagos = 4;
+        public static readonly byte NpcIdMarabunta = 5;
+
         public static readonly Dictionary<string, byte> GangIdByName = new Dictionary<string, byte>()
         {
-            { "bloods", 1},
-            { "ballas", 2},
-            { "the_families", 3},
-            { "vagos", 4},
-            { "marabunta", 5},
+            { "bloods", NpcIdBloods},
+            { "ballas", NpcIdBallas},
+            { "the_families", NpcIdTheFamilies},
+            { "vagos", NpcIdVagos},
+            { "marabunta", NpcIdMarabunta},
         };
 
         public static readonly Dictionary<string, Color> GangColorByName = new Dictionary<string, Color>()

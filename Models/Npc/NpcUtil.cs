@@ -6,10 +6,10 @@
         public static readonly string NpcMichael = "michael";
         public static readonly string NpcFranklin = "franklin";
 
-        public static readonly string NpcBallas = "ballas";
-        public static readonly string NpcBloods = "bloods";
-        public static readonly string NpcMarabunta = "marabunta";
-        public static readonly string NpcTheFamilies = "the_families";
-        public static readonly string NpcVagos = "vagos";
+        public static readonly string NpcNameBallas = "ballas";
+        public static readonly string NpcNameBloods = "bloods";
+        public static readonly string NpcNameMarabunta = "marabunta";
+        public static readonly string NpcNameTheFamilies = "the_families";
+        public static readonly string NpcNameVagos = "vagos";
     }
 }
