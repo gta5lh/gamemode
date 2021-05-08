@@ -24,6 +24,8 @@ namespace Gamemode.Models.Player
         {
         }
 
+        public DateTime? LoggedInAt { get; set; }
+
         public MuteState? MuteState { get; set; }
 
         public string ChatColor { get; set; }
@@ -227,6 +229,7 @@ namespace Gamemode.Models.Player
             player.InventoryWeapons = new InventoryWeapons();
             player.CurrentExperience = user.Experience;
             player.Money = user.Money;
+            player.LoggedInAt = DateTime.UtcNow;
 
             if (user.FractionRank != null)
             {

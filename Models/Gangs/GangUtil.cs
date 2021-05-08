@@ -32,6 +32,20 @@ namespace Gamemode
             { 10, 100},
         };
 
+        public static readonly Dictionary<byte, long> SalaryByRank = new Dictionary<byte, long>()
+        {
+            { 1, 400},
+            { 2, 500},
+            { 3, 600},
+            { 4, 700},
+            { 5, 800},
+            { 6, 900},
+            { 7, 1000},
+            { 8, 1500},
+            { 9, 2000},
+            { 10, 2500},
+        };
+
         public const string BallasName = "Ballas";
         public const string BloodsName = "Bloods";
         public const string MarabuntaName = "Marabunta";
