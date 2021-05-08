@@ -9,6 +9,15 @@ namespace Gamemode
 {
     public static class GangUtil
     {
+        public static readonly Dictionary<string, byte> GangIdByName = new Dictionary<string, byte>()
+        {
+            { "bloods", 1},
+            { "ballas", 2},
+            { "the_families", 3},
+            { "vagos", 4},
+            { "marabunta", 5},
+        };
+
         public static readonly Dictionary<string, Color> GangColorByName = new Dictionary<string, Color>()
         {
             { "ballas", Ballas.Color},

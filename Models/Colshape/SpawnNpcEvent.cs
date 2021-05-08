@@ -12,8 +12,9 @@ namespace Gamemode.Colshape
 
         public SpawnNpcEvent(string npcName)
         {
-            NpcName = npcName;
+            this.NpcName = npcName;
         }
+
 
         public void OnEntityEnterColShape(ColShape shape, Player player)
         {
