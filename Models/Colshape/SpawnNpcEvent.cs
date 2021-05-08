@@ -16,7 +16,6 @@ namespace Gamemode.Colshape
             this.NpcName = npcName;
         }
 
-
         public void OnEntityEnterColShape(ColShape shape, Player player)
         {
             CustomPlayer customPlayer = (CustomPlayer)player;
