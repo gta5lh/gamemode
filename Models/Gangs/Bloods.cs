@@ -11,6 +11,7 @@ namespace Gamemode
 
     public class Bloods : Gang
     {
+        public static readonly Spawn CarSpawn = new Spawn(new Vector3(489, -1313, 29.26), -74.2f);
         public static readonly Spawn Spawn = new Spawn(new Vector3(490, -1335, 29), -45f);
         public static readonly Color Color = new Color(138, 3, 3);
 
@@ -19,8 +20,7 @@ namespace Gamemode
             this.Name = "Bloods";
             this.GangColor = Color;
             this.PlayerSpawn = Spawn;
-            this.CarMarker = new Marker(new Vector3(487, -1314, 29.2), this.GangColor, (MarkerType)36, "Car", new CarSelectionEvent());
-            this.CarSpawn = new Spawn(new Vector3(489, -1313, 29.26), -74.2f);
+            this.CarMarker = new Marker(new Vector3(487, -1314, 29.2), this.GangColor, (MarkerType)36, "Car", new CarSelectionEvent(GangUtil.NpcIdBloods));
             this.ItemMarker = new Marker(new Vector3(502, -1339, 29.26), this.GangColor, (MarkerType)41, "Weapon", new ItemSelectionEvent());
             this.Npc = new Npc(new Vector3(499, -1326.3, 29.33), 87.4f, "Старший", PedHash.PartyTarget, new Colshape.GangNpcEvent(NpcUtil.NpcNameBloods, GangUtil.NpcIdBloods));
             this.BlipColor = 75;

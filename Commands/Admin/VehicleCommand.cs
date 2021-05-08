@@ -116,7 +116,7 @@ namespace Gamemode
             CustomPlayer vehicleOwner = PlayerUtil.GetById(vehicle.OwnerPlayerId);
             if (vehicleOwner != null)
             {
-                vehicleOwner.SpawnNpcVehicleId = null;
+                vehicleOwner.OneTimeVehicleId = null;
             }
 
             vehicle.Delete();

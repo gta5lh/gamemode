@@ -42,13 +42,13 @@ namespace Gamemode.Colshape
 
         private string State(Player player)
         {
-            CustomPlayer customPlayer = PlayerUtil.GetById(player.Id);
+            CustomPlayer customPlayer = (CustomPlayer)player;
             if (customPlayer.Fraction == null)
             {
                 return "join";
             }
 
-            if (customPlayer.Fraction.Value != this.FractionId)
+            if (customPlayer.IsInVehicle || customPlayer.Fraction.Value != this.FractionId)
             {
                 return string.Empty;
             }

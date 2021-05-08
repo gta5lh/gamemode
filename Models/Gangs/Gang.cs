@@ -24,7 +24,6 @@ namespace Gamemode
 
         public Npc Npc { get; set; }
 
-        public Spawn CarSpawn { get; set; }
 
         public void Create()
         {

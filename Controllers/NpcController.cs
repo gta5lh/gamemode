@@ -25,9 +25,9 @@ namespace Gamemode.Controllers
             Spawn vehicleSpawnLocation = PlayerSpawns.VehicleSpawnByNpcName[playerSelectedGangRequest.Npc];
             Color gangColor = GangUtil.GangColorByName[playerSelectedGangRequest.Gang];
 
-            if (player.SpawnNpcVehicleId != null)
+            if (player.OneTimeVehicleId != null)
             {
-                VehicleUtil.GetById(player.SpawnNpcVehicleId.Value).Delete();
+                VehicleUtil.GetById(player.OneTimeVehicleId.Value).Delete();
             }
 
             CustomVehicle vehicle = (CustomVehicle)NAPI.Vehicle.CreateVehicle(VehicleHash.Voodoo2, vehicleSpawnLocation.Position, vehicleSpawnLocation.Heading, 0, 0, "NEWBIE");
@@ -37,20 +37,9 @@ namespace Gamemode.Controllers
             vehicle.Rotation = new Vector3(0, 0, vehicleSpawnLocation.Heading);
 
             player.SetIntoVehicle(vehicle, 0);
-            player.SpawnNpcVehicleId = vehicle.Id;
+            player.OneTimeVehicleId = vehicle.Id;
 
             NAPI.ClientEvent.TriggerClientEvent(player, "CreateWaypoint", markerLocation.Position.X, markerLocation.Position.Y);
-        }
-
-        [ServerEvent(Event.PlayerDisconnected)]
-        private void OnPlayerDisconnected(CustomPlayer player, DisconnectionType type, string reason)
-        {
-            if (player.SpawnNpcVehicleId == null)
-            {
-                return;
-            }
-
-            VehicleUtil.GetById(player.SpawnNpcVehicleId.Value).Delete();
         }
     }
 

@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Collections.Generic;
+using Gamemode.Models.Spawn;
 using GTANetworkAPI;
 
 namespace Gamemode
@@ -14,6 +15,15 @@ namespace Gamemode
         public static readonly byte NpcIdTheFamilies = 3;
         public static readonly byte NpcIdVagos = 4;
         public static readonly byte NpcIdMarabunta = 5;
+
+        public static readonly Dictionary<byte, string> GangNameById = new Dictionary<byte, string>()
+        {
+            { NpcIdBloods, "bloods" },
+            { NpcIdBallas, "ballas"},
+            { NpcIdTheFamilies, "the_families"},
+            { NpcIdVagos, "vagos" },
+            { NpcIdMarabunta, "marabunta"},
+        };
 
         public static readonly Dictionary<string, byte> GangIdByName = new Dictionary<string, byte>()
         {
@@ -31,6 +41,15 @@ namespace Gamemode
             { "marabunta", Marabunta.Color},
             { "the_families", TheFamilies.Color},
             { "vagos", Vagos.Color},
+        };
+
+        public static readonly Dictionary<byte, Spawn> CarSpawnByGangId = new Dictionary<byte, Spawn>()
+        {
+            { NpcIdBallas, Ballas.CarSpawn},
+            { NpcIdBloods, Bloods.CarSpawn},
+            { NpcIdMarabunta, Marabunta.CarSpawn},
+            { NpcIdTheFamilies, TheFamilies.CarSpawn},
+            { NpcIdVagos, Vagos.CarSpawn},
         };
 
         public static readonly Dictionary<byte, long> RewardByRank = new Dictionary<byte, long>()

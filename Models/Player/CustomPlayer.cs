@@ -36,7 +36,7 @@ namespace Gamemode.Models.Player
 
         private InventoryWeapons InventoryWeapons;
 
-        public ushort? SpawnNpcVehicleId { get; set; }
+        public ushort? OneTimeVehicleId { get; set; }
 
         public byte? fraction { get; set; }
         public byte? FractionRank { get; set; }

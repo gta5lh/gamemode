@@ -4,6 +4,7 @@
 
 namespace Gamemode.Colshape
 {
+    using Gamemode.Models.Player;
     using GTANetworkAPI;
 
     public class SpawnNpcEvent : IColShapeEventHandler
@@ -18,8 +19,8 @@ namespace Gamemode.Colshape
 
         public void OnEntityEnterColShape(ColShape shape, Player player)
         {
-
-            if (PlayerUtil.GetById(player.Id).Fraction != null)
+            CustomPlayer customPlayer = (CustomPlayer)player;
+            if (customPlayer.IsInVehicle || customPlayer.Fraction != null)
             {
                 return;
             }
@@ -29,11 +30,6 @@ namespace Gamemode.Colshape
 
         public void OnEntityExitColShape(ColShape shape, Player player)
         {
-            if (PlayerUtil.GetById(player.Id).Fraction != null)
-            {
-                return;
-            }
-
             NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", false, this.NpcName);
         }
     }

@@ -4,7 +4,11 @@
 
 namespace Gamemode
 {
+    using Gamemode.Models.Player;
+    using Gamemode.Models.Spawn;
+    using Gamemode.Models.Vehicle;
     using GTANetworkAPI;
+    using Newtonsoft.Json;
 
     public class GangController : Script
     {
@@ -32,5 +36,35 @@ namespace Gamemode
             this.theFamilies.Create();
             this.vagos.Create();
         }
+
+        [RemoteEvent("PlayerSelectedGangCar")]
+        private void OnPlayerSelectedGangCar(CustomPlayer player, string request)
+        {
+            PlayerSelectedGangCarRequest playerSelectedGangCarRequest = JsonConvert.DeserializeObject<PlayerSelectedGangCarRequest>(request);
+
+            string gangName = GangUtil.GangNameById[player.Fraction.Value];
+            Spawn carSpawn = GangUtil.CarSpawnByGangId[player.Fraction.Value];
+            Color gangColor = GangUtil.GangColorByName[gangName];
+            uint vehicleHash = NAPI.Util.GetHashKey(playerSelectedGangCarRequest.CarName);
+
+            if (player.OneTimeVehicleId != null)
+            {
+                VehicleUtil.GetById(player.OneTimeVehicleId.Value).Delete();
+            }
+
+            CustomVehicle vehicle = (CustomVehicle)NAPI.Vehicle.CreateVehicle(vehicleHash, carSpawn.Position, carSpawn.Heading, 0, 0, gangName);
+            vehicle.OwnerPlayerId = player.Id;
+            vehicle.CustomPrimaryColor = gangColor;
+            vehicle.CustomSecondaryColor = gangColor;
+            vehicle.Rotation = new Vector3(0, 0, carSpawn.Heading);
+
+            player.SetIntoVehicle(vehicle, 0);
+            player.OneTimeVehicleId = vehicle.Id;
+        }
+    }
+
+    public class PlayerSelectedGangCarRequest
+    {
+        public string CarName { get; set; }
     }
 }
