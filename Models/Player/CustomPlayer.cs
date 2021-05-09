@@ -161,7 +161,7 @@ namespace Gamemode.Models.Player
             }
 
             this.FractionRank = fractionRank;
-            this.CurrentExperience = 0;
+            this.CurrentExperience = (short)(this.CurrentExperience - this.RequiredExperience.Value);
             this.RequiredExperience = setFractionResponse.TierRequiredExperience;
             this.FractionRankName = setFractionResponse.TierName;
         }

@@ -30,7 +30,7 @@ namespace Gamemode.Services
             NAPI.Task.Run(() =>
             {
                 player.Fraction = gangId == 0 ? null : (byte?)gangId;
-                player.FractionRank = tier == 0 ? null : (byte?)gangId;
+                player.FractionRank = tier == 0 ? null : (byte?)tier;
                 player.FractionRankName = setFractionResponse.TierName;
                 player.RequiredExperience = setFractionResponse.TierRequiredExperience;
                 player.CurrentExperience = 0;
