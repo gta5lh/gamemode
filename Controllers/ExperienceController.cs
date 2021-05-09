@@ -1,6 +1,7 @@
 ﻿namespace Gamemode.Controllers
 {
     using Gamemode.Models.Player;
+    using Gamemode.Services.Player;
     using GTANetworkAPI;
 
     public class ExperienceController : Script
@@ -25,54 +26,9 @@
                 return;
             }
 
-            short previousExperience = killer.CurrentExperience;
+            short delta = killer.Fraction == target.Fraction ? (short)-1 : (short)1;
 
-            if (killer.Fraction == target.Fraction)
-            {
-                killer.CurrentExperience--;
-            }
-            else
-            {
-                killer.CurrentExperience++;
-            }
-
-            NAPI.ClientEvent.TriggerClientEvent(killer, "ExperienceChanged", previousExperience, killer.CurrentExperience, killer.RequiredExperience, killer.FractionRank);
-
-            if (killer.CurrentExperience >= killer.RequiredExperience && killer.FractionRank < 10)
-            {
-                await killer.RankUp();
-
-                NAPI.Task.Run(() =>
-                {
-                    if (killer.FractionRank < 10)
-                    {
-                        NAPI.ClientEvent.TriggerClientEvent(killer, "ExperienceChanged", 0, killer.CurrentExperience, killer.RequiredExperience, killer.FractionRank);
-                    }
-
-                    NAPI.ClientEvent.TriggerClientEvent(killer, "RankedUp", killer.FractionRank, killer.FractionRankName);
-
-                    NAPI.Task.Run(() =>
-                    {
-                        killer.SendNotification($"Ты повысился до ранга {killer.FractionRankName} [{killer.FractionRank}]");
-                    }, 1500);
-                }, 500);
-            }
-
-            if (killer.CurrentExperience < 0 && killer.FractionRank > 1)
-            {
-                await killer.RankDown();
-
-                NAPI.Task.Run(() =>
-                {
-                    NAPI.ClientEvent.TriggerClientEvent(killer, "ExperienceChanged", 0, killer.CurrentExperience, killer.RequiredExperience, killer.FractionRank);
-                    NAPI.ClientEvent.TriggerClientEvent(killer, "RankedDown", killer.FractionRank, killer.FractionRankName);
-
-                    NAPI.Task.Run(() =>
-                        {
-                            killer.SendNotification($"Ты понизился до ранга {killer.FractionRankName} [{killer.FractionRank}]");
-                        }, 1500);
-                }, 500);
-            }
+            ExperienceService.ChangeExperience(killer, delta);
         }
     }
 }

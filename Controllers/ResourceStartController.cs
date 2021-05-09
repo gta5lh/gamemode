@@ -26,7 +26,7 @@ namespace Gamemode
             RAGE.Entities.Vehicles.CreateEntity = (NetHandle handle) => new CustomVehicle(handle);
 
             Cache = new MemoryCache(new MemoryCacheOptions { }, new NLogLoggerFactory());
-            MoneyController.SetPaydayTimer();
+            PaydayController.SetPaydayTimer();
         }
 
         private void SetServerSettings()
