@@ -203,6 +203,13 @@ namespace Gamemode.Models.Player
             this.InventoryWeapons.RemoveWeapon(weaponHash);
         }
 
+        public void CustomRemoveAllWeapons()
+        {
+
+            this.RemoveAllWeapons();
+            this.InventoryWeapons = new InventoryWeapons();
+        }
+
         public async void Unmute()
         {
             try

@@ -80,6 +80,45 @@ namespace Gamemode
             { 10, 2500},
         };
 
+        public static readonly Dictionary<byte, ICollection<ApiClient.Models.Weapon>> WeaponsByGangId = new Dictionary<byte, ICollection<ApiClient.Models.Weapon>>()
+        {
+            { NpcIdBallas, new ApiClient.Models.Weapon[]{
+                new ApiClient.Models.Weapon(WeaponHash.Flare, 3),
+                new ApiClient.Models.Weapon(WeaponHash.Bat, 1),
+                new ApiClient.Models.Weapon(WeaponHash.Pistol, 100),
+                new ApiClient.Models.Weapon(WeaponHash.Microsmg, 100),
+                new ApiClient.Models.Weapon(WeaponHash.Pumpshotgun, 10),
+            }},
+            { NpcIdVagos, new ApiClient.Models.Weapon[]{
+                new ApiClient.Models.Weapon(WeaponHash.Flare, 3),
+                new ApiClient.Models.Weapon(WeaponHash.Crowbar, 1),
+                new ApiClient.Models.Weapon(WeaponHash.Pistol, 100),
+                new ApiClient.Models.Weapon(WeaponHash.Microsmg, 100),
+                new ApiClient.Models.Weapon(WeaponHash.Pumpshotgun, 10),
+            }},
+            { NpcIdTheFamilies, new ApiClient.Models.Weapon[]{
+                new ApiClient.Models.Weapon(WeaponHash.Flare, 3),
+                new ApiClient.Models.Weapon(WeaponHash.Knife, 1),
+                new ApiClient.Models.Weapon(WeaponHash.Pistol, 100),
+                new ApiClient.Models.Weapon(WeaponHash.Microsmg, 100),
+                new ApiClient.Models.Weapon(WeaponHash.Pumpshotgun, 10),
+            }},
+            { NpcIdMarabunta, new ApiClient.Models.Weapon[]{
+                new ApiClient.Models.Weapon(WeaponHash.Flare, 3),
+                new ApiClient.Models.Weapon(WeaponHash.Knuckle, 1),
+                new ApiClient.Models.Weapon(WeaponHash.Pistol, 100),
+                new ApiClient.Models.Weapon(WeaponHash.Microsmg, 100),
+                new ApiClient.Models.Weapon(WeaponHash.Pumpshotgun, 10),
+            }},
+            { NpcIdBloods, new ApiClient.Models.Weapon[]{
+                new ApiClient.Models.Weapon(WeaponHash.Flare, 3),
+                new ApiClient.Models.Weapon(WeaponHash.Hatchet, 1),
+                new ApiClient.Models.Weapon(WeaponHash.Pistol, 100),
+                new ApiClient.Models.Weapon(WeaponHash.Microsmg, 100),
+                new ApiClient.Models.Weapon(WeaponHash.Pumpshotgun, 10),
+            }},
+        };
+
         public const string BallasName = "Ballas";
         public const string BloodsName = "Bloods";
         public const string MarabuntaName = "Marabunta";

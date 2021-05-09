@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Gamemode.ApiClient.Models;
-using Gamemode.Models.Gangs;
 using Gamemode.Models.Player;
+using Gamemode.Services;
 using GTANetworkAPI;
 
 namespace Gamemode.Commands.Admin
@@ -37,11 +36,12 @@ namespace Gamemode.Commands.Admin
                 return;
             }
 
-            SetFractionResponse setFractionResponse;
+            string? targetName;
 
             try
             {
-                setFractionResponse = await ApiClient.ApiClient.SetFraction(staticId, fractionId, rankId, admin.StaticId);
+                CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(staticId);
+                targetName = await GangService.SetAsGangMember(targetPlayer, staticId, fractionId, rankId, admin.StaticId);
             }
             catch (Exception)
             {
@@ -53,24 +53,13 @@ namespace Gamemode.Commands.Admin
             {
                 if (fractionId != 0)
                 {
-                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} сменил фракцию {setFractionResponse.Name} на ID={fractionId}, ранг={rankId}");
-                    this.Logger.Warn($"Administrator {admin.Name} set fraction of {setFractionResponse.Name} to ID={fractionId}. Tier={rankId}");
+                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} сменил фракцию {targetName} на ID={fractionId}, ранг={rankId}");
+                    this.Logger.Warn($"Administrator {admin.Name} set fraction of {targetName} to ID={fractionId}. Tier={rankId}");
                 }
                 else
                 {
-                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} убрал из фракции {setFractionResponse.Name}");
-                    this.Logger.Warn($"Administrator {admin.Name} unset fraction of {setFractionResponse.Name}");
-                }
-
-                CustomPlayer targetPlayer = PlayerUtil.GetByStaticId(staticId);
-                if (targetPlayer != null)
-                {
-                    targetPlayer.Fraction = fractionId != 0 ? (byte?)fractionId : null;
-                    targetPlayer.FractionRank = fractionId != 0 ? (byte?)rankId : null;
-                    targetPlayer.FractionRankName = setFractionResponse.TierName != null ? setFractionResponse.TierName : null;
-                    targetPlayer.RequiredExperience = setFractionResponse.TierRequiredExperience != null ? (short?)setFractionResponse.TierRequiredExperience : null;
-                    targetPlayer.CurrentExperience = 0;
-                    targetPlayer.SetClothes(Clothes.GangClothes[fractionId]);
+                    AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} убрал из фракции {targetName}");
+                    this.Logger.Warn($"Administrator {admin.Name} unset fraction of {targetName}");
                 }
             });
         }
