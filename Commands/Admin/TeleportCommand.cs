@@ -162,5 +162,14 @@ namespace Gamemode
             admin.Heading = spawn.Heading;
             admin.SendChatMessage($"Вы телепортировались в локацию {locationId}");
         }
+
+        private const string TeleportWaypointCommandUsage = "Использование: /tpw";
+
+        [Command("teleportwaypoint", TeleportCommandUsage, Alias = "tpw", SensitiveInfo = true, GreedyArg = true, Hide = true)]
+        [AdminMiddleware(AdminRank.Junior)]
+        public void TeleportWaypoint(CustomPlayer admin)
+        {
+            NAPI.ClientEvent.TriggerClientEvent(admin, "TeleportToWaypoint");
+        }
     }
 }
