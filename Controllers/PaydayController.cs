@@ -16,12 +16,12 @@
         //private static readonly double PaydayInterval30Minutes = 10000;
         //private static readonly double PaydayAllowedLeeway = -2000;
 
-        public static void SetPaydayTimer()
+        public static void InitPaydayTimer()
         {
             PaydayTimer = new System.Timers.Timer(PaydayInterval30Minutes);
             PaydayTimer.Elapsed += OnPaydayTime;
             PaydayTimer.AutoReset = true;
-            PaydayTimer.Enabled = true;
+            PaydayTimer.Start();
         }
 
         private static void OnPaydayTime(object source, ElapsedEventArgs e)

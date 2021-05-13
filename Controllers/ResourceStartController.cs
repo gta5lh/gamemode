@@ -4,6 +4,7 @@
 namespace Gamemode
 {
     using System;
+    using Gamemode.Commands.Admin;
     using Gamemode.Controllers;
     using Gamemode.Models.Npc;
     using Gamemode.Models.Player;
@@ -26,7 +27,9 @@ namespace Gamemode
             RAGE.Entities.Vehicles.CreateEntity = (NetHandle handle) => new CustomVehicle(handle);
 
             Cache = new MemoryCache(new MemoryCacheOptions { }, new NLogLoggerFactory());
-            PaydayController.SetPaydayTimer();
+            PaydayController.InitPaydayTimer();
+            TimeController.InitTimeSyncTimer();
+            TimeController.SyncTime();
         }
 
         private void SetServerSettings()
