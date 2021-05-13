@@ -10,27 +10,26 @@ namespace Gamemode
 
     public abstract class Gang
     {
-        public string Name { get; set; }
+        public string Name;
 
-        public Color GangColor { get; set; }
+        public Color GangColor;
 
-        public byte BlipColor { get; set; }
+        public byte GangBlipColor;
 
-        public Marker ItemMarker { get; set; }
+        public Marker ItemMarker;
 
-        public Marker CarMarker { get; set; }
+        public Marker CarMarker;
 
-        public Spawn PlayerSpawn { get; set; }
+        public Spawn PlayerSpawn;
 
-        public Npc Npc { get; set; }
-
+        public Npc Npc;
 
         public void Create()
         {
             this.CarMarker.Create();
             this.ItemMarker.Create();
             this.Npc.Create();
-            NAPI.Blip.CreateBlip(543, this.PlayerSpawn.Position, 1, this.BlipColor, this.Name, 255, 0, true);
+            NAPI.Blip.CreateBlip(543, this.PlayerSpawn.Position, 1, this.GangBlipColor, this.Name, 255, 0, true);
         }
     }
 }

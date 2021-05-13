@@ -222,5 +222,18 @@ namespace Gamemode.ApiClient
 
             return JsonConvert.DeserializeObject<string>(response);
         }
+
+        public static async Task<List<Zone>> AllZones()
+        {
+            HttpResponseMessage httpResponseMessage = await client.GetAsync("http://localhost:8000/v1/zones");
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<List<Zone>>(response);
+        }
     }
 }

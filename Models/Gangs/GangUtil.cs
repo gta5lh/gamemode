@@ -119,6 +119,15 @@ namespace Gamemode
             }},
         };
 
+        public static readonly Dictionary<byte, byte> BlipColorByGangId = new Dictionary<byte, byte>()
+        {
+            { NpcIdBloods, Bloods.BlipColor },
+            { NpcIdBallas, Ballas.BlipColor},
+            { NpcIdTheFamilies, TheFamilies.BlipColor},
+            { NpcIdVagos, Vagos.BlipColor },
+            { NpcIdMarabunta, Marabunta.BlipColor},
+        };
+
         public const string BallasName = "Ballas";
         public const string BloodsName = "Bloods";
         public const string MarabuntaName = "Marabunta";

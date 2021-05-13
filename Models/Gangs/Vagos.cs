@@ -11,6 +11,7 @@ namespace Gamemode
 
     public class Vagos : Gang
     {
+        public static readonly byte BlipColor = 46;
         public static readonly Spawn CarSpawn = new Spawn(new Vector3(330, -2042, 20.85), -42.1f);
         public static readonly Spawn Spawn = new Spawn(new Vector3(336, -2054, 20.84), 3.16f);
         public static readonly Color Color = new Color(255, 243, 63);
@@ -23,7 +24,7 @@ namespace Gamemode
             this.CarMarker = new Marker(new Vector3(330, -2042, 20.8), this.GangColor, (MarkerType)36, "Car", new CarSelectionEvent(GangUtil.NpcIdVagos));
             this.ItemMarker = new Marker(new Vector3(327, -2049, 20.84), this.GangColor, (MarkerType)41, "Weapon", new ItemSelectionEvent());
             this.Npc = new Npc(new Vector3(345.5, -2049, 21.6), 52.5f, "Старший", PedHash.Vagos01GFY, new Colshape.GangNpcEvent(NpcUtil.NpcNameVagos, GangUtil.NpcIdVagos));
-            this.BlipColor = 46;
+            this.GangBlipColor = BlipColor;
         }
     }
 }
