@@ -16,6 +16,9 @@ namespace Gamemode.ApiClient.Models
         [JsonProperty("fraction_id")]
         public byte FractionId { get; set; }
 
+        [JsonProperty("battleworthy")]
+        public bool Battleworthy { get; set; }
+
         public byte BlipColor { get; set; }
     }
 }

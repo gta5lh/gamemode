@@ -30,6 +30,7 @@ namespace Gamemode
             PaydayController.InitPaydayTimer();
             TimeController.InitTimeSyncTimer();
             TimeController.SyncTime();
+            GangZoneController.InitGangZones();
         }
 
         private void SetServerSettings()

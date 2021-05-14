@@ -51,9 +51,10 @@ namespace Gamemode.Commands.Test
 
         [Command("rb")]
         [AdminMiddleware(AdminRank.Owner)]
-        public void Rb(CustomPlayer sender)
+        public async void Rb(CustomPlayer player)
         {
-            NAPI.ClientEvent.TriggerClientEvent(sender, "RemoveAllBlips");
+            var zones = await GangZoneController.LoadZones();
+            NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
         }
     }
 }

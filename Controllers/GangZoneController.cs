@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Gamemode.ApiClient.Models;
 using GTANetworkAPI;
 
@@ -8,11 +9,6 @@ namespace Gamemode.Controllers
     public class GangZoneController : Script
     {
         private static List<Zone> Zones;
-
-        public GangZoneController()
-        {
-            LoadZones();
-        }
 
         [ServerEvent(Event.PlayerConnected)]
         public void OnPlayerConnected(Player player)
@@ -50,7 +46,12 @@ namespace Gamemode.Controllers
             else return false;
         }
 
-        public static async void LoadZones()
+        public static async void InitGangZones()
+        {
+            Zones = await LoadZones();
+        }
+
+        public static async Task<List<Zone>> LoadZones()
         {
             List<Zone> zones;
 
@@ -60,7 +61,7 @@ namespace Gamemode.Controllers
             }
             catch (Exception e)
             {
-                return;
+                return null;
             }
 
             for (int i = 0; i < zones.Count; i++)
@@ -68,7 +69,7 @@ namespace Gamemode.Controllers
                 zones[i].BlipColor = GangUtil.BlipColorByGangId[zones[i].FractionId];
             }
 
-            Zones = zones;
+            return zones;
         }
     }
 }
