@@ -61,10 +61,24 @@ namespace Gamemode
             player.SetIntoVehicle(vehicle, 0);
             player.OneTimeVehicleId = vehicle.Id;
         }
+
+        [RemoteEvent("PlayerSelectedGangItem")]
+        private void PlayerSelectedGangItem(CustomPlayer player, string request)
+        {
+            PlayerSelectedGangItemRequest playerSelectedGangItemRequest = JsonConvert.DeserializeObject<PlayerSelectedGangItemRequest>(request);
+
+            uint itemHash = NAPI.Util.GetHashKey(playerSelectedGangItemRequest.ItemName);
+            player.CustomGiveWeapon((WeaponHash)itemHash, 100);
+        }
     }
 
     public class PlayerSelectedGangCarRequest
     {
         public string CarName { get; set; }
+    }
+
+    public class PlayerSelectedGangItemRequest
+    {
+        public string ItemName { get; set; }
     }
 }
