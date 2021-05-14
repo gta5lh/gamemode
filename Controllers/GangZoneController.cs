@@ -60,7 +60,7 @@ namespace Gamemode.Controllers
             }
             catch (Exception e)
             {
-                throw e;
+                return;
             }
 
             for (int i = 0; i < zones.Count; i++)
