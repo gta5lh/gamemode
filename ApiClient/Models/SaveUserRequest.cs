@@ -5,6 +5,9 @@ namespace Gamemode.ApiClient.Models
 {
     public class SaveUserRequest
     {
+        [JsonProperty("user_id")]
+        public long? UserId { get; set; }
+
         [JsonProperty("experience")]
         public short Experience { get; set; }
 
@@ -16,6 +19,14 @@ namespace Gamemode.ApiClient.Models
 
         public SaveUserRequest(short experience, ICollection<Weapon>? weapons, long money)
         {
+            this.Experience = experience;
+            this.Weapons = weapons;
+            this.Money = money;
+        }
+
+        public SaveUserRequest(long userId, short experience, ICollection<Weapon>? weapons, long money)
+        {
+            this.UserId = userId;
             this.Experience = experience;
             this.Weapons = weapons;
             this.Money = money;

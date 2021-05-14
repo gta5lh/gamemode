@@ -235,5 +235,19 @@ namespace Gamemode.ApiClient
 
             return JsonConvert.DeserializeObject<List<Zone>>(response);
         }
+
+        public static async Task SaveUsers(SaveUsersRequest request)
+        {
+            string json = JsonConvert.SerializeObject(request);
+            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/save", data);
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+        }
     }
 }

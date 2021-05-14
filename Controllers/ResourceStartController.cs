@@ -31,6 +31,7 @@ namespace Gamemode
             TimeController.InitTimeSyncTimer();
             TimeController.SyncTime();
             GangZoneController.InitGangZones();
+            SaveUsersController.IniSaveUserTimer();
         }
 
         private void SetServerSettings()

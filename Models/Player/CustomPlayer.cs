@@ -267,11 +267,7 @@ namespace Gamemode.Models.Player
             player.Fraction = null;
             IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
 
-            List<Weapon> weapons = new List<Weapon>();
-            foreach (WeaponHash weaponHash in player.InventoryWeapons.GetAllWeapons())
-            {
-                weapons.Add(new Weapon(weaponHash, player.GetWeaponAmmo(weaponHash)));
-            }
+            List<Weapon> weapons = player.GetAllWeapons();
 
             try
             {
@@ -282,6 +278,17 @@ namespace Gamemode.Models.Player
             }
 
             Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
+        }
+
+        public List<Weapon> GetAllWeapons()
+        {
+            List<Weapon> weapons = new List<Weapon>();
+            foreach (WeaponHash weaponHash in this.InventoryWeapons.GetAllWeapons())
+            {
+                weapons.Add(new Weapon(weaponHash, this.GetWeaponAmmo(weaponHash)));
+            }
+
+            return weapons;
         }
     }
 }
