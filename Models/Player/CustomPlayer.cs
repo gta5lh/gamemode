@@ -66,7 +66,11 @@ namespace Gamemode.Models.Player
                 if (this.fraction != null)
                 {
                     FractionsCache.LoadFractionMemberToCache((byte)this.fraction, this.StaticId, this.Name);
+                    this.SetBlipColor(GangUtil.BlipColorByGangId[this.fraction.Value]);
+                    return;
                 }
+
+                this.SetBlipColor(62);
             }
         }
 
@@ -289,6 +293,11 @@ namespace Gamemode.Models.Player
             }
 
             return weapons;
+        }
+
+        private void SetBlipColor(int color)
+        {
+            this.SetSharedData("blip_color", color);
         }
     }
 }
