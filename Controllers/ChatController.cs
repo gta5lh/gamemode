@@ -12,7 +12,7 @@ namespace Gamemode
         [ServerEvent(Event.ChatMessage)]
         private void ChatMessage(CustomPlayer player, string message)
         {
-            bool isMuted = player.MuteState.IsMuted();
+            bool isMuted = player.MuteState != null && player.MuteState.IsMuted();
             if (isMuted && player.MuteState.HasMuteExpired())
             {
                 player.Unmute();

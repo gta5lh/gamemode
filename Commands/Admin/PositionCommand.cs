@@ -24,5 +24,12 @@ namespace Gamemode
                 admin.SendChatMessage($"X: {admin.Position.X}, Y: {admin.Position.Y}, Z: {admin.Position.Z}, Heading: {admin.Heading}");
             }
         }
+
+        [Command("cameraposition", "Usage: /cameraposition {player_id}", Alias = "cpos", SensitiveInfo = true, GreedyArg = true)]
+        [AdminMiddleware(AdminRank.Junior)]
+        public void CameraPosition(CustomPlayer admin, string playerID)
+        {
+            NAPI.ClientEvent.TriggerClientEvent(admin, "ShowCameraPosition");
+        }
     }
 }

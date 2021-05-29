@@ -5,15 +5,20 @@
 namespace Gamemode.Colshape
 {
     using Gamemode.Models.Player;
+    using Gamemode.Models.Spawn;
     using GTANetworkAPI;
 
     public class CarSelectionEvent : IColShapeEventHandler
     {
         private byte FractionId;
+        private Spawn VehicleSpawnPosition;
+        private int Color;
 
-        public CarSelectionEvent(byte fractionId)
+        public CarSelectionEvent(byte fractionId, Spawn vehicleSpawnPosition, int color)
         {
             this.FractionId = fractionId;
+            this.VehicleSpawnPosition = vehicleSpawnPosition;
+            this.Color = color;
         }
 
         public void OnEntityEnterColShape(ColShape shape, Player player)
@@ -29,7 +34,7 @@ namespace Gamemode.Colshape
                 return;
             }
 
-            NAPI.ClientEvent.TriggerClientEvent(player, "DisplayGangCarSelectionMenu", true);
+            NAPI.ClientEvent.TriggerClientEvent(player, "DisplayGangCarSelectionMenu", true, this.VehicleSpawnPosition, this.Color, this.FractionId, customPlayer.FractionRank);
         }
 
         public void OnEntityExitColShape(ColShape shape, Player player)
