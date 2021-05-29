@@ -9,7 +9,6 @@ namespace Gamemode.Models.Player
     using System.Threading.Tasks;
     using Gamemode.ApiClient.Models;
     using Gamemode.Models.Admin;
-    using Gamemode.Models.Gangs;
     using GTANetworkAPI;
 
     public class CustomPlayer : Player
@@ -241,6 +240,7 @@ namespace Gamemode.Models.Player
             player.CurrentExperience = user.Experience;
             player.Money = user.Money;
             player.LoggedInAt = DateTime.UtcNow;
+            player.SetSkin(PedHash.Tramp01);
 
             if (user.FractionRank != null)
             {
@@ -248,7 +248,7 @@ namespace Gamemode.Models.Player
                 player.FractionRank = user.FractionRank.Tier;
                 player.FractionRankName = user.FractionRank.Name;
                 player.RequiredExperience = user.FractionRank.RequiredExperience;
-                player.SetClothes(Clothes.GangClothes[(byte)user.FractionRankId]);
+                player.SetSkin((PedHash)user.FractionRank.Skin.Value);
             }
 
             if (user.Weapons != null)

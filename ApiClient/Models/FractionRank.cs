@@ -12,5 +12,8 @@ namespace Gamemode.ApiClient.Models
 
         [JsonProperty("required_experience")]
         public short? RequiredExperience { get; set; }
+
+        [JsonProperty("skin")]
+        public long? Skin { get; set; }
     }
 }

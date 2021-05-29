@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Gamemode.ApiClient.Models;
-using Gamemode.Models.Gangs;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
 
@@ -34,7 +33,7 @@ namespace Gamemode.Services
                 player.FractionRankName = setFractionResponse.TierName;
                 player.RequiredExperience = setFractionResponse.TierRequiredExperience;
                 player.CurrentExperience = 0;
-                player.SetClothes(Clothes.GangClothes[gangId]);
+                player.SetSkin(gangId == 0 ? PedHash.Tramp01 : (PedHash)setFractionResponse.Skin);
                 player.CustomRemoveAllWeapons();
 
                 if (gangId != 0)

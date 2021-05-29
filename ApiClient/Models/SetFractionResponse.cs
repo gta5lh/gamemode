@@ -12,5 +12,8 @@ namespace Gamemode.ApiClient.Models
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("skin")]
+        public long? Skin { get; set; }
     }
 }
