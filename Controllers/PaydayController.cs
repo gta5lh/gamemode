@@ -13,7 +13,7 @@
 
         private static readonly double PaydayInterval30Minutes = 1000 * 60 * 30;
         private static readonly double PaydayAllowedLeeway = -(1000 * 60);
-        //private static readonly double PaydayInterval30Minutes = 10000;
+        //private static readonly double PaydayInterval30Minutes = 20000;
         //private static readonly double PaydayAllowedLeeway = -2000;
 
         public static void InitPaydayTimer()
@@ -29,7 +29,6 @@
             NAPI.Task.Run(() =>
             {
                 DateTime paydayTime = DateTime.UtcNow.AddMilliseconds(PaydayAllowedLeeway);
-                NAPI.Chat.SendChatMessageToAll($"{paydayTime.ToLongTimeString()} Время зарплаты и получения опыта!");
 
                 foreach (CustomPlayer player in NAPI.Pools.GetAllPlayers())
                 {
@@ -46,7 +45,7 @@
                     long salary = GangUtil.SalaryByRank[player.FractionRank.Value];
                     player.Money += salary;
                     ExperienceService.ChangeExperience(player, 3);
-                    player.SendChatMessage($"Вы получили: {salary} вирт");
+                    player.SendNotification($"[Зарплата] На твой счет поступило: {salary} вирт");
                 }
             });
         }
