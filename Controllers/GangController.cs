@@ -4,6 +4,7 @@
 
 namespace Gamemode
 {
+    using Gamemode.ApiClient.Models;
     using Gamemode.Models.Player;
     using Gamemode.Models.Spawn;
     using Gamemode.Models.Vehicle;
@@ -69,6 +70,22 @@ namespace Gamemode
 
             uint itemHash = NAPI.Util.GetHashKey(playerSelectedGangItemRequest.ItemName);
             player.CustomGiveWeapon((WeaponHash)itemHash, 100);
+        }
+
+        [ServerEvent(Event.PlayerDeath)]
+        private async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
+        {
+            if (target.Fraction == null)
+            {
+                return;
+            }
+
+            target.CustomRemoveAllWeapons();
+
+            foreach (Weapon weapon in GangUtil.WeaponsByGangId[target.Fraction.Value])
+            {
+                target.CustomGiveWeapon(weapon.Hash, weapon.Amount);
+            }
         }
     }
 
