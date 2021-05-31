@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RuntimeFrameworkVersion>3.1.1</RuntimeFrameworkVersion>
@@ -9,7 +8,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <OutputPath></OutputPath>
+    <OutputPath />
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +16,6 @@
     <None Remove="nlog.config" />
     <None Remove="stylecop.json" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="meta.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -29,16 +27,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </ApplicationDefinition>
   </ItemGroup>
-
   <ItemGroup>
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="AsyncFixer" Version="1.5.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="AsyncFixer" Version="1.5.1" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
@@ -67,12 +60,20 @@
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="5.0.1" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\GamemodeCommon\GamemodeCommon.csproj" />
   </ItemGroup>
+  <!-- <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="rm -rf &quot;/home/lbyte00/go/gta5lh/server/test/gamemode&quot; /Q
+mv &quot;$(OutDir)&quot; &quot;/home/lbyte00/go/gta5lh/server/test/gamemode&quot; /Y"/>
+  </Target> -->
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="del &quot;C:\Users\lbyte\Desktop\gw\server-files\dotnet\resources\gamemode\*.*&quot; /Q&#xD;&#xA;xcopy &quot;$(OutDir)*&quot; &quot;C:\Users\lbyte\Desktop\gw\server-files\dotnet\resources\gamemode&quot; /Y" />
+  <ItemGroup>
+    <OutputDirectory Include="/home/lbyte00/go/gta5lh/server/Gamemode/bin/Debug/netcoreapp3.1/*" />
+  </ItemGroup>
+
+  <Target Name="CustomAfterBuild" AfterTargets="AfterBuild">
+    <Message Text="Should run after build" Importance="High" />
+    <Copy SourceFiles="@(OutputDirectory)" DestinationFolder="/home/lbyte00/go/gta5lh/server/test/gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
   </Target>
 </Project>
