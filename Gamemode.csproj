@@ -73,7 +73,6 @@ mv &quot;$(OutDir)&quot; &quot;/home/lbyte00/go/gta5lh/server/test/gamemode&quot
   </ItemGroup>
 
   <Target Name="CustomAfterBuild" AfterTargets="AfterBuild">
-    <Message Text="Should run after build" Importance="High" />
     <Copy SourceFiles="@(OutputDirectory)" DestinationFolder="/home/lbyte00/go/gta5lh/server/GameServer/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
   </Target>
 </Project>
