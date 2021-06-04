@@ -14,6 +14,18 @@ namespace Gamemode.ApiClient
     {
         private static readonly HttpClient client = new HttpClient();
 
+        static ApiClient()
+        {
+            string? apiURL = System.Environment.GetEnvironmentVariable("API_URL");
+            if (apiURL == null)
+            {
+                apiURL = "http://localhost:8000/v1/";
+            }
+
+            UriBuilder uriBuilder = new UriBuilder(apiURL);
+            client.BaseAddress = uriBuilder.Uri;
+        }
+
         public static async Task<User> RegisterUser(string email, string name, string password)
         {
             RegisterUserRequest request = new RegisterUserRequest(email, name, password);
@@ -21,7 +33,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:8000/v1/users/register", data);
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("users/register", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -39,7 +51,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("http://localhost:8000/v1/users/login", data);
+            HttpResponseMessage httpResponseMessage = await client.PostAsync("users/login", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -52,7 +64,7 @@ namespace Gamemode.ApiClient
 
         public static async Task<long?> IDByName(string name)
         {
-            HttpResponseMessage httpResponseMessage = await client.GetAsync($"http://localhost:8000/v1/users/{name}/id");
+            HttpResponseMessage httpResponseMessage = await client.GetAsync($"users/{name}/id");
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -70,7 +82,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/mute", data);
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/mute", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -88,7 +100,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/unmute", data);
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/unmute", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -106,7 +118,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/ban", data);
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/ban", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -124,7 +136,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/unban", data);
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/unban", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -142,7 +154,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/admin-rank", data);
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/admin-rank", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -160,7 +172,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/fraction", data);
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/fraction", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -178,7 +190,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/save", data);
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/save", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -194,7 +206,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/give-weapon", data);
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/give-weapon", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -212,7 +224,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/{userId}/remove-weapon", data);
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/remove-weapon", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -225,7 +237,7 @@ namespace Gamemode.ApiClient
 
         public static async Task<List<Zone>> AllZones()
         {
-            HttpResponseMessage httpResponseMessage = await client.GetAsync("http://localhost:8000/v1/zones");
+            HttpResponseMessage httpResponseMessage = await client.GetAsync("zones");
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
@@ -241,7 +253,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"http://localhost:8000/v1/users/save", data);
+            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/save", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
