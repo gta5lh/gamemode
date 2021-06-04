@@ -23,8 +23,8 @@ namespace Gamemode
             this.Name = "Bloods";
             this.GangColor = Color;
             this.PlayerSpawn = Spawn;
-            this.CarMarker = new Marker(new Vector3(487, -1314, 29.2), this.GangColor, (MarkerType)36, "Car", new CarSelectionEvent(GangUtil.NpcIdBloods, CarSelection, ColorClientSide));
-            this.ItemMarker = new Marker(new Vector3(502, -1339, 29.26), this.GangColor, (MarkerType)41, "Weapon", new ItemSelectionEvent(GangUtil.NpcIdBloods));
+            this.CarMarker = new Marker(new Vector3(487, -1314, 29.2), this.GangColor, (MarkerType)36, "Автомобиль", new CarSelectionEvent(GangUtil.NpcIdBloods, CarSelection, ColorClientSide));
+            this.ItemMarker = new Marker(new Vector3(502, -1339, 29.26), this.GangColor, (MarkerType)41, "Снаряжение", new ItemSelectionEvent(GangUtil.NpcIdBloods));
             this.Npc = new Npc(new Vector3(499, -1326.3, 29.33), 87.4f, "Старший", PedHash.PartyTarget, new Colshape.GangNpcEvent(NpcUtil.NpcNameBloods, GangUtil.NpcIdBloods));
             this.GangBlipColor = BlipColor;
         }

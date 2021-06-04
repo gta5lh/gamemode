@@ -27,7 +27,7 @@ namespace Gamemode
         public void Create()
         {
             this.CarMarker.Create();
-            this.ItemMarker.Create();
+            // this.ItemMarker.Create();
             this.Npc.Create();
             NAPI.Blip.CreateBlip(543, this.PlayerSpawn.Position, 1, this.GangBlipColor, this.Name, 255, 0, true);
         }
