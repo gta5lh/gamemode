@@ -33,7 +33,7 @@ namespace Gamemode.Commands.Admin
         {
             if (message == null)
             {
-                admin.SendChatMessage(AdminChatCommandUsage);
+                admin.SendChatMessage(AdminAnnouncementChatCommandUsage);
                 return;
             }
 
