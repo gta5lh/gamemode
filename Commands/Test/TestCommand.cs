@@ -1,4 +1,5 @@
 ﻿using System;
+using Gamemode.Cache.GangZone;
 using Gamemode.Commands.Admin;
 using Gamemode.Controllers;
 using Gamemode.Models.Admin;
@@ -24,36 +25,19 @@ namespace Gamemode.Commands.Test
             player.SendChatMessage($"{player.LoggedInAt}");
         }
 
-        [Command("testa")]
-        [AdminMiddleware(AdminRank.Owner)]
-        public void TestA(CustomPlayer sender)
-        {
-            GangZoneController.OnCaptureStart(2);
-            sender.SendChatMessage("Started");
-        }
-
-        [Command("testb")]
-        [AdminMiddleware(AdminRank.Owner)]
-        public void TestB(CustomPlayer sender)
-        {
-            GangZoneController.OnCaptureEnd(2, 2);
-            sender.SendChatMessage("Ended");
-        }
-
-        [Command("capt")]
-        [AdminMiddleware(AdminRank.Owner)]
-        public void Capt(CustomPlayer sender)
-        {
-            int blip = GangZoneController.TryCaptureStart(sender); // Возвращает id захватываемой территории
-            if (blip == -1) return;
-            sender.SendChatMessage("Found");
-        }
-
-        [Command("rb")]
+        [Command("rgz")]
         [AdminMiddleware(AdminRank.Owner)]
         public async void Rb(CustomPlayer player)
         {
-            var zones = await GangZoneController.LoadZones();
+            var zones = await GangZoneCache.LoadZones();
+            NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
+        }
+
+        [Command("sgw")]
+        [AdminMiddleware(AdminRank.Owner)]
+        public async void Sgw(CustomPlayer player)
+        {
+            var zones = await GangZoneCache.LoadZones();
             NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
         }
     }

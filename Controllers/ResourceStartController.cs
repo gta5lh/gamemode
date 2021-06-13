@@ -4,11 +4,13 @@
 namespace Gamemode
 {
     using System;
+    using Gamemode.Cache.GangZone;
     using Gamemode.Commands.Admin;
     using Gamemode.Controllers;
     using Gamemode.Models.Npc;
     using Gamemode.Models.Player;
     using Gamemode.Models.Vehicle;
+    using Gamemode.Services;
     using GTANetworkAPI;
     using Microsoft.Extensions.Caching.Memory;
     using NLog.Extensions.Logging;
@@ -30,8 +32,11 @@ namespace Gamemode
             PaydayController.InitPaydayTimer();
             TimeController.InitTimeSyncTimer();
             TimeController.SyncTime();
-            GangZoneController.InitGangZones();
+            GangZoneCache.InitGangZoneCache();
             SaveUsersController.IniSaveUserTimer();
+
+            GangWarService.FinishGangWarAsFailed();
+            GangWarController.StartGangWarJobs();
         }
 
         private void SetServerSettings()

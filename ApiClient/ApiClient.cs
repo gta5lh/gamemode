@@ -277,5 +277,34 @@ namespace Gamemode.ApiClient
 
             return JsonConvert.DeserializeObject<Report>(response);
         }
+
+        public static async Task<GangWar> StartGangWar()
+        {
+            HttpResponseMessage httpResponseMessage = await client.PostAsync($"gang-war/start", null);
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<GangWar>(response);
+        }
+
+        public static async Task<GangWar> FinishGangWar(FinishGangWarRequest request)
+        {
+            string json = JsonConvert.SerializeObject(request);
+            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponseMessage = await client.PostAsync($"gang-war/finish", data);
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<GangWar>(response);
+        }
     }
 }

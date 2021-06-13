@@ -5,12 +5,10 @@
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
     <OutputPath />
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="meta.xml" />
     <None Remove="nlog.config" />
@@ -59,19 +57,14 @@
     </PackageReference>
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="5.0.1" />
+    <PackageReference Include="Quartz.AspNetCore" Version="*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GamemodeCommon\GamemodeCommon.csproj" />
   </ItemGroup>
-  <!-- <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="rm -rf &quot;/home/lbyte00/go/gta5lh/server/test/gamemode&quot; /Q
-mv &quot;$(OutDir)&quot; &quot;/home/lbyte00/go/gta5lh/server/test/gamemode&quot; /Y"/>
-  </Target> -->
-
   <ItemGroup>
     <OutputDirectory Include="/home/lbyte00/go/gta5lh/server/Gamemode/bin/Debug/netcoreapp3.1/*" />
   </ItemGroup>
-
   <Target Name="CustomAfterBuild" AfterTargets="AfterBuild">
     <Copy SourceFiles="@(OutputDirectory)" DestinationFolder="/home/lbyte00/go/gta5lh/server/GameServer/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
   </Target>

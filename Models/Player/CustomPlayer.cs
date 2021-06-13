@@ -46,6 +46,7 @@ namespace Gamemode.Models.Player
 
         public long Money { get; set; }
 
+        public bool IsInWarZone { get; set; }
 
         public bool Freezed { get; set; }
 
