@@ -267,7 +267,7 @@ namespace Gamemode.ApiClient
             string json = JsonConvert.SerializeObject(request);
             StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PostAsync($"http://localhost:8000/v1/reports", data);
+            HttpResponseMessage httpResponseMessage = await client.PostAsync($"reports", data);
 
             string response = await httpResponseMessage.Content.ReadAsStringAsync();
             if (!httpResponseMessage.IsSuccessStatusCode)
