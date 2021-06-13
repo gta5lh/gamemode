@@ -44,8 +44,13 @@
 
                     long salary = GangUtil.SalaryByRank[player.FractionRank.Value];
                     player.Money += salary;
+<<<<<<< Updated upstream
                     ExperienceService.ChangeExperience(player, 3);
                     player.SendNotification($"[Зарплата] На твой счет поступило: {salary} вирт");
+=======
+                    UserService.ChangeExperience(player, 3);
+                    player.SendChatMessage($"Вы получили: {salary} вирт");
+>>>>>>> Stashed changes
                 }
             });
         }

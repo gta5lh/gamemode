@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿namespace Gamemode.Controllers
 {
     using System;
@@ -67,3 +68,30 @@
         }
     }
 }
+=======
+﻿namespace Gamemode.Controllers
+{
+    using System.Timers;
+    using GTANetworkAPI;
+
+    public class SaveUsersController : Script
+    {
+        private static Timer SaveUsersTimer;
+
+        private static readonly double SaveUserInterval10Seconds = 30000;
+
+        public static void IniSaveUserTimer()
+        {
+            SaveUsersTimer = new System.Timers.Timer(SaveUserInterval10Seconds);
+            SaveUsersTimer.Elapsed += OnSaveUser;
+            SaveUsersTimer.AutoReset = true;
+            SaveUsersTimer.Start();
+        }
+
+        private static async void OnSaveUser(object source, ElapsedEventArgs e)
+        {
+            await UserService.SaveAllUsers();
+        }
+    }
+}
+>>>>>>> Stashed changes
