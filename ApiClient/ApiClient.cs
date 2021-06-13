@@ -261,5 +261,21 @@ namespace Gamemode.ApiClient
                 throw new System.Exception(response);
             }
         }
+
+        public static async Task<Report> CreateReport(Report request)
+        {
+            string json = JsonConvert.SerializeObject(request);
+            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage httpResponseMessage = await client.PostAsync($"http://localhost:8000/v1/reports", data);
+
+            string response = await httpResponseMessage.Content.ReadAsStringAsync();
+            if (!httpResponseMessage.IsSuccessStatusCode)
+            {
+                throw new System.Exception(response);
+            }
+
+            return JsonConvert.DeserializeObject<Report>(response);
+        }
     }
 }
