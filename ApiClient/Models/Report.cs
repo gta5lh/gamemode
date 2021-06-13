@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 using System;
+=======
+﻿using System;
+>>>>>>> Stashed changes
 using Newtonsoft.Json;
 
 namespace Gamemode.ApiClient.Models
