@@ -1,7 +1,4 @@
-﻿<meta>
-	<info name="GTA V" description="My C# bridge gamemode Resource" />
-	<!-- Uncompiled: -->
-	<!-- <script src="Main.cs" /> -->
-	<!-- Compiled: -->
-	<script src="bin/Debug/netcoreapp3.1/GTAV.dll" />
+<meta>
+    <info name="Gamemode" description="The Future Rocket Science" />
+    <script src="Gamemode.dll" />
 </meta>
