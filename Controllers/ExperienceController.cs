@@ -26,9 +26,12 @@
                 return;
             }
 
-            short delta = killer.Fraction == target.Fraction ? (short)-1 : (short)1;
+            if (killer != target)
+			{
+                short delta = killer.Fraction == target.Fraction ? (short)-1 : (short)1;
 
-            ExperienceService.ChangeExperience(killer, delta);
+                ExperienceService.ChangeExperience(killer, delta);
+            }
         }
     }
 }
