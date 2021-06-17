@@ -9,7 +9,7 @@
         [ServerEvent(Event.PlayerDeath)]
         private async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
         {
-            if (killer == null)
+            if (killer == null || killer == target)
             {
                 return;
             }
@@ -26,12 +26,9 @@
                 return;
             }
 
-            if (killer != target)
-			{
-                short delta = killer.Fraction == target.Fraction ? (short)-1 : (short)1;
+            short delta = killer.Fraction == target.Fraction ? (short)-1 : (short)1;
 
-                ExperienceService.ChangeExperience(killer, delta);
-            }
+            ExperienceService.ChangeExperience(killer, delta);
         }
     }
 }
