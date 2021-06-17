@@ -8,7 +8,7 @@
         [ServerEvent(Event.PlayerDeath)]
         private async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
         {
-            if (killer == null)
+            if (killer == null || killer == target)
             {
                 return;
             }
