@@ -15,6 +15,7 @@ namespace Gamemode.Cache.GangWar
 		public static ApiClient.Models.GangWar? GangWar { get; set; }
 		private static ConcurrentDictionary<byte, short> KillsByGangID { get; set; }
 		private static bool isInProgress { get; set; }
+		private static bool isFinishing { get; set; }
 
 		public static void InitGangWarCache(ApiClient.Models.GangWar _gangWar)
 		{
@@ -26,6 +27,7 @@ namespace Gamemode.Cache.GangWar
 			KillsByGangID.TryAdd(GangUtil.NpcIdVagos, 0);
 			KillsByGangID.TryAdd(GangUtil.NpcIdMarabunta, 0);
 			isInProgress = false;
+			isFinishing = false;
 		}
 
 		public static void ResetGangWarCache()
@@ -33,11 +35,17 @@ namespace Gamemode.Cache.GangWar
 			GangWar = null;
 			KillsByGangID.Clear();
 			isInProgress = false;
+			isFinishing = false;
 		}
 
 		public static void SetAsInProgress()
 		{
 			isInProgress = true;
+		}
+
+		public static void SetAsFinishing()
+		{
+			isFinishing = true;
 		}
 
 		public static bool IsInited()
@@ -48,6 +56,11 @@ namespace Gamemode.Cache.GangWar
 		public static bool IsInProgress()
 		{
 			return isInProgress;
+		}
+
+		public static bool IsFinishing()
+		{
+			return isFinishing;
 		}
 
 		public static void AddKill(byte gangID)
@@ -74,49 +87,54 @@ namespace Gamemode.Cache.GangWar
 
 		public static bool IsZeroKills()
 		{
-			short result = 0;
-
-			foreach (short killsNumber in KillsByGangID.Values)
+			lock (KillsByGangID)
 			{
-				result += killsNumber;
-			}
+				short result = 0;
 
-			return result <= 0;
+				foreach (short killsNumber in KillsByGangID.Values)
+				{
+					result += killsNumber;
+				}
+
+				return result <= 0;
+			}
 		}
 
 		public static byte? GetWinner()
 		{
-			short max = -1;
-			byte? winner = null;
-
-			foreach (KeyValuePair<byte, short> keyValuePair in KillsByGangID)
+			lock (KillsByGangID)
 			{
-				if (keyValuePair.Value > max)
+				short[] kills = KillsByGangID.Values.ToArray();
+				Array.Sort(kills);
+				Array.Reverse(kills);
+
+				if (kills[0] == kills[1]) return null;
+
+				foreach (KeyValuePair<byte, short> keyValuePair in KillsByGangID)
 				{
-					max = keyValuePair.Value;
-					winner = keyValuePair.Key;
-					continue;
+					if (keyValuePair.Value == kills[0])
+					{
+						return keyValuePair.Key;
+					}
 				}
 
-				if (keyValuePair.Value == max)
-				{
-					return null;
-				}
+				return null;
 			}
-
-			return winner;
 		}
 
 		public static ICollection<GangWarStatistics> GetStatistics()
 		{
-			List<GangWarStatistics> statistics = new List<GangWarStatistics>();
-
-			foreach (KeyValuePair<byte, short> keyValuePair in KillsByGangID)
+			lock (KillsByGangID)
 			{
-				statistics.Add(new GangWarStatistics(keyValuePair.Key, keyValuePair.Value));
-			}
+				List<GangWarStatistics> statistics = new List<GangWarStatistics>();
 
-			return statistics;
+				foreach (KeyValuePair<byte, short> keyValuePair in KillsByGangID)
+				{
+					statistics.Add(new GangWarStatistics(keyValuePair.Key, keyValuePair.Value));
+				}
+
+				return statistics;
+			}
 		}
 	}
 }

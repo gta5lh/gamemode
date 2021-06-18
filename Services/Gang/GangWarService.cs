@@ -12,17 +12,13 @@ namespace Gamemode.Services
 {
 	public static class GangWarService
 	{
-		const string initGangWarChatMessage1 = "Начинается война за территорию через 10 минут";
-		const string initGangWarChatMessage2 = "• Нападение на {0}";
-		const string initGangWarChatMessage3 = "• Координаты: X={0}, Y={1}";
+		const string initGangWarChatMessage = "Начинается война за территорию через 10 минут! Нападение на {0}";
 
-		const string startGangWarChatMessage1 = "Началась война за территорию!";
-		const string startGangWarChatMessage2 = "• Нападение на {0}";
-		const string startGangWarChatMessage3 = "• Координаты: X={0}, Y={1}";
+		const string startGangWarChatMessage = "Началась война за территорию! Нападение на {0}";
 
-		const string finishGangWarChatMessage1 = "Закончилась война за территорию!";
-		const string finishGangWarChatMessage2 = "• Победили {0}";
-		const string finishGangWarChatMessage3 = "• Территория осталась во владении {0}";
+		const string finishGangWarChatMessage1 = "Закончилась война за территорию! ";
+		const string finishGangWarChatMessage2 = "Победили {0}";
+		const string finishGangWarChatMessage3 = "Территория осталась во владении {0}";
 
 		const int finishGangWarDelayBetweenWinnerChecks = 5000;
 
@@ -57,7 +53,7 @@ namespace Gamemode.Services
 
 		public static async Task InitGangWar()
 		{
-			if (GangWarCache.IsInProgress()) return;
+			if (GangWarCache.IsInited() || GangWarCache.IsInProgress()) return;
 
 			ApiClient.Models.GangWar gangWar = await ApiClient.ApiClient.StartGangWar();
 			GangWarCache.InitGangWarCache(gangWar);
@@ -65,9 +61,7 @@ namespace Gamemode.Services
 
 			NAPI.Task.Run(() =>
 			{
-				NAPI.Chat.SendChatMessageToAll(initGangWarChatMessage1);
-				NAPI.Chat.SendChatMessageToAll(String.Format(initGangWarChatMessage2, gangWar.TargetFractionName));
-				NAPI.Chat.SendChatMessageToAll(String.Format(initGangWarChatMessage3, gangWar.XCoordinate, gangWar.YCoordinate));
+				NAPI.Chat.SendChatMessageToAll(String.Format(initGangWarChatMessage, gangWar.TargetFractionName));
 
 				ZoneService.StartCapture(gangWar.ZoneID);
 			});
@@ -82,9 +76,7 @@ namespace Gamemode.Services
 
 			NAPI.Task.Run(() =>
 			{
-				NAPI.Chat.SendChatMessageToAll(startGangWarChatMessage1);
-				NAPI.Chat.SendChatMessageToAll(String.Format(startGangWarChatMessage2, GangWarCache.GangWar.TargetFractionName));
-				NAPI.Chat.SendChatMessageToAll(String.Format(startGangWarChatMessage3, GangWarCache.GangWar.XCoordinate, GangWarCache.GangWar.YCoordinate));
+				NAPI.Chat.SendChatMessageToAll(String.Format(startGangWarChatMessage, GangWarCache.GangWar.TargetFractionName));
 
 				GangWarCache.ColShape = NAPI.ColShape.Create2DColShape(GangWarCache.GangWar.XCoordinate, GangWarCache.GangWar.YCoordinate, 100f, 100f);
 				GangWarCache.ColShape.OnEntityEnterColShape += gangWarEvent.OnEntityEnterColShape;
@@ -97,7 +89,8 @@ namespace Gamemode.Services
 
 		public static async Task FinishGangWar()
 		{
-			if (!GangWarCache.IsInProgress()) return;
+			if (!GangWarCache.IsInProgress() || GangWarCache.IsFinishing()) return;
+			GangWarCache.SetAsFinishing();
 
 			ApiClient.Models.GangWar gangWar;
 
@@ -117,6 +110,7 @@ namespace Gamemode.Services
 						break;
 					}
 
+					Logger.Debug("Finishing gang war");
 					await Task.Delay(finishGangWarDelayBetweenWinnerChecks);
 				}
 			}
@@ -126,15 +120,14 @@ namespace Gamemode.Services
 
 			NAPI.Task.Run(() =>
 			{
-				NAPI.Chat.SendChatMessageToAll(finishGangWarChatMessage1);
-
 				string message = finishGangWarChatMessage2;
 				if (gangWar.WinnerFractionID == null || gangWar.WinnerFractionID == gangWar.TargetFractionID)
 				{
 					message = finishGangWarChatMessage3;
 				}
 
-				NAPI.Chat.SendChatMessageToAll(String.Format(message, gangWar.WinnerFractionName));
+				NAPI.Chat.SendChatMessageToAll(String.Format(finishGangWarChatMessage1 + message, gangWar.WinnerFractionName));
+
 				ZoneService.FinishCapture(gangWar.ZoneID, winnerFractionID);
 				NAPI.ColShape.DeleteColShape(GangWarCache.ColShape);
 			});
