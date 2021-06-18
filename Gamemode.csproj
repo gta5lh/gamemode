@@ -59,13 +59,14 @@
     <PackageReference Include="System.Text.Json" Version="5.0.1" />
     <PackageReference Include="Quartz.AspNetCore" Version="*" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\GamemodeCommon\GamemodeCommon.csproj" />
+    <ProjectReference Include="../gamemode-common/GamemodeCommon.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <OutputDirectory Include="/home/lbyte00/go/gta5lh/server/Gamemode/bin/Debug/netcoreapp3.1/*" />
+    <OutputDirectory Include="./bin/Debug/netcoreapp3.1/*" />
   </ItemGroup>
   <Target Name="CustomAfterBuild" AfterTargets="AfterBuild">
-    <Copy SourceFiles="@(OutputDirectory)" DestinationFolder="/home/lbyte00/go/gta5lh/server/GameServer/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
+    <Copy SourceFiles="@(OutputDirectory)" DestinationFolder="../game-server/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
   </Target>
 </Project>
