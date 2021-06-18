@@ -8,37 +8,59 @@ using GTANetworkAPI;
 
 namespace Gamemode.Commands.Test
 {
-    public class TestCommand : Script
-    {
-        [Command("tmoney", "/tmoney", Alias = "tm", GreedyArg = true)]
-        [AdminMiddleware(AdminRank.Owner)]
-        public void Money(CustomPlayer player, string message = null)
-        {
-            player.SendChatMessage($"{player.Money}");
-        }
+	public class TestCommand : Script
+	{
+		[Command("tmoney", "/tmoney", Alias = "tm", GreedyArg = true)]
+		[AdminMiddleware(AdminRank.Owner)]
+		public void Money(CustomPlayer player, string message = null)
+		{
+			player.SendChatMessage($"{player.Money}");
+		}
 
-        [Command("tlogin", "/tlogin", Alias = "tl", GreedyArg = true)]
-        [AdminMiddleware(AdminRank.Owner)]
-        public void Login(CustomPlayer player, string message = null)
-        {
-            player.LoggedInAt = DateTime.UtcNow;
-            player.SendChatMessage($"{player.LoggedInAt}");
-        }
+		[Command("tlogin", "/tlogin", Alias = "tl", GreedyArg = true)]
+		[AdminMiddleware(AdminRank.Owner)]
+		public void Login(CustomPlayer player, string message = null)
+		{
+			player.LoggedInAt = DateTime.UtcNow;
+			player.SendChatMessage($"{player.LoggedInAt}");
+		}
 
-        [Command("rgz")]
-        [AdminMiddleware(AdminRank.Owner)]
-        public async void Rb(CustomPlayer player)
-        {
-            var zones = await GangZoneCache.LoadZones();
-            NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
-        }
+		[Command("rgz")]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void Rb(CustomPlayer player)
+		{
+			var zones = await GangZoneCache.LoadZones();
+			NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
+		}
 
-        [Command("sgw")]
-        [AdminMiddleware(AdminRank.Owner)]
-        public async void Sgw(CustomPlayer player)
-        {
-            var zones = await GangZoneCache.LoadZones();
-            NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
-        }
-    }
+		[Command("rgz")]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void Sgw(CustomPlayer player)
+		{
+			var zones = await GangZoneCache.LoadZones();
+			NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
+		}
+
+		[Command("igw")]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void InitGangWar(CustomPlayer player)
+		{
+			await Services.GangWarService.InitGangWar();
+		}
+
+		[Command("sgw")]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void StartGangWar(CustomPlayer player)
+		{
+			await Services.GangWarService.StartGangWar();
+		}
+
+
+		[Command("fgw")]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void FinishGangWar(CustomPlayer player)
+		{
+			await Services.GangWarService.FinishGangWar();
+		}
+	}
 }

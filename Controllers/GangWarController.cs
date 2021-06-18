@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Timers;
-using Gamemode.ApiClient.Models;
+﻿using System.Threading.Tasks;
 using Gamemode.Cache.GangWar;
-using Gamemode.Jobs;
+using Gamemode.Jobs.GangWar;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
 using Quartz;
@@ -12,63 +8,83 @@ using Quartz.Impl;
 
 namespace Gamemode.Controllers
 {
-    public class GangWarController : Script
-    {
-        private static IScheduler scheduler;
+	public class GangWarController : Script
+	{
+		private static IScheduler scheduler;
 
-        public static async void StartGangWarJobs()
-        {
-            StdSchedulerFactory factory = new StdSchedulerFactory();
-            scheduler = await factory.GetScheduler();
+		public static async void StartGangWarJobs()
+		{
+			string? startGangWarCronExpression = System.Environment.GetEnvironmentVariable("START_GANG_WAR_CRON_EXPRESSION");
+			if (startGangWarCronExpression == null)
+			{
+				startGangWarCronExpression = "0 20,50 9-20 * * ?";
+			}
+			else
+			{
+				startGangWarCronExpression = startGangWarCronExpression.Replace("\\", string.Empty);
+			}
 
-            await scheduler.Start();
+			string? gangWarCronExpression = System.Environment.GetEnvironmentVariable("GANG_WAR_CRON_EXPRESSION");
+			if (gangWarCronExpression == null)
+			{
+				gangWarCronExpression = "0 30,00 9-20 * * ?";
+			}
+			else
+			{
+				gangWarCronExpression = gangWarCronExpression.Replace("\\", string.Empty);
+			}
 
-            string? startGangWarCronExpression = System.Environment.GetEnvironmentVariable("START_GANG_WAR_CRON_EXPRESSION");
-            startGangWarCronExpression = startGangWarCronExpression.Replace("\\", string.Empty);
-            if (startGangWarCronExpression == null)
-            {
-                startGangWarCronExpression = "0 20,50 9-20 * * ?";
-            }
+			string? finishWarCronExpression = System.Environment.GetEnvironmentVariable("FINISH_GANG_WAR_CRON_EXPRESSION");
+			if (finishWarCronExpression == null)
+			{
+				finishWarCronExpression = "0 40,10 9-20 * * ?";
+			}
+			else
+			{
+				finishWarCronExpression = finishWarCronExpression.Replace("\\", string.Empty);
+			}
 
-            StartGangWarJob startGangWarJob = new StartGangWarJob(startGangWarCronExpression);
-            await startGangWarJob.Configure(scheduler);
+			StdSchedulerFactory factory = new StdSchedulerFactory();
+			scheduler = await factory.GetScheduler();
 
-            string? gangWarCronExpression = System.Environment.GetEnvironmentVariable("GANG_WAR_CRON_EXPRESSION");
-            gangWarCronExpression = startGangWarCronExpression.Replace("\\", string.Empty);
-            if (gangWarCronExpression == null)
-            {
-                gangWarCronExpression = "0 20,50 9-20 * * ?";
-            }
+			await scheduler.Start();
 
-            GangWarJob gangWarJob = new GangWarJob(gangWarCronExpression);
-            await gangWarJob.Configure(scheduler);
-        }
+			// StartGangWarJob startGangWarJob = new StartGangWarJob(startGangWarCronExpression);
+			// GangWarJob gangWarJob = new GangWarJob(gangWarCronExpression);
+			// FinishGangWarJob finishGangWarJob = new FinishGangWarJob(finishWarCronExpression);
 
-        public static async Task StopGangWarJobs()
-        {
-            await scheduler.Shutdown();
-        }
+			// Task startGangWarJobTask = startGangWarJob.Configure(scheduler);
+			// Task gangWarJobTask = gangWarJob.Configure(scheduler);
+			// Task finishGangWarJobTask = finishGangWarJob.Configure(scheduler);
 
-        [ServerEvent(Event.PlayerDeath)]
-        private async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
-        {
-            if (killer == null)
-            {
-                return;
-            }
+			// Task.WaitAll(startGangWarJobTask, gangWarJobTask, finishGangWarJobTask);
+		}
 
-            if (target.Fraction == null || killer.Fraction == null)
-            {
-                return;
-            }
+		public static async Task StopGangWarJobs()
+		{
+			await scheduler.Shutdown();
+		}
 
-            if (!target.IsInWarZone || !killer.IsInWarZone)
-            {
-                return;
-            }
+		[ServerEvent(Event.PlayerDeath)]
+		private async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
+		{
+			if (killer == null)
+			{
+				return;
+			}
 
-            GangWarCache.AddKill(killer.Fraction.Value);
-            killer.SendChatMessage(GangWarCache.GetKillsMessage());
-        }
-    }
+			if (target.Fraction == null || killer.Fraction == null)
+			{
+				return;
+			}
+
+			if (!target.IsInWarZone || !killer.IsInWarZone)
+			{
+				return;
+			}
+
+			GangWarCache.AddKill(killer.Fraction.Value);
+			killer.SendChatMessage(GangWarCache.GetKillsMessage());
+		}
+	}
 }
