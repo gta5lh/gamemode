@@ -14,6 +14,16 @@ namespace Gamemode.Controllers
 
 		public static async void StartGangWarJobs()
 		{
+			string? initGangWarCronExpression = System.Environment.GetEnvironmentVariable("INIT_GANG_WAR_CRON_EXPRESSION");
+			if (initGangWarCronExpression == null)
+			{
+				initGangWarCronExpression = "0 30,00 9-20 * * ?";
+			}
+			else
+			{
+				initGangWarCronExpression = initGangWarCronExpression.Replace("\\", string.Empty);
+			}
+
 			string? startGangWarCronExpression = System.Environment.GetEnvironmentVariable("START_GANG_WAR_CRON_EXPRESSION");
 			if (startGangWarCronExpression == null)
 			{
@@ -22,16 +32,6 @@ namespace Gamemode.Controllers
 			else
 			{
 				startGangWarCronExpression = startGangWarCronExpression.Replace("\\", string.Empty);
-			}
-
-			string? gangWarCronExpression = System.Environment.GetEnvironmentVariable("GANG_WAR_CRON_EXPRESSION");
-			if (gangWarCronExpression == null)
-			{
-				gangWarCronExpression = "0 30,00 9-20 * * ?";
-			}
-			else
-			{
-				gangWarCronExpression = gangWarCronExpression.Replace("\\", string.Empty);
 			}
 
 			string? finishWarCronExpression = System.Environment.GetEnvironmentVariable("FINISH_GANG_WAR_CRON_EXPRESSION");
@@ -49,15 +49,15 @@ namespace Gamemode.Controllers
 
 			await scheduler.Start();
 
+			InitGangWarJob initGangWarJob = new InitGangWarJob(initGangWarCronExpression);
 			StartGangWarJob startGangWarJob = new StartGangWarJob(startGangWarCronExpression);
-			GangWarJob gangWarJob = new GangWarJob(gangWarCronExpression);
 			FinishGangWarJob finishGangWarJob = new FinishGangWarJob(finishWarCronExpression);
 
+			Task initGangWarJobTask = initGangWarJob.Configure(scheduler);
 			Task startGangWarJobTask = startGangWarJob.Configure(scheduler);
-			Task gangWarJobTask = gangWarJob.Configure(scheduler);
 			Task finishGangWarJobTask = finishGangWarJob.Configure(scheduler);
 
-			Task.WaitAll(startGangWarJobTask, gangWarJobTask, finishGangWarJobTask);
+			Task.WaitAll(startGangWarJobTask, finishGangWarJobTask, initGangWarJobTask);
 		}
 
 		public static async Task StopGangWarJobs()
