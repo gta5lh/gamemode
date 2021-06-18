@@ -1,4 +1,5 @@
 ﻿using Gamemode.Models.Player;
+using Gamemode.Services.Player;
 using GTANetworkAPI;
 
 namespace Gamemode.Controllers
@@ -8,7 +9,8 @@ namespace Gamemode.Controllers
         [RemoteEvent("add_voice_listener")]
         public void AddVoiceListener(CustomPlayer player, CustomPlayer target)
         {
-            if (player.HasData("mute")) return;
+            if (target == null || !target.Exists || !ChatService.CheckMute(player)) return;
+
             player.EnableVoiceTo(target);
         }
 
