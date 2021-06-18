@@ -49,15 +49,15 @@ namespace Gamemode.Controllers
 
 			await scheduler.Start();
 
-			// StartGangWarJob startGangWarJob = new StartGangWarJob(startGangWarCronExpression);
-			// GangWarJob gangWarJob = new GangWarJob(gangWarCronExpression);
-			// FinishGangWarJob finishGangWarJob = new FinishGangWarJob(finishWarCronExpression);
+			StartGangWarJob startGangWarJob = new StartGangWarJob(startGangWarCronExpression);
+			GangWarJob gangWarJob = new GangWarJob(gangWarCronExpression);
+			FinishGangWarJob finishGangWarJob = new FinishGangWarJob(finishWarCronExpression);
 
-			// Task startGangWarJobTask = startGangWarJob.Configure(scheduler);
-			// Task gangWarJobTask = gangWarJob.Configure(scheduler);
-			// Task finishGangWarJobTask = finishGangWarJob.Configure(scheduler);
+			Task startGangWarJobTask = startGangWarJob.Configure(scheduler);
+			Task gangWarJobTask = gangWarJob.Configure(scheduler);
+			Task finishGangWarJobTask = finishGangWarJob.Configure(scheduler);
 
-			// Task.WaitAll(startGangWarJobTask, gangWarJobTask, finishGangWarJobTask);
+			Task.WaitAll(startGangWarJobTask, gangWarJobTask, finishGangWarJobTask);
 		}
 
 		public static async Task StopGangWarJobs()
