@@ -50,7 +50,6 @@ namespace Gamemode
                 new GangVehicle(0xA4A4E453, 8),
                 new GangVehicle(0x86FE0B60, 8),
                 new GangVehicle(0x94B395C5, 9),
-                new GangVehicle(0xA4A4E453, 9),
                 new GangVehicle(0x42F2ED16, 10),
                 new GangVehicle(0x462FE277, 10),
                 new GangVehicle(0x4CE68AC, 10)
