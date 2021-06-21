@@ -9,7 +9,7 @@ namespace Gamemode.Services.Player
         {
             short delta = killer.Fraction == target.Fraction ? (short)-1 : (short)1;
 
-            ExperienceService.ChangeExperience(killer, delta);
+            ChangeExperience(killer, delta);
         }
 
         public static async void ChangeExperience(CustomPlayer player, short delta)
