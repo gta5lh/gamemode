@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		nlog.config = nlog.config
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamemodeClient", "..\GamemodeClient\GamemodeClient.csproj", "{C5D0953C-498F-4870-9903-9C016853303E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gamemode-client", "..\gamemode-client\GamemodeClient.csproj", "{C5D0953C-498F-4870-9903-9C016853303E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamemodeCommon", "..\GamemodeCommon\GamemodeCommon.csproj", "{5F2DA217-049B-47EC-BC48-DE834CF0B3A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gamemode-common", "..\gamemode-common\GamemodeCommon.csproj", "{5F2DA217-049B-47EC-BC48-DE834CF0B3A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
