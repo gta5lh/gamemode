@@ -1,10 +1,11 @@
 ﻿namespace Gamemode.Controllers
 {
     using Gamemode.Models.Player;
+    using Gamemode.Services.Player;
     using GTANetworkAPI;
     using System.Collections.Generic;
 
-    public class MoneyController : Script
+    public class DeathController : Script
     {
         [ServerEvent(Event.PlayerDeath)]
         private async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
@@ -38,16 +39,8 @@
                 return;
             }
 
-            long reward = GangUtil.RewardByRank[target.FractionRank.Value];
-
-            if (killer.Fraction == target.Fraction)
-            {
-                killer.Money -= reward;
-            }
-            else
-            {
-                killer.Money += reward;
-            }
+            ExperienceService.OnPlayerDeath(target, killer, reason);
+            MoneyService.OnPlayerDeath(target, killer, reason);
         }
     }
 }
