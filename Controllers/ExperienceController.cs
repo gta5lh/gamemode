@@ -3,9 +3,9 @@
     using Gamemode.Models.Player;
     using Gamemode.Services.Player;
     using GTANetworkAPI;
-	using System.Collections.Generic;
+    using System.Collections.Generic;
 
-	public class ExperienceController : Script
+    public class ExperienceController : Script
     {
         [ServerEvent(Event.PlayerDeath)]
         private async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
@@ -13,11 +13,12 @@
             if (killer == null && reason == 0)
             {
                 List<Player> found = NAPI.Player.GetPlayersInRadiusOfPlayer(3, target);
-                foreach (Player player in found)
+                foreach (CustomPlayer player in found)
                 {
                     if (player == target) continue;
-                    OnPlayerDeath(target, (CustomPlayer)player, (uint)player.CurrentWeapon);
-                    return;
+                    killer = player;
+                    reason = (uint)player.CurrentWeapon;
+                    break;
                 }
             }
 
