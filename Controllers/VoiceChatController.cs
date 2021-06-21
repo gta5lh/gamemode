@@ -6,15 +6,16 @@ namespace Gamemode.Controllers
 {
     public class VoiceChatController : Script
     {
+        [RemoteEvent("try_voice")]
+        public void TryVoice(CustomPlayer player)
+        {
+            if (ChatService.CheckMute(player)) player.TriggerEvent("muted");
+        }
+
         [RemoteEvent("add_voice_listener")]
         public void AddVoiceListener(CustomPlayer player, CustomPlayer target)
         {
-            if (target == null || !target.Exists) return;
-            if (ChatService.CheckMute(player))
-            {
-                player.TriggerEvent("muted");
-                return;
-            }
+            if (target == null || !target.Exists || ChatService.CheckMute(player, false)) return;
             player.EnableVoiceTo(target);
         }
 
@@ -23,6 +24,24 @@ namespace Gamemode.Controllers
         {
             if (target == null || !target.Exists) return;
             player.DisableVoiceTo(target);
+        }
+
+        public static void Mute(CustomPlayer targetPlayer)
+		{
+            foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(100, targetPlayer))
+            {
+                if (player == targetPlayer) continue;
+                targetPlayer.DisableVoiceTo(player);
+            }
+        }
+
+        public static void Unmute(CustomPlayer targetPlayer)
+        {
+            foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(100, targetPlayer))
+            {
+                if (player == targetPlayer) continue;
+                targetPlayer.EnableVoiceTo(player);
+            }
         }
     }
 }
