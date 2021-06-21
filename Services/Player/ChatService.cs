@@ -1,4 +1,5 @@
-﻿using Gamemode.Models.Player;
+﻿using Gamemode.Controllers;
+using Gamemode.Models.Player;
 using GTANetworkAPI;
 
 namespace Gamemode.Services.Player
@@ -11,7 +12,8 @@ namespace Gamemode.Services.Player
             if (isMuted && player.MuteState.HasMuteExpired())
             {
                 player.Unmute();
-                if (notify) player.SendChatMessage("Срок действия вашего мута истек. Не нарушайте правила сервера. Приятной игры!");
+                VoiceChatController.Unmute(player);
+                player.SendChatMessage("Срок действия вашего мута истек. Не нарушайте правила сервера. Приятной игры!");
             }
             else if (isMuted)
             {

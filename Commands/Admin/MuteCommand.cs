@@ -6,8 +6,8 @@ namespace Gamemode.Commands.Admin
 {
     using System;
     using System.Threading.Tasks;
-	using Gamemode.Controllers;
-	using Gamemode.Models.Player;
+    using Gamemode.Controllers;
+    using Gamemode.Models.Player;
     using Gamemode.Utils;
     using GTANetworkAPI;
 
