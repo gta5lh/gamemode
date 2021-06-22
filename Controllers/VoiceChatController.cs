@@ -9,8 +9,15 @@ namespace Gamemode.Controllers
 		[RemoteEvent("start_voice")]
 		public void StartVoice(CustomPlayer player)
 		{
-			player.TriggerEvent("muted", ChatService.CheckMute(player));
-			player.SetSharedData("isSpeaking", true);
+			if (!ChatService.CheckMute(player))
+			{
+				player.SetSharedData("isSpeaking", true);
+				player.TriggerEvent("muted", false);
+			}
+			else
+			{
+				player.TriggerEvent("muted", true);
+			}
 		}
 
 		[RemoteEvent("stop_voice")]
