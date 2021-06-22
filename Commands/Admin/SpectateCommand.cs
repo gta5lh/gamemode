@@ -45,7 +45,7 @@ namespace Gamemode.Commands.Admin
 			}
 
 			if (admin.SpectatePosition == null) admin.SpectatePosition = admin.Position;
-			admin.Transparency = 0;
+			admin.Spectating = true;
 			admin.RemoveAllWeapons();
 			admin.Position = targetPlayer.Position + new Vector3(0, 0, 10);
 			admin.TriggerEvent("spectate", targetPlayer.Id);
@@ -66,7 +66,7 @@ namespace Gamemode.Commands.Admin
 				return;
 			}
 			admin.Position = admin.SpectatePosition;
-			admin.Transparency = 255;
+			admin.Spectating = false;
 			admin.SpectatePosition = null;
 			admin.TriggerEvent("spectateStop");
 		}
