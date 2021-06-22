@@ -6,10 +6,17 @@ namespace Gamemode.Controllers
 {
 	public class VoiceChatController : Script
 	{
-		[RemoteEvent("try_voice")]
-		public void TryVoice(CustomPlayer player)
+		[RemoteEvent("start_voice")]
+		public void StartVoice(CustomPlayer player)
 		{
 			player.TriggerEvent("muted", ChatService.CheckMute(player));
+			player.SetSharedData("isSpeaking", true);
+		}
+
+		[RemoteEvent("stop_voice")]
+		public void StopVoice(CustomPlayer player)
+		{
+			player.SetSharedData("isSpeaking", false);
 		}
 
 		[RemoteEvent("add_voice_listener")]
