@@ -49,6 +49,8 @@ namespace Gamemode.Models.Player
 
         public bool Freezed { get; set; }
 
+        public Vector3? SpectatePosition { get; set; }
+
         public byte? Fraction
         {
             get => this.fraction;

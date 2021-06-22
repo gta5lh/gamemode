@@ -44,7 +44,7 @@ namespace Gamemode.Commands.Admin
 				return;
 			}
 
-			if (!admin.HasData("isSpectating")) admin.SetData("isSpectating", admin.Position);
+			if (admin.SpectatePosition == null) admin.SpectatePosition = admin.Position;
 			admin.Transparency = 0;
 			admin.RemoveAllWeapons();
 			admin.Position = targetPlayer.Position + new Vector3(0, 0, 10);
@@ -60,14 +60,14 @@ namespace Gamemode.Commands.Admin
 		[Command("spectatestop", SpectateStopCommandUsage, Alias = "specstop", GreedyArg = true, Hide = true)]
 		public void SpectateStop(CustomPlayer admin)
 		{
-			if (!admin.HasData("isSpectating"))
+			if (admin.SpectatePosition == null)
 			{
 				admin.SendChatMessage("Вы не в режиме слежения");
 				return;
 			}
-			admin.Position = admin.GetData<Vector3>("isSpectating");
+			admin.Position = admin.SpectatePosition;
 			admin.Transparency = 255;
-			admin.ResetData("isSpectating");
+			admin.SpectatePosition = null;
 			admin.TriggerEvent("spectateStop");
 		}
 	}
