@@ -16,6 +16,7 @@ namespace Gamemode.Models.Player
 		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 		private Models.Admin.AdminRank adminRank;
 		private bool invisible;
+		private bool spectating;
 		private bool noclip;
 
 		public CustomPlayer(NetHandle handle)
@@ -48,6 +49,8 @@ namespace Gamemode.Models.Player
 
 
 		public bool Freezed { get; set; }
+
+		public Vector3? SpectatePosition { get; set; }
 
 		public byte? Fraction
 		{
@@ -98,6 +101,32 @@ namespace Gamemode.Models.Player
 			}
 		}
 
+		public bool Spectating
+		{
+			get => this.spectating;
+
+			set
+			{
+				if (this.Noclip || this.Invisible)
+				{
+					return;
+				}
+
+				this.spectating = value;
+
+				if (this.Spectating)
+				{
+					this.Transparency = 0;
+					this.RemoveAllWeapons();
+				}
+				else
+				{
+					this.Transparency = 255;
+				}
+			}
+		}
+
+
 		public bool Noclip
 		{
 			get => this.noclip;
@@ -106,7 +135,7 @@ namespace Gamemode.Models.Player
 			{
 				this.noclip = value;
 
-				if (this.Invisible)
+				if (this.Invisible || this.Spectating)
 				{
 					return;
 				}
