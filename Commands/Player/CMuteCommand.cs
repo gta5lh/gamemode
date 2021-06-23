@@ -36,6 +36,12 @@ namespace Gamemode.Commands.Player
 				return;
 			}
 
+			if (targetPlayer == player)
+			{
+				player.SendChatMessage("Нельзя замутить самого себя");
+				return;
+			}
+
 			player.TriggerEvent("mute", targetPlayer.Id);
 		}
 
