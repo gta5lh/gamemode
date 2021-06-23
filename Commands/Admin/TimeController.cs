@@ -4,33 +4,51 @@ using GTANetworkAPI;
 
 namespace Gamemode.Commands.Admin
 {
-    public class TimeController : Script
-    {
-        private static Timer TimeSyncTimer;
+	public class TimeController : Script
+	{
+		private static Timer TimeSyncTimer;
 
-        private static DateTime Now;
-        private static readonly double TimeSyncInterval1Minute = 1000 * 60;
+		public static TimeSpan CurrentTime { get; private set; }
+		private static readonly double TimeSyncInterval1Minute = 1000 * 60;
 
-        public static void InitTimeSyncTimer()
-        {
-            TimeSyncTimer = new Timer(TimeSyncInterval1Minute);
-            TimeSyncTimer.Elapsed += OnTimeSync;
-            TimeSyncTimer.AutoReset = true;
-            TimeSyncTimer.Start();
-        }
+		public static void InitTimeSyncTimer()
+		{
+			SetTimeToCurrent();
+			TimeSyncTimer = new Timer(TimeSyncInterval1Minute);
+			TimeSyncTimer.Elapsed += OnTimeSync;
+			TimeSyncTimer.AutoReset = true;
+			TimeSyncTimer.Start();
+		}
 
-        public static void SyncTime()
-        {
-            NAPI.Task.Run(() =>
-            {
-                Now = DateTime.UtcNow.AddHours(3);
-                NAPI.World.SetTime(Now.Hour, Now.Minute, Now.Second);
-            });
-        }
+		private static void OnTimeSync(object sender, ElapsedEventArgs e)
+		{
+			NAPI.Task.Run(() =>
+			{
+				SetTimeToCurrent();
+			});
+		}
 
-        private static void OnTimeSync(object sender, ElapsedEventArgs e)
-        {
-            SyncTime();
-        }
-    }
+		public static void StopTimeSync()
+		{
+			TimeSyncTimer.Stop();
+		}
+
+		public static void StartTimeSync()
+		{
+			SetTimeToCurrent();
+			TimeSyncTimer.Start();
+		}
+
+		public static void SetCurrentTime(TimeSpan time)
+		{
+			CurrentTime = time;
+			NAPI.World.SetTime(CurrentTime.Hours, CurrentTime.Minutes, CurrentTime.Seconds);
+		}
+
+		private static void SetTimeToCurrent()
+		{
+			CurrentTime = DateTime.UtcNow.AddHours(3).TimeOfDay;
+			NAPI.World.SetTime(CurrentTime.Hours, CurrentTime.Minutes, CurrentTime.Seconds);
+		}
+	}
 }

@@ -5,6 +5,13 @@ namespace Gamemode.Services.Player
 {
     public class ExperienceService
     {
+        public static async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
+        {
+            short delta = killer.Fraction == target.Fraction ? (short)-1 : (short)1;
+
+            ChangeExperience(killer, delta);
+        }
+
         public static async void ChangeExperience(CustomPlayer player, short delta)
         {
             short previousExperience = player.CurrentExperience;
