@@ -4,37 +4,37 @@
 
 namespace Gamemode.Colshape
 {
-    using Gamemode.Models.Player;
-    using GTANetworkAPI;
+	using Gamemode.Models.Player;
+	using GTANetworkAPI;
 
-    public class ItemSelectionEvent : IColShapeEventHandler
-    {
-        private byte FractionId;
+	public class ItemSelectionEvent : IColShapeEventHandler
+	{
+		private byte FractionId;
 
-        public ItemSelectionEvent(byte fractionId)
-        {
-            this.FractionId = fractionId;
-        }
+		public ItemSelectionEvent(byte fractionId)
+		{
+			this.FractionId = fractionId;
+		}
 
-        public void OnEntityEnterColShape(ColShape shape, Player player)
-        {
-            CustomPlayer customPlayer = (CustomPlayer)player;
-            if (customPlayer.Fraction != this.FractionId)
-            {
-                return;
-            }
+		public void OnEntityEnterColShape(ColShape shape, Player player)
+		{
+			CustomPlayer customPlayer = (CustomPlayer)player;
+			if (customPlayer.Fraction != this.FractionId)
+			{
+				return;
+			}
 
-            if (customPlayer.IsInVehicle)
-            {
-                return;
-            }
+			if (customPlayer.IsInVehicle)
+			{
+				return;
+			}
 
-            NAPI.ClientEvent.TriggerClientEvent(player, "DisplayGangItemSelectionMenu", true);
-        }
+			NAPI.ClientEvent.TriggerClientEvent(player, "DisplayGangItemSelectionMenu", true);
+		}
 
-        public void OnEntityExitColShape(ColShape shape, Player player)
-        {
-            NAPI.ClientEvent.TriggerClientEvent(player, "DisplayGangItemSelectionMenu", false);
-        }
-    }
+		public void OnEntityExitColShape(ColShape shape, Player player)
+		{
+			NAPI.ClientEvent.TriggerClientEvent(player, "DisplayGangItemSelectionMenu", false);
+		}
+	}
 }

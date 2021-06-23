@@ -4,13 +4,13 @@
 
 namespace Gamemode.Utils
 {
-    using GTANetworkAPI;
+	using GTANetworkAPI;
 
-    public static class Chat
-    {
-        public static void SendColorizedChatMessageToAll(string color, string message)
-        {
-            NAPI.Chat.SendChatMessageToAll(color + message);
-        }
-    }
+	public static class Chat
+	{
+		public static void SendColorizedChatMessageToAll(string color, string message)
+		{
+			NAPI.Chat.SendChatMessageToAll(color + message);
+		}
+	}
 }
