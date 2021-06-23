@@ -2,14 +2,14 @@
 
 namespace Gamemode.ApiClient.Models
 {
-    public class UnmuteUserRequest
-    {
-        [JsonProperty("unmuted_by")]
-        public long UnmutedBy { get; set; }
+	public class UnmuteUserRequest
+	{
+		[JsonProperty("unmuted_by")]
+		public long UnmutedBy { get; set; }
 
-        public UnmuteUserRequest(long unmutedBy)
-        {
-            this.UnmutedBy = unmutedBy;
-        }
-    }
+		public UnmuteUserRequest(long unmutedBy)
+		{
+			this.UnmutedBy = unmutedBy;
+		}
+	}
 }

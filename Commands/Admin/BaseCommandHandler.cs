@@ -4,10 +4,10 @@
 
 namespace Gamemode.Commands.Admin
 {
-    using GTANetworkAPI;
+	using GTANetworkAPI;
 
-    public class BaseCommandHandler : Script
-    {
-        protected readonly NLog.Logger Logger = Gamemode.Logger.Logger.LogFactory.GetLogger("AdminCommand");
-    }
+	public class BaseCommandHandler : Script
+	{
+		protected readonly NLog.Logger Logger = Gamemode.Logger.Logger.LogFactory.GetLogger("AdminCommand");
+	}
 }

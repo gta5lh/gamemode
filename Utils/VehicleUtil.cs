@@ -4,18 +4,18 @@
 
 namespace Gamemode
 {
-    using GTANetworkAPI;
+	using GTANetworkAPI;
 
-    public static class VehicleUtil
-    {
-        public static Vehicle GetById(ushort vehicleId)
-        {
-            return NAPI.Entity.GetEntityFromHandle<Vehicle>(new NetHandle(vehicleId, EntityType.Vehicle));
-        }
+	public static class VehicleUtil
+	{
+		public static Vehicle GetById(ushort vehicleId)
+		{
+			return NAPI.Entity.GetEntityFromHandle<Vehicle>(new NetHandle(vehicleId, EntityType.Vehicle));
+		}
 
-        public static string DisplayName(Vehicle vehicle, string defaultName)
-        {
-            return vehicle.DisplayName != null ? vehicle.DisplayName : defaultName;
-        }
-    }
+		public static string DisplayName(Vehicle vehicle, string defaultName)
+		{
+			return vehicle.DisplayName != null ? vehicle.DisplayName : defaultName;
+		}
+	}
 }
