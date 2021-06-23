@@ -48,6 +48,7 @@ namespace Gamemode.Commands.Admin
 			admin.Spectating = true;
 			admin.RemoveAllWeapons();
 			admin.Position = targetPlayer.Position + new Vector3(0, 0, 10);
+			admin.Dimension = targetPlayer.Dimension;
 			admin.TriggerEvent("spectate", targetPlayer.Id);
 
 			AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} начал следить за {targetPlayer.Name}");
@@ -66,6 +67,7 @@ namespace Gamemode.Commands.Admin
 				return;
 			}
 			admin.Position = admin.SpectatePosition;
+			admin.Dimension = 0;
 			admin.Spectating = false;
 			admin.SpectatePosition = null;
 			admin.TriggerEvent("spectateStop");
