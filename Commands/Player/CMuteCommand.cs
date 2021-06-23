@@ -37,7 +37,6 @@ namespace Gamemode.Commands.Player
 			}
 
 			player.TriggerEvent("mute", targetPlayer.Id);
-			player.SendChatMessage($"Игрок { targetPlayer.Name } заглушён");
 		}
 
 		private const string CUnmuteCommandUsage = "Использование: /cunmute {player_id}. Пример: /cunmute 10";
@@ -71,7 +70,6 @@ namespace Gamemode.Commands.Player
 			}
 
 			player.TriggerEvent("unmute", targetPlayer.Id);
-			player.SendChatMessage($"Игрок { targetPlayer.Name } разглушён");
 		}
 	}
 }

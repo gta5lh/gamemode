@@ -11,7 +11,9 @@ namespace Gamemode.Controllers
 		{
 			if (!ChatService.CheckMute(player))
 			{
-				player.SetSharedData("isSpeaking", true);
+				if (!player.Noclip /*&& !player.Spectate */&& !player.Invisible)
+					player.SetSharedData("isSpeaking", true);
+
 				player.TriggerEvent("muted", false);
 			}
 			else
@@ -42,7 +44,7 @@ namespace Gamemode.Controllers
 
 		public static void Mute(CustomPlayer targetPlayer)
 		{
-			foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(100, targetPlayer))
+			foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(35, targetPlayer))
 			{
 				if (player == targetPlayer) continue;
 				targetPlayer.DisableVoiceTo(player);
@@ -51,7 +53,7 @@ namespace Gamemode.Controllers
 
 		public static void Unmute(CustomPlayer targetPlayer)
 		{
-			foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(100, targetPlayer))
+			foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(35, targetPlayer))
 			{
 				if (player == targetPlayer) continue;
 				targetPlayer.EnableVoiceTo(player);
