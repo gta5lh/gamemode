@@ -10,272 +10,268 @@ using Newtonsoft.Json;
 
 namespace Gamemode.ApiClient
 {
-    public static class ApiClient
-    {
-        private static readonly HttpClient client = new HttpClient();
+	public static class ApiClient
+	{
+		private static readonly HttpClient client = new HttpClient();
+
+		static ApiClient()
+		{
+			string? apiURL = System.Environment.GetEnvironmentVariable("API_URL");
+			if (apiURL == null)
+			{
+				apiURL = "http://localhost:8000/v1/";
+			}
+
+			UriBuilder uriBuilder = new UriBuilder(apiURL);
+			client.BaseAddress = uriBuilder.Uri;
+		}
 
-        static ApiClient()
-        {
-            string? apiURL = System.Environment.GetEnvironmentVariable("API_URL");
-            if (apiURL == null)
-            {
-                apiURL = "http://localhost:8000/v1/";
-            }
+		public static async Task<User> RegisterUser(RegisterUserRequest request)
+		{
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            UriBuilder uriBuilder = new UriBuilder(apiURL);
-            client.BaseAddress = uriBuilder.Uri;
-        }
+			HttpResponseMessage httpResponseMessage = await client.PostAsync("users/register", data);
 
-        public static async Task<User> RegisterUser(string email, string name, string password)
-        {
-            RegisterUserRequest request = new RegisterUserRequest(email, name, password);
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+			return JsonConvert.DeserializeObject<User>(response);
+		}
 
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("users/register", data);
+		public static async Task<User> LoginUser(LoginUserRequest request)
+		{
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			HttpResponseMessage httpResponseMessage = await client.PostAsync("users/login", data);
 
-            return JsonConvert.DeserializeObject<User>(response);
-        }
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-        public static async Task<User> LoginUser(string email, string password)
-        {
-            LoginUserRequest request = new LoginUserRequest(email, password);
+			return JsonConvert.DeserializeObject<User>(response);
+		}
 
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+		public static async Task<long?> IDByName(string name)
+		{
+			HttpResponseMessage httpResponseMessage = await client.GetAsync($"users/{name}/id");
 
-            HttpResponseMessage httpResponseMessage = await client.PostAsync("users/login", data);
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			return JsonConvert.DeserializeObject<long?>(response);
+		}
 
-            return JsonConvert.DeserializeObject<User>(response);
-        }
+		public static async Task<string> MuteUser(long userId, string reason, long mutedBy, DateTime mutedAt, DateTime mutedUntil)
+		{
+			MuteUserRequest request = new MuteUserRequest(reason, mutedBy, mutedAt, mutedUntil);
 
-        public static async Task<long?> IDByName(string name)
-        {
-            HttpResponseMessage httpResponseMessage = await client.GetAsync($"users/{name}/id");
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/mute", data);
 
-            return JsonConvert.DeserializeObject<long?>(response);
-        }
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-        public static async Task<string> MuteUser(long userId, string reason, long mutedBy, DateTime mutedAt, DateTime mutedUntil)
-        {
-            MuteUserRequest request = new MuteUserRequest(reason, mutedBy, mutedAt, mutedUntil);
+			return JsonConvert.DeserializeObject<string>(response);
+		}
 
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+		public static async Task<string> UnmuteUser(long userId, long unmutedBy)
+		{
+			UnmuteUserRequest request = new UnmuteUserRequest(unmutedBy);
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/mute", data);
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/unmute", data);
 
-            return JsonConvert.DeserializeObject<string>(response);
-        }
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-        public static async Task<string> UnmuteUser(long userId, long unmutedBy)
-        {
-            UnmuteUserRequest request = new UnmuteUserRequest(unmutedBy);
+			return JsonConvert.DeserializeObject<string>(response);
+		}
 
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+		public static async Task<string> BanUser(long userId, string reason, long bannedBy, DateTime bannedAt, DateTime bannedUntil)
+		{
+			BanUserRequest request = new BanUserRequest(reason, bannedBy, bannedAt, bannedUntil);
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/unmute", data);
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/ban", data);
 
-            return JsonConvert.DeserializeObject<string>(response);
-        }
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-        public static async Task<string> BanUser(long userId, string reason, long bannedBy, DateTime bannedAt, DateTime bannedUntil)
-        {
-            BanUserRequest request = new BanUserRequest(reason, bannedBy, bannedAt, bannedUntil);
+			return JsonConvert.DeserializeObject<string>(response);
+		}
 
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+		public static async Task<string> UnbanUser(long userId, long unbannedBy)
+		{
+			UnbanUserRequest request = new UnbanUserRequest(unbannedBy);
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/ban", data);
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/unban", data);
 
-            return JsonConvert.DeserializeObject<string>(response);
-        }
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-        public static async Task<string> UnbanUser(long userId, long unbannedBy)
-        {
-            UnbanUserRequest request = new UnbanUserRequest(unbannedBy);
+			return JsonConvert.DeserializeObject<string>(response);
+		}
 
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+		public static async Task<SetAdminRankResponse> SetAdminRank(long userId, AdminRank rank, long setBy)
+		{
+			SetAdminRankRequest request = new SetAdminRankRequest(rank, setBy);
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/unban", data);
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/admin-rank", data);
 
-            return JsonConvert.DeserializeObject<string>(response);
-        }
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-        public static async Task<SetAdminRankResponse> SetAdminRank(long userId, AdminRank rank, long setBy)
-        {
-            SetAdminRankRequest request = new SetAdminRankRequest(rank, setBy);
+			return JsonConvert.DeserializeObject<SetAdminRankResponse>(response);
+		}
 
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+		public static async Task<SetFractionResponse> SetFraction(long userId, short fraction, short tier, long setBy)
+		{
+			SetFractionRequest request = new SetFractionRequest(fraction, tier, setBy);
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/admin-rank", data);
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/fraction", data);
 
-            return JsonConvert.DeserializeObject<SetAdminRankResponse>(response);
-        }
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-        public static async Task<SetFractionResponse> SetFraction(long userId, short fraction, short tier, long setBy)
-        {
-            SetFractionRequest request = new SetFractionRequest(fraction, tier, setBy);
+			return JsonConvert.DeserializeObject<SetFractionResponse>(response);
+		}
 
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+		public static async Task SaveUser(long userId, short experience, ICollection<Weapon>? weapons, long money)
+		{
+			SaveUserRequest request = new SaveUserRequest(experience, weapons, money);
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/fraction", data);
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/save", data);
 
-            return JsonConvert.DeserializeObject<SetFractionResponse>(response);
-        }
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
+		}
 
-        public static async Task SaveUser(long userId, short experience, ICollection<Weapon>? weapons, long money)
-        {
-            SaveUserRequest request = new SaveUserRequest(experience, weapons, money);
+		public static async Task<string> GiveWeapon(long userId, WeaponHash weaponHash, int amount, long givenBy)
+		{
+			GiveWeaponRequest request = new GiveWeaponRequest(weaponHash, amount, givenBy);
 
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/save", data);
+			HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/give-weapon", data);
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
-        }
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-        public static async Task<string> GiveWeapon(long userId, WeaponHash weaponHash, int amount, long givenBy)
-        {
-            GiveWeaponRequest request = new GiveWeaponRequest(weaponHash, amount, givenBy);
+			return JsonConvert.DeserializeObject<string>(response);
+		}
 
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+		public static async Task<string> RemoveWeapon(long userId, WeaponHash weaponHash, long removedBy)
+		{
+			RemoveWeaponRequest request = new RemoveWeaponRequest(weaponHash, removedBy);
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/give-weapon", data);
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/remove-weapon", data);
 
-            return JsonConvert.DeserializeObject<string>(response);
-        }
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-        public static async Task<string> RemoveWeapon(long userId, WeaponHash weaponHash, long removedBy)
-        {
-            RemoveWeaponRequest request = new RemoveWeaponRequest(weaponHash, removedBy);
+			return JsonConvert.DeserializeObject<string>(response);
+		}
 
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+		public static async Task<List<Zone>> AllZones()
+		{
+			HttpResponseMessage httpResponseMessage = await client.GetAsync("zones");
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/{userId}/remove-weapon", data);
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			return JsonConvert.DeserializeObject<List<Zone>>(response);
+		}
 
-            return JsonConvert.DeserializeObject<string>(response);
-        }
+		public static async Task SaveUsers(SaveUsersRequest request)
+		{
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-        public static async Task<List<Zone>> AllZones()
-        {
-            HttpResponseMessage httpResponseMessage = await client.GetAsync("zones");
+			HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/save", data);
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
+		}
 
-            return JsonConvert.DeserializeObject<List<Zone>>(response);
-        }
+		public static async Task<Report> CreateReport(Report request)
+		{
+			string json = JsonConvert.SerializeObject(request);
+			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-        public static async Task SaveUsers(SaveUsersRequest request)
-        {
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
+			HttpResponseMessage httpResponseMessage = await client.PostAsync($"reports", data);
 
-            HttpResponseMessage httpResponseMessage = await client.PatchAsync($"users/save", data);
+			string response = await httpResponseMessage.Content.ReadAsStringAsync();
+			if (!httpResponseMessage.IsSuccessStatusCode)
+			{
+				throw new System.Exception(response);
+			}
 
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
-        }
-
-        public static async Task<Report> CreateReport(Report request)
-        {
-            string json = JsonConvert.SerializeObject(request);
-            StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage httpResponseMessage = await client.PostAsync($"reports", data);
-
-            string response = await httpResponseMessage.Content.ReadAsStringAsync();
-            if (!httpResponseMessage.IsSuccessStatusCode)
-            {
-                throw new System.Exception(response);
-            }
-
-            return JsonConvert.DeserializeObject<Report>(response);
-        }
-    }
+			return JsonConvert.DeserializeObject<Report>(response);
+		}
+	}
 }
