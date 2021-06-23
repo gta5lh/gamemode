@@ -44,6 +44,7 @@ namespace Gamemode.Controllers
 
 		public static void Mute(CustomPlayer targetPlayer)
 		{
+			targetPlayer.SetSharedData("isSpeaking", false);
 			foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(35, targetPlayer))
 			{
 				if (player == targetPlayer) continue;
