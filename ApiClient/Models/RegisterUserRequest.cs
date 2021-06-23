@@ -23,7 +23,7 @@ namespace Gamemode.ApiClient.Models
 		[JsonProperty("computer_serial_number")]
 		public string ComputerSerialNumber { get; set; }
 
-		[JsonProperty("game_launcher_type")]
+		[JsonProperty("game_launcher_id")]
 		public GameTypes GameLauncherType { get; set; }
 
 		public RegisterUserRequest(string email, string name, string password, string lastIPAddress, string socialClubID, string computerSerialNumber, GameTypes gameLauncherType)
