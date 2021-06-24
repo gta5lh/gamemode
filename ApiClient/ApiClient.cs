@@ -26,10 +26,8 @@ namespace Gamemode.ApiClient
 			client.BaseAddress = uriBuilder.Uri;
 		}
 
-		public static async Task<User> RegisterUser(string email, string name, string password)
+		public static async Task<User> RegisterUser(RegisterUserRequest request)
 		{
-			RegisterUserRequest request = new RegisterUserRequest(email, name, password);
-
 			string json = JsonConvert.SerializeObject(request);
 			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -44,10 +42,8 @@ namespace Gamemode.ApiClient
 			return JsonConvert.DeserializeObject<User>(response);
 		}
 
-		public static async Task<User> LoginUser(string email, string password)
+		public static async Task<User> LoginUser(LoginUserRequest request)
 		{
-			LoginUserRequest request = new LoginUserRequest(email, password);
-
 			string json = JsonConvert.SerializeObject(request);
 			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 

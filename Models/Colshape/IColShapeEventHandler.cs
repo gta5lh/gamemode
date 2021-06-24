@@ -4,11 +4,11 @@
 
 namespace Gamemode.Colshape
 {
-    using GTANetworkAPI;
+	using GTANetworkAPI;
 
-    public interface IColShapeEventHandler
-    {
-        void OnEntityEnterColShape(ColShape shape, Player player);
-        void OnEntityExitColShape(ColShape shape, Player player);
-    }
+	public interface IColShapeEventHandler
+	{
+		void OnEntityEnterColShape(ColShape shape, Player player);
+		void OnEntityExitColShape(ColShape shape, Player player);
+	}
 }

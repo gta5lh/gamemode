@@ -4,301 +4,302 @@
 
 namespace Gamemode.Models.Player
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Gamemode.ApiClient.Models;
-    using Gamemode.Models.Admin;
-    using GTANetworkAPI;
+	using System;
+	using System.Collections.Generic;
+	using System.Threading.Tasks;
+	using Gamemode.ApiClient.Models;
+	using Gamemode.Models.Admin;
+	using GTANetworkAPI;
 
-    public class CustomPlayer : Player
-    {
-        private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
-        private Models.Admin.AdminRank adminRank;
-        private bool invisible;
-        private bool noclip;
+	public class CustomPlayer : Player
+	{
+		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
+		private Models.Admin.AdminRank adminRank;
+		private bool invisible;
+		private bool noclip;
 
-        public CustomPlayer(NetHandle handle)
-    : base(handle)
-        {
-        }
+		public CustomPlayer(NetHandle handle)
+	: base(handle)
+		{
+		}
 
-        public DateTime? LoggedInAt { get; set; }
+		public DateTime? LoggedInAt { get; set; }
 
-        public MuteState? MuteState { get; set; }
+		public MuteState? MuteState { get; set; }
 
-        public string ChatColor { get; set; }
+		public string ChatColor { get; set; }
 
-        public string Username { get; set; }
+		public string Username { get; set; }
 
-        public long StaticId { get; set; }
+		public long StaticId { get; set; }
 
-        private InventoryWeapons InventoryWeapons;
+		private InventoryWeapons InventoryWeapons;
 
-        public ushort? OneTimeVehicleId { get; set; }
+		public ushort? OneTimeVehicleId { get; set; }
 
-        public byte? fraction { get; set; }
-        public byte? FractionRank { get; set; }
-        public string? FractionRankName { get; set; }
+		public byte? fraction { get; set; }
+		public byte? FractionRank { get; set; }
+		public string? FractionRankName { get; set; }
 
-        public short CurrentExperience { get; set; }
-        public short? RequiredExperience { get; set; }
+		public bool IsInWarZone { get; set; }
 
-        public long Money { get; set; }
+		public short CurrentExperience { get; set; }
+		public short? RequiredExperience { get; set; }
 
-        public bool IsInWarZone { get; set; }
+		public long Money { get; set; }
 
-        public bool Freezed { get; set; }
 
-        public byte? Fraction
-        {
-            get => this.fraction;
+		public bool Freezed { get; set; }
 
-            set
-            {
-                if (this.fraction != null)
-                {
-                    FractionsCache.UnloadFractionMemberFromCache((byte)this.fraction, this.StaticId);
-                }
+		public byte? Fraction
+		{
+			get => this.fraction;
 
-                this.fraction = value;
+			set
+			{
+				if (this.fraction != null)
+				{
+					FractionsCache.UnloadFractionMemberFromCache((byte)this.fraction, this.StaticId);
+				}
 
-                if (this.fraction != null)
-                {
-                    FractionsCache.LoadFractionMemberToCache((byte)this.fraction, this.StaticId, this.Name);
-                    this.SetBlipColor(GangUtil.BlipColorByGangId[this.fraction.Value]);
-                    return;
-                }
+				this.fraction = value;
 
-                this.SetBlipColor(62);
-            }
-        }
+				if (this.fraction != null)
+				{
+					FractionsCache.LoadFractionMemberToCache((byte)this.fraction, this.StaticId, this.Name);
+					this.SetBlipColor(GangUtil.BlipColorByGangId[this.fraction.Value]);
+					return;
+				}
 
-        public bool Invisible
-        {
-            get => this.invisible;
+				this.SetBlipColor(62);
+			}
+		}
 
-            set
-            {
-                if (this.Noclip)
-                {
-                    return;
-                }
+		public bool Invisible
+		{
+			get => this.invisible;
 
-                this.invisible = value;
+			set
+			{
+				if (this.Noclip)
+				{
+					return;
+				}
 
-                if (this.Invisible)
-                {
-                    this.Transparency = 0;
-                    this.RemoveAllWeapons();
-                }
-                else
-                {
-                    this.Transparency = 255;
-                }
-            }
-        }
+				this.invisible = value;
 
-        public bool Noclip
-        {
-            get => this.noclip;
+				if (this.Invisible)
+				{
+					this.Transparency = 0;
+					this.RemoveAllWeapons();
+				}
+				else
+				{
+					this.Transparency = 255;
+				}
+			}
+		}
 
-            set
-            {
-                this.noclip = value;
+		public bool Noclip
+		{
+			get => this.noclip;
 
-                if (this.Invisible)
-                {
-                    return;
-                }
+			set
+			{
+				this.noclip = value;
 
-                if (this.noclip)
-                {
-                    this.Transparency = 0;
-                    this.RemoveAllWeapons();
-                }
-                else
-                {
-                    this.Transparency = 255;
-                }
-            }
-        }
+				if (this.Invisible)
+				{
+					return;
+				}
 
-        public Models.Admin.AdminRank AdminRank
-        {
-            get => this.adminRank;
+				if (this.noclip)
+				{
+					this.Transparency = 0;
+					this.RemoveAllWeapons();
+				}
+				else
+				{
+					this.Transparency = 255;
+				}
+			}
+		}
 
-            set
-            {
-                this.adminRank = value;
+		public Models.Admin.AdminRank AdminRank
+		{
+			get => this.adminRank;
 
-                if (this.adminRank.IsAdmin())
-                {
-                    AdminsCache.LoadAdminToCache(this.StaticId, this.Name);
-                    this.SetSharedData(DataKey.IsAdmin, true);
-                }
-                else
-                {
-                    AdminsCache.UnloadAdminFromCache(this.StaticId);
-                    this.ResetSharedData(DataKey.IsAdmin);
-                }
-            }
-        }
+			set
+			{
+				this.adminRank = value;
 
-        public async Task RankUp()
-        {
-            if (this.FractionRank >= 10)
-            {
-                return;
-            }
+				if (this.adminRank.IsAdmin())
+				{
+					AdminsCache.LoadAdminToCache(this.StaticId, this.Name);
+					this.SetSharedData(DataKey.IsAdmin, true);
+				}
+				else
+				{
+					AdminsCache.UnloadAdminFromCache(this.StaticId);
+					this.ResetSharedData(DataKey.IsAdmin);
+				}
+			}
+		}
 
-            byte fractionRank = (byte)(this.FractionRank + 1);
-            SetFractionResponse setFractionResponse;
+		public async Task RankUp()
+		{
+			if (this.FractionRank >= 10)
+			{
+				return;
+			}
 
-            try
-            {
-                setFractionResponse = await ApiClient.ApiClient.SetFraction(this.StaticId, (byte)this.Fraction, fractionRank, this.StaticId);
-            }
-            catch (Exception)
-            {
-                return;
-            }
+			byte fractionRank = (byte)(this.FractionRank + 1);
+			SetFractionResponse setFractionResponse;
 
-            this.FractionRank = fractionRank;
-            this.CurrentExperience = (short)(this.CurrentExperience - this.RequiredExperience.Value);
-            this.RequiredExperience = setFractionResponse.TierRequiredExperience;
-            this.FractionRankName = setFractionResponse.TierName;
-        }
+			try
+			{
+				setFractionResponse = await ApiClient.ApiClient.SetFraction(this.StaticId, (byte)this.Fraction, fractionRank, this.StaticId);
+			}
+			catch (Exception)
+			{
+				return;
+			}
 
-        public async Task RankDown()
-        {
-            if (this.FractionRank <= 1)
-            {
-                return;
-            }
+			this.FractionRank = fractionRank;
+			this.CurrentExperience = (short)(this.CurrentExperience - this.RequiredExperience.Value);
+			this.RequiredExperience = setFractionResponse.TierRequiredExperience;
+			this.FractionRankName = setFractionResponse.TierName;
+		}
 
-            byte fractionRank = (byte)(this.FractionRank - 1);
-            SetFractionResponse setFractionResponse;
+		public async Task RankDown()
+		{
+			if (this.FractionRank <= 1)
+			{
+				return;
+			}
 
-            try
-            {
-                setFractionResponse = await ApiClient.ApiClient.SetFraction(this.StaticId, (byte)this.Fraction, fractionRank, this.StaticId);
-            }
-            catch (Exception)
-            {
-                return;
-            }
+			byte fractionRank = (byte)(this.FractionRank - 1);
+			SetFractionResponse setFractionResponse;
 
-            this.FractionRank = fractionRank;
-            this.CurrentExperience = (short)(setFractionResponse.TierRequiredExperience - 1);
-            this.RequiredExperience = setFractionResponse.TierRequiredExperience;
-            this.FractionRankName = setFractionResponse.TierName;
-        }
+			try
+			{
+				setFractionResponse = await ApiClient.ApiClient.SetFraction(this.StaticId, (byte)this.Fraction, fractionRank, this.StaticId);
+			}
+			catch (Exception)
+			{
+				return;
+			}
 
-        public void CustomGiveWeapon(WeaponHash weaponHash, int amount)
-        {
-            this.GiveWeapon(weaponHash, amount);
-            this.InventoryWeapons.AddWeapon(weaponHash);
-        }
+			this.FractionRank = fractionRank;
+			this.CurrentExperience = (short)(setFractionResponse.TierRequiredExperience - 1);
+			this.RequiredExperience = setFractionResponse.TierRequiredExperience;
+			this.FractionRankName = setFractionResponse.TierName;
+		}
 
-        public void CustomRemoveWeapon(WeaponHash weaponHash)
-        {
-            this.RemoveWeapon(weaponHash);
-            this.InventoryWeapons.RemoveWeapon(weaponHash);
-        }
+		public void CustomGiveWeapon(WeaponHash weaponHash, int amount)
+		{
+			this.GiveWeapon(weaponHash, amount);
+			this.InventoryWeapons.AddWeapon(weaponHash);
+		}
 
-        public void CustomRemoveAllWeapons()
-        {
+		public void CustomRemoveWeapon(WeaponHash weaponHash)
+		{
+			this.RemoveWeapon(weaponHash);
+			this.InventoryWeapons.RemoveWeapon(weaponHash);
+		}
 
-            this.RemoveAllWeapons();
-            this.InventoryWeapons = new InventoryWeapons();
-        }
+		public void CustomRemoveAllWeapons()
+		{
 
-        public async void Unmute()
-        {
-            try
-            {
-                await ApiClient.ApiClient.UnmuteUser(this.StaticId, this.StaticId);
-            }
-            catch (Exception)
-            {
-                return;
-            }
+			this.RemoveAllWeapons();
+			this.InventoryWeapons = new InventoryWeapons();
+		}
 
-            this.MuteState.Unmute();
-            Logger.Info($"Player mute has expired. ID={this.StaticId}");
-        }
+		public async void Unmute()
+		{
+			try
+			{
+				await ApiClient.ApiClient.UnmuteUser(this.StaticId, this.StaticId);
+			}
+			catch (Exception)
+			{
+				return;
+			}
 
-        public static CustomPlayer LoadPlayerCache(CustomPlayer player, User user)
-        {
-            IdsCache.LoadIdsToCache(player.Id, user.Id);
-            player.StaticId = user.Id;
-            player.SetSharedData(DataKey.StaticId, player.StaticId);
-            player.Name = user.Name;
-            player.AdminRank = user.AdminRankId != null ? (Models.Admin.AdminRank)user.AdminRankId : 0;
-            player.MuteState = new MuteState(user.MutedUntil, user.MutedById, user.MuteReason);
-            player.InventoryWeapons = new InventoryWeapons();
-            player.CurrentExperience = user.Experience;
-            player.Money = user.Money;
-            player.LoggedInAt = DateTime.UtcNow;
-            player.SetSkin(PedHash.Tramp01);
+			this.MuteState.Unmute();
+			Logger.Info($"Player mute has expired. ID={this.StaticId}");
+		}
 
-            if (user.FractionRank != null)
-            {
-                player.Fraction = user.FractionId;
-                player.FractionRank = user.FractionRank.Tier;
-                player.FractionRankName = user.FractionRank.Name;
-                player.RequiredExperience = user.FractionRank.RequiredExperience;
-                player.SetSkin((PedHash)user.FractionRank.Skin.Value);
-            }
+		public static CustomPlayer LoadPlayerCache(CustomPlayer player, User user)
+		{
+			IdsCache.LoadIdsToCache(player.Id, user.Id);
+			player.StaticId = user.Id;
+			player.SetSharedData(DataKey.StaticId, player.StaticId);
+			player.Name = user.Name;
+			player.AdminRank = user.AdminRankId != null ? (Models.Admin.AdminRank)user.AdminRankId : 0;
+			player.MuteState = new MuteState(user.MutedUntil, user.MutedById, user.MuteReason);
+			player.InventoryWeapons = new InventoryWeapons();
+			player.CurrentExperience = user.Experience;
+			player.Money = user.Money;
+			player.LoggedInAt = DateTime.UtcNow;
+			player.SetSkin(PedHash.Tramp01);
 
-            if (user.Weapons != null)
-            {
-                foreach (ApiClient.Models.Weapon weapon in user.Weapons)
-                {
-                    player.CustomGiveWeapon(weapon.Hash, weapon.Amount);
-                }
-            }
+			if (user.FractionRank != null)
+			{
+				player.Fraction = user.FractionId;
+				player.FractionRank = user.FractionRank.Tier;
+				player.FractionRankName = user.FractionRank.Name;
+				player.RequiredExperience = user.FractionRank.RequiredExperience;
+				player.SetSkin((PedHash)user.FractionRank.Skin.Value);
+			}
 
-            Logger.Info($"Loaded player to cache. ID={player.StaticId}");
-            return player;
-        }
+			if (user.Weapons != null)
+			{
+				foreach (ApiClient.Models.Weapon weapon in user.Weapons)
+				{
+					player.CustomGiveWeapon(weapon.Hash, weapon.Amount);
+				}
+			}
 
-        public static async Task UnloadPlayerCache(CustomPlayer player)
-        {
-            player.ResetData();
-            player.ResetSharedData(DataKey.StaticId);
-            player.AdminRank = 0;
-            player.Fraction = null;
-            IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
+			Logger.Info($"Loaded player to cache. ID={player.StaticId}");
+			return player;
+		}
 
-            List<Weapon> weapons = player.GetAllWeapons();
+		public static async Task UnloadPlayerCache(CustomPlayer player)
+		{
+			player.ResetData();
+			player.ResetSharedData(DataKey.StaticId);
+			player.AdminRank = 0;
+			player.Fraction = null;
+			IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
 
-            try
-            {
-                await ApiClient.ApiClient.SaveUser(player.StaticId, player.CurrentExperience, weapons, player.Money);
-            }
-            catch (Exception)
-            {
-            }
+			List<Weapon> weapons = player.GetAllWeapons();
 
-            Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
-        }
+			try
+			{
+				await ApiClient.ApiClient.SaveUser(player.StaticId, player.CurrentExperience, weapons, player.Money);
+			}
+			catch (Exception)
+			{
+			}
 
-        public List<Weapon> GetAllWeapons()
-        {
-            List<Weapon> weapons = new List<Weapon>();
-            foreach (WeaponHash weaponHash in this.InventoryWeapons.GetAllWeapons())
-            {
-                weapons.Add(new Weapon(weaponHash, this.GetWeaponAmmo(weaponHash)));
-            }
+			Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
+		}
 
-            return weapons;
-        }
+		public List<Weapon> GetAllWeapons()
+		{
+			List<Weapon> weapons = new List<Weapon>();
+			foreach (WeaponHash weaponHash in this.InventoryWeapons.GetAllWeapons())
+			{
+				weapons.Add(new Weapon(weaponHash, this.GetWeaponAmmo(weaponHash)));
+			}
 
-        private void SetBlipColor(int color)
-        {
-            this.SetSharedData("blip_color", color);
-        }
-    }
+			return weapons;
+		}
+
+		private void SetBlipColor(int color)
+		{
+			this.SetSharedData("blip_color", color);
+		}
+	}
 }

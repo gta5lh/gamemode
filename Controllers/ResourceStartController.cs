@@ -3,66 +3,65 @@
 // </copyright>
 namespace Gamemode
 {
-    using System;
-    using Gamemode.Cache.GangZone;
-    using Gamemode.Commands.Admin;
-    using Gamemode.Controllers;
-    using Gamemode.Models.Npc;
-    using Gamemode.Models.Player;
-    using Gamemode.Models.Vehicle;
-    using Gamemode.Services;
-    using GTANetworkAPI;
-    using Microsoft.Extensions.Caching.Memory;
-    using NLog.Extensions.Logging;
+	using System;
+	using Gamemode.Cache.GangZone;
+	using Gamemode.Commands.Admin;
+	using Gamemode.Controllers;
+	using Gamemode.Models.Npc;
+	using Gamemode.Models.Player;
+	using Gamemode.Models.Vehicle;
+	using Gamemode.Services;
+	using GTANetworkAPI;
+	using Microsoft.Extensions.Caching.Memory;
+	using NLog.Extensions.Logging;
 
-    public class ResourceStartController : Script
-    {
-        private static IMemoryCache Cache;
+	public class ResourceStartController : Script
+	{
+		private static IMemoryCache Cache;
 
-        [ServerEvent(Event.ResourceStartEx)]
-        private void ResourceStartEx(string resourceName)
-        {
-            this.SetServerSettings();
-            SpawnNpcs.CreateSpawnNpcs();
+		[ServerEvent(Event.ResourceStartEx)]
+		private void ResourceStartEx(string resourceName)
+		{
+			this.SetServerSettings();
+			SpawnNpcs.CreateSpawnNpcs();
 
-            RAGE.Entities.Players.CreateEntity = (NetHandle handle) => new CustomPlayer(handle);
-            RAGE.Entities.Vehicles.CreateEntity = (NetHandle handle) => new CustomVehicle(handle);
+			RAGE.Entities.Players.CreateEntity = (NetHandle handle) => new CustomPlayer(handle);
+			RAGE.Entities.Vehicles.CreateEntity = (NetHandle handle) => new CustomVehicle(handle);
 
-            Cache = new MemoryCache(new MemoryCacheOptions { }, new NLogLoggerFactory());
-            PaydayController.InitPaydayTimer();
-            TimeController.InitTimeSyncTimer();
-            TimeController.SyncTime();
-            GangZoneCache.InitGangZoneCache();
-            SaveUsersController.IniSaveUserTimer();
+			Cache = new MemoryCache(new MemoryCacheOptions { }, new NLogLoggerFactory());
+			PaydayController.InitPaydayTimer();
+			TimeController.InitTimeSyncTimer();
+			GangZoneCache.InitGangZoneCache();
+			SaveUsersController.IniSaveUserTimer();
 
-            GangWarService.FinishGangWarAsFailed();
-            GangWarController.StartGangWarJobs();
-        }
+			GangWarService.FinishGangWarAsFailed();
+			GangWarController.StartGangWarJobs();
+		}
 
-        private void SetServerSettings()
-        {
-            NAPI.Server.SetGlobalServerChat(false);
-            NAPI.Server.SetAutoSpawnOnConnect(false);
-        }
+		private void SetServerSettings()
+		{
+			NAPI.Server.SetGlobalServerChat(false);
+			NAPI.Server.SetAutoSpawnOnConnect(false);
+		}
 
-        public static bool ShouldWait(ushort playerId)
-        {
-            string cacheKey = $"{CacheKeys.UserAuthenticationAction}{playerId}";
+		public static bool ShouldWait(ushort playerId)
+		{
+			string cacheKey = $"{CacheKeys.UserAuthenticationAction}{playerId}";
 
-            if (Cache.Get<bool?>(cacheKey) != null)
-            {
-                return true;
-            }
+			if (Cache.Get<bool?>(cacheKey) != null)
+			{
+				return true;
+			}
 
-            var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(2));
-            Cache.Set(cacheKey, true, cacheEntryOptions);
+			var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(2));
+			Cache.Set(cacheKey, true, cacheEntryOptions);
 
-            return false;
-        }
-    }
+			return false;
+		}
+	}
 
-    public static class CacheKeys
-    {
-        public static string UserAuthenticationAction { get { return "UserAuthenticationAction"; } }
-    }
+	public static class CacheKeys
+	{
+		public static string UserAuthenticationAction { get { return "UserAuthenticationAction"; } }
+	}
 }
