@@ -4,6 +4,7 @@
 namespace Gamemode
 {
 	using System;
+	using System.Threading.Tasks;
 	using Gamemode.Cache.GangZone;
 	using Gamemode.Commands.Admin;
 	using Gamemode.Controllers;
@@ -20,7 +21,7 @@ namespace Gamemode
 		private static IMemoryCache Cache;
 
 		[ServerEvent(Event.ResourceStartEx)]
-		private void ResourceStartEx(string resourceName)
+		private async void ResourceStartEx(string resourceName)
 		{
 			this.SetServerSettings();
 			SpawnNpcs.CreateSpawnNpcs();
@@ -34,7 +35,7 @@ namespace Gamemode
 			GangZoneCache.InitGangZoneCache();
 			SaveUsersController.IniSaveUserTimer();
 
-			GangWarService.FinishGangWarAsFailed();
+			await GangWarService.FinishGangWarAsFailed();
 			GangWarController.StartGangWarJobs();
 		}
 
