@@ -17,7 +17,7 @@ namespace Gamemode.Controllers
 			string? initGangWarCronExpression = System.Environment.GetEnvironmentVariable("INIT_GANG_WAR_CRON_EXPRESSION");
 			if (initGangWarCronExpression == null)
 			{
-				initGangWarCronExpression = "0 30,00 9-20 * * ?";
+				initGangWarCronExpression = "0 20,50 9-20 * * ?";
 			}
 			else
 			{
@@ -27,7 +27,7 @@ namespace Gamemode.Controllers
 			string? startGangWarCronExpression = System.Environment.GetEnvironmentVariable("START_GANG_WAR_CRON_EXPRESSION");
 			if (startGangWarCronExpression == null)
 			{
-				startGangWarCronExpression = "0 20,50 9-20 * * ?";
+				startGangWarCronExpression = "0 30,00 9-20 * * ?";
 			}
 			else
 			{
