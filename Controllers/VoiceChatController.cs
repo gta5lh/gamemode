@@ -8,7 +8,6 @@ namespace Gamemode.Controllers
 	{
 		private const float MaxRange = 25.0f;
 
-
 		[RemoteEvent("start_voice")]
 		public void StartVoice(CustomPlayer player)
 		{
