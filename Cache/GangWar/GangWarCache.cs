@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Gamemode.ApiClient.Models;
+using Gamemode.Models.Player;
 using GTANetworkAPI;
 using Quartz;
 
@@ -13,9 +14,11 @@ namespace Gamemode.Cache.GangWar
 	{
 		public static ColShape ColShape;
 		public static ApiClient.Models.GangWar? GangWar { get; set; }
+		public static List<CustomPlayer> PlayersInZone { get; set; }
 		private static ConcurrentDictionary<byte, short> KillsByGangID { get; set; }
 		private static bool isInProgress { get; set; }
 		private static bool isFinishing { get; set; }
+
 
 		public static void InitGangWarCache(ApiClient.Models.GangWar _gangWar)
 		{
@@ -28,6 +31,7 @@ namespace Gamemode.Cache.GangWar
 			KillsByGangID.TryAdd(GangUtil.NpcIdMarabunta, 0);
 			isInProgress = false;
 			isFinishing = false;
+			PlayersInZone = new List<CustomPlayer>();
 		}
 
 		public static void ResetGangWarCache()
@@ -36,6 +40,7 @@ namespace Gamemode.Cache.GangWar
 			KillsByGangID.Clear();
 			isInProgress = false;
 			isFinishing = false;
+			PlayersInZone = new List<CustomPlayer>();
 		}
 
 		public static void SetAsInProgress()

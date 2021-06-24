@@ -130,7 +130,14 @@ namespace Gamemode.Services
 
 				ZoneService.FinishCapture(gangWar.ZoneID, winnerFractionID);
 				NAPI.ColShape.DeleteColShape(GangWarCache.ColShape);
+
+				foreach (CustomPlayer player in GangWarCache.PlayersInZone)
+				{
+					player.IsInWarZone = false;
+				}
 			});
+
+			await NAPI.Task.WaitForMainThread();
 
 			GangWarCache.ResetGangWarCache();
 			Logger.Info("Finished gang war");
