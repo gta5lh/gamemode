@@ -6,6 +6,9 @@ namespace Gamemode.Controllers
 {
 	public class VoiceChatController : Script
 	{
+		private const float MaxRange = 25.0f;
+
+
 		[RemoteEvent("start_voice")]
 		public void StartVoice(CustomPlayer player)
 		{
@@ -31,7 +34,8 @@ namespace Gamemode.Controllers
 		[RemoteEvent("add_voice_listener")]
 		public void AddVoiceListener(CustomPlayer player, CustomPlayer target)
 		{
-			if (target == null || !target.Exists || ChatService.CheckMute(player, false)) return;
+			if (Vector3.Distance(player.Position, target.Position) > MaxRange || (player.MuteState != null && player.MuteState.IsMuted())) return;
+
 			player.EnableVoiceTo(target);
 		}
 
@@ -45,7 +49,9 @@ namespace Gamemode.Controllers
 		public static void Mute(CustomPlayer targetPlayer)
 		{
 			targetPlayer.SetSharedData("isSpeaking", false);
-			foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(35, targetPlayer))
+			targetPlayer.TriggerEvent("muted", true);
+
+			foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(MaxRange, targetPlayer))
 			{
 				if (player == targetPlayer) continue;
 				targetPlayer.DisableVoiceTo(player);
@@ -54,7 +60,9 @@ namespace Gamemode.Controllers
 
 		public static void Unmute(CustomPlayer targetPlayer)
 		{
-			foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(35, targetPlayer))
+			targetPlayer.TriggerEvent("muted", false);
+
+			foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(MaxRange, targetPlayer))
 			{
 				if (player == targetPlayer) continue;
 				targetPlayer.EnableVoiceTo(player);
