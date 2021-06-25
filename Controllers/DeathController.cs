@@ -1,9 +1,10 @@
 ﻿namespace Gamemode.Controllers
 {
+	using Gamemode.ApiClient.Models;
+	using Gamemode.Cache.GangWar;
 	using Gamemode.Models.Player;
 	using Gamemode.Services.Player;
 	using GTANetworkAPI;
-	using System.Collections.Generic;
 
 	public class DeathController : Script
 	{
@@ -30,6 +31,15 @@
 			{
 				// TODO: Punish if newby killed gang member?
 				return;
+			}
+
+			if (target.IsInWarZone && killer.IsInWarZone)
+			{
+				short delta = killer.Fraction == target.Fraction ? (short)-1 : (short)1;
+
+				GangWarCache.AddKill(killer.Fraction.Value, delta);
+				GangWarStats gangWarStats = GangWarCache.GetGangWarStats();
+				NAPI.ClientEvent.TriggerClientEventForAll("UpdateGangWarStats", gangWarStats.Ballas, gangWarStats.Bloods, gangWarStats.Marabunta, gangWarStats.Families, gangWarStats.Vagos);
 			}
 
 			ExperienceService.OnPlayerDeath(target, killer, reason);

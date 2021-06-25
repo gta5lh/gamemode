@@ -67,35 +67,5 @@ namespace Gamemode.Controllers
 		{
 			await scheduler.Shutdown();
 		}
-
-		[ServerEvent(Event.PlayerDeath)]
-		private async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
-		{
-			if (killer == null && reason == 0)
-			{
-				DeathService.OnPlayerDeath(target, killer, reason, out killer, out reason);
-			}
-
-			if (killer == null)
-			{
-				return;
-			}
-
-			if (target.Fraction == null || killer.Fraction == null)
-			{
-				return;
-			}
-
-			if (!target.IsInWarZone || !killer.IsInWarZone)
-			{
-				return;
-			}
-
-			short delta = killer.Fraction == target.Fraction ? (short)-1 : (short)1;
-
-			GangWarCache.AddKill(killer.Fraction.Value, delta);
-			GangWarStats gangWarStats = GangWarCache.GetGangWarStats();
-			NAPI.ClientEvent.TriggerClientEventForAll("UpdateGangWarStats", gangWarStats.Ballas, gangWarStats.Bloods, gangWarStats.Marabunta, gangWarStats.Families, gangWarStats.Vagos);
-		}
 	}
 }
