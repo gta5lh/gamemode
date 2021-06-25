@@ -1,4 +1,5 @@
-﻿using Gamemode.Models.Admin;
+﻿using Gamemode.Controllers;
+using Gamemode.Models.Admin;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
 using System;
@@ -43,13 +44,7 @@ namespace Gamemode.Commands.Admin
 				admin.SendChatMessage("Нельзя начать слежение за самим собой");
 				return;
 			}
-
-			if (admin.SpectatePosition == null) admin.SpectatePosition = admin.Position;
-			admin.Spectating = true;
-			admin.RemoveAllWeapons();
-			admin.Position = targetPlayer.Position + new Vector3(0, 0, 10);
-			admin.Dimension = targetPlayer.Dimension;
-			admin.TriggerEvent("spectate", targetPlayer.Id);
+			SpectateController.StartSpectate(admin, targetPlayer);
 
 			AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} начал следить за {targetPlayer.Name}");
 			this.Logger.Warn($"Administrator {admin.Name} spectate {targetPlayer.Name}");
@@ -66,11 +61,7 @@ namespace Gamemode.Commands.Admin
 				admin.SendChatMessage("Вы не в режиме слежения");
 				return;
 			}
-			admin.Position = admin.SpectatePosition;
-			admin.Dimension = 0;
-			admin.Spectating = false;
-			admin.SpectatePosition = null;
-			admin.TriggerEvent("spectateStop");
+			SpectateController.StopSpectate(admin);
 		}
 	}
 }
