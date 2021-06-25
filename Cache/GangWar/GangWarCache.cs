@@ -12,6 +12,8 @@ namespace Gamemode.Cache.GangWar
 {
 	public static class GangWarCache
 	{
+		public static DateTime StartTime { get; set; }
+		public static DateTime FinishTime { get; set; }
 		public static ColShape ColShape;
 		public static ApiClient.Models.GangWar? GangWar { get; set; }
 		public static List<CustomPlayer> PlayersInZone { get; set; }
@@ -68,12 +70,12 @@ namespace Gamemode.Cache.GangWar
 			return isFinishing;
 		}
 
-		public static void AddKill(byte gangID)
+		public static void AddKill(byte gangID, short amount)
 		{
-			KillsByGangID.AddOrUpdate(gangID, 1, (id, kills) => ++kills);
+			KillsByGangID.AddOrUpdate(gangID, 1, (id, kills) => ((short)(kills + amount)));
 		}
 
-		public static string GetKillsMessage()
+		public static GangWarStats GetGangWarStats()
 		{
 			short bloodsKills;
 			short ballasKills;
@@ -87,7 +89,9 @@ namespace Gamemode.Cache.GangWar
 			KillsByGangID.TryGetValue(GangUtil.NpcIdVagos, out vagosKills);
 			KillsByGangID.TryGetValue(GangUtil.NpcIdMarabunta, out marabuntaKills);
 
-			return $"Bloods={bloodsKills} Ballas={ballasKills} TheFamilies={theFamiliesKills} Vagos={vagosKills} Marabunta={marabuntaKills}";
+			GangWarStats gangWarStats = new GangWarStats(ballasKills, bloodsKills, marabuntaKills, theFamiliesKills, vagosKills);
+
+			return gangWarStats;
 		}
 
 		public static bool IsZeroKills()
@@ -140,6 +144,12 @@ namespace Gamemode.Cache.GangWar
 
 				return statistics;
 			}
+		}
+
+		public static double RemainingMs()
+		{
+			StartTime = DateTime.UtcNow;
+			return (FinishTime - StartTime).TotalMilliseconds;
 		}
 	}
 }

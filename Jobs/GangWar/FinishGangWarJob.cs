@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Gamemode.ApiClient.Models;
 using Gamemode.Cache.GangWar;
 using Gamemode.Cache.GangZone;
+using Gamemode.Logger;
 using Gamemode.Services;
 using GTANetworkAPI;
 using Quartz;

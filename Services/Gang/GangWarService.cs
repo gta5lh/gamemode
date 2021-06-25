@@ -69,7 +69,7 @@ namespace Gamemode.Services
 			Logger.Info("Inited gang war");
 		}
 
-		public static async Task StartGangWar()
+		public static async Task StartGangWar(DateTime finishTime)
 		{
 			if (!GangWarCache.IsInited() || GangWarCache.IsInProgress()) return;
 			GangWarCache.SetAsInProgress();
@@ -82,6 +82,17 @@ namespace Gamemode.Services
 				GangWarCache.ColShape.OnEntityEnterColShape += gangWarEvent.OnEntityEnterColShape;
 				GangWarCache.ColShape.OnEntityExitColShape += gangWarEvent.OnEntityExitColShape;
 
+				GangWarCache.FinishTime = finishTime;
+
+				List<CustomPlayer> players = new List<CustomPlayer>();
+				foreach (CustomPlayer player in NAPI.Pools.GetAllPlayers())
+				{
+					if (player.LoggedInAt == null) continue;
+					players.Add(player);
+
+				}
+
+				NAPI.ClientEvent.TriggerClientEventToPlayers(players.ToArray(), "InitGangWarUI", GangWarCache.RemainingMs().ToString(), GangWarCache.GangWar.TargetFractionID);
 			});
 
 			Logger.Info("Started gang war");
@@ -135,12 +146,23 @@ namespace Gamemode.Services
 				{
 					player.IsInWarZone = false;
 				}
+
+				NAPI.ClientEvent.TriggerClientEventForAll("CloseGangWarUI");
 			});
 
 			await NAPI.Task.WaitForMainThread();
 
 			GangWarCache.ResetGangWarCache();
 			Logger.Info("Finished gang war");
+		}
+
+		public static void DisplayGangWarUI(CustomPlayer player)
+		{
+			if (!GangWarCache.IsInProgress()) return;
+
+			GangWarStats gangWarStats = GangWarCache.GetGangWarStats();
+			NAPI.ClientEvent.TriggerClientEvent(player, "InitGangWarUI", GangWarCache.RemainingMs().ToString(), GangWarCache.GangWar.TargetFractionID);
+			NAPI.ClientEvent.TriggerClientEvent(player, "UpdateGangWarStats", gangWarStats.Ballas, gangWarStats.Bloods, gangWarStats.Marabunta, gangWarStats.Families, gangWarStats.Vagos);
 		}
 	}
 }

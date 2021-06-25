@@ -50,9 +50,27 @@ namespace Gamemode.Commands.Test
 
 		[Command("sgw")]
 		[AdminMiddleware(AdminRank.Owner)]
-		public async void StartGangWar(CustomPlayer player)
+		public async void StartGangWar(CustomPlayer player, string? minutesInput = null)
 		{
-			await Services.GangWarService.StartGangWar();
+			if (minutesInput == null)
+			{
+				minutesInput = "15";
+			}
+
+			short minutes;
+
+			try
+			{
+				minutes = short.Parse(minutesInput);
+			}
+			catch (Exception)
+			{
+				return;
+			}
+
+
+			DateTime finishTime = DateTime.UtcNow.AddMinutes(minutes);
+			await Services.GangWarService.StartGangWar(finishTime);
 		}
 
 
