@@ -29,14 +29,14 @@ namespace Gamemode.Controllers
 		}
 
 		[ServerEvent(Event.PlayerEnterColshape)]
-		public void OnPlayerEnterColshape(ColShape shape, Player player)
+		public void OnPlayerEnterColshape(ColShape shape, CustomPlayer player)
 		{
 			if (!ColShapes.Contains(shape)) return;
 			player.TriggerEvent("safeZone");
 		}
 
 		[ServerEvent(Event.PlayerExitColshape)]
-		public void OnPlayerExitColshape(ColShape shape, Player player)
+		public void OnPlayerExitColshape(ColShape shape, CustomPlayer player)
 		{
 			if (!ColShapes.Contains(shape)) return;
 			player.TriggerEvent("safeZoneEnd");
