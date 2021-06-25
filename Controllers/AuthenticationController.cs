@@ -9,6 +9,7 @@ namespace Gamemode.Controllers
 	using System.Threading.Tasks;
 	using Gamemode.ApiClient.Models;
 	using Gamemode.Models.Player;
+	using Gamemode.Services;
 	using GamemodeCommon.Authentication.Models;
 	using GTANetworkAPI;
 	using Newtonsoft.Json;
@@ -65,6 +66,7 @@ namespace Gamemode.Controllers
 				CustomPlayer.LoadPlayerCache(player, user);
 				NAPI.ClientEvent.TriggerClientEvent(player, "LogIn");
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
+				GangWarService.DisplayGangWarUI(player);
 			});
 		}
 
@@ -104,6 +106,7 @@ namespace Gamemode.Controllers
 				CustomPlayer.LoadPlayerCache(player, user);
 				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LogIn");
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
+				GangWarService.DisplayGangWarUI(player);
 			});
 		}
 

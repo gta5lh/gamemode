@@ -20,5 +20,7 @@ namespace Gamemode.ApiClient.Models
 		public bool Battleworthy { get; set; }
 
 		public byte BlipColor { get; set; }
+
+		public bool IsWarInProgress { get; set; }
 	}
 }

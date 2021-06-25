@@ -12,14 +12,7 @@
 		{
 			if (killer == null && reason == 0)
 			{
-				List<Player> found = NAPI.Player.GetPlayersInRadiusOfPlayer(3, target);
-				foreach (CustomPlayer player in found)
-				{
-					if (player == target) continue;
-					killer = player;
-					reason = (uint)player.CurrentWeapon;
-					break;
-				}
+				DeathService.OnPlayerDeath(target, killer, reason, out killer, out reason);
 			}
 
 			if (killer == null || killer == target)

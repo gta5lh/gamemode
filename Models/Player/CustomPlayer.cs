@@ -41,6 +41,8 @@ namespace Gamemode.Models.Player
 		public byte? FractionRank { get; set; }
 		public string? FractionRankName { get; set; }
 
+		public bool IsInWarZone { get; set; }
+
 		public short CurrentExperience { get; set; }
 		public short? RequiredExperience { get; set; }
 
