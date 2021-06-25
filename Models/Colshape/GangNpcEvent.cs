@@ -31,13 +31,7 @@ namespace Gamemode.Colshape
 
 		public void OnEntityExitColShape(ColShape shape, Player player)
 		{
-			string state = this.State(player);
-			if (state == string.Empty)
-			{
-				return;
-			}
-
-			NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", false, this.NpcName, state);
+			NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", false, this.NpcName);
 		}
 
 		private string State(Player player)
