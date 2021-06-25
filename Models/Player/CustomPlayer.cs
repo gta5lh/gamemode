@@ -92,11 +92,13 @@ namespace Gamemode.Models.Player
 				if (this.Invisible)
 				{
 					this.Transparency = 0;
+					this.SetBlipColor(-1);
 					this.RemoveAllWeapons();
 				}
 				else
 				{
 					this.Transparency = 255;
+					this.SetDefaultBlipColor();
 				}
 			}
 		}
@@ -123,7 +125,7 @@ namespace Gamemode.Models.Player
 				else
 				{
 					this.Transparency = 255;
-					this.SetBlipColor(0);
+					this.SetDefaultBlipColor();
 				}
 			}
 		}
@@ -145,11 +147,13 @@ namespace Gamemode.Models.Player
 				if (this.noclip)
 				{
 					this.Transparency = 0;
+					this.SetBlipColor(-1);
 					this.RemoveAllWeapons();
 				}
 				else
 				{
 					this.Transparency = 255;
+					this.SetDefaultBlipColor();
 				}
 			}
 		}
@@ -329,6 +333,18 @@ namespace Gamemode.Models.Player
 		private void SetBlipColor(int color)
 		{
 			this.SetSharedData("blip_color", color);
+		}
+
+		private void SetDefaultBlipColor()
+		{
+			if (this.fraction != null)
+			{
+				this.SetBlipColor(GangUtil.BlipColorByGangId[this.fraction.Value]);
+			}
+			else
+			{
+				this.SetBlipColor(62);
+			}
 		}
 	}
 }
