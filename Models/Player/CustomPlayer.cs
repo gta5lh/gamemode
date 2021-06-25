@@ -117,11 +117,13 @@ namespace Gamemode.Models.Player
 				if (this.Spectating)
 				{
 					this.Transparency = 0;
+					this.SetBlipColor(-1);
 					this.RemoveAllWeapons();
 				}
 				else
 				{
 					this.Transparency = 255;
+					this.SetBlipColor(0);
 				}
 			}
 		}
