@@ -4,11 +4,14 @@
 namespace Gamemode
 {
 	using System;
+	using System.Threading.Tasks;
+	using Gamemode.Cache.GangZone;
 	using Gamemode.Commands.Admin;
 	using Gamemode.Controllers;
 	using Gamemode.Models.Npc;
 	using Gamemode.Models.Player;
 	using Gamemode.Models.Vehicle;
+	using Gamemode.Services;
 	using GTANetworkAPI;
 	using Microsoft.Extensions.Caching.Memory;
 	using NLog.Extensions.Logging;
@@ -18,7 +21,7 @@ namespace Gamemode
 		private static IMemoryCache Cache;
 
 		[ServerEvent(Event.ResourceStartEx)]
-		private void ResourceStartEx(string resourceName)
+		private async void ResourceStartEx(string resourceName)
 		{
 			this.SetServerSettings();
 			SpawnNpcs.CreateSpawnNpcs();
@@ -29,8 +32,11 @@ namespace Gamemode
 			Cache = new MemoryCache(new MemoryCacheOptions { }, new NLogLoggerFactory());
 			PaydayController.InitPaydayTimer();
 			TimeController.InitTimeSyncTimer();
-			GangZoneController.InitGangZones();
+			GangZoneCache.InitGangZoneCache();
 			SaveUsersController.IniSaveUserTimer();
+
+			await GangWarService.FinishGangWarAsFailed();
+			GangWarController.StartGangWarJobs();
 		}
 
 		private void SetServerSettings()
