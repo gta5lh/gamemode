@@ -44,10 +44,17 @@ namespace Gamemode.Commands.Admin
 				admin.SendChatMessage("Нельзя начать слежение за самим собой");
 				return;
 			}
+
+			if (admin.Noclip)
+			{
+				admin.SendChatMessage("Нельзя начать слежение в режиме Noclip");
+				return;
+			}
+
 			SpectateController.StartSpectate(admin, targetPlayer);
 
 			AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} начал следить за {targetPlayer.Name}");
-			this.Logger.Warn($"Administrator {admin.Name} spectate {targetPlayer.Name}");
+			this.Logger.Warn($"Administrator {admin.Name} started spectate {targetPlayer.Name}");
 		}
 
 		private const string SpectateStopCommandUsage = "Использование: /spectatestop. Пример: /specstop";
@@ -61,6 +68,7 @@ namespace Gamemode.Commands.Admin
 				admin.SendChatMessage("Вы не в режиме слежения");
 				return;
 			}
+
 			SpectateController.StopSpectate(admin);
 		}
 	}

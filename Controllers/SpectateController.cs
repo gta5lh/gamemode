@@ -9,6 +9,7 @@ namespace Gamemode.Controllers
 		public void TrySpectate(CustomPlayer admin, int id)
 		{
 			Player found = NAPI.Pools.GetAllPlayers().Find(x => x.Id == id);
+
 			if (found != null) StartSpectate(admin, (CustomPlayer)found);
 			else StopSpectate(admin);
 		}
@@ -20,6 +21,7 @@ namespace Gamemode.Controllers
 			admin.RemoveAllWeapons();
 			admin.Position = targetPlayer.Position + new Vector3(0, 0, 10);
 			admin.Dimension = targetPlayer.Dimension;
+
 			admin.TriggerEvent("spectate", targetPlayer.Id);
 		}
 
