@@ -1,4 +1,4 @@
-﻿// <copyright file="PlayerCache.cs" company="lbyte00">
+// <copyright file="PlayerCache.cs" company="lbyte00">
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
@@ -16,6 +16,7 @@ namespace Gamemode.Models.Player
 		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 		private Models.Admin.AdminRank adminRank;
 		private bool invisible;
+		private bool spectating;
 		private bool noclip;
 
 		public CustomPlayer(NetHandle handle)
@@ -51,6 +52,8 @@ namespace Gamemode.Models.Player
 
 		public bool Freezed { get; set; }
 
+		public Vector3? SpectatePosition { get; set; }
+
 		public byte? Fraction
 		{
 			get => this.fraction;
@@ -75,6 +78,33 @@ namespace Gamemode.Models.Player
 			}
 		}
 
+		public bool Spectating
+		{
+			get => this.spectating;
+
+			set
+			{
+				if (this.Noclip || this.Invisible)
+				{
+					return;
+				}
+
+				this.spectating = value;
+
+				if (this.Spectating)
+				{
+					this.Transparency = 0;
+					this.SetBlipColor(-1);
+					this.RemoveAllWeapons();
+				}
+				else
+				{
+					this.Transparency = 255;
+					this.SetDefaultBlipColor();
+				}
+			}
+		}
+
 		public bool Invisible
 		{
 			get => this.invisible;
@@ -91,11 +121,13 @@ namespace Gamemode.Models.Player
 				if (this.Invisible)
 				{
 					this.Transparency = 0;
+					this.SetBlipColor(-1);
 					this.RemoveAllWeapons();
 				}
 				else
 				{
 					this.Transparency = 255;
+					this.SetDefaultBlipColor();
 				}
 			}
 		}
@@ -116,11 +148,13 @@ namespace Gamemode.Models.Player
 				if (this.noclip)
 				{
 					this.Transparency = 0;
+					this.SetBlipColor(-1);
 					this.RemoveAllWeapons();
 				}
 				else
 				{
 					this.Transparency = 255;
+					this.SetDefaultBlipColor();
 				}
 			}
 		}
@@ -300,6 +334,18 @@ namespace Gamemode.Models.Player
 		private void SetBlipColor(int color)
 		{
 			this.SetSharedData("blip_color", color);
+		}
+
+		private void SetDefaultBlipColor()
+		{
+			if (this.fraction != null)
+			{
+				this.SetBlipColor(GangUtil.BlipColorByGangId[this.fraction.Value]);
+			}
+			else
+			{
+				this.SetBlipColor(62);
+			}
 		}
 	}
 }
