@@ -12,7 +12,7 @@ namespace Gamemode.Controllers
 
 		public SafeZoneController()
 		{
-			foreach(Spawn spawn in PlayerSpawns.SpawnPositions)
+			foreach (Spawn spawn in PlayerSpawns.SpawnPositions)
 			{
 				AddSafeZone(spawn.Position);
 			}
@@ -25,7 +25,7 @@ namespace Gamemode.Controllers
 
 		private void AddSafeZone(Vector3 vec)
 		{
-			ColShapes.Add(NAPI.ColShape.CreateCylinderColShape(vec, 100, 100, 0));
+			ColShapes.Add(NAPI.ColShape.CreateCylinderColShape(vec, 50, 50, 0));
 		}
 
 		[ServerEvent(Event.PlayerEnterColshape)]
