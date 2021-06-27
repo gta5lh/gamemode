@@ -25,7 +25,7 @@ namespace Gamemode.Controllers
 
 		private void AddSafeZone(Vector3 vec)
 		{
-			ColShapes.Add(NAPI.ColShape.CreateCylinderColShape(vec, 50, 50, 0));
+			ColShapes.Add(NAPI.ColShape.Create2DColShape(vec.X, vec.Y, 100f, 100f));
 		}
 
 		[ServerEvent(Event.PlayerEnterColshape)]
