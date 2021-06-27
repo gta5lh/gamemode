@@ -6,6 +6,7 @@ namespace Gamemode.Commands.Admin
 {
 	using System;
 	using System.Threading.Tasks;
+	using Gamemode.Controllers;
 	using Gamemode.Models.Player;
 	using Gamemode.Utils;
 	using GTANetworkAPI;
@@ -67,6 +68,7 @@ namespace Gamemode.Commands.Admin
 				if (targetPlayer != null)
 				{
 					targetPlayer.MuteState = new MuteState(mutedUntil, admin.StaticId, reason);
+					VoiceChatController.Mute(targetPlayer);
 				}
 
 				Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал мут {targetName} на {duration} минут. Причина: {reason}");
@@ -114,6 +116,7 @@ namespace Gamemode.Commands.Admin
 				if (targetPlayer != null)
 				{
 					targetPlayer.MuteState = new MuteState();
+					VoiceChatController.Unmute(targetPlayer);
 				}
 
 				Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял мут {targetName}");

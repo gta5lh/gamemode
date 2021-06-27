@@ -1,4 +1,5 @@
 ﻿using System;
+using Gamemode.Cache.GangZone;
 using Gamemode.Commands.Admin;
 using Gamemode.Controllers;
 using Gamemode.Models.Admin;
@@ -7,54 +8,77 @@ using GTANetworkAPI;
 
 namespace Gamemode.Commands.Test
 {
-    public class TestCommand : Script
-    {
-        [Command("tmoney", "/tmoney", Alias = "tm", GreedyArg = true)]
-        [AdminMiddleware(AdminRank.Owner)]
-        public void Money(CustomPlayer player, string message = null)
-        {
-            player.SendChatMessage($"{player.Money}");
-        }
+	public class TestCommand : Script
+	{
+		[Command("tmoney", "/tmoney", Alias = "tm", GreedyArg = true)]
+		[AdminMiddleware(AdminRank.Owner)]
+		public void Money(CustomPlayer player, string message = null)
+		{
+			player.SendChatMessage($"{player.Money}");
+		}
 
-        [Command("tlogin", "/tlogin", Alias = "tl", GreedyArg = true)]
-        [AdminMiddleware(AdminRank.Owner)]
-        public void Login(CustomPlayer player, string message = null)
-        {
-            player.LoggedInAt = DateTime.UtcNow;
-            player.SendChatMessage($"{player.LoggedInAt}");
-        }
+		[Command("tlogin", "/tlogin", Alias = "tl", GreedyArg = true)]
+		[AdminMiddleware(AdminRank.Owner)]
+		public void Login(CustomPlayer player, string message = null)
+		{
+			player.LoggedInAt = DateTime.UtcNow;
+			player.SendChatMessage($"{player.LoggedInAt}");
+		}
 
-        [Command("testa")]
-        [AdminMiddleware(AdminRank.Owner)]
-        public void TestA(CustomPlayer sender)
-        {
-            GangZoneController.OnCaptureStart(2);
-            sender.SendChatMessage("Started");
-        }
+		[Command("rgz")]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void Rb(CustomPlayer player)
+		{
+			var zones = await GangZoneCache.LoadZones();
+			NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
+		}
 
-        [Command("testb")]
-        [AdminMiddleware(AdminRank.Owner)]
-        public void TestB(CustomPlayer sender)
-        {
-            GangZoneController.OnCaptureEnd(2, 2);
-            sender.SendChatMessage("Ended");
-        }
+		[Command("rgz")]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void Sgw(CustomPlayer player)
+		{
+			var zones = await GangZoneCache.LoadZones();
+			NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
+		}
 
-        [Command("capt")]
-        [AdminMiddleware(AdminRank.Owner)]
-        public void Capt(CustomPlayer sender)
-        {
-            int blip = GangZoneController.TryCaptureStart(sender); // Возвращает id захватываемой территории
-            if (blip == -1) return;
-            sender.SendChatMessage("Found");
-        }
+		[Command("igw")]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void InitGangWar(CustomPlayer player)
+		{
+			await Services.GangWarService.InitGangWar();
+		}
 
-        [Command("rb")]
-        [AdminMiddleware(AdminRank.Owner)]
-        public async void Rb(CustomPlayer player)
-        {
-            var zones = await GangZoneController.LoadZones();
-            NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
-        }
-    }
+		[Command("sgw")]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void StartGangWar(CustomPlayer player, string? minutesInput = null)
+		{
+			if (minutesInput == null)
+			{
+				minutesInput = "15";
+			}
+
+			short minutes;
+
+			try
+			{
+				minutes = short.Parse(minutesInput);
+			}
+			catch (Exception)
+			{
+				return;
+			}
+
+
+			DateTime finishTime = DateTime.UtcNow.AddMinutes(minutes);
+			await Services.GangWarService.StartGangWar(finishTime);
+		}
+
+
+		[Command("fgw")]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void FinishGangWar(CustomPlayer player)
+		{
+			await Services.GangWarService.FinishGangWar();
+		}
+	}
 }

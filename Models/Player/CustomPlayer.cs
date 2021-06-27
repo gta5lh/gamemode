@@ -42,6 +42,8 @@ namespace Gamemode.Models.Player
 		public byte? FractionRank { get; set; }
 		public string? FractionRankName { get; set; }
 
+		public bool IsInWarZone { get; set; }
+
 		public short CurrentExperience { get; set; }
 		public short? RequiredExperience { get; set; }
 
@@ -76,33 +78,6 @@ namespace Gamemode.Models.Player
 			}
 		}
 
-		public bool Invisible
-		{
-			get => this.invisible;
-
-			set
-			{
-				if (this.Noclip)
-				{
-					return;
-				}
-
-				this.invisible = value;
-
-				if (this.Invisible)
-				{
-					this.Transparency = 0;
-					this.SetBlipColor(-1);
-					this.RemoveAllWeapons();
-				}
-				else
-				{
-					this.Transparency = 255;
-					this.SetDefaultBlipColor();
-				}
-			}
-		}
-
 		public bool Spectating
 		{
 			get => this.spectating;
@@ -130,6 +105,32 @@ namespace Gamemode.Models.Player
 			}
 		}
 
+		public bool Invisible
+		{
+			get => this.invisible;
+
+			set
+			{
+				if (this.Noclip)
+				{
+					return;
+				}
+
+				this.invisible = value;
+
+				if (this.Invisible)
+				{
+					this.Transparency = 0;
+					this.SetBlipColor(-1);
+					this.RemoveAllWeapons();
+				}
+				else
+				{
+					this.Transparency = 255;
+					this.SetDefaultBlipColor();
+				}
+			}
+		}
 
 		public bool Noclip
 		{
@@ -139,7 +140,7 @@ namespace Gamemode.Models.Player
 			{
 				this.noclip = value;
 
-				if (this.Invisible || this.Spectating)
+				if (this.Invisible)
 				{
 					return;
 				}
