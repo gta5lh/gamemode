@@ -30,7 +30,7 @@ namespace Gamemode.Controllers
 				VehicleUtil.GetById(player.OneTimeVehicleId.Value).Delete();
 			}
 
-			CustomVehicle vehicle = (CustomVehicle)NAPI.Vehicle.CreateVehicle(VehicleHash.Voodoo2, vehicleSpawnLocation.Position, vehicleSpawnLocation.Heading, 0, 0, "NEWBIE");
+			CustomVehicle vehicle = (CustomVehicle)NAPI.Vehicle.CreateVehicle(VehicleHash.Ruiner3, vehicleSpawnLocation.Position, vehicleSpawnLocation.Heading, 0, 0, "NEWBIE");
 			vehicle.OwnerPlayerId = player.Id;
 			vehicle.CustomPrimaryColor = gangColor;
 			vehicle.CustomSecondaryColor = gangColor;
