@@ -43,6 +43,12 @@ namespace Gamemode
 		{
 			NAPI.Server.SetGlobalServerChat(false);
 			NAPI.Server.SetAutoSpawnOnConnect(false);
+			NAPI.Server.SetCommandErrorMessage("Команда не найдена.");
+
+			if (IsProduction())
+			{
+				NAPI.Server.SetLogCommandParamParserExceptions(false);
+			}
 		}
 
 		public static bool ShouldWait(ushort playerId)
@@ -58,6 +64,17 @@ namespace Gamemode
 			Cache.Set(cacheKey, true, cacheEntryOptions);
 
 			return false;
+		}
+
+		private static bool IsProduction()
+		{
+			string? environment = System.Environment.GetEnvironmentVariable("ENVIRONMENT");
+			if (environment == null)
+			{
+				environment = "production";
+			}
+
+			return environment == "production";
 		}
 	}
 
