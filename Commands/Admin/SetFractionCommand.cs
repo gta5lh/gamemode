@@ -14,7 +14,7 @@ namespace Gamemode.Commands.Admin
 		[AdminMiddleware(Models.Admin.AdminRank.Junior)]
 		public async Task MakeMember(CustomPlayer admin, string staticIdInput = null, string fractionIdInput = null, string rankIdInput = null)
 		{
-			if (staticIdInput == null || staticIdInput == null || fractionIdInput == null || rankIdInput == null)
+			if (staticIdInput == null || fractionIdInput == null || rankIdInput == null)
 			{
 				admin.SendChatMessage(MakeMemberCommandUsage);
 				return;
