@@ -33,14 +33,6 @@ namespace Gamemode.Commands.Test
 			NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
 		}
 
-		[Command("rgz")]
-		[AdminMiddleware(AdminRank.Owner)]
-		public async void Sgw(CustomPlayer player)
-		{
-			var zones = await GangZoneCache.LoadZones();
-			NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
-		}
-
 		[Command("igw")]
 		[AdminMiddleware(AdminRank.Owner)]
 		public async void InitGangWar(CustomPlayer player)
