@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Регистрация и авторизация</title>
+		<link rel="stylesheet" href="./style.css">
+
+	</head>
+
+	<body>
+		<div class="bg-wrapper">
+			<div class="bg-grad one active"></div>
+			<div class="bg-grad two"></div>
+			<div class="bg-grad three"></div>
+			<div class="bg-grad four"></div>
+			<div class="bg-grad five"></div>
+		</div>
+
+		<div class="bg-help">По нажатию на <i class="img-help">~</i> (тильда) включается курсор</div>
+
+		<div class="container">
+			<div class="box"></div>
+			<div class="container-forms">
+				<div class="container-info">
+					<div class="info-item">
+						<div class="table">
+							<div class="table-cell">
+								<p>
+									Имеется аккаунт?
+								</p>
+								<div class="btn">
+									Войти
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="info-item">
+						<div class="table">
+							<div class="table-cell">
+								<p>
+									Впервые здесь?
+								</p>
+								<div class="btn">
+									Создать аккаунт
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="container-form">
+					<img class="logo" src="img/logo.png" width="180" height="180" alt="Logo">
+					<div class="form-item log-in" id="log">
+						<div class="table">
+							<div class="table-cell" style="padding-top: 20px">
+								<input id="login_email" name="Username" placeholder="Email" type="text" required
+									minlength="4" maxlength="30" />
+								<p class="error-text" id="login_email_error"></p>
+
+								<input id="login_password" name="Password" placeholder="Пароль" type="Password" required
+									minlength="4" maxlength="23" />
+								<p class="error-text" id="login_password_error"></p>
+
+								<!--<div class="checkbox">
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" name="check-box" value="save" id=" ">
+                                    <span>Запомнить email и пароль</span>
+                                </label>
+                            </div>-->
+
+								<div id="login_btn" class="btn" type="submit">
+									Войти <i class="play"> ►</i>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-item sign-up" id="sing">
+						<div class="table">
+							<div class="table-cell padding">
+								<input id="register_email" name="email" placeholder="Email" type="text" required />
+								<p class="error-text" id="register_email_error"></p>
+
+								<input id="register_username" name="Username" placeholder="Никнейм" type="text" required
+									minlength="4" maxlength="30" />
+								<p class="error-text" id="register_username_error"></p>
+
+								<input id="register_password" name="Password" placeholder="Пароль" type="Password"
+									required minlength="4" maxlength="30" />
+								<p class="error-text" id="register_password_error"></p>
+
+								<input id="register_confirm_password" name="Password" placeholder="Повтор пароля"
+									type="Password" required minlength="4" maxlength="30" />
+								<p class="error-text" id="register_confirm_password_error"></p>
+								<div id="register_btn" class="btn size margin">
+									Создать <i class="play"> ►</i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script src="./script.js"></script>
+
+	</body>
+
+</html>

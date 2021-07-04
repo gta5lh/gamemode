@@ -1,0 +1,31 @@
+﻿/*
+===============================
+Main Stylesheet
+===============================
+*/
+@font-face {
+    font-family: "Ubuntu";
+    src: url(fonts/Ubuntu-regular.ttf) format("truetype");
+}
+
+.left-side {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    max-width: 100px;
+    text-align: right;
+}
+
+    .left-side img {
+        width: 100%;
+        height: auto;
+    }
+
+.online {
+    color: #00334a;
+    font-family: "Ubuntu";
+    font-weight: bold;
+    margin-top: 1px;
+    text-align: center;
+    font-size: 15px;
+}

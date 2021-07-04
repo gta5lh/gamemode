@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GTA FORM</title>
+    <link rel="stylesheet" href="./../style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="form-holder">
+            <div class="inner">
+                <div class="title-block">
+                    <h1>Марабунта</h1>
+                </div>
+                <div class="dialog">
+                    <div class="message" id="npc_message">
+                        Салам, я надеюсь ты понимаешь куда ты приехал. Наши люди кровожадные, им нужна только кровь и деньги. Наши преимущество в том, что мы находимся подальше от эти группировок, но мы также скитаемся по всему Лос-Сантосу, не давая никому пощады.
+                        Возьми у нас машину и оружия, они тебе понадобятся.
+                        Если у тебя какие-либо вопросы, задавай.
+                    </div>
+                    <div class="choices row" id="choice_buttons">
+                        <div class="col-6">
+                            <a class="choice" href="#" id="join">
+                                Хорошо, как раз займусь этим.
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a class="choice" href="#" id="how_to_progress">
+                                Как мне развиваться в банде?
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a class="choice" href="#" id="where_car_and_weapon">
+                                Где я могу взять машину и оружия?
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a class="choice choice-quit" href="#">
+                                Закончить диалог
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="./../script.js"></script>
+
+    <script>
+        $("#join").click(function () {
+            let playerSelectedGangNpcActionRequest = {
+                action: "join",
+                npc: "marabunta",
+            };
+
+            mp.trigger("CloseNpcMenu");
+            mp.trigger("DisplayPressE", false, "");
+            mp.trigger("PlayerSelectedGangNpcAction", JSON.stringify(playerSelectedGangNpcActionRequest));
+        });
+
+        $("#how_to_progress").click(function () {
+            window.location = "how_to_progress.html";
+        });
+
+        $("#where_car_and_weapon").click(function () {
+            window.location = "where_car_and_weapon.html";
+        });
+    </script>
+
+</body>
+</html>
