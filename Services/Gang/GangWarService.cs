@@ -19,8 +19,10 @@ namespace Gamemode.Services
 		const string finishGangWarChatMessage1 = "Закончилась война за территорию! ";
 		const string finishGangWarChatMessage2 = "Победили {0}";
 		const string finishGangWarChatMessage3 = "Территория осталась во владении {0}";
+		const string finishGangWarBecauseOfFail = "Война за территорию отменена по техническим причинам";
 
 		const int finishGangWarDelayBetweenWinnerChecks = 5000;
+		const int startGangWarDelayBetweenInitsOnError = 5000;
 
 
 		private static GangWarEvent gangWarEvent = new Colshape.GangWarEvent();
@@ -33,9 +35,9 @@ namespace Gamemode.Services
 			{
 				await ApiClient.ApiClient.FinishGangWar(new FinishGangWarRequest(true));
 			}
-			catch (Exception e)
+			catch
 			{
-				throw e;
+				Logger.Error("Finishing gang war failed");
 			}
 		}
 
@@ -45,17 +47,30 @@ namespace Gamemode.Services
 			{
 				return await ApiClient.ApiClient.FinishGangWar(new FinishGangWarRequest(false, winnerFractionID, gangWarStatistics));
 			}
-			catch (Exception e)
+			catch
 			{
-				throw e;
+				Logger.Error("Finishing gang war failed");
 			}
+
+			return null;
 		}
 
 		public static async Task InitGangWar()
 		{
 			if (GangWarCache.IsInited() || GangWarCache.IsInProgress()) return;
 
-			ApiClient.Models.GangWar gangWar = await ApiClient.ApiClient.StartGangWar();
+			ApiClient.Models.GangWar gangWar;
+
+			try
+			{
+				gangWar = await ApiClient.ApiClient.StartGangWar();
+			}
+			catch
+			{
+				Logger.Error("Initing gang war failed");
+				return;
+			}
+
 			GangWarCache.InitGangWarCache(gangWar);
 			GangZoneCache.MarkAsWarInProgress(gangWar.ZoneID);
 
@@ -126,6 +141,11 @@ namespace Gamemode.Services
 				}
 			}
 
+			if (gangWar == null)
+			{
+				gangWar = GangWarCache.GangWar;
+			}
+
 			byte winnerFractionID = gangWar.WinnerFractionID != null ? gangWar.WinnerFractionID.Value : gangWar.TargetFractionID;
 			GangZoneCache.MarkAsWarFinished(gangWar.ZoneID, winnerFractionID);
 
@@ -137,7 +157,14 @@ namespace Gamemode.Services
 					message = finishGangWarChatMessage3;
 				}
 
-				NAPI.Chat.SendChatMessageToAll(String.Format(finishGangWarChatMessage1 + message, gangWar.WinnerFractionName));
+				if (gangWar.WinnerFractionName == null)
+				{
+					NAPI.Chat.SendChatMessageToAll(finishGangWarBecauseOfFail);
+				}
+				else
+				{
+					NAPI.Chat.SendChatMessageToAll(String.Format(finishGangWarChatMessage1 + message, gangWar.WinnerFractionName));
+				}
 
 				ZoneService.FinishCapture(gangWar.ZoneID, winnerFractionID);
 				NAPI.ColShape.DeleteColShape(GangWarCache.ColShape);
