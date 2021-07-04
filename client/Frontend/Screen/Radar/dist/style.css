@@ -1,0 +1,55 @@
+@charset "UTF-8";
+/*
+===============================
+Main Stylesheet
+===============================
+*/
+@font-face {
+    font-family: "icons";
+    src: url(fonts/icons.eot) format("embedded-opentype"), url(fonts/icons.woff2) format("woff2"), url(fonts/icons.woff) format("woff"), url(fonts/icons.ttf) format("truetype"), url(fonts/icons.svg) format("svg");
+}
+
+i[class^=icon-]:before, i[class*=" icon-"]:before {
+    font-family: icons !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-feature-settings: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-time:before {
+    content: "";
+}
+
+.icon-wallet:before {
+    content: "";
+}
+
+@font-face {
+    font-family: "Ubuntu";
+    src: url(fonts/Ubuntu-700.ttf) format("truetype");
+}
+
+.contents .item {
+    color: #00334a;
+    display: flex;
+    align-items: center;
+}
+
+    .contents .item span {
+        font-size: 20px;
+        font-family: "Ubuntu";
+    }
+
+    .contents .item i {
+        margin-right: 12px;
+        font-size: 34px;
+    }
+
+    .contents .item:not(:first-child) {
+        margin-top: 24px;
+    }

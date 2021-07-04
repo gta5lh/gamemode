@@ -1,0 +1,157 @@
+/*
+===============================
+Main Stylesheet
+===============================
+*/
+
+@import 'icons.scss';
+
+@font-face {
+  font-family: "Ubuntu";
+  src: url("../fonts/Ubuntu-regular.ttf") format("truetype"),
+ }
+
+body{
+  text-align: center;
+  margin-top: 11px;
+}
+.timer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 20px;
+  color: rgba(26, 31, 48, 0.89);
+  .icon{
+    margin-right: 8px;
+    display: inline-block;
+    background-size: contain;
+    background-position: center;
+    width: 20px;
+    height: 20px;
+  }
+  .title{
+    margin-right: 20px;
+  }
+}
+.stat{
+  background: rgba(#1A1F30, .89);
+  display: inline-flex;
+  padding-left: 23px;
+  padding-right: 23px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-radius: 15px;
+  .item{
+    color: white;
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child){
+      margin-right: 20px;
+    }
+
+    &[gang="ballas"]{
+      .points{
+        &:before{
+          background: #923FA7;
+        }
+        &:after{
+          color: #923FA7;
+        }
+      }
+    }
+    &[gang="bloods"]{
+      .points{
+        &:before{
+          background: #E33A41;
+        }
+        &:after{
+          color: #E33A41;
+        }
+      }
+    }
+    &[gang="marabunta"]{
+      .points{
+        &:before{
+          background: #1D9AE3;
+        }
+        &:after{
+          color: #1D9AE3;
+        }
+      }
+    }
+    &[gang="the-families"]{
+      .points{
+        &:before{
+          background: #2C8F4E;
+        }
+        &:after{
+          color: #2C8F4E;
+        }
+      }
+    }
+    &[gang="vagos"]{
+      .points{
+        &:before{
+          background: #D7AE16;
+        }
+        &:after{
+          color: #D7AE16;
+        }
+      }
+    }
+
+    &[defend]{
+      .points{
+        &:before{
+          display: none;
+        }
+        &:after{
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          z-index: -1;
+          position: absolute;
+          font-size: 37px;
+          background: none;
+          font-family: "icons";
+          content: "\f103";
+        }
+      }
+    }
+
+    .name{
+      font-size: 20px;
+      font-family: "Ubuntu";
+    }
+
+    .points{
+      z-index: 1;
+      margin-right: 10px;
+      position: relative;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      color: white;
+      font-family: "Ubuntu";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:before{
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        display: block;
+        border-radius: 5px;
+      }
+    }
+  }
+}
