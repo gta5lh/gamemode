@@ -50,10 +50,15 @@ namespace Gamemode.ApiClient
 			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
 			HttpResponseMessage httpResponseMessage = await client.PostAsync("users/login", data);
-
 			string response = await httpResponseMessage.Content.ReadAsStringAsync();
 			if (!httpResponseMessage.IsSuccessStatusCode)
 			{
+				if (httpResponseMessage.StatusCode == System.Net.HttpStatusCode.BadRequest)
+				{
+					string businessError = JsonConvert.DeserializeObject<string>(response);
+					throw new BusinessErrorException(businessError);
+				}
+
 				throw new System.Exception(response);
 			}
 

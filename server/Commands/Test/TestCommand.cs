@@ -62,11 +62,9 @@ namespace Gamemode.Commands.Test
 				return;
 			}
 
-
 			DateTime finishTime = DateTime.UtcNow.AddMinutes(minutes);
 			await Services.GangWarService.StartGangWar(finishTime);
 		}
-
 
 		[Command("fgw", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
