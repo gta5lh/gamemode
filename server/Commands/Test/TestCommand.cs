@@ -80,7 +80,7 @@ namespace Gamemode.Commands.Test
 		public async void AddGangWarKill(CustomPlayer player, string fractionIdInput = null, string amountInput = null)
 		{
 			if (fractionIdInput == null || amountInput == null) return;
-			if (GangWarCache.IsFinishing() || !GangWarCache.IsInProgress()) return;
+			if (!GangWarCache.IsInProgress()) return;
 
 			byte fractionId;
 			short amount;
