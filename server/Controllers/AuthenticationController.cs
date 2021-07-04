@@ -40,7 +40,13 @@ namespace Gamemode.Controllers
 				LoginUserRequest loginUserRequest = new LoginUserRequest(loginRequest.Email, loginRequest.Password, player.Address, player.SocialClubId.ToString(), player.Serial, player.GameType);
 				user = await ApiClient.ApiClient.LoginUser(loginUserRequest);
 			}
-			catch (Exception e)
+			catch (BusinessErrorException)
+			{
+				invalidFieldNames = new List<string>(new string[] { "banned" });
+				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
+				return;
+			}
+			catch (Exception)
 			{
 				invalidFieldNames = new List<string>(new string[] { "email", "password" });
 				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
@@ -49,13 +55,6 @@ namespace Gamemode.Controllers
 
 			NAPI.Task.Run(() =>
 			{
-				if (user.BannedUntil != null)
-				{
-					invalidFieldNames = new List<string>(new string[] { "banned" });
-					NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
-					return;
-				}
-
 				if (PlayerUtil.GetByStaticId(user.Id) != null)
 				{
 					invalidFieldNames = new List<string>(new string[] { "already_online" });
