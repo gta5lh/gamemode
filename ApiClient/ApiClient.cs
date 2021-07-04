@@ -7,6 +7,8 @@ using Gamemode.ApiClient.Models;
 using Gamemode.Models.Admin;
 using GTANetworkAPI;
 using Newtonsoft.Json;
+using Polly;
+using Polly.Retry;
 
 namespace Gamemode.ApiClient
 {
@@ -276,14 +278,26 @@ namespace Gamemode.ApiClient
 
 		public static async Task<GangWar> StartGangWar()
 		{
-			HttpResponseMessage httpResponseMessage = await client.PostAsync($"gang-war/start", null);
+			var retryPolicy = Policy
+				.Handle<HttpRequestException>()
+				.WaitAndRetryAsync(3, retryAttempt =>
+					TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+					onRetry: (exception, retryCount, context) =>
+					{
+						// This policy might be re-used in several parts of the codebase, 
+						// so we allow the logged message to be tailored.
+						Logger.Logger.BaseLogger.Warn($"Retry {retryCount} of StartGangWar, due to {exception.Message}.");
+					}
+				);
+
+			HttpResponseMessage httpResponseMessage = await retryPolicy.ExecuteAsync(async () =>
+			{
+				HttpResponseMessage httpResponseMessage = await client.PostAsync($"gang-war/start", null);
+				httpResponseMessage.EnsureSuccessStatusCode();
+				return httpResponseMessage;
+			});
 
 			string response = await httpResponseMessage.Content.ReadAsStringAsync();
-			if (!httpResponseMessage.IsSuccessStatusCode)
-			{
-				throw new System.Exception(response);
-			}
-
 			return JsonConvert.DeserializeObject<GangWar>(response);
 		}
 
@@ -292,14 +306,26 @@ namespace Gamemode.ApiClient
 			string json = JsonConvert.SerializeObject(request);
 			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
 
-			HttpResponseMessage httpResponseMessage = await client.PostAsync($"gang-war/finish", data);
+			var retryPolicy = Policy
+				.Handle<HttpRequestException>()
+				.WaitAndRetryAsync(3, retryAttempt =>
+					TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+					onRetry: (exception, retryCount, context) =>
+					{
+						// This policy might be re-used in several parts of the codebase, 
+						// so we allow the logged message to be tailored.
+						Logger.Logger.BaseLogger.Warn($"Retry {retryCount} of FinishGangWar, due to {exception.Message}.");
+					}
+				);
+
+			HttpResponseMessage httpResponseMessage = await retryPolicy.ExecuteAsync(async () =>
+			{
+				HttpResponseMessage httpResponseMessage = await client.PostAsync($"gang-war/finish", data);
+				httpResponseMessage.EnsureSuccessStatusCode();
+				return httpResponseMessage;
+			});
 
 			string response = await httpResponseMessage.Content.ReadAsStringAsync();
-			if (!httpResponseMessage.IsSuccessStatusCode)
-			{
-				throw new System.Exception(response);
-			}
-
 			return JsonConvert.DeserializeObject<GangWar>(response);
 		}
 	}

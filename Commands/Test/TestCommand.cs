@@ -1,4 +1,6 @@
 ﻿using System;
+using Gamemode.ApiClient.Models;
+using Gamemode.Cache.GangWar;
 using Gamemode.Cache.GangZone;
 using Gamemode.Commands.Admin;
 using Gamemode.Controllers;
@@ -10,14 +12,14 @@ namespace Gamemode.Commands.Test
 {
 	public class TestCommand : Script
 	{
-		[Command("tmoney", "/tmoney", Alias = "tm", GreedyArg = true)]
+		[Command("tmoney", "/tmoney", Alias = "tm", GreedyArg = true, SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
 		public void Money(CustomPlayer player, string message = null)
 		{
 			player.SendChatMessage($"{player.Money}");
 		}
 
-		[Command("tlogin", "/tlogin", Alias = "tl", GreedyArg = true)]
+		[Command("tlogin", "/tlogin", Alias = "tl", GreedyArg = true, SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
 		public void Login(CustomPlayer player, string message = null)
 		{
@@ -25,7 +27,7 @@ namespace Gamemode.Commands.Test
 			player.SendChatMessage($"{player.LoggedInAt}");
 		}
 
-		[Command("rgz")]
+		[Command("rgz", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
 		public async void Rb(CustomPlayer player)
 		{
@@ -33,22 +35,14 @@ namespace Gamemode.Commands.Test
 			NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
 		}
 
-		[Command("rgz")]
-		[AdminMiddleware(AdminRank.Owner)]
-		public async void Sgw(CustomPlayer player)
-		{
-			var zones = await GangZoneCache.LoadZones();
-			NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
-		}
-
-		[Command("igw")]
+		[Command("igw", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
 		public async void InitGangWar(CustomPlayer player)
 		{
 			await Services.GangWarService.InitGangWar();
 		}
 
-		[Command("sgw")]
+		[Command("sgw", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
 		public async void StartGangWar(CustomPlayer player, string? minutesInput = null)
 		{
@@ -74,11 +68,36 @@ namespace Gamemode.Commands.Test
 		}
 
 
-		[Command("fgw")]
+		[Command("fgw", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
 		public async void FinishGangWar(CustomPlayer player)
 		{
 			await Services.GangWarService.FinishGangWar();
+		}
+
+		[Command("afg", SensitiveInfo = true, Hide = true)]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void AddGangWarKill(CustomPlayer player, string fractionIdInput = null, string amountInput = null)
+		{
+			if (fractionIdInput == null || amountInput == null) return;
+			if (GangWarCache.IsFinishing() || !GangWarCache.IsInProgress()) return;
+
+			byte fractionId;
+			short amount;
+
+			try
+			{
+				fractionId = byte.Parse(fractionIdInput);
+				amount = short.Parse(amountInput);
+			}
+			catch
+			{
+				return;
+			}
+
+			GangWarCache.AddKill(fractionId, amount);
+			GangWarStats gangWarStats = GangWarCache.GetGangWarStats();
+			NAPI.ClientEvent.TriggerClientEventForAll("UpdateGangWarStats", gangWarStats.Ballas, gangWarStats.Bloods, gangWarStats.Marabunta, gangWarStats.Families, gangWarStats.Vagos);
 		}
 	}
 }
