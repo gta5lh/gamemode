@@ -13,7 +13,7 @@ namespace Gamemode.Controllers
 		{
 			if (!ChatService.CheckMute(player))
 			{
-				if (!player.Noclip /*&& !player.Spectate */&& !player.Invisible)
+				if (!player.Noclip && !player.Spectating && !player.Invisible)
 					player.SetSharedData("isSpeaking", true);
 
 				player.TriggerEvent("muted", false);
