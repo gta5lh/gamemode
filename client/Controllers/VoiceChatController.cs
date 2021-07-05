@@ -49,7 +49,7 @@ namespace GamemodeClient.Controllers
 				RAGE.Game.Graphics.DrawSprite("mpleaderboard", "leaderboard_audio_3", x, y, 0.025f - (dist / MaxRange * 0.020f), 0.05f - (dist / MaxRange * 0.035f), 0, 255, 255, 255, 255, 0);
 			}
 
-			bool speakingKeyPressed = Input.IsDown(RAGE.Ui.VirtualKeys.Z) && !RAGE.Game.Ui.IsTextChatActive();
+			bool speakingKeyPressed = Input.IsDown(RAGE.Ui.VirtualKeys.Z) && !RAGE.Ui.Cursor.Visible;
 
 			if (speakingKeyPressed && !this.Muted)
 			{
