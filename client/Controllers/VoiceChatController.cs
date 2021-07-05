@@ -13,8 +13,8 @@ namespace GamemodeClient.Controllers
 
 		private List<RAGE.Elements.Player> Listeners = new List<RAGE.Elements.Player>();
 		private List<RAGE.Elements.Player> MutedPlayers = new List<RAGE.Elements.Player>();
-		private bool LastKeyState = false;
 		private long LastTime = 0;
+		private long LastTimePressed = 0;
 		private bool Muted = false;
 
 		public VoiceChatController()
@@ -49,7 +49,7 @@ namespace GamemodeClient.Controllers
 				RAGE.Game.Graphics.DrawSprite("mpleaderboard", "leaderboard_audio_3", x, y, 0.025f - (dist / MaxRange * 0.020f), 0.05f - (dist / MaxRange * 0.035f), 0, 255, 255, 255, 255, 0);
 			}
 
-			bool speakingKeyPressed = Input.IsDown(RAGE.Ui.VirtualKeys.Z) && !RAGE.Game.Ui.IsTextChatActive();
+			bool speakingKeyPressed = Input.IsDown(RAGE.Ui.VirtualKeys.Z) && !RAGE.Ui.Cursor.Visible;
 
 			if (speakingKeyPressed && !this.Muted)
 			{
@@ -57,20 +57,27 @@ namespace GamemodeClient.Controllers
 				RAGE.Game.Graphics.DrawSprite("mpleaderboard", "leaderboard_audio_3", Minimap.GetMinimapAnchor().right_x + 0.01f, Minimap.GetMinimapAnchor().bottom_y - 0.035f, 0.025f, 0.05f, 0, 255, 255, 255, 255, 0);
 			}
 
-			if (speakingKeyPressed && !this.LastKeyState)
-			{
-				Voice.Muted = false;
-				Events.CallRemote("start_voice");
-			}
-			else if (!speakingKeyPressed && this.LastKeyState)
-			{
-				Voice.Muted = true;
-				Events.CallRemote("stop_voice");
-			}
-
-			this.LastKeyState = speakingKeyPressed;
-
 			long currentTime = Time.GetCurTimestamp();
+
+			if (speakingKeyPressed)
+			{
+				this.LastTimePressed = currentTime;
+
+				if (Voice.Muted)
+				{
+					Voice.Muted = false;
+					Events.CallRemote("start_voice");
+				}
+			}
+			else if (!speakingKeyPressed && !Voice.Muted)
+			{
+				if (currentTime - this.LastTimePressed > 500)
+				{
+					Voice.Muted = true;
+					Events.CallRemote("stop_voice");
+				}
+			}
+
 			if (currentTime - this.LastTime < 250) return;
 			this.LastTime = currentTime;
 
