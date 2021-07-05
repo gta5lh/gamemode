@@ -71,7 +71,7 @@ namespace GamemodeClient.Controllers
 			}
 			else if (!speakingKeyPressed && !Voice.Muted)
 			{
-				if (currentTime - this.LastTimePressed > 1000)
+				if (currentTime - this.LastTimePressed > 500)
 				{
 					Voice.Muted = true;
 					Events.CallRemote("stop_voice");
