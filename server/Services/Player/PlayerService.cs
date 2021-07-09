@@ -51,7 +51,7 @@ namespace Gamemode.Services.Player
 				}
 			});
 
-			await NAPI.Task.WaitForMainThread(0);
+			// await NAPI.Task.WaitForMainThread(0);
 
 			if (players == null || players.Count == 0)
 			{
