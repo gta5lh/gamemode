@@ -11,6 +11,7 @@ namespace Gamemode.Infrastructure
 	{
 		public static Rpc.Zone.ZoneService.ZoneServiceClient ZoneService { get; }
 		public static Rpc.Report.ReportService.ReportServiceClient ReportService { get; }
+		public static Rpc.GangWar.GangWarService.GangWarServiceClient GangWarService { get; }
 
 		static RpcClients()
 		{
@@ -38,6 +39,7 @@ namespace Gamemode.Infrastructure
 
 			ZoneService = new Rpc.Zone.ZoneService.ZoneServiceClient(channel);
 			ReportService = new Rpc.Report.ReportService.ReportServiceClient(channel);
+			GangWarService = new Rpc.GangWar.GangWarService.GangWarServiceClient(channel);
 		}
 	}
 }

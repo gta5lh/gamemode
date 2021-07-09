@@ -30,7 +30,7 @@
 		private void OnInitGangWarUI(object[] args)
 		{
 			string remainingMs = (string)args[0];
-			int targetFractionId = (int)args[1];
+			long targetFractionId = (long)args[1];
 
 			gangWarCEF = new HtmlWindow(GangWarPath);
 			gangWarCEF.Active = true;

@@ -40,7 +40,7 @@ namespace Gamemode.Cache.GangZone
 			return zones;
 		}
 
-		public static void MarkAsWarInProgress(int zoneID)
+		public static void MarkAsWarInProgress(long zoneID)
 		{
 			for (int i = 0; i < Zones.Count; i++)
 			{
@@ -52,7 +52,7 @@ namespace Gamemode.Cache.GangZone
 			}
 		}
 
-		public static void MarkAsWarFinished(int zoneID, byte winnerFractionID)
+		public static void MarkAsWarFinished(long zoneID, long winnerFractionID)
 		{
 			for (int i = 0; i < Zones.Count; i++)
 			{

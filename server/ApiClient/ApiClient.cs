@@ -251,58 +251,5 @@ namespace Gamemode.ApiClient
 				throw new System.Exception(response);
 			}
 		}
-
-		public static async Task<GangWar> StartGangWar()
-		{
-			var retryPolicy = Policy
-				.Handle<HttpRequestException>()
-				.WaitAndRetryAsync(3, retryAttempt =>
-					TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
-					onRetry: (exception, retryCount, context) =>
-					{
-						// This policy might be re-used in several parts of the codebase, 
-						// so we allow the logged message to be tailored.
-						Logger.Logger.BaseLogger.Warn($"Retry {retryCount} of StartGangWar, due to {exception.Message}.");
-					}
-				);
-
-			HttpResponseMessage httpResponseMessage = await retryPolicy.ExecuteAsync(async () =>
-			{
-				HttpResponseMessage httpResponseMessage = await client.PostAsync($"gang-war/start", null);
-				httpResponseMessage.EnsureSuccessStatusCode();
-				return httpResponseMessage;
-			});
-
-			string response = await httpResponseMessage.Content.ReadAsStringAsync();
-			return JsonConvert.DeserializeObject<GangWar>(response);
-		}
-
-		public static async Task<GangWar> FinishGangWar(FinishGangWarRequest request)
-		{
-			string json = JsonConvert.SerializeObject(request);
-			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
-
-			var retryPolicy = Policy
-				.Handle<HttpRequestException>()
-				.WaitAndRetryAsync(3, retryAttempt =>
-					TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
-					onRetry: (exception, retryCount, context) =>
-					{
-						// This policy might be re-used in several parts of the codebase, 
-						// so we allow the logged message to be tailored.
-						Logger.Logger.BaseLogger.Warn($"Retry {retryCount} of FinishGangWar, due to {exception.Message}.");
-					}
-				);
-
-			HttpResponseMessage httpResponseMessage = await retryPolicy.ExecuteAsync(async () =>
-			{
-				HttpResponseMessage httpResponseMessage = await client.PostAsync($"gang-war/finish", data);
-				httpResponseMessage.EnsureSuccessStatusCode();
-				return httpResponseMessage;
-			});
-
-			string response = await httpResponseMessage.Content.ReadAsStringAsync();
-			return JsonConvert.DeserializeObject<GangWar>(response);
-		}
 	}
 }

@@ -7,6 +7,7 @@ using Gamemode.ApiClient.Models;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
 using Quartz;
+using Rpc.GangWar;
 
 namespace Gamemode.Cache.GangWar
 {
@@ -15,14 +16,14 @@ namespace Gamemode.Cache.GangWar
 		public static DateTime StartTime { get; set; }
 		public static DateTime FinishTime { get; set; }
 		public static ColShape ColShape;
-		public static ApiClient.Models.GangWar? GangWar { get; set; }
+		public static Rpc.GangWar.GangWar? GangWar { get; set; }
 		public static List<CustomPlayer> PlayersInZone { get; set; }
 		private static ConcurrentDictionary<byte, short> KillsByGangID { get; set; }
 		private static bool isInProgress { get; set; }
 		private static bool isFinishing { get; set; }
 
 
-		public static void InitGangWarCache(ApiClient.Models.GangWar _gangWar)
+		public static void InitGangWarCache(Rpc.GangWar.GangWar _gangWar)
 		{
 			GangWar = _gangWar;
 			KillsByGangID = new ConcurrentDictionary<byte, short>();
@@ -102,6 +103,8 @@ namespace Gamemode.Cache.GangWar
 
 				foreach (short killsNumber in KillsByGangID.Values)
 				{
+					if (killsNumber <= 0) continue;
+
 					result += killsNumber;
 				}
 
@@ -139,7 +142,11 @@ namespace Gamemode.Cache.GangWar
 
 				foreach (KeyValuePair<byte, short> keyValuePair in KillsByGangID)
 				{
-					statistics.Add(new GangWarStatistics(keyValuePair.Key, keyValuePair.Value));
+					GangWarStatistics gangWarStatistics = new GangWarStatistics();
+					gangWarStatistics.FractionID = keyValuePair.Key;
+					gangWarStatistics.KillsNumber = keyValuePair.Value;
+
+					statistics.Add(gangWarStatistics);
 				}
 
 				return statistics;

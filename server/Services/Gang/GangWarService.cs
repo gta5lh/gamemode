@@ -7,6 +7,7 @@ using Gamemode.Cache.GangZone;
 using Gamemode.Colshape;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
+using Rpc.GangWar;
 
 namespace Gamemode.Services
 {
@@ -33,7 +34,10 @@ namespace Gamemode.Services
 		{
 			try
 			{
-				await ApiClient.ApiClient.FinishGangWar(new FinishGangWarRequest(true));
+				Rpc.GangWar.FinishRequest finishRequest = new Rpc.GangWar.FinishRequest();
+				finishRequest.Failed = true;
+
+				await Infrastructure.RpcClients.GangWarService.FinishAsync(finishRequest);
 			}
 			catch
 			{
@@ -45,7 +49,12 @@ namespace Gamemode.Services
 		{
 			try
 			{
-				return await ApiClient.ApiClient.FinishGangWar(new FinishGangWarRequest(false, winnerFractionID, gangWarStatistics));
+				Rpc.GangWar.FinishRequest finishRequest = new Rpc.GangWar.FinishRequest();
+				if (winnerFractionID != null) finishRequest.WinnerFractionID = winnerFractionID.Value;
+				if (gangWarStatistics != null) finishRequest.GangWarStatistics.AddRange(gangWarStatistics);
+
+				FinishResponse finishResponse = await Infrastructure.RpcClients.GangWarService.FinishAsync(finishRequest);
+				return finishResponse.GangWar;
 			}
 			catch
 			{
@@ -59,11 +68,11 @@ namespace Gamemode.Services
 		{
 			if (GangWarCache.IsInited() || GangWarCache.IsInProgress()) return;
 
-			ApiClient.Models.GangWar gangWar;
+			StartResponse startResponse;
 
 			try
 			{
-				gangWar = await ApiClient.ApiClient.StartGangWar();
+				startResponse = await Infrastructure.RpcClients.GangWarService.StartAsync(new StartRequest());
 			}
 			catch
 			{
@@ -71,14 +80,14 @@ namespace Gamemode.Services
 				return;
 			}
 
-			GangWarCache.InitGangWarCache(gangWar);
-			GangZoneCache.MarkAsWarInProgress(gangWar.ZoneID);
+			GangWarCache.InitGangWarCache(startResponse.GangWar);
+			GangZoneCache.MarkAsWarInProgress(startResponse.GangWar.ZoneID);
 
 			NAPI.Task.Run(() =>
 			{
-				NAPI.Chat.SendChatMessageToAll(String.Format(initGangWarChatMessage, gangWar.TargetFractionName));
+				NAPI.Chat.SendChatMessageToAll(String.Format(initGangWarChatMessage, startResponse.GangWar.TargetFractionName));
 
-				ZoneService.StartCapture(gangWar.ZoneID);
+				ZoneService.StartCapture(startResponse.GangWar.ZoneID);
 			});
 
 			Logger.Info("Inited gang war");
@@ -118,7 +127,7 @@ namespace Gamemode.Services
 			if (!GangWarCache.IsInProgress() || GangWarCache.IsFinishing()) return;
 			GangWarCache.SetAsFinishing();
 
-			ApiClient.Models.GangWar gangWar;
+			GangWar gangWar;
 
 			if (GangWarCache.IsZeroKills())
 			{
@@ -146,13 +155,15 @@ namespace Gamemode.Services
 				gangWar = GangWarCache.GangWar;
 			}
 
-			byte winnerFractionID = gangWar.WinnerFractionID != null ? gangWar.WinnerFractionID.Value : gangWar.TargetFractionID;
+			long winnerFractionID = gangWar.TargetFractionID;
+			if (gangWar.HasWinnerFractionID) winnerFractionID = gangWar.WinnerFractionID;
+
 			GangZoneCache.MarkAsWarFinished(gangWar.ZoneID, winnerFractionID);
 
 			NAPI.Task.Run(() =>
 			{
 				string message = finishGangWarChatMessage2;
-				if (gangWar.WinnerFractionID == null || gangWar.WinnerFractionID == gangWar.TargetFractionID)
+				if (!gangWar.HasWinnerFractionID || gangWar.WinnerFractionID == gangWar.TargetFractionID)
 				{
 					message = finishGangWarChatMessage3;
 				}
