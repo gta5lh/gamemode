@@ -119,7 +119,7 @@ namespace Gamemode
 			}},
 		};
 
-		public static readonly Dictionary<byte, byte> BlipColorByGangId = new Dictionary<byte, byte>()
+		public static readonly Dictionary<long, byte> BlipColorByGangId = new Dictionary<long, byte>()
 		{
 			{ NpcIdBloods, Bloods.BlipColor },
 			{ NpcIdBallas, Ballas.BlipColor},

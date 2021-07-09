@@ -238,19 +238,6 @@ namespace Gamemode.ApiClient
 			return JsonConvert.DeserializeObject<string>(response);
 		}
 
-		public static async Task<List<Zone>> AllZones()
-		{
-			HttpResponseMessage httpResponseMessage = await client.GetAsync("zones");
-
-			string response = await httpResponseMessage.Content.ReadAsStringAsync();
-			if (!httpResponseMessage.IsSuccessStatusCode)
-			{
-				throw new System.Exception(response);
-			}
-
-			return JsonConvert.DeserializeObject<List<Zone>>(response);
-		}
-
 		public static async Task SaveUsers(SaveUsersRequest request)
 		{
 			string json = JsonConvert.SerializeObject(request);
@@ -263,22 +250,6 @@ namespace Gamemode.ApiClient
 			{
 				throw new System.Exception(response);
 			}
-		}
-
-		public static async Task<Report> CreateReport(Report request)
-		{
-			string json = JsonConvert.SerializeObject(request);
-			StringContent data = new StringContent(json, Encoding.UTF8, "application/json");
-
-			HttpResponseMessage httpResponseMessage = await client.PostAsync($"reports", data);
-
-			string response = await httpResponseMessage.Content.ReadAsStringAsync();
-			if (!httpResponseMessage.IsSuccessStatusCode)
-			{
-				throw new System.Exception(response);
-			}
-
-			return JsonConvert.DeserializeObject<Report>(response);
 		}
 
 		public static async Task<GangWar> StartGangWar()

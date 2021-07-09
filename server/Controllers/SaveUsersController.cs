@@ -7,6 +7,7 @@
 	using Gamemode.ApiClient;
 	using Gamemode.ApiClient.Models;
 	using Gamemode.Models.Player;
+	using Gamemode.Services.Player;
 	using GTANetworkAPI;
 
 	public class SaveUsersController : Script
@@ -20,12 +21,12 @@
 		public static void IniSaveUserTimer()
 		{
 			SaveUsersTimer = new System.Timers.Timer(SaveUserInterval10Seconds);
-			SaveUsersTimer.Elapsed += OnSaveUser;
+			SaveUsersTimer.Elapsed += OnSaveUsers;
 			SaveUsersTimer.AutoReset = true;
 			SaveUsersTimer.Start();
 		}
 
-		private static async void OnSaveUser(object source, ElapsedEventArgs e)
+		private static async void OnSaveUsers(object source, ElapsedEventArgs e)
 		{
 			List<CustomPlayer> players = null;
 
@@ -42,28 +43,7 @@
 				return;
 			}
 
-			List<SaveUserRequest> saveUserRequests = new List<SaveUserRequest>();
-
-			NAPI.Task.Run(() =>
-			{
-				foreach (CustomPlayer player in players)
-				{
-					saveUserRequests.Add(new SaveUserRequest(player.StaticId, player.CurrentExperience, player.GetAllWeapons(), player.Money));
-				}
-			});
-
-			await NAPI.Task.WaitForMainThread();
-
-			SaveUsersRequest saveUsersRequest = new SaveUsersRequest(saveUserRequests);
-
-			try
-			{
-				await ApiClient.SaveUsers(saveUsersRequest);
-			}
-			catch (Exception ex)
-			{
-				Logger.Error(ex.Message);
-			}
+			await PlayerService.SavePlayers(players);
 		}
 	}
 }
