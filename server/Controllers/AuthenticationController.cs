@@ -143,7 +143,7 @@ namespace Gamemode.Controllers
 
 			try
 			{
-				await Infrastructure.RpcClients.UserService.LogoutAsync(new LogoutRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons()));
+				await Infrastructure.RpcClients.UserService.LogoutAsync(new LogoutRequest(player.StaticId, player.Money, player.CurrentExperience, player.GetAllWeapons()));
 			}
 			catch
 			{
