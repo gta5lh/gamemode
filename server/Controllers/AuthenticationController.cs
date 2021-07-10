@@ -50,6 +50,10 @@ namespace Gamemode.Controllers
 				{
 					invalidFieldNames = new List<string>(new string[] { "banned" });
 				}
+				else if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.AlreadyLoggedIn))
+				{
+					invalidFieldNames = new List<string>(new string[] { "already_online" });
+				}
 
 				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
 				return;
@@ -135,10 +139,17 @@ namespace Gamemode.Controllers
 		[ServerEvent(Event.PlayerDisconnected)]
 		private async Task OnPlayerDisconnected(CustomPlayer player, DisconnectionType disconnectType, string reason)
 		{
-			if (IdsCache.DynamicIdByStatic(player.StaticId) != null)
+			if (player.LoggedInAt == null) return;
+
+			try
 			{
-				await CustomPlayer.UnloadPlayerCache(player);
+				await Infrastructure.RpcClients.UserService.LogoutAsync(new LogoutRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons()));
 			}
+			catch
+			{
+			}
+
+			CustomPlayer.UnloadPlayerCache(player);
 		}
 	}
 }

@@ -318,30 +318,9 @@ namespace Gamemode.Models.Player
 			return player;
 		}
 
-		public static async Task UnloadPlayerCache(CustomPlayer player)
+		public static void UnloadPlayerCache(CustomPlayer player)
 		{
-			player.ResetData();
-			player.ResetSharedData(DataKey.StaticId);
-			player.AdminRank = 0;
-			player.Fraction = null;
 			IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
-
-			List<Weapon> weapons = player.GetAllWeapons();
-
-			try
-			{
-				SaveRequest saveRequest = new SaveRequest();
-				saveRequest.ID = player.StaticId;
-				saveRequest.Experience = player.CurrentExperience;
-				saveRequest.Weapons.Add(weapons);
-				saveRequest.Money = player.Money;
-
-				await Infrastructure.RpcClients.UserService.SaveAsync(saveRequest);
-			}
-			catch (Exception)
-			{
-			}
-
 			Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
 		}
 
