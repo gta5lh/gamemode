@@ -19,11 +19,11 @@
 		{
 			if (gangWarCEF == null) return;
 
-			int ballas = (int)args[0];
-			int bloods = (int)args[1];
-			int marabunta = (int)args[2];
-			int families = (int)args[3];
-			int vagos = (int)args[4];
+			long ballas = (long)args[0];
+			long bloods = (long)args[1];
+			long marabunta = (long)args[2];
+			long families = (long)args[3];
+			long vagos = (long)args[4];
 
 			gangWarCEF.ExecuteJs($"updateStats({ballas},{bloods},{marabunta},{families},{vagos})");
 		}

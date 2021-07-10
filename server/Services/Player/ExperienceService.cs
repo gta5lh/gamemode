@@ -27,7 +27,7 @@ namespace Gamemode.Services.Player
 				{
 					if (player.FractionRank < 10)
 					{
-						NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", 0, player.CurrentExperience, player.RequiredExperience, player.FractionRank);
+						NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", (long)0, player.CurrentExperience, player.RequiredExperience, player.FractionRank);
 					}
 
 					NAPI.ClientEvent.TriggerClientEvent(player, "RankedUp", player.FractionRank, player.FractionRankName);
@@ -45,7 +45,7 @@ namespace Gamemode.Services.Player
 
 				NAPI.Task.Run(() =>
 				{
-					NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", 0, player.CurrentExperience, player.RequiredExperience, player.FractionRank);
+					NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", (long)0, player.CurrentExperience, player.RequiredExperience, player.FractionRank);
 					NAPI.ClientEvent.TriggerClientEvent(player, "RankedDown", player.FractionRank, player.FractionRankName);
 
 					NAPI.Task.Run(() =>

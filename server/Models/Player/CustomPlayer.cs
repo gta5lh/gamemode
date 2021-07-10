@@ -196,16 +196,8 @@ namespace Gamemode.Models.Player
 				SetFractionRequest setFractionRequest = new SetFractionRequest();
 				setFractionRequest.ID = this.StaticId;
 				setFractionRequest.SetBy = this.StaticId;
-
-				if (this.Fraction != null)
-				{
-					setFractionRequest.Fraction = this.Fraction.Value;
-				}
-
-				if (this.FractionRank != null)
-				{
-					setFractionRequest.Tier = this.FractionRank.Value;
-				}
+				setFractionRequest.Fraction = this.Fraction.Value;
+				setFractionRequest.Tier = fractionRank;
 
 				setFractionResponse = await Infrastructure.RpcClients.UserService.SetFractionAsync(setFractionRequest);
 			}
@@ -235,16 +227,8 @@ namespace Gamemode.Models.Player
 				SetFractionRequest setFractionRequest = new SetFractionRequest();
 				setFractionRequest.ID = this.StaticId;
 				setFractionRequest.SetBy = this.StaticId;
-
-				if (this.Fraction != null)
-				{
-					setFractionRequest.Fraction = this.Fraction.Value;
-				}
-
-				if (this.FractionRank != null)
-				{
-					setFractionRequest.Tier = this.FractionRank.Value;
-				}
+				setFractionRequest.Fraction = this.Fraction.Value;
+				setFractionRequest.Tier = fractionRank;
 
 				setFractionResponse = await Infrastructure.RpcClients.UserService.SetFractionAsync(setFractionRequest);
 			}
@@ -316,7 +300,7 @@ namespace Gamemode.Models.Player
 			if (user.HasFractionRankID)
 			{
 				player.Fraction = user.Fraction;
-				player.FractionRank = user.FractionRankID;
+				player.FractionRank = user.FractionRank.Tier;
 				player.FractionRankName = user.FractionRank.Name;
 				player.RequiredExperience = user.FractionRank.RequiredExperience;
 				player.SetSkin((PedHash)user.FractionRank.Skin);

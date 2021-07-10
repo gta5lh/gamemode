@@ -6,6 +6,7 @@ using Gamemode.Commands.Admin;
 using Gamemode.Controllers;
 using Gamemode.Models.Admin;
 using Gamemode.Models.Player;
+using Gamemode.Services.Player;
 using GTANetworkAPI;
 
 namespace Gamemode.Commands.Test
@@ -96,6 +97,20 @@ namespace Gamemode.Commands.Test
 			GangWarCache.AddKill(fractionId, amount);
 			GangWarStats gangWarStats = GangWarCache.GetGangWarStats();
 			NAPI.ClientEvent.TriggerClientEventForAll("UpdateGangWarStats", gangWarStats.Ballas, gangWarStats.Bloods, gangWarStats.Marabunta, gangWarStats.Families, gangWarStats.Vagos);
+		}
+
+		[Command("rup", SensitiveInfo = true, Hide = true)]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void RankUp(CustomPlayer player)
+		{
+			ExperienceService.ChangeExperience(player, 1);
+		}
+
+		[Command("rdown", SensitiveInfo = true, Hide = true)]
+		[AdminMiddleware(AdminRank.Owner)]
+		public async void RankDown(CustomPlayer player)
+		{
+			ExperienceService.ChangeExperience(player, -1);
 		}
 	}
 }

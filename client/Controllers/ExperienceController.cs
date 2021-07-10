@@ -30,17 +30,17 @@
 
 		private async void OnExperienceChanged(object[] args)
 		{
-			int previousExperience = (int)args[0];
-			int currentExperience = (int)args[1];
-			int requiredExperience = (int)args[2];
-			int currentLevel = (int)args[3];
+			long previousExperience = (long)args[0];
+			long currentExperience = (long)args[1];
+			long requiredExperience = (long)args[2];
+			long currentLevel = (long)args[3];
 
 			this.DisplayRankBar(requiredExperience, previousExperience, currentExperience, currentLevel);
 		}
 
 		private bool rankBarHidden = false;
 
-		private async void DisplayRankBar(int requiredExperience, int previousExperience, int currentExperience, int currentLevel)
+		private async void DisplayRankBar(long requiredExperience, long previousExperience, long currentExperience, long currentLevel)
 		{
 			if (rankBarHidden) return;
 
@@ -64,10 +64,10 @@
 
 			Natives.BeginScaleformMovieMethodHudComponent(RankBar, "SET_RANK_SCORES");
 			Natives.PushScaleformMovieFunctionParameterInt(StartExperience);
-			Natives.PushScaleformMovieFunctionParameterInt(requiredExperience);
-			Natives.PushScaleformMovieFunctionParameterInt(previousExperience);
-			Natives.PushScaleformMovieFunctionParameterInt(currentExperience);
-			Natives.PushScaleformMovieFunctionParameterInt(currentLevel);
+			Natives.PushScaleformMovieFunctionParameterInt((int)requiredExperience);
+			Natives.PushScaleformMovieFunctionParameterInt((int)previousExperience);
+			Natives.PushScaleformMovieFunctionParameterInt((int)currentExperience);
+			Natives.PushScaleformMovieFunctionParameterInt((int)currentLevel);
 			Natives.PushScaleformMovieFunctionParameterInt(Opasity);
 			Natives.EndScaleformMovieMethodReturn();
 
