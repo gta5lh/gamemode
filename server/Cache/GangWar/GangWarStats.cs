@@ -5,18 +5,18 @@ namespace Gamemode.ApiClient.Models
 {
 	public class GangWarStats
 	{
-		public short Ballas { get; set; }
-		public short Bloods { get; set; }
-		public short Marabunta { get; set; }
-		public short Families { get; set; }
-		public short Vagos { get; set; }
+		public long Ballas { get; set; }
+		public long Bloods { get; set; }
+		public long Marabunta { get; set; }
+		public long Families { get; set; }
+		public long Vagos { get; set; }
 
 		GangWarStats()
 		{
 
 		}
 
-		public GangWarStats(short ballas, short bloods, short marabunta, short families, short vagos)
+		public GangWarStats(long ballas, long bloods, long marabunta, long families, long vagos)
 		{
 			this.Ballas = ballas;
 			this.Bloods = bloods;

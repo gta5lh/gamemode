@@ -10,6 +10,7 @@ namespace Gamemode.Models.Player
 	using Gamemode.ApiClient.Models;
 	using Gamemode.Models.Admin;
 	using GTANetworkAPI;
+	using Rpc.User;
 
 	public class CustomPlayer : Player
 	{
@@ -38,14 +39,14 @@ namespace Gamemode.Models.Player
 
 		public ushort? OneTimeVehicleId { get; set; }
 
-		public byte? fraction { get; set; }
-		public byte? FractionRank { get; set; }
+		public long? fraction { get; set; }
+		public long? FractionRank { get; set; }
 		public string? FractionRankName { get; set; }
 
 		public bool IsInWarZone { get; set; }
 
-		public short CurrentExperience { get; set; }
-		public short? RequiredExperience { get; set; }
+		public long CurrentExperience { get; set; }
+		public long? RequiredExperience { get; set; }
 
 		public long Money { get; set; }
 
@@ -54,7 +55,7 @@ namespace Gamemode.Models.Player
 
 		public Vector3? SpectatePosition { get; set; }
 
-		public byte? Fraction
+		public long? Fraction
 		{
 			get => this.fraction;
 
@@ -187,12 +188,26 @@ namespace Gamemode.Models.Player
 				return;
 			}
 
-			byte fractionRank = (byte)(this.FractionRank + 1);
+			long fractionRank = (long)(this.FractionRank + 1);
 			SetFractionResponse setFractionResponse;
 
 			try
 			{
-				setFractionResponse = await ApiClient.ApiClient.SetFraction(this.StaticId, (byte)this.Fraction, fractionRank, this.StaticId);
+				SetFractionRequest setFractionRequest = new SetFractionRequest();
+				setFractionRequest.ID = this.StaticId;
+				setFractionRequest.SetBy = this.StaticId;
+
+				if (this.Fraction != null)
+				{
+					setFractionRequest.Fraction = this.Fraction.Value;
+				}
+
+				if (this.FractionRank != null)
+				{
+					setFractionRequest.Tier = this.FractionRank.Value;
+				}
+
+				setFractionResponse = await Infrastructure.RpcClients.UserService.SetFractionAsync(setFractionRequest);
 			}
 			catch (Exception)
 			{
@@ -217,7 +232,21 @@ namespace Gamemode.Models.Player
 
 			try
 			{
-				setFractionResponse = await ApiClient.ApiClient.SetFraction(this.StaticId, (byte)this.Fraction, fractionRank, this.StaticId);
+				SetFractionRequest setFractionRequest = new SetFractionRequest();
+				setFractionRequest.ID = this.StaticId;
+				setFractionRequest.SetBy = this.StaticId;
+
+				if (this.Fraction != null)
+				{
+					setFractionRequest.Fraction = this.Fraction.Value;
+				}
+
+				if (this.FractionRank != null)
+				{
+					setFractionRequest.Tier = this.FractionRank.Value;
+				}
+
+				setFractionResponse = await Infrastructure.RpcClients.UserService.SetFractionAsync(setFractionRequest);
 			}
 			catch (Exception)
 			{
@@ -230,9 +259,9 @@ namespace Gamemode.Models.Player
 			this.FractionRankName = setFractionResponse.TierName;
 		}
 
-		public void CustomGiveWeapon(WeaponHash weaponHash, int amount)
+		public void CustomGiveWeapon(WeaponHash weaponHash, long amount)
 		{
-			this.GiveWeapon(weaponHash, amount);
+			this.GiveWeapon(weaponHash, (int)amount);
 			this.InventoryWeapons.AddWeapon(weaponHash);
 		}
 
@@ -253,7 +282,11 @@ namespace Gamemode.Models.Player
 		{
 			try
 			{
-				await ApiClient.ApiClient.UnmuteUser(this.StaticId, this.StaticId);
+				UnmuteRequest unmuteRequest = new UnmuteRequest();
+				unmuteRequest.ID = this.StaticId;
+				unmuteRequest.UnmutedBy = this.StaticId;
+
+				await Infrastructure.RpcClients.UserService.UnmuteAsync(unmuteRequest);
 			}
 			catch (Exception)
 			{
@@ -266,32 +299,34 @@ namespace Gamemode.Models.Player
 
 		public static CustomPlayer LoadPlayerCache(CustomPlayer player, User user)
 		{
-			IdsCache.LoadIdsToCache(player.Id, user.Id);
-			player.StaticId = user.Id;
+			IdsCache.LoadIdsToCache(player.Id, user.ID);
+			player.StaticId = user.ID;
 			player.SetSharedData(DataKey.StaticId, player.StaticId);
 			player.Name = user.Name;
-			player.AdminRank = user.AdminRankId != null ? (Models.Admin.AdminRank)user.AdminRankId : 0;
-			player.MuteState = new MuteState(user.MutedUntil, user.MutedById, user.MuteReason);
+			player.AdminRank = user.HasAdminRankID ? (Models.Admin.AdminRank)user.AdminRankID : 0;
 			player.InventoryWeapons = new InventoryWeapons();
 			player.CurrentExperience = user.Experience;
 			player.Money = user.Money;
 			player.LoggedInAt = DateTime.UtcNow;
 			player.SetSkin(PedHash.Tramp01);
 
-			if (user.FractionRank != null)
+			DateTime? mutedUntil = user.MutedUntil != null ? user.MutedUntil.ToDateTime() : (DateTime?)null;
+			player.MuteState = new MuteState(mutedUntil, user.MutedByID, user.MuteReason);
+
+			if (user.HasFractionRankID)
 			{
-				player.Fraction = user.FractionId;
-				player.FractionRank = user.FractionRank.Tier;
+				player.Fraction = user.Fraction;
+				player.FractionRank = user.FractionRankID;
 				player.FractionRankName = user.FractionRank.Name;
 				player.RequiredExperience = user.FractionRank.RequiredExperience;
-				player.SetSkin((PedHash)user.FractionRank.Skin.Value);
+				player.SetSkin((PedHash)user.FractionRank.Skin);
 			}
 
 			if (user.Weapons != null)
 			{
-				foreach (ApiClient.Models.Weapon weapon in user.Weapons)
+				foreach (Weapon weapon in user.Weapons)
 				{
-					player.CustomGiveWeapon(weapon.Hash, weapon.Amount);
+					player.CustomGiveWeapon((WeaponHash)weapon.Hash, weapon.Amount);
 				}
 			}
 
@@ -311,7 +346,13 @@ namespace Gamemode.Models.Player
 
 			try
 			{
-				await ApiClient.ApiClient.SaveUser(player.StaticId, player.CurrentExperience, weapons, player.Money);
+				SaveRequest saveRequest = new SaveRequest();
+				saveRequest.ID = player.StaticId;
+				saveRequest.Experience = player.CurrentExperience;
+				saveRequest.Weapons.Add(weapons);
+				saveRequest.Money = player.Money;
+
+				await Infrastructure.RpcClients.UserService.SaveAsync(saveRequest);
 			}
 			catch (Exception)
 			{
@@ -325,7 +366,11 @@ namespace Gamemode.Models.Player
 			List<Weapon> weapons = new List<Weapon>();
 			foreach (WeaponHash weaponHash in this.InventoryWeapons.GetAllWeapons())
 			{
-				weapons.Add(new Weapon(weaponHash, this.GetWeaponAmmo(weaponHash)));
+				Weapon weapon = new Weapon();
+				weapon.Hash = (long)weaponHash;
+				weapon.Amount = this.GetWeaponAmmo(weaponHash);
+
+				weapons.Add(weapon);
 			}
 
 			return weapons;

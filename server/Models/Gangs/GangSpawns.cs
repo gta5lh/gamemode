@@ -6,7 +6,7 @@ namespace Gamemode.Models.Gangs
 
 	public class GangSpawns
 	{
-		public static readonly Dictionary<byte, Spawn> Spawns = new Dictionary<byte, Spawn>()
+		public static readonly Dictionary<long, Spawn> Spawns = new Dictionary<long, Spawn>()
 		{
 			{ 1, Bloods.Spawn},
 			{ 2, Ballas.Spawn},

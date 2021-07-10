@@ -10,9 +10,11 @@ namespace Gamemode.Controllers
 	using Gamemode.ApiClient.Models;
 	using Gamemode.Models.Player;
 	using Gamemode.Services;
-	using GamemodeCommon.Authentication.Models;
+	using Grpc.Core;
 	using GTANetworkAPI;
 	using Newtonsoft.Json;
+	using Rpc.Errors;
+	using Rpc.User;
 
 	public class AuthenticationController : Script
 	{
@@ -25,7 +27,7 @@ namespace Gamemode.Controllers
 				return;
 			}
 
-			LoginRequest loginRequest = JsonConvert.DeserializeObject<LoginRequest>(request);
+			GamemodeCommon.Authentication.Models.LoginRequest loginRequest = JsonConvert.DeserializeObject<GamemodeCommon.Authentication.Models.LoginRequest>(request);
 			List<string> invalidFieldNames = loginRequest.Validate();
 			if (invalidFieldNames.Count > 0)
 			{
@@ -33,16 +35,22 @@ namespace Gamemode.Controllers
 				return;
 			}
 
-			User user;
+			LoginResponse loginResponse;
 
 			try
 			{
-				LoginUserRequest loginUserRequest = new LoginUserRequest(loginRequest.Email, loginRequest.Password, player.Address, player.SocialClubId.ToString(), player.Serial, player.GameType);
-				user = await ApiClient.ApiClient.LoginUser(loginUserRequest);
+				LoginRequest loginUserRequest = new LoginRequest(loginRequest.Email, loginRequest.Password, player.Address, player.SocialClubId.ToString(), player.Serial, player.GameType);
+				loginResponse = await Infrastructure.RpcClients.UserService.LoginAsync(loginUserRequest);
 			}
-			catch (BusinessErrorException)
+			catch (RpcException e)
 			{
-				invalidFieldNames = new List<string>(new string[] { "banned" });
+				invalidFieldNames = new List<string>(new string[] { "email", "password" });
+
+				if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.UserBanned))
+				{
+					invalidFieldNames = new List<string>(new string[] { "banned" });
+				}
+
 				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
 				return;
 			}
@@ -55,14 +63,14 @@ namespace Gamemode.Controllers
 
 			NAPI.Task.Run(() =>
 			{
-				if (PlayerUtil.GetByStaticId(user.Id) != null)
+				if (PlayerUtil.GetByStaticId(loginResponse.User.ID) != null)
 				{
 					invalidFieldNames = new List<string>(new string[] { "already_online" });
 					NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
 					return;
 				}
 
-				CustomPlayer.LoadPlayerCache(player, user);
+				CustomPlayer.LoadPlayerCache(player, loginResponse.User);
 				NAPI.ClientEvent.TriggerClientEvent(player, "LogIn");
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
 				GangWarService.DisplayGangWarUI(player);
@@ -78,7 +86,7 @@ namespace Gamemode.Controllers
 				return;
 			}
 
-			RegisterRequest registerRequest = JsonConvert.DeserializeObject<RegisterRequest>(request);
+			GamemodeCommon.Authentication.Models.RegisterRequest registerRequest = JsonConvert.DeserializeObject<GamemodeCommon.Authentication.Models.RegisterRequest>(request);
 			List<string> invalidFieldNames = registerRequest.Validate();
 			if (invalidFieldNames.Count > 0)
 			{
@@ -86,23 +94,38 @@ namespace Gamemode.Controllers
 				return;
 			}
 
-			User user;
+			RegisterResponse registerResponse;
 
 			try
 			{
-				RegisterUserRequest registerUserRequest = new RegisterUserRequest(registerRequest.Email, registerRequest.Username, registerRequest.Password, player.Address, player.SocialClubId.ToString(), player.Serial, player.GameType);
-				user = await ApiClient.ApiClient.RegisterUser(registerUserRequest);
+				RegisterRequest registerUserRequest = new RegisterRequest(registerRequest.Email, registerRequest.Username, registerRequest.Password, player.Address, player.SocialClubId.ToString(), player.Serial, player.GameType);
+				registerResponse = await Infrastructure.RpcClients.UserService.RegisterAsync(registerUserRequest);
 			}
-			catch (Exception e)
+			catch (RpcException e)
 			{
-				invalidFieldNames.Add(e.Message);
+				if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.UsernameAlreadyExists))
+				{
+					invalidFieldNames = new List<string>(new string[] { "username_already_exists" });
+				}
+
+				if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.EmailAlreadyExists))
+				{
+					invalidFieldNames = new List<string>(new string[] { "email_already_exists" });
+				}
+
+				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RegisterSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
+				return;
+			}
+			catch (Exception)
+			{
+				invalidFieldNames = new List<string>(new string[] { "internal_server_error" });
 				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RegisterSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
 				return;
 			}
 
 			NAPI.Task.Run(() =>
 			{
-				CustomPlayer.LoadPlayerCache(player, user);
+				CustomPlayer.LoadPlayerCache(player, registerResponse.User);
 				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LogIn");
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
 				GangWarService.DisplayGangWarUI(player);

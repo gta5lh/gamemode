@@ -3,18 +3,19 @@ using System.Threading.Tasks;
 using Gamemode.ApiClient.Models;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
+using Rpc.User;
 
 namespace Gamemode.Services
 {
 	public static class GangService
 	{
-		public static async Task<string?> SetAsGangMember(CustomPlayer player, long playerId, byte gangId, byte tier, long setBy)
+		public static async Task<string?> SetAsGangMember(CustomPlayer player, long playerId, long gangId, byte tier, long setBy)
 		{
 			SetFractionResponse setFractionResponse;
 
 			try
 			{
-				setFractionResponse = await ApiClient.ApiClient.SetFraction(playerId, gangId, tier, setBy);
+				setFractionResponse = await Infrastructure.RpcClients.UserService.SetFractionAsync(new SetFractionRequest(playerId, gangId, tier, setBy));
 			}
 			catch (Exception e)
 			{
@@ -28,8 +29,8 @@ namespace Gamemode.Services
 
 			NAPI.Task.Run(() =>
 			{
-				player.Fraction = gangId == 0 ? null : (byte?)gangId;
-				player.FractionRank = tier == 0 ? null : (byte?)tier;
+				player.Fraction = gangId == 0 ? null : (long?)gangId;
+				player.FractionRank = tier == 0 ? null : (long?)tier;
 				player.FractionRankName = setFractionResponse.TierName;
 				player.RequiredExperience = setFractionResponse.TierRequiredExperience;
 				player.CurrentExperience = 0;
@@ -40,7 +41,7 @@ namespace Gamemode.Services
 				{
 					foreach (Weapon weapon in GangUtil.WeaponsByGangId[gangId])
 					{
-						player.CustomGiveWeapon(weapon.Hash, weapon.Amount);
+						player.CustomGiveWeapon((WeaponHash)weapon.Hash, weapon.Amount);
 					}
 				}
 			});

@@ -45,7 +45,7 @@ namespace Gamemode.Services
 			}
 		}
 
-		public static async Task<GangWar> FinishGangWar(byte? winnerFractionID, ICollection<GangWarStatistics>? gangWarStatistics)
+		public static async Task<GangWar> FinishGangWar(long? winnerFractionID, ICollection<GangWarStatistics>? gangWarStatistics)
 		{
 			try
 			{
@@ -137,7 +137,7 @@ namespace Gamemode.Services
 			{
 				while (true)
 				{
-					byte? winner = GangWarCache.GetWinner();
+					long? winner = GangWarCache.GetWinner();
 
 					if (winner != null)
 					{

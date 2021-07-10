@@ -10,6 +10,7 @@ namespace Gamemode.Commands.Admin
 	using Gamemode.Models.Player;
 	using Gamemode.Utils;
 	using GTANetworkAPI;
+	using Rpc.User;
 
 	public class MuteCommand : BaseCommandHandler
 	{
@@ -50,11 +51,11 @@ namespace Gamemode.Commands.Admin
 			DateTime mutedUntil = DateTime.UtcNow.AddMinutes(duration);
 			DateTime mutedAt = DateTime.UtcNow;
 
-			string targetName;
+			MuteResponse muteResponse;
 
 			try
 			{
-				targetName = await ApiClient.ApiClient.MuteUser(targetId, reason, admin.StaticId, mutedAt, mutedUntil);
+				muteResponse = await Infrastructure.RpcClients.UserService.MuteAsync(new MuteRequest(targetId, reason, admin.StaticId, mutedAt, mutedUntil));
 			}
 			catch (Exception)
 			{
@@ -71,8 +72,8 @@ namespace Gamemode.Commands.Admin
 					VoiceChatController.Mute(targetPlayer);
 				}
 
-				Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал мут {targetName} на {duration} минут. Причина: {reason}");
-				this.Logger.Warn($"Administrator {admin.Name} muted {targetName} for {duration} minutes");
+				Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал мут {muteResponse.Name} на {duration} минут. Причина: {reason}");
+				this.Logger.Warn($"Administrator {admin.Name} muted {muteResponse.Name} for {duration} minutes");
 			});
 		}
 
@@ -98,11 +99,11 @@ namespace Gamemode.Commands.Admin
 				return;
 			}
 
-			string targetName;
+			UnmuteResponse unmuteResponse;
 
 			try
 			{
-				targetName = await ApiClient.ApiClient.UnmuteUser(targetId, admin.StaticId);
+				unmuteResponse = await Infrastructure.RpcClients.UserService.UnmuteAsync(new UnmuteRequest(targetId, admin.StaticId));
 			}
 			catch (Exception)
 			{
@@ -119,8 +120,8 @@ namespace Gamemode.Commands.Admin
 					VoiceChatController.Unmute(targetPlayer);
 				}
 
-				Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял мут {targetName}");
-				this.Logger.Warn($"Administrator {admin.Name} unmuted {targetName}");
+				Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял мут {unmuteResponse.Name}");
+				this.Logger.Warn($"Administrator {admin.Name} unmuted {unmuteResponse.Name}");
 			});
 		}
 	}

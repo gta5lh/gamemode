@@ -18,7 +18,7 @@ namespace Gamemode.Cache.GangWar
 		public static ColShape ColShape;
 		public static Rpc.GangWar.GangWar? GangWar { get; set; }
 		public static List<CustomPlayer> PlayersInZone { get; set; }
-		private static ConcurrentDictionary<byte, short> KillsByGangID { get; set; }
+		private static ConcurrentDictionary<long, long> KillsByGangID { get; set; }
 		private static bool isInProgress { get; set; }
 		private static bool isFinishing { get; set; }
 
@@ -26,7 +26,7 @@ namespace Gamemode.Cache.GangWar
 		public static void InitGangWarCache(Rpc.GangWar.GangWar _gangWar)
 		{
 			GangWar = _gangWar;
-			KillsByGangID = new ConcurrentDictionary<byte, short>();
+			KillsByGangID = new ConcurrentDictionary<long, long>();
 			KillsByGangID.TryAdd(GangUtil.NpcIdBloods, 0);
 			KillsByGangID.TryAdd(GangUtil.NpcIdBallas, 0);
 			KillsByGangID.TryAdd(GangUtil.NpcIdTheFamilies, 0);
@@ -71,18 +71,18 @@ namespace Gamemode.Cache.GangWar
 			return isFinishing;
 		}
 
-		public static void AddKill(byte gangID, short amount)
+		public static void AddKill(long gangID, long amount)
 		{
-			KillsByGangID.AddOrUpdate(gangID, 1, (id, kills) => ((short)(kills + amount)));
+			KillsByGangID.AddOrUpdate(gangID, 1, (id, kills) => ((long)(kills + amount)));
 		}
 
 		public static GangWarStats GetGangWarStats()
 		{
-			short bloodsKills;
-			short ballasKills;
-			short theFamiliesKills;
-			short vagosKills;
-			short marabuntaKills;
+			long bloodsKills;
+			long ballasKills;
+			long theFamiliesKills;
+			long vagosKills;
+			long marabuntaKills;
 
 			KillsByGangID.TryGetValue(GangUtil.NpcIdBloods, out bloodsKills);
 			KillsByGangID.TryGetValue(GangUtil.NpcIdBallas, out ballasKills);
@@ -112,17 +112,17 @@ namespace Gamemode.Cache.GangWar
 			}
 		}
 
-		public static byte? GetWinner()
+		public static long? GetWinner()
 		{
 			lock (KillsByGangID)
 			{
-				short[] kills = KillsByGangID.Values.ToArray();
+				long[] kills = KillsByGangID.Values.ToArray();
 				Array.Sort(kills);
 				Array.Reverse(kills);
 
 				if (kills[0] == kills[1]) return null;
 
-				foreach (KeyValuePair<byte, short> keyValuePair in KillsByGangID)
+				foreach (KeyValuePair<long, long> keyValuePair in KillsByGangID)
 				{
 					if (keyValuePair.Value == kills[0])
 					{
@@ -140,7 +140,7 @@ namespace Gamemode.Cache.GangWar
 			{
 				List<GangWarStatistics> statistics = new List<GangWarStatistics>();
 
-				foreach (KeyValuePair<byte, short> keyValuePair in KillsByGangID)
+				foreach (KeyValuePair<long, long> keyValuePair in KillsByGangID)
 				{
 					GangWarStatistics gangWarStatistics = new GangWarStatistics();
 					gangWarStatistics.FractionID = keyValuePair.Key;

@@ -9,6 +9,7 @@ namespace Gamemode.Commands.Admin
 	using Gamemode.Models.Admin;
 	using Gamemode.Models.Player;
 	using GTANetworkAPI;
+	using Rpc.User;
 
 	public class GetIdCommand : Script
 	{
@@ -36,7 +37,8 @@ namespace Gamemode.Commands.Admin
 			{
 				try
 				{
-					staticId = await ApiClient.ApiClient.IDByName(idOrUsername);
+					IDByNameResponse idByNameResponse = await Infrastructure.RpcClients.UserService.IDByNameAsync(new IDByNameRequest(idOrUsername));
+					staticId = idByNameResponse.ID;
 				}
 				catch (Exception)
 				{

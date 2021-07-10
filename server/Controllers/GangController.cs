@@ -11,6 +11,7 @@ namespace Gamemode
 	using Gamemode.Models.Vehicle;
 	using GTANetworkAPI;
 	using Newtonsoft.Json;
+	using Rpc.User;
 
 	public class GangController : Script
 	{
@@ -110,7 +111,7 @@ namespace Gamemode
 
 			foreach (Weapon weapon in GangUtil.WeaponsByGangId[target.Fraction.Value])
 			{
-				target.CustomGiveWeapon(weapon.Hash, weapon.Amount);
+				target.CustomGiveWeapon((WeaponHash)weapon.Hash, weapon.Amount);
 			}
 		}
 

@@ -31,6 +31,7 @@
 	<ItemGroup>
 		<PackageReference Include="AsyncFixer" Version="1.5.1" />
 		<PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
+		<PackageReference Include="Google.Api.CommonProtos" Version="2.3.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
@@ -71,6 +72,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<Protobuf Include="../../protobuf/api/*.proto" GrpcServices="Client" />
+		<Protobuf Include="../../protobuf/errors/*.proto" GrpcServices="Client" />
 	</ItemGroup>
 	<Target Name="CustomAfterBuild" AfterTargets="AfterBuild">
 		<Copy SourceFiles="@(OutputDirectory)" DestinationFolder="../../game-server/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />

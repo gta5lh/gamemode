@@ -6,6 +6,7 @@ using Gamemode.ApiClient;
 using Gamemode.ApiClient.Models;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
+using Rpc.User;
 
 namespace Gamemode.Services.Player
 {
@@ -13,18 +14,16 @@ namespace Gamemode.Services.Player
 	{
 		public static async Task SavePlayers(List<CustomPlayer> players)
 		{
-			List<SaveUserRequest> saveUserRequests = new List<SaveUserRequest>();
+			List<SaveRequest> saveUserRequests = new List<SaveRequest>();
 
 			foreach (CustomPlayer player in players)
 			{
-				saveUserRequests.Add(new SaveUserRequest(player.StaticId, player.CurrentExperience, player.GetAllWeapons(), player.Money));
+				saveUserRequests.Add(new SaveRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons()));
 			}
-
-			SaveUsersRequest saveUsersRequest = new SaveUsersRequest(saveUserRequests);
 
 			try
 			{
-				await ApiClient.ApiClient.SaveUsers(saveUsersRequest);
+				await Infrastructure.RpcClients.UserService.SaveAllAsync(new SaveAllRequest(saveUserRequests));
 			}
 			catch (Exception ex)
 			{

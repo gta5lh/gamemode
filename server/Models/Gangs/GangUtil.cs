@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using Gamemode.Models.Spawn;
 using GTANetworkAPI;
+using Rpc.User;
 
 namespace Gamemode
 {
@@ -16,7 +17,7 @@ namespace Gamemode
 		public static readonly byte NpcIdVagos = 4;
 		public static readonly byte NpcIdMarabunta = 5;
 
-		public static readonly Dictionary<byte, string> GangNameById = new Dictionary<byte, string>()
+		public static readonly Dictionary<long, string> GangNameById = new Dictionary<long, string>()
 		{
 			{ NpcIdBloods, "bloods" },
 			{ NpcIdBallas, "ballas"},
@@ -25,7 +26,7 @@ namespace Gamemode
 			{ NpcIdMarabunta, "marabunta"},
 		};
 
-		public static readonly Dictionary<string, byte> GangIdByName = new Dictionary<string, byte>()
+		public static readonly Dictionary<string, long> GangIdByName = new Dictionary<string, long>()
 		{
 			{ "bloods", NpcIdBloods},
 			{ "ballas", NpcIdBallas},
@@ -43,7 +44,7 @@ namespace Gamemode
 			{ "vagos", Vagos.Color},
 		};
 
-		public static readonly Dictionary<byte, Spawn> CarSpawnByGangId = new Dictionary<byte, Spawn>()
+		public static readonly Dictionary<long, Spawn> CarSpawnByGangId = new Dictionary<long, Spawn>()
 		{
 			{ NpcIdBallas, Ballas.CarSpawn},
 			{ NpcIdBloods, Bloods.CarSpawn},
@@ -52,7 +53,7 @@ namespace Gamemode
 			{ NpcIdVagos, Vagos.CarSpawn},
 		};
 
-		public static readonly Dictionary<byte, long> RewardByRank = new Dictionary<byte, long>()
+		public static readonly Dictionary<long, long> RewardByRank = new Dictionary<long, long>()
 		{
 			{ 1, 10},
 			{ 2, 20},
@@ -66,7 +67,7 @@ namespace Gamemode
 			{ 10, 100},
 		};
 
-		public static readonly Dictionary<byte, long> SalaryByRank = new Dictionary<byte, long>()
+		public static readonly Dictionary<long, long> SalaryByRank = new Dictionary<long, long>()
 		{
 			{ 1, 400},
 			{ 2, 500},
@@ -80,42 +81,42 @@ namespace Gamemode
 			{ 10, 2500},
 		};
 
-		public static readonly Dictionary<byte, ICollection<ApiClient.Models.Weapon>> WeaponsByGangId = new Dictionary<byte, ICollection<ApiClient.Models.Weapon>>()
+		public static readonly Dictionary<long, ICollection<Weapon>> WeaponsByGangId = new Dictionary<long, ICollection<Weapon>>()
 		{
-			{ NpcIdBallas, new ApiClient.Models.Weapon[]{
-				new ApiClient.Models.Weapon(WeaponHash.Flare, 3),
-				new ApiClient.Models.Weapon(WeaponHash.Bat, 1),
-				new ApiClient.Models.Weapon(WeaponHash.Pistol, 100),
-				new ApiClient.Models.Weapon(WeaponHash.Microsmg, 100),
-				new ApiClient.Models.Weapon(WeaponHash.Pumpshotgun, 10),
+			{ NpcIdBallas, new Weapon[]{
+				new Weapon(WeaponHash.Flare, 3),
+				new Weapon(WeaponHash.Bat, 1),
+				new Weapon(WeaponHash.Pistol, 100),
+				new Weapon(WeaponHash.Microsmg, 100),
+				new Weapon(WeaponHash.Pumpshotgun, 10),
 			}},
-			{ NpcIdVagos, new ApiClient.Models.Weapon[]{
-				new ApiClient.Models.Weapon(WeaponHash.Flare, 3),
-				new ApiClient.Models.Weapon(WeaponHash.Crowbar, 1),
-				new ApiClient.Models.Weapon(WeaponHash.Pistol, 100),
-				new ApiClient.Models.Weapon(WeaponHash.Microsmg, 100),
-				new ApiClient.Models.Weapon(WeaponHash.Pumpshotgun, 10),
+			{ NpcIdVagos, new Weapon[]{
+				new Weapon(WeaponHash.Flare, 3),
+				new Weapon(WeaponHash.Crowbar, 1),
+				new Weapon(WeaponHash.Pistol, 100),
+				new Weapon(WeaponHash.Microsmg, 100),
+				new Weapon(WeaponHash.Pumpshotgun, 10),
 			}},
-			{ NpcIdTheFamilies, new ApiClient.Models.Weapon[]{
-				new ApiClient.Models.Weapon(WeaponHash.Flare, 3),
-				new ApiClient.Models.Weapon(WeaponHash.Knife, 1),
-				new ApiClient.Models.Weapon(WeaponHash.Pistol, 100),
-				new ApiClient.Models.Weapon(WeaponHash.Microsmg, 100),
-				new ApiClient.Models.Weapon(WeaponHash.Pumpshotgun, 10),
+			{ NpcIdTheFamilies, new Weapon[]{
+				new Weapon(WeaponHash.Flare, 3),
+				new Weapon(WeaponHash.Knife, 1),
+				new Weapon(WeaponHash.Pistol, 100),
+				new Weapon(WeaponHash.Microsmg, 100),
+				new Weapon(WeaponHash.Pumpshotgun, 10),
 			}},
-			{ NpcIdMarabunta, new ApiClient.Models.Weapon[]{
-				new ApiClient.Models.Weapon(WeaponHash.Flare, 3),
-				new ApiClient.Models.Weapon(WeaponHash.Knuckle, 1),
-				new ApiClient.Models.Weapon(WeaponHash.Pistol, 100),
-				new ApiClient.Models.Weapon(WeaponHash.Microsmg, 100),
-				new ApiClient.Models.Weapon(WeaponHash.Pumpshotgun, 10),
+			{ NpcIdMarabunta, new Weapon[]{
+				new Weapon(WeaponHash.Flare, 3),
+				new Weapon(WeaponHash.Knuckle, 1),
+				new Weapon(WeaponHash.Pistol, 100),
+				new Weapon(WeaponHash.Microsmg, 100),
+				new Weapon(WeaponHash.Pumpshotgun, 10),
 			}},
-			{ NpcIdBloods, new ApiClient.Models.Weapon[]{
-				new ApiClient.Models.Weapon(WeaponHash.Flare, 3),
-				new ApiClient.Models.Weapon(WeaponHash.Hatchet, 1),
-				new ApiClient.Models.Weapon(WeaponHash.Pistol, 100),
-				new ApiClient.Models.Weapon(WeaponHash.Microsmg, 100),
-				new ApiClient.Models.Weapon(WeaponHash.Pumpshotgun, 10),
+			{ NpcIdBloods, new Weapon[]{
+				new Weapon(WeaponHash.Flare, 3),
+				new Weapon(WeaponHash.Hatchet, 1),
+				new Weapon(WeaponHash.Pistol, 100),
+				new Weapon(WeaponHash.Microsmg, 100),
+				new Weapon(WeaponHash.Pumpshotgun, 10),
 			}},
 		};
 
