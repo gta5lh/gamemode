@@ -19,6 +19,7 @@ namespace Gamemode
 	using GTANetworkAPI;
 	using Microsoft.Extensions.Caching.Memory;
 	using NLog.Extensions.Logging;
+	using Rpc.GameServer;
 
 	public class ResourceStartController : Script
 	{
@@ -39,7 +40,7 @@ namespace Gamemode
 			GangZoneCache.InitGangZoneCache();
 			SaveUsersController.IniSaveUserTimer();
 
-			await GangWarService.FinishGangWarAsFailed();
+			await OnGameServerStart();
 			GangWarController.StartGangWarJobs();
 		}
 
@@ -79,6 +80,17 @@ namespace Gamemode
 			}
 
 			return environment == "production";
+		}
+
+		private static async Task OnGameServerStart()
+		{
+			try
+			{
+				await Infrastructure.RpcClients.GameServerService.OnGameServerStartAsync(new OnGameServerStartRequest());
+			}
+			catch
+			{
+			}
 		}
 	}
 
