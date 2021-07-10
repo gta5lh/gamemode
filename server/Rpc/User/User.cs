@@ -153,4 +153,15 @@ namespace Rpc.User
 			this.Name = name;
 		}
 	}
+
+	public partial class LogoutRequest
+	{
+		public LogoutRequest(long id, long money, long experience, List<Weapon> weapons)
+		{
+			this.ID = id;
+			this.Money = money;
+			this.Experience = experience;
+			this.Weapons.Add(weapons);
+		}
+	}
 }
