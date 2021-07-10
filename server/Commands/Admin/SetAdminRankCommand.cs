@@ -11,6 +11,7 @@ namespace Gamemode.Commands.Admin
 	using Gamemode.Models.Player;
 	using Gamemode.Utils;
 	using GTANetworkAPI;
+	using Rpc.User;
 
 	public class SetAdminRankCommand : BaseCommandHandler
 	{
@@ -44,7 +45,7 @@ namespace Gamemode.Commands.Admin
 
 			try
 			{
-				setAdminRankResponse = await ApiClient.ApiClient.SetAdminRank(targetStaticId, adminRank, admin.StaticId);
+				setAdminRankResponse = await Infrastructure.RpcClients.UserService.SetAdminRankAsync(new SetAdminRankRequest(targetStaticId, adminRank, admin.StaticId));
 			}
 			catch (Exception)
 			{
@@ -56,7 +57,7 @@ namespace Gamemode.Commands.Admin
 				return;
 			}
 
-			AdminRank adminRankBeforeUpdate = setAdminRankResponse.RankBefore != null ? (Models.Admin.AdminRank)setAdminRankResponse.RankBefore : 0;
+			AdminRank adminRankBeforeUpdate = setAdminRankResponse.HasOldAdminRankID ? (Models.Admin.AdminRank)setAdminRankResponse.OldAdminRankID : 0;
 
 			NAPI.Task.Run(() =>
 			{

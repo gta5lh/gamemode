@@ -110,7 +110,7 @@ namespace GamemodeClient.Controllers
 
 		public void OnCaptureStart(object[] args)
 		{
-			int zoneID = (int)args[0];
+			long zoneID = (long)args[0];
 
 			for (int i = 0; i < Zones.Count; i++)
 			{
@@ -124,7 +124,7 @@ namespace GamemodeClient.Controllers
 
 		public void OnCaptureFinish(object[] args)
 		{
-			int zoneID = (int)args[0];
+			long zoneID = (long)args[0];
 			int color = (int)args[1];
 
 			for (int i = 0; i < Zones.Count; i++)

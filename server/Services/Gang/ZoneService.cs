@@ -8,12 +8,12 @@ namespace Gamemode.Services
 {
 	public static class ZoneService
 	{
-		public static void StartCapture(int zoneID)
+		public static void StartCapture(long zoneID)
 		{
 			NAPI.ClientEvent.TriggerClientEventForAll("CaptureStart", zoneID);
 		}
 
-		public static void FinishCapture(int zoneID, byte winnerFractionID)
+		public static void FinishCapture(long zoneID, long winnerFractionID)
 		{
 			NAPI.ClientEvent.TriggerClientEventForAll("CaptureFinish", zoneID, GangUtil.BlipColorByGangId[winnerFractionID]);
 		}

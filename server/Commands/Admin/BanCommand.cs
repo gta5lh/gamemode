@@ -2,7 +2,10 @@
 using System.Threading.Tasks;
 using Gamemode.Models.Player;
 using Gamemode.Utils;
+using Grpc.Core;
 using GTANetworkAPI;
+using Rpc.Errors;
+using Rpc.User;
 
 namespace Gamemode.Commands.Admin
 {
@@ -46,15 +49,25 @@ namespace Gamemode.Commands.Admin
 			DateTime bannedUntil = DateTime.UtcNow.AddDays(duration);
 			DateTime bannedAt = DateTime.UtcNow;
 
-			string targetName;
+			string targetName = "";
 
 			try
 			{
-				targetName = await ApiClient.ApiClient.BanUser(staticId, reason, admin.StaticId, bannedAt, bannedUntil);
+				BanResponse banResponse = await Infrastructure.RpcClients.UserService.BanAsync(new BanRequest(staticId, reason, admin.StaticId, bannedAt, bannedUntil));
+				targetName = banResponse.Name;
+			}
+			catch (RpcException ex)
+			{
+				if (Error.IsEqualErrorCode(ex.StatusCode, ErrorCode.UserNotFound))
+				{
+					NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {staticId} не найден"));
+				}
+
+				return;
 			}
 			catch (Exception)
 			{
-				NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {staticId} не найден"));
+				NAPI.Task.Run(() => admin.SendChatMessage($"Что-то пошло не так, попробуй снова"));
 				return;
 			}
 
@@ -93,11 +106,11 @@ namespace Gamemode.Commands.Admin
 				return;
 			}
 
-			string targetName;
+			UnbanResponse unbanResponse;
 
 			try
 			{
-				targetName = await ApiClient.ApiClient.UnbanUser(staticId, admin.StaticId);
+				unbanResponse = await Infrastructure.RpcClients.UserService.UnbanAsync(new UnbanRequest(staticId, admin.StaticId));
 			}
 			catch (Exception)
 			{
@@ -107,8 +120,8 @@ namespace Gamemode.Commands.Admin
 
 			NAPI.Task.Run(() =>
 			{
-				Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял бан {targetName}");
-				this.Logger.Warn($"Administrator {admin.Name} unbanned {targetName}");
+				Chat.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} снял бан {unbanResponse.Name}");
+				this.Logger.Warn($"Administrator {admin.Name} unbanned {unbanResponse.Name}");
 			});
 		}
 	}

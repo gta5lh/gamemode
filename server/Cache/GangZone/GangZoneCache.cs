@@ -2,7 +2,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Gamemode.ApiClient.Models;
+using GamemodeCommon.Models.Gang;
+using Gamemode.Infrastructure;
 using GTANetworkAPI;
 using Quartz;
 
@@ -19,26 +20,27 @@ namespace Gamemode.Cache.GangZone
 
 		public static async Task<List<Zone>> LoadZones()
 		{
-			List<Zone> zones;
+			Rpc.Zone.AllResponse allResponse;
+			List<Zone> zones = new List<Zone>();
 
 			try
 			{
-				zones = await ApiClient.ApiClient.AllZones();
+				allResponse = await RpcClients.ZoneService.AllAsync(new Rpc.Zone.AllRequest());
 			}
 			catch (Exception)
 			{
 				return null;
 			}
 
-			for (int i = 0; i < zones.Count; i++)
+			foreach (Rpc.Zone.Zone zone in allResponse.Zones)
 			{
-				zones[i].BlipColor = GangUtil.BlipColorByGangId[zones[i].FractionId];
+				zones.Add(new Zone(zone.ID, zone.X, zone.Y, zone.FractionID, zone.Battleworthy, GangUtil.BlipColorByGangId[zone.FractionID]));
 			}
 
 			return zones;
 		}
 
-		public static void MarkAsWarInProgress(int zoneID)
+		public static void MarkAsWarInProgress(long zoneID)
 		{
 			for (int i = 0; i < Zones.Count; i++)
 			{
@@ -50,7 +52,7 @@ namespace Gamemode.Cache.GangZone
 			}
 		}
 
-		public static void MarkAsWarFinished(int zoneID, byte winnerFractionID)
+		public static void MarkAsWarFinished(long zoneID, long winnerFractionID)
 		{
 			for (int i = 0; i < Zones.Count; i++)
 			{

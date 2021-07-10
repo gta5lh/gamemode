@@ -14,7 +14,7 @@ namespace Gamemode.Services.Player
 
 		public static async void ChangeExperience(CustomPlayer player, short delta)
 		{
-			short previousExperience = player.CurrentExperience;
+			long previousExperience = player.CurrentExperience;
 			player.CurrentExperience += delta;
 
 			NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", previousExperience, player.CurrentExperience, player.RequiredExperience, player.FractionRank);

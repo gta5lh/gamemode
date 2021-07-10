@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Gamemode.ApiClient.Models;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
+using Rpc.Report;
 
 namespace Gamemode.Commands.Player
 {
@@ -19,11 +18,16 @@ namespace Gamemode.Commands.Player
 				return;
 			}
 
-			Report report = new Report(player.StaticId, message);
+
+			CreateRequest createRequest = new CreateRequest();
+			createRequest.Question = message;
+			createRequest.UserID = player.StaticId;
+
+			CreateResponse createResponse;
 
 			try
 			{
-				report = await ApiClient.ApiClient.CreateReport(report);
+				createResponse = await Infrastructure.RpcClients.ReportService.CreateAsync(createRequest);
 			}
 			catch (Exception)
 			{
@@ -33,7 +37,7 @@ namespace Gamemode.Commands.Player
 
 			NAPI.Task.Run(() =>
 			{
-				player.SendChatMessage($"Репорт номер {report.Id} был доставлен администрации.");
+				player.SendChatMessage($"Репорт номер {createResponse.Report.ID} был доставлен администрации.");
 				AdminsCache.SendMessageToAllAdminsReport($"{player.Name} [{player.Id}]: {message}");
 			});
 		}
