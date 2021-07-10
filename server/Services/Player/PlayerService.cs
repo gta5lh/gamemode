@@ -16,10 +16,15 @@ namespace Gamemode.Services.Player
 		{
 			List<SaveRequest> saveUserRequests = new List<SaveRequest>();
 
-			foreach (CustomPlayer player in players)
+			NAPI.Task.Run(() =>
 			{
-				saveUserRequests.Add(new SaveRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons()));
-			}
+				foreach (CustomPlayer player in players)
+				{
+					saveUserRequests.Add(new SaveRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons()));
+				}
+			});
+
+			await NAPI.Task.WaitForMainThread();
 
 			try
 			{
