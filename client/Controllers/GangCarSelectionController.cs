@@ -30,7 +30,7 @@ namespace GamemodeClient.Controllers
 		private Spawn VehiclePos;
 		private int VehicleColor;
 		private int GangId;
-		private int PlayerRank;
+		private long PlayerRank;
 
 		private int Camera;
 		private RAGE.Elements.Vehicle Vehicle;
@@ -128,7 +128,7 @@ namespace GamemodeClient.Controllers
 			this.VehiclePos = ((JObject)args[1]).ToObject<Models.Spawn>();
 			this.VehicleColor = (int)args[2];
 			this.GangId = (int)args[3];
-			this.PlayerRank = (int)args[4];
+			this.PlayerRank = (long)args[4];
 		}
 
 		public async void OnInteractKeyPressed()
