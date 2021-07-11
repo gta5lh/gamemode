@@ -34,5 +34,10 @@ namespace Gamemode.Models.Player
 		{
 			return this.inventoryWeapons.Keys;
 		}
+
+		public int Count()
+		{
+			return this.inventoryWeapons.Count;
+		}
 	}
 }
