@@ -36,6 +36,7 @@ namespace Gamemode.Models.Player
 		public long StaticId { get; set; }
 
 		private InventoryWeapons InventoryWeapons;
+		private List<Weapon> TemporaryWeapons;
 
 		public ushort? OneTimeVehicleId { get; set; }
 
@@ -96,12 +97,14 @@ namespace Gamemode.Models.Player
 				{
 					this.Transparency = 0;
 					this.SetBlipColor(-1);
+					this.SaveTemporaryWeapons();
 					this.RemoveAllWeapons();
 				}
 				else
 				{
 					this.Transparency = 255;
 					this.SetDefaultBlipColor();
+					this.GiveAndResetTemporaryWeapons();
 				}
 			}
 		}
@@ -123,12 +126,14 @@ namespace Gamemode.Models.Player
 				{
 					this.Transparency = 0;
 					this.SetBlipColor(-1);
+					this.SaveTemporaryWeapons();
 					this.RemoveAllWeapons();
 				}
 				else
 				{
 					this.Transparency = 255;
 					this.SetDefaultBlipColor();
+					this.GiveAndResetTemporaryWeapons();
 				}
 			}
 		}
@@ -150,12 +155,14 @@ namespace Gamemode.Models.Player
 				{
 					this.Transparency = 0;
 					this.SetBlipColor(-1);
+					this.SaveTemporaryWeapons();
 					this.RemoveAllWeapons();
 				}
 				else
 				{
 					this.Transparency = 255;
 					this.SetDefaultBlipColor();
+					this.GiveAndResetTemporaryWeapons();
 				}
 			}
 		}
@@ -354,6 +361,26 @@ namespace Gamemode.Models.Player
 			{
 				this.SetBlipColor(62);
 			}
+		}
+
+		private void SaveTemporaryWeapons()
+		{
+			List<Weapon> weapons = this.GetAllWeapons();
+			if (weapons.Count == 0) return;
+
+			this.TemporaryWeapons = weapons;
+		}
+
+		private void GiveAndResetTemporaryWeapons()
+		{
+			if (this.TemporaryWeapons.Count == 0) return;
+
+			foreach (Weapon weapon in this.TemporaryWeapons)
+			{
+				this.CustomGiveWeapon((WeaponHash)weapon.Hash, weapon.Amount);
+			}
+
+			this.TemporaryWeapons.Clear();
 		}
 	}
 }
