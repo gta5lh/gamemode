@@ -68,7 +68,6 @@ namespace Gamemode.Services.Player
 
 		public static void Freeze(CustomPlayer targetPlayer, bool isFreezed)
 		{
-			targetPlayer.Freezed = isFreezed;
 			targetPlayer.SetSharedData(DataKey.IsFreezed, isFreezed);
 		}
 	}
