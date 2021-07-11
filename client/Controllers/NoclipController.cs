@@ -178,6 +178,13 @@ namespace GamemodeClient.Controllers
 			{
 				Player.CurrentPlayer.SetInvincible(false);
 			}
+
+			float groundZ = Player.CurrentPlayer.Position.Z;
+			RAGE.Game.Misc.GetGroundZFor3dCoord(Player.CurrentPlayer.Position.X, Player.CurrentPlayer.Position.Y, Player.CurrentPlayer.Position.Z, ref groundZ, false);
+
+			Vector3 newPosition = Player.CurrentPlayer.Position;
+			newPosition.Z = groundZ;
+			Player.CurrentPlayer.Position = newPosition;
 		}
 	}
 }
