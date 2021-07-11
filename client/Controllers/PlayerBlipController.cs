@@ -1,6 +1,7 @@
 ﻿using RAGE;
 using RAGE.Elements;
 using System.Collections.Generic;
+using GamemodeCommon.Models.Data;
 
 namespace GamemodeClient.Controllers
 {
@@ -11,7 +12,7 @@ namespace GamemodeClient.Controllers
 			Events.Tick += OnTick;
 			Events.OnEntityStreamIn += OnEntityStreamIn;
 			Events.OnEntityStreamOut += OnEntityStreamOut;
-			Events.AddDataHandler("blip_color", OnBlipColorUpdate);
+			Events.AddDataHandler(DataKey.BlipColor, OnBlipColorUpdate);
 		}
 
 		public void OnTick(List<Events.TickNametagData> nametags)
@@ -34,7 +35,7 @@ namespace GamemodeClient.Controllers
 				return;
 			}
 
-			object color = entity.GetSharedData("blip_color");
+			object color = entity.GetSharedData(DataKey.BlipColor);
 			if (color == null || (int)color == -1) return;
 
 			CreatePlayerBlip((RAGE.Elements.Player)entity, (int)color);

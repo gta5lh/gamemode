@@ -4,6 +4,7 @@ using RAGE;
 using RAGE.Game;
 using RAGE.NUI;
 using RAGE.Ui;
+using GamemodeCommon.Models.Data;
 
 namespace GamemodeClient.Controllers
 {
@@ -30,7 +31,7 @@ namespace GamemodeClient.Controllers
 		{
 			if (Cursor.Visible) return;
 
-			if (Player.CurrentPlayer.GetSharedData("is_admin") == null || !(bool)Player.CurrentPlayer.GetSharedData("is_admin"))
+			if (Player.CurrentPlayer.GetSharedData(DataKey.IsAdmin) == null || !(bool)Player.CurrentPlayer.GetSharedData(DataKey.IsAdmin))
 			{
 				return;
 			}
@@ -61,7 +62,7 @@ namespace GamemodeClient.Controllers
 					if (Graphics.GetScreenCoordFromWorldCoord(player.Position.X, player.Position.Y, player.Position.Z, ref screenX, ref screenY))
 					{
 						UIResText.Draw(
-							$"[SID: {player.GetSharedData("static_id")}], [DID: {player.Id}], [NAME: {player.Name}]~n~[HP: {player.GetHealth()}/{player.GetMaxHealth()}], [SPEED: {this.RealSpeed(player.GetSpeed()):0.#}]",
+							$"[SID: {player.GetSharedData(DataKey.StaticId)}], [DID: {player.Id}], [NAME: {player.Name}]~n~[HP: {player.GetHealth()}/{player.GetMaxHealth()}], [SPEED: {this.RealSpeed(player.GetSpeed()):0.#}]",
 							(int)(screenX * ScreenStaticX),
 							(int)(screenY * ScreenStaticY),
 							Font.ChaletLondon, PlayerScale, Color.White, UIResText.Alignment.Centered, false, true, 0);

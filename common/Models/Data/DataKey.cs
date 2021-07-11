@@ -2,7 +2,7 @@
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
 
-namespace Gamemode
+namespace GamemodeCommon.Models.Data
 {
 	public static class DataKey
 	{
@@ -19,6 +19,21 @@ namespace Gamemode
 		public static string IsFreezed
 		{
 			get { return "is_freezed"; }
+		}
+
+		public static string IsSpeaking
+		{
+			get { return "is_speaking"; }
+		}
+
+		public static string IsMuted
+		{
+			get { return "is_muted"; }
+		}
+
+		public static string BlipColor
+		{
+			get { return "blip_color"; }
 		}
 	}
 }

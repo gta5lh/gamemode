@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using RAGE;
 using RAGE.Ui;
+using GamemodeCommon.Models.Data;
 
 namespace GamemodeClient.Controllers
 {
@@ -107,7 +108,7 @@ namespace GamemodeClient.Controllers
 		{
 			if (Cursor.Visible) return;
 
-			if (Player.CurrentPlayer.GetSharedData("is_admin") == null || !(bool)Player.CurrentPlayer.GetSharedData("is_admin"))
+			if (Player.CurrentPlayer.GetSharedData(DataKey.IsAdmin) == null || !(bool)Player.CurrentPlayer.GetSharedData(DataKey.IsAdmin))
 			{
 				return;
 			}

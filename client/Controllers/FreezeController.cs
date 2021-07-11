@@ -6,12 +6,13 @@ namespace GamemodeClient.Controllers
 {
 	using RAGE;
 	using RAGE.Elements;
+	using GamemodeCommon.Models.Data;
 
 	public class FreezeController : Events.Script
 	{
 		public FreezeController()
 		{
-			Events.AddDataHandler("is_freezed", this.OnIsFreezed);
+			Events.AddDataHandler(DataKey.IsFreezed, this.OnIsFreezed);
 			Events.OnEntityStreamIn += OnEntityStreamIn;
 		}
 
@@ -41,9 +42,9 @@ namespace GamemodeClient.Controllers
 		public void OnEntityStreamIn(RAGE.Elements.Entity entity)
 		{
 			if (entity.Type != Type.Player) return;
-			if (entity.GetSharedData("is_freezed") == null) return;
+			if (entity.GetSharedData(DataKey.IsFreezed) == null) return;
 
-			bool isFreezed = (bool)entity.GetSharedData("is_freezed");
+			bool isFreezed = (bool)entity.GetSharedData(DataKey.IsFreezed);
 			((RAGE.Elements.Player)entity).FreezePosition(isFreezed);
 		}
 	}

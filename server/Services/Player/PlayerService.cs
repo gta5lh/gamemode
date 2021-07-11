@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Gamemode.ApiClient;
 using Gamemode.ApiClient.Models;
 using Gamemode.Models.Player;
+using GamemodeCommon.Models.Data;
 using GTANetworkAPI;
 using Rpc.User;
 

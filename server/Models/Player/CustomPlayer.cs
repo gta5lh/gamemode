@@ -9,6 +9,7 @@ namespace Gamemode.Models.Player
 	using System.Threading.Tasks;
 	using Gamemode.ApiClient.Models;
 	using Gamemode.Models.Admin;
+	using GamemodeCommon.Models.Data;
 	using Gamemode.Services.Player;
 	using GTANetworkAPI;
 	using Rpc.User;
@@ -376,7 +377,7 @@ namespace Gamemode.Models.Player
 
 		private void SetBlipColor(int color)
 		{
-			this.SetSharedData("blip_color", color);
+			this.SetSharedData(DataKey.BlipColor, color);
 		}
 
 		private void SetDefaultBlipColor()
