@@ -1,6 +1,7 @@
 ﻿using System;
 using Gamemode.Models.Admin;
 using Gamemode.Models.Player;
+using Gamemode.Services.Player;
 using GTANetworkAPI;
 
 namespace Gamemode.Commands.Admin
@@ -43,8 +44,6 @@ namespace Gamemode.Commands.Admin
 			{
 				targetPlayer.WarpOutOfVehicle();
 			}
-
-			NAPI.ClientEvent.TriggerClientEvent(targetPlayer, "FreezePlayer", targetPlayer.Freezed);
 
 			string freezeString = targetPlayer.Freezed ? "заморозил" : "разморозил";
 			AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} {freezeString} {targetPlayer.Name}");

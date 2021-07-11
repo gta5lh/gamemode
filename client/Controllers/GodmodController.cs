@@ -13,12 +13,6 @@ namespace GamemodeClient.Controllers
 
 		private void OnSetGodmod(object[] args)
 		{
-			if (Player.NoclipEnabled)
-			{
-				Chat.Output("Выключить godmod нельзя с включенным noclip");
-				return;
-			}
-
 			Player.GodmodEnabled = !Player.GodmodEnabled;
 			if (!Player.InvisibilityEnabled)
 			{
@@ -33,12 +27,6 @@ namespace GamemodeClient.Controllers
 
 		private void OnSetInvisibility(object[] args)
 		{
-			if (Player.NoclipEnabled)
-			{
-				Chat.Output("Выключить невидимку нельзя с включенным noclip");
-				return;
-			}
-
 			Player.InvisibilityEnabled = !Player.InvisibilityEnabled;
 			if (!Player.GodmodEnabled)
 			{

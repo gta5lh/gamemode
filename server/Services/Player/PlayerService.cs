@@ -10,7 +10,7 @@ using Rpc.User;
 
 namespace Gamemode.Services.Player
 {
-	public class PlayerService
+	public static class PlayerService
 	{
 		public static async Task SavePlayers(List<CustomPlayer> players)
 		{
@@ -64,6 +64,12 @@ namespace Gamemode.Services.Player
 			}
 
 			await SavePlayers(players);
+		}
+
+		public static void Freeze(CustomPlayer targetPlayer, bool isFreezed)
+		{
+			targetPlayer.Freezed = isFreezed;
+			targetPlayer.SetSharedData(DataKey.IsFreezed, isFreezed);
 		}
 	}
 }

@@ -20,6 +20,12 @@ namespace Gamemode.Commands.Admin
 				return;
 			}
 
+			if (admin.Noclip)
+			{
+				admin.SendChatMessage("Нельзя начать слежение в режиме Noclip");
+				return;
+			}
+
 			ushort targetId = 0;
 
 			try
@@ -42,12 +48,6 @@ namespace Gamemode.Commands.Admin
 			if (targetPlayer == admin)
 			{
 				admin.SendChatMessage("Нельзя начать слежение за самим собой");
-				return;
-			}
-
-			if (admin.Noclip)
-			{
-				admin.SendChatMessage("Нельзя начать слежение в режиме Noclip");
 				return;
 			}
 

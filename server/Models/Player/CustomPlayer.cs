@@ -9,6 +9,7 @@ namespace Gamemode.Models.Player
 	using System.Threading.Tasks;
 	using Gamemode.ApiClient.Models;
 	using Gamemode.Models.Admin;
+	using Gamemode.Services.Player;
 	using GTANetworkAPI;
 	using Rpc.User;
 
@@ -19,6 +20,7 @@ namespace Gamemode.Models.Player
 		private bool invisible;
 		private bool spectating;
 		private bool noclip;
+		private bool freezed;
 
 		public CustomPlayer(NetHandle handle)
 	: base(handle)
@@ -51,8 +53,18 @@ namespace Gamemode.Models.Player
 
 		public long Money { get; set; }
 
+		public bool Freezed
+		{
+			get => this.freezed;
 
-		public bool Freezed { get; set; }
+			set
+			{
+				if (value == this.freezed) return;
+				this.freezed = value;
+
+				PlayerService.Freeze(this, this.freezed);
+			}
+		}
 
 		public Vector3? SpectatePosition { get; set; }
 
@@ -86,12 +98,21 @@ namespace Gamemode.Models.Player
 
 			set
 			{
-				if (this.Noclip || this.Invisible)
+				this.spectating = value;
+
+				if (this.Noclip)
 				{
 					return;
 				}
 
-				this.spectating = value;
+				if (this.Invisible)
+				{
+					if (this.spectating) this.Freezed = true;
+					else this.Freezed = false;
+
+					return;
+				}
+
 
 				if (this.Spectating)
 				{
@@ -99,12 +120,14 @@ namespace Gamemode.Models.Player
 					this.SetBlipColor(-1);
 					this.SaveTemporaryWeapons();
 					this.RemoveAllWeapons();
+					this.Freezed = true;
 				}
 				else
 				{
 					this.Transparency = 255;
 					this.SetDefaultBlipColor();
 					this.GiveAndResetTemporaryWeapons();
+					this.Freezed = false;
 				}
 			}
 		}
@@ -148,6 +171,9 @@ namespace Gamemode.Models.Player
 
 				if (this.Invisible)
 				{
+					if (this.noclip) this.Freezed = true;
+					else this.Freezed = false;
+
 					return;
 				}
 
@@ -157,12 +183,14 @@ namespace Gamemode.Models.Player
 					this.SetBlipColor(-1);
 					this.SaveTemporaryWeapons();
 					this.RemoveAllWeapons();
+					this.Freezed = true;
 				}
 				else
 				{
 					this.Transparency = 255;
 					this.SetDefaultBlipColor();
 					this.GiveAndResetTemporaryWeapons();
+					this.Freezed = false;
 				}
 			}
 		}

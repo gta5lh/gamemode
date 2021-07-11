@@ -12,6 +12,12 @@ namespace Gamemode.Commands.Admin
 		[AdminMiddleware(AdminRank.Junior)]
 		public void Godmod(CustomPlayer admin)
 		{
+			if (admin.Noclip || admin.Spectating)
+			{
+				admin.SendChatMessage("Изменить godmod нельзя с включенным noclip или spectate");
+				return;
+			}
+
 			NAPI.ClientEvent.TriggerClientEvent(admin, "SetGodmod");
 		}
 
@@ -21,18 +27,15 @@ namespace Gamemode.Commands.Admin
 		[Command("invisibility", InvisibilityCommandUsage, Alias = "i", GreedyArg = true, Hide = true)]
 		public void Invisibility(CustomPlayer admin)
 		{
+			if (admin.Noclip || admin.Spectating)
+			{
+				admin.SendChatMessage("Изменить невидимку нельзя с включенным noclip или spectate");
+				return;
+			}
+
 			admin.Invisible = !admin.Invisible;
 			NAPI.ClientEvent.TriggerClientEvent(admin, "SetInvisibility");
 		}
-
-		//[AdminMiddleware(AdminRank.Junior)]
-		//[Command("spectate", InvisibilityCommandUsage, Alias = "s", GreedyArg = true, Hide = true)]
-		//public void Spectate(CustomPlayer admin, string targetId)
-		//{
-		//    var player = PlayerUtil.GetById(ushort.Parse(targetId));
-
-		//    NAPI.ClientEvent.TriggerClientEvent(admin, "Spectate", player.Position.X, player.Position.Y, player.Position.Z, targetId);
-		//}
 
 		[RemoteEvent("SetNoclip")]
 		private void OnSetNoclip(CustomPlayer admin, string request)
