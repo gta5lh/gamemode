@@ -18,7 +18,7 @@ namespace GamemodeClient.Controllers
 			this.waypointPosition = position;
 		}
 
-		public void OnTeleportToWaypoint(object[] args)
+		public async void OnTeleportToWaypoint(object[] args)
 		{
 			if (this.waypointPosition == null)
 			{
@@ -26,8 +26,18 @@ namespace GamemodeClient.Controllers
 				return;
 			}
 
+			Player.CurrentPlayer.Position = this.waypointPosition;
+
 			float groundZ = 0;
-			RAGE.Game.Misc.GetGroundZFor3dCoord(this.waypointPosition.X, this.waypointPosition.Y, this.waypointPosition.Z, ref groundZ, false);
+			int tries = 0;
+
+			while (groundZ == 0 && tries <= 3)
+			{
+				await Task.WaitAsync(250);
+				RAGE.Game.Misc.GetGroundZFor3dCoord(this.waypointPosition.X, this.waypointPosition.Y, this.waypointPosition.Z + 2000, ref groundZ, false);
+				tries++;
+			}
+
 			this.waypointPosition.Z = groundZ;
 
 			Player.CurrentPlayer.Position = this.waypointPosition;
