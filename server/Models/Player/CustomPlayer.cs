@@ -366,14 +366,14 @@ namespace Gamemode.Models.Player
 		private void SaveTemporaryWeapons()
 		{
 			List<Weapon> weapons = this.GetAllWeapons();
-			if (weapons.Count == 0) return;
+			if (weapons == null || weapons.Count == 0) return;
 
 			this.TemporaryWeapons = weapons;
 		}
 
 		private void GiveAndResetTemporaryWeapons()
 		{
-			if (this.TemporaryWeapons.Count == 0) return;
+			if (this.TemporaryWeapons == null || this.TemporaryWeapons.Count == 0) return;
 
 			foreach (Weapon weapon in this.TemporaryWeapons)
 			{
