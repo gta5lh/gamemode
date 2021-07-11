@@ -1,7 +1,9 @@
 // <copyright file="ResourceStartController.cs" company="lbyte00">
 // Copyright (c) lbyte00. All rights reserved.
 // </copyright>
+using System;
 using System.Net.Http;
+using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using Grpc.Net.Client;
 
@@ -17,9 +19,6 @@ namespace Gamemode.Infrastructure
 
 		static RpcClients()
 		{
-			var handler = new HttpClientHandler();
-			handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-
 			string? apiCertificate = System.Environment.GetEnvironmentVariable("API_CERTIFICATE");
 			if (apiCertificate == null)
 			{
@@ -32,7 +31,22 @@ namespace Gamemode.Infrastructure
 				apiURL = "https://localhost:8000/";
 			}
 
-			handler.ClientCertificates.Add(new X509Certificate2(System.Text.Encoding.UTF8.GetBytes(apiCertificate)));
+			SocketsHttpHandler handler = new SocketsHttpHandler
+			{
+				PooledConnectionIdleTimeout = TimeSpan.FromMinutes(5),
+				KeepAlivePingDelay = TimeSpan.FromSeconds(10),
+				KeepAlivePingTimeout = TimeSpan.FromSeconds(20),
+				KeepAlivePingPolicy = HttpKeepAlivePingPolicy.Always,
+				EnableMultipleHttp2Connections = true
+			};
+
+			handler.SslOptions = new SslClientAuthenticationOptions()
+			{
+				ClientCertificates = new X509CertificateCollection(),
+			};
+
+			handler.SslOptions.ClientCertificates.Add(new X509Certificate2(System.Text.Encoding.UTF8.GetBytes(apiCertificate)));
+			handler.SslOptions.RemoteCertificateValidationCallback = (message, certificate2, arg3, arg4) => true;
 
 			var channel = GrpcChannel.ForAddress(apiURL, new GrpcChannelOptions
 			{

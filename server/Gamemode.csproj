@@ -1,9 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
-		<RuntimeFrameworkVersion>3.1.1</RuntimeFrameworkVersion>
-		<LangVersion>8.0</LangVersion>
+		<TargetFramework>net5.0</TargetFramework>
+		<RuntimeFrameworkVersion>5.0</RuntimeFrameworkVersion>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<LangVersion>9.0</LangVersion>
 		<Nullable>enable</Nullable>
+		<PlatformTarget>x64</PlatformTarget>
+		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+		<TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
@@ -38,7 +42,10 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 		<PackageReference Include="NLog.Extensions.Logging" Version="1.7.1" />
 		<PackageReference Include="NLog.Web.AspNetCore" Version="4.11.0" />
@@ -68,13 +75,17 @@
 		<ProjectReference Include="../common/GamemodeCommon.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<OutputDirectory Include="./bin/Debug/netcoreapp3.1/*" />
+		<OutputDebugDirectory Include="./bin/Debug/net5.0/*" />
+		<OutputReleaseDirectory Include="./bin/Release/net5.0/*" />
 	</ItemGroup>
 	<ItemGroup>
 		<Protobuf Include="../../protobuf/api/*.proto" GrpcServices="Client" />
 		<Protobuf Include="../../protobuf/errors/*.proto" GrpcServices="Client" />
 	</ItemGroup>
-	<Target Name="CustomAfterBuild" AfterTargets="AfterBuild">
-		<Copy SourceFiles="@(OutputDirectory)" DestinationFolder="../../game-server/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
+	<Target Name="DebugAfterBuild" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Debug' ">
+		<Copy SourceFiles="@(OutputDebugDirectory)" DestinationFolder="../../game-server/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
+	</Target>
+	<Target Name="ReleaseAfterBuild" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
+		<Copy SourceFiles="@(OutputReleaseDirectory)" DestinationFolder="../../game-server/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
 	</Target>
 </Project>
