@@ -7,7 +7,7 @@ namespace GamemodeClient.Controllers
 {
 	public class GangZoneController : Events.Script
 	{
-		private List<Models.Zone> Zones;
+		private List<GamemodeCommon.Models.Gang.Zone> Zones;
 
 		private int? FindZoneIndexByCords(float x, float y)
 		{
@@ -40,7 +40,7 @@ namespace GamemodeClient.Controllers
 		{
 			if (args[0] == null) return;
 
-			Zones = ((JArray)args[0]).ToObject<List<Models.Zone>>();
+			Zones = ((JArray)args[0]).ToObject<List<GamemodeCommon.Models.Gang.Zone>>();
 
 			int blipId;
 			while ((blipId = RAGE.Game.Ui.GetNextBlipInfoId(5)) != 0)
@@ -64,7 +64,7 @@ namespace GamemodeClient.Controllers
 
 			for (int i = 0; i < Zones.Count; i++)
 			{
-				Models.Zone zone = Zones[i];
+				GamemodeCommon.Models.Gang.Zone zone = Zones[i];
 				if (zone.BlipId != null)
 				{
 					continue;
