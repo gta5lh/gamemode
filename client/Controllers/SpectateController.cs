@@ -72,7 +72,7 @@ namespace GamemodeClient.Controllers
 
 		private void UpdateCameraPosition()
 		{
-			RAGE.Elements.Player.LocalPlayer.Position = SpecPlayer.Position + new Vector3(0, 0, 10);
+			RAGE.Elements.Player.LocalPlayer.Position = SpecPlayer.Position + new Vector3(0, 0, 2);
 
 			Vector3 newPos = GetPos();
 

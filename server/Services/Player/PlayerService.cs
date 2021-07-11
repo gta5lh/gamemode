@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Gamemode.ApiClient;
 using Gamemode.ApiClient.Models;
 using Gamemode.Models.Player;
+using GamemodeCommon.Models.Data;
 using GTANetworkAPI;
 using Rpc.User;
 
 namespace Gamemode.Services.Player
 {
-	public class PlayerService
+	public static class PlayerService
 	{
 		public static async Task SavePlayers(List<CustomPlayer> players)
 		{
@@ -64,6 +65,11 @@ namespace Gamemode.Services.Player
 			}
 
 			await SavePlayers(players);
+		}
+
+		public static void Freeze(CustomPlayer targetPlayer, bool isFreezed)
+		{
+			targetPlayer.SetSharedData(DataKey.IsFreezed, isFreezed);
 		}
 	}
 }

@@ -3,6 +3,7 @@ using RAGE;
 using RAGE.Elements;
 using System.Collections.Generic;
 using RAGE.Ui;
+using GamemodeCommon.Models.Data;
 
 namespace GamemodeClient.Controllers
 {
@@ -33,7 +34,7 @@ namespace GamemodeClient.Controllers
 			{
 				if (player == RAGE.Elements.Player.LocalPlayer || MutedPlayers.Contains(player)) continue;
 
-				object isSpeaking = player.GetSharedData("isSpeaking");
+				object isSpeaking = player.GetSharedData(DataKey.IsSpeaking);
 				if (isSpeaking == null || !(bool)isSpeaking) continue;
 
 				float dist = Player.CurrentPlayer.Position.DistanceTo(player.Position);

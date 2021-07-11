@@ -1,5 +1,6 @@
 ﻿using Gamemode.Models.Player;
 using Gamemode.Services.Player;
+using GamemodeCommon.Models.Data;
 using GTANetworkAPI;
 
 namespace Gamemode.Controllers
@@ -14,7 +15,7 @@ namespace Gamemode.Controllers
 			if (!ChatService.CheckMute(player))
 			{
 				if (!player.Noclip && !player.Spectating && !player.Invisible)
-					player.SetSharedData("isSpeaking", true);
+					player.SetSharedData(DataKey.IsSpeaking, true);
 
 				player.TriggerEvent("muted", false);
 			}
@@ -27,7 +28,7 @@ namespace Gamemode.Controllers
 		[RemoteEvent("stop_voice")]
 		public void StopVoice(CustomPlayer player)
 		{
-			player.SetSharedData("isSpeaking", false);
+			player.SetSharedData(DataKey.IsSpeaking, false);
 		}
 
 		[RemoteEvent("add_voice_listener")]
@@ -47,7 +48,7 @@ namespace Gamemode.Controllers
 
 		public static void Mute(CustomPlayer targetPlayer)
 		{
-			targetPlayer.SetSharedData("isSpeaking", false);
+			targetPlayer.SetSharedData(DataKey.IsSpeaking, false);
 			targetPlayer.TriggerEvent("muted", true);
 
 			foreach (CustomPlayer player in NAPI.Player.GetPlayersInRadiusOfPlayer(MaxRange, targetPlayer))
