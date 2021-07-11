@@ -40,7 +40,18 @@ namespace Gamemode.Jobs.GangWar
 
 		public async Task Execute(IJobExecutionContext context)
 		{
-			await Services.GangWarService.InitGangWar();
+			DateTime finishTime = DateTime.UtcNow.AddMinutes(10);
+
+			if (context.ScheduledFireTimeUtc == null)
+			{
+				Logger.Logger.BaseLogger.Error("InitGangWarJob null ScheduledFireTimeUtc");
+			}
+			else
+			{
+				finishTime = context.ScheduledFireTimeUtc.Value.UtcDateTime.AddMinutes(10);
+			}
+
+			await Services.GangWarService.InitGangWar(finishTime);
 		}
 	}
 }
