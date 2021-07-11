@@ -11,6 +11,7 @@
 		public GangWarController()
 		{
 			Events.Add("InitGangWarUI", this.OnInitGangWarUI);
+			Events.Add("StartGangWarUI", this.OnStartGangWarUI);
 			Events.Add("CloseGangWarUI", this.OnCloseGangWarUI);
 			Events.Add("UpdateGangWarStats", this.OnUpdateGangWarStats);
 		}
@@ -27,15 +28,34 @@
 
 			gangWarCEF.ExecuteJs($"updateStats({ballas},{bloods},{marabunta},{families},{vagos})");
 		}
+
 		private void OnInitGangWarUI(object[] args)
 		{
 			string remainingMs = (string)args[0];
-			long targetFractionId = (long)args[1];
 
 			gangWarCEF = new HtmlWindow(GangWarPath);
 			gangWarCEF.Active = true;
 
-			gangWarCEF.ExecuteJs($"initStats({remainingMs}, {targetFractionId})");
+			gangWarCEF.ExecuteJs($"onInitGangWar({remainingMs})");
+		}
+
+		private void OnStartGangWarUI(object[] args)
+		{
+			string remainingMs = (string)args[0];
+			long targetFractionId = (long)args[1];
+
+			if (gangWarCEF == null)
+			{
+				gangWarCEF = new HtmlWindow(GangWarPath);
+				gangWarCEF.Active = true;
+			}
+
+			if (!gangWarCEF.Active)
+			{
+				gangWarCEF.Active = true;
+			}
+
+			gangWarCEF.ExecuteJs($"onStartGangWar({remainingMs}, {targetFractionId})");
 		}
 
 		private void OnCloseGangWarUI(object[] args)

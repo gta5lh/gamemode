@@ -6,7 +6,7 @@
 	</head>
 
 	<body>
-		<div class="stat">
+		<div class="stat" style="display: none;">
 			<div gang="ballas" class="item" id="gang_id_2">
 				<div class="points" id="ballas_points">0</div>
 				<span class="name">Ballas</span>
@@ -30,6 +30,7 @@
 		</div>
 
 		<div class="timer">
+			<div id="until_start" style="display: none; padding-right:10px">До начала капта:</div>
 			<span style="background-image: url(icons/clock.svg);" class="icon"></span>
 			<span class="clock"></span>
 		</div>
@@ -39,7 +40,18 @@
 		<script src="core.bundle.js"></script>
 
 		<script>
-			function initStats(remainingTimeMs, targetFractionID) {
+			function onInitGangWar(remainingTimeMs, targetFractionID) {
+				$("#until_start").show();
+
+				var endTime = new Date(new Date().getTime() + parseFloat(remainingTimeMs));
+
+				$('.clock').countdown(endTime, function (event) {
+					var format = '%M:%S';
+					$(this).html(event.strftime(format));
+				});
+			}
+
+			function onStartGangWar(remainingTimeMs, targetFractionID) {
 				$("#gang_id_" + targetFractionID).attr("defend", "");
 
 				var endTime = new Date(new Date().getTime() + parseFloat(remainingTimeMs));
@@ -48,6 +60,9 @@
 					var format = '%M:%S';
 					$(this).html(event.strftime(format));
 				});
+
+				$('.stat').show();
+				$("#until_start").hide();
 			}
 
 			function updateStats(ballas, bloods, marabunta, families, vagos) {

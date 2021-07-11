@@ -6,6 +6,7 @@ using Gamemode.Cache.GangWar;
 using Gamemode.Cache.GangZone;
 using Gamemode.Colshape;
 using Gamemode.Models.Player;
+using Gamemode.Services.Player;
 using GTANetworkAPI;
 using Rpc.GangWar;
 
@@ -64,7 +65,7 @@ namespace Gamemode.Services
 			return null;
 		}
 
-		public static async Task InitGangWar()
+		public static async Task InitGangWar(DateTime finishTime)
 		{
 			if (GangWarCache.IsInited() || GangWarCache.IsInProgress()) return;
 
@@ -88,6 +89,9 @@ namespace Gamemode.Services
 				NAPI.Chat.SendChatMessageToAll(String.Format(initGangWarChatMessage, startResponse.GangWar.TargetFractionName));
 
 				ZoneService.StartCapture(startResponse.GangWar.ZoneID);
+				GangWarCache.FinishTime = finishTime;
+
+				NAPI.ClientEvent.TriggerClientEventToPlayers(PlayerService.AllLoggedInPlayers().ToArray(), "InitGangWarUI", GangWarCache.RemainingMs().ToString());
 			});
 
 			Logger.Info("Inited gang war");
@@ -108,15 +112,7 @@ namespace Gamemode.Services
 
 				GangWarCache.FinishTime = finishTime;
 
-				List<CustomPlayer> players = new List<CustomPlayer>();
-				foreach (CustomPlayer player in NAPI.Pools.GetAllPlayers())
-				{
-					if (player.LoggedInAt == null) continue;
-					players.Add(player);
-
-				}
-
-				NAPI.ClientEvent.TriggerClientEventToPlayers(players.ToArray(), "InitGangWarUI", GangWarCache.RemainingMs().ToString(), GangWarCache.GangWar.TargetFractionID);
+				NAPI.ClientEvent.TriggerClientEventToPlayers(PlayerService.AllLoggedInPlayers().ToArray(), "StartGangWarUI", GangWarCache.RemainingMs().ToString(), GangWarCache.GangWar.TargetFractionID);
 			});
 
 			Logger.Info("Started gang war");
@@ -196,11 +192,16 @@ namespace Gamemode.Services
 
 		public static void DisplayGangWarUI(CustomPlayer player)
 		{
-			if (!GangWarCache.IsInProgress()) return;
-
-			GangWarStats gangWarStats = GangWarCache.GetGangWarStats();
-			NAPI.ClientEvent.TriggerClientEvent(player, "InitGangWarUI", GangWarCache.RemainingMs().ToString(), GangWarCache.GangWar.TargetFractionID);
-			NAPI.ClientEvent.TriggerClientEvent(player, "UpdateGangWarStats", gangWarStats.Ballas, gangWarStats.Bloods, gangWarStats.Marabunta, gangWarStats.Families, gangWarStats.Vagos);
+			if (GangWarCache.IsInProgress())
+			{
+				GangWarStats gangWarStats = GangWarCache.GetGangWarStats();
+				NAPI.ClientEvent.TriggerClientEvent(player, "StartGangWarUI", GangWarCache.RemainingMs().ToString(), GangWarCache.GangWar.TargetFractionID);
+				NAPI.ClientEvent.TriggerClientEvent(player, "UpdateGangWarStats", gangWarStats.Ballas, gangWarStats.Bloods, gangWarStats.Marabunta, gangWarStats.Families, gangWarStats.Vagos);
+			}
+			else if (GangWarCache.IsInited())
+			{
+				NAPI.ClientEvent.TriggerClientEvent(player, "InitGangWarUI", GangWarCache.RemainingMs().ToString());
+			}
 		}
 	}
 }

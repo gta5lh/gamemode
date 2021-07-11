@@ -71,6 +71,18 @@ namespace Gamemode.Services.Player
 		{
 			targetPlayer.SetSharedData(DataKey.IsFreezed, isFreezed);
 		}
+
+		public static List<CustomPlayer> AllLoggedInPlayers()
+		{
+			List<CustomPlayer> players = new List<CustomPlayer>();
+			foreach (CustomPlayer player in NAPI.Pools.GetAllPlayers())
+			{
+				if (player.LoggedInAt == null) continue;
+				players.Add(player);
+			}
+
+			return players;
+		}
 	}
 }
 
