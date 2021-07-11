@@ -4,9 +4,6 @@
 namespace Gamemode
 {
 	using System;
-	using System.IO;
-	using System.Net.Http;
-	using System.Security.Cryptography.X509Certificates;
 	using System.Threading.Tasks;
 	using Gamemode.Cache.GangZone;
 	using Gamemode.Commands.Admin;
@@ -14,8 +11,6 @@ namespace Gamemode
 	using Gamemode.Models.Npc;
 	using Gamemode.Models.Player;
 	using Gamemode.Models.Vehicle;
-	using Gamemode.Services;
-	using Grpc.Net.Client;
 	using GTANetworkAPI;
 	using Microsoft.Extensions.Caching.Memory;
 	using NLog.Extensions.Logging;
