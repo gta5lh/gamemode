@@ -14,7 +14,7 @@ namespace Gamemode
 		[ServerEvent(Event.ChatMessage)]
 		private async void ChatMessage(CustomPlayer player, string message)
 		{
-			if (!await ChatService.CheckMute(player)) return;
+			if (await ChatService.CheckMute(player)) return;
 
 			NAPI.Task.Run(() =>
 			{
