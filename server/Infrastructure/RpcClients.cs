@@ -5,7 +5,9 @@ using System;
 using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using Grpc.Core;
 using Grpc.Net.Client;
+using Grpc.Net.Client.Configuration;
 
 namespace Gamemode.Infrastructure
 {
@@ -33,11 +35,10 @@ namespace Gamemode.Infrastructure
 
 			SocketsHttpHandler handler = new SocketsHttpHandler
 			{
-				PooledConnectionIdleTimeout = TimeSpan.FromMinutes(5),
 				KeepAlivePingDelay = TimeSpan.FromSeconds(10),
 				KeepAlivePingTimeout = TimeSpan.FromSeconds(20),
 				KeepAlivePingPolicy = HttpKeepAlivePingPolicy.Always,
-				EnableMultipleHttp2Connections = true
+				EnableMultipleHttp2Connections = true,
 			};
 
 			handler.SslOptions = new SslClientAuthenticationOptions()
@@ -48,9 +49,23 @@ namespace Gamemode.Infrastructure
 			handler.SslOptions.ClientCertificates.Add(new X509Certificate2(System.Text.Encoding.UTF8.GetBytes(apiCertificate)));
 			handler.SslOptions.RemoteCertificateValidationCallback = (message, certificate2, arg3, arg4) => true;
 
+			var defaultmethodConfig = new MethodConfig
+			{
+				Names = { MethodName.Default },
+				RetryPolicy = new RetryPolicy
+				{
+					MaxAttempts = 5,
+					InitialBackoff = TimeSpan.FromSeconds(1),
+					MaxBackoff = TimeSpan.FromSeconds(5),
+					BackoffMultiplier = 1.5,
+					RetryableStatusCodes = { StatusCode.Unavailable }
+				}
+			};
+
 			var channel = GrpcChannel.ForAddress(apiURL, new GrpcChannelOptions
 			{
-				HttpHandler = handler
+				HttpHandler = handler,
+				ServiceConfig = new ServiceConfig { MethodConfigs = { defaultmethodConfig } }
 			});
 
 			ZoneService = new Rpc.Zone.ZoneService.ZoneServiceClient(channel);
