@@ -8,6 +8,8 @@ using System.Security.Cryptography.X509Certificates;
 using Grpc.Core;
 using Grpc.Net.Client;
 using Grpc.Net.Client.Configuration;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 
 namespace Gamemode.Infrastructure
 {
@@ -62,12 +64,16 @@ namespace Gamemode.Infrastructure
 				}
 			};
 
+			const int mb64 = 64 * 1024 * 1024;
+
 			var channel = GrpcChannel.ForAddress(apiURL, new GrpcChannelOptions
 			{
 				HttpHandler = handler,
 				ServiceConfig = new ServiceConfig { MethodConfigs = { defaultmethodConfig } },
-				MaxReceiveMessageSize = 64 * 1024 * 1024,
-				MaxSendMessageSize = 64 * 1024 * 1024,
+				MaxReceiveMessageSize = mb64,
+				MaxSendMessageSize = mb64,
+				MaxRetryBufferSize = mb64,
+				LoggerFactory = new LoggerFactory().AddNLog(),
 			});
 
 			ZoneService = new Rpc.Zone.ZoneService.ZoneServiceClient(channel);
@@ -76,5 +82,6 @@ namespace Gamemode.Infrastructure
 			UserService = new Rpc.User.UserService.UserServiceClient(channel);
 			GameServerService = new Rpc.GameServer.GameServerService.GameServerServiceClient(channel);
 		}
+
 	}
 }
