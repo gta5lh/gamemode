@@ -65,7 +65,9 @@ namespace Gamemode.Infrastructure
 			var channel = GrpcChannel.ForAddress(apiURL, new GrpcChannelOptions
 			{
 				HttpHandler = handler,
-				ServiceConfig = new ServiceConfig { MethodConfigs = { defaultmethodConfig } }
+				ServiceConfig = new ServiceConfig { MethodConfigs = { defaultmethodConfig } },
+				MaxReceiveMessageSize = 64 * 1024 * 1024,
+				MaxSendMessageSize = 64 * 1024 * 1024,
 			});
 
 			ZoneService = new Rpc.Zone.ZoneService.ZoneServiceClient(channel);
