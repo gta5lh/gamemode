@@ -3,20 +3,11 @@
 // </copyright>
 namespace Gamemode
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Threading;
 	using System.Threading.Tasks;
-	using Gamemode.Commands.Admin;
 	using Gamemode.Controllers;
-	using Gamemode.Models.Npc;
-	using Gamemode.Models.Player;
-	using Gamemode.Models.Vehicle;
 	using Gamemode.Services;
 	using Gamemode.Services.Player;
 	using GTANetworkAPI;
-	using Microsoft.Extensions.Caching.Memory;
-	using NLog.Extensions.Logging;
 
 	public class ResourceStopController : Script
 	{
