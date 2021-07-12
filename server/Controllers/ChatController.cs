@@ -11,9 +11,9 @@ namespace Gamemode
 	public class ChatController : Script
 	{
 		[ServerEvent(Event.ChatMessage)]
-		private void ChatMessage(CustomPlayer player, string message)
+		private async Task ChatMessage(CustomPlayer player, string message)
 		{
-			if (ChatService.CheckMute(player)) return;
+			if (!await ChatService.CheckMute(player)) return;
 
 			NAPI.Chat.SendChatMessageToAll(string.Format("{0}{1} [{2}]:~s~ {3}", player.ChatColor, player.Name, player.Id, message));
 		}

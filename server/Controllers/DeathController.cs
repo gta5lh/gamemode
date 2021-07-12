@@ -1,5 +1,6 @@
 ﻿namespace Gamemode.Controllers
 {
+	using System.Threading.Tasks;
 	using Gamemode.ApiClient.Models;
 	using Gamemode.Cache.GangWar;
 	using Gamemode.Models.Player;
@@ -9,7 +10,7 @@
 	public class DeathController : Script
 	{
 		[ServerEvent(Event.PlayerDeath)]
-		private async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
+		private async Task OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
 		{
 			if (killer == null && reason == 0)
 			{

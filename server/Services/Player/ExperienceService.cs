@@ -1,18 +1,19 @@
-﻿using Gamemode.Models.Player;
+﻿using System.Threading.Tasks;
+using Gamemode.Models.Player;
 using GTANetworkAPI;
 
 namespace Gamemode.Services.Player
 {
 	public class ExperienceService
 	{
-		public static async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
+		public static async Task OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
 		{
 			short delta = killer.Fraction == target.Fraction ? (short)-1 : (short)1;
 
-			ChangeExperience(killer, delta);
+			await ChangeExperience(killer, delta);
 		}
 
-		public static async void ChangeExperience(CustomPlayer player, short delta)
+		public static async Task ChangeExperience(CustomPlayer player, short delta)
 		{
 			long previousExperience = player.CurrentExperience;
 			player.CurrentExperience += delta;

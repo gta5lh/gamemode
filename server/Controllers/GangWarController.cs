@@ -15,7 +15,7 @@ namespace Gamemode.Controllers
 	{
 		private static IScheduler scheduler;
 
-		public static async void StartGangWarJobs()
+		public static async Task StartGangWarJobs()
 		{
 			string? initGangWarCronExpression = System.Environment.GetEnvironmentVariable("INIT_GANG_WAR_CRON_EXPRESSION");
 			if (initGangWarCronExpression == null)

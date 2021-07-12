@@ -21,7 +21,7 @@ namespace Gamemode
 		private static IMemoryCache Cache;
 
 		[ServerEvent(Event.ResourceStartEx)]
-		private async void ResourceStartEx(string resourceName)
+		private async Task ResourceStartEx(string resourceName)
 		{
 			this.SetServerSettings();
 			SpawnNpcs.CreateSpawnNpcs();
@@ -32,11 +32,13 @@ namespace Gamemode
 			Cache = new MemoryCache(new MemoryCacheOptions { }, new NLogLoggerFactory());
 			PaydayController.InitPaydayTimer();
 			TimeController.InitTimeSyncTimer();
-			GangZoneCache.InitGangZoneCache();
-			SaveUsersController.IniSaveUserTimer();
+			SaveUsersController.InitSaveUserTimer();
 
-			await OnGameServerStart();
-			GangWarController.StartGangWarJobs();
+			Task initGangZoneCacheTask = GangZoneCache.InitGangZoneCache();
+			Task onGameServerStartTask = OnGameServerStart();
+			Task startGangWarJobsTask = GangWarController.StartGangWarJobs();
+
+			Task.WaitAll(initGangZoneCacheTask, onGameServerStartTask, startGangWarJobsTask);
 		}
 
 		private void SetServerSettings()

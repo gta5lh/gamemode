@@ -10,9 +10,9 @@ namespace Gamemode.Controllers
 		private const float MaxRange = 25.0f;
 
 		[RemoteEvent("start_voice")]
-		public void StartVoice(CustomPlayer player)
+		public async Task StartVoice(CustomPlayer player)
 		{
-			if (!ChatService.CheckMute(player))
+			if (!await ChatService.CheckMute(player))
 			{
 				if (!player.Noclip && !player.Spectating && !player.Invisible)
 					player.SetSharedData(DataKey.IsSpeaking, true);

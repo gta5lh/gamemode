@@ -298,7 +298,7 @@ namespace Gamemode.Models.Player
 			this.InventoryWeapons = new InventoryWeapons();
 		}
 
-		public async void Unmute()
+		public async Task Unmute()
 		{
 			try
 			{
