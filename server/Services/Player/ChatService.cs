@@ -13,8 +13,11 @@ namespace Gamemode.Services.Player
 			if (isMuted && player.MuteState.HasMuteExpired())
 			{
 				await player.Unmute();
-				VoiceChatController.Unmute(player);
-				player.SendChatMessage("Срок действия вашего мута истек. Не нарушайте правила сервера. Приятной игры!");
+				NAPI.Task.Run(() =>
+				{
+					VoiceChatController.Unmute(player);
+					player.SendChatMessage("Срок действия вашего мута истек. Не нарушайте правила сервера. Приятной игры!");
+				});
 			}
 			else if (isMuted)
 			{

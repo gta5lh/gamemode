@@ -4,6 +4,7 @@
 
 namespace Gamemode
 {
+	using System.Threading.Tasks;
 	using Gamemode.Models.Player;
 	using Gamemode.Services.Player;
 	using GTANetworkAPI;
@@ -11,11 +12,14 @@ namespace Gamemode
 	public class ChatController : Script
 	{
 		[ServerEvent(Event.ChatMessage)]
-		private async Task ChatMessage(CustomPlayer player, string message)
+		private async void ChatMessage(CustomPlayer player, string message)
 		{
 			if (!await ChatService.CheckMute(player)) return;
 
-			NAPI.Chat.SendChatMessageToAll(string.Format("{0}{1} [{2}]:~s~ {3}", player.ChatColor, player.Name, player.Id, message));
+			NAPI.Task.Run(() =>
+			{
+				NAPI.Chat.SendChatMessageToAll(string.Format("{0}{1} [{2}]:~s~ {3}", player.ChatColor, player.Name, player.Id, message));
+			});
 		}
 	}
 }

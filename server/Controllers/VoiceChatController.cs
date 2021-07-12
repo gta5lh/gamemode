@@ -1,4 +1,5 @@
-﻿using Gamemode.Models.Player;
+﻿using System.Threading.Tasks;
+using Gamemode.Models.Player;
 using Gamemode.Services.Player;
 using GamemodeCommon.Models.Data;
 using GTANetworkAPI;
@@ -12,17 +13,22 @@ namespace Gamemode.Controllers
 		[RemoteEvent("start_voice")]
 		public async Task StartVoice(CustomPlayer player)
 		{
-			if (!await ChatService.CheckMute(player))
-			{
-				if (!player.Noclip && !player.Spectating && !player.Invisible)
-					player.SetSharedData(DataKey.IsSpeaking, true);
+			bool muted = await ChatService.CheckMute(player);
 
-				player.TriggerEvent("muted", false);
-			}
-			else
+			NAPI.Task.Run(() =>
 			{
-				player.TriggerEvent("muted", true);
-			}
+				if (!muted)
+				{
+					if (!player.Noclip && !player.Spectating && !player.Invisible)
+						player.SetSharedData(DataKey.IsSpeaking, true);
+
+					player.TriggerEvent("muted", false);
+				}
+				else
+				{
+					player.TriggerEvent("muted", true);
+				}
+			});
 		}
 
 		[RemoteEvent("stop_voice")]
