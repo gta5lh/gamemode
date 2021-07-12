@@ -43,8 +43,8 @@
 				NAPI.ClientEvent.TriggerClientEventForAll("UpdateGangWarStats", gangWarStats.Ballas, gangWarStats.Bloods, gangWarStats.Marabunta, gangWarStats.Families, gangWarStats.Vagos);
 			}
 
-			ExperienceService.OnPlayerDeath(target, killer, reason);
 			MoneyService.OnPlayerDeath(target, killer, reason);
+			await ExperienceService.OnPlayerDeathAsync(target, killer, reason);
 		}
 	}
 }

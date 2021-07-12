@@ -6,7 +6,7 @@ namespace Gamemode.Services.Player
 {
 	public class ExperienceService
 	{
-		public static async Task OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
+		public static async Task OnPlayerDeathAsync(CustomPlayer target, CustomPlayer killer, uint reason)
 		{
 			short delta = killer.Fraction == target.Fraction ? (short)-1 : (short)1;
 
@@ -39,8 +39,7 @@ namespace Gamemode.Services.Player
 					}, 1500);
 				}, 500);
 			}
-
-			if (player.CurrentExperience < 0 && player.FractionRank > 1)
+			else if (player.CurrentExperience < 0 && player.FractionRank > 1)
 			{
 				await player.RankDown();
 
