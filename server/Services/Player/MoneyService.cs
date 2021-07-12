@@ -4,7 +4,7 @@ namespace Gamemode.Services.Player
 {
 	public class MoneyService
 	{
-		public static async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
+		public static void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
 		{
 			long reward = GangUtil.RewardByRank[target.FractionRank.Value];
 

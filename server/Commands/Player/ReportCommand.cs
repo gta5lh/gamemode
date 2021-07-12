@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
 using Rpc.Report;
@@ -10,7 +11,7 @@ namespace Gamemode.Commands.Player
 		private const string ReportCommandUsage = "Использование: /report {сообщение}. Пример: /r ИД 10 читер";
 
 		[Command("report", ReportCommandUsage, Alias = "r", GreedyArg = true)]
-		public async void ReportAsync(CustomPlayer player, string? message = null)
+		public async Task ReportAsync(CustomPlayer player, string? message = null)
 		{
 			if (message == null)
 			{

@@ -3,6 +3,7 @@
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
+	using System.Threading.Tasks;
 	using System.Timers;
 	using Gamemode.ApiClient;
 	using Gamemode.ApiClient.Models;
@@ -18,7 +19,7 @@
 
 		private static readonly double SaveUserInterval10Seconds = 30000;
 
-		public static void IniSaveUserTimer()
+		public static void InitSaveUserTimer()
 		{
 			SaveUsersTimer = new System.Timers.Timer(SaveUserInterval10Seconds);
 			SaveUsersTimer.Elapsed += OnSaveUsers;

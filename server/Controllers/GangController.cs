@@ -5,6 +5,7 @@
 namespace Gamemode
 {
 	using System.Collections.Generic;
+	using System.Threading.Tasks;
 	using Gamemode.ApiClient.Models;
 	using Gamemode.Models.Player;
 	using Gamemode.Models.Spawn;
@@ -100,7 +101,7 @@ namespace Gamemode
 		}
 
 		[ServerEvent(Event.PlayerDeath)]
-		private async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
+		private void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
 		{
 			if (target.Fraction == null)
 			{

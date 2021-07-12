@@ -1,5 +1,6 @@
 ﻿namespace Gamemode.Controllers
 {
+	using System.Threading.Tasks;
 	using Gamemode.ApiClient.Models;
 	using Gamemode.Cache.GangWar;
 	using Gamemode.Models.Player;
@@ -9,7 +10,7 @@
 	public class DeathController : Script
 	{
 		[ServerEvent(Event.PlayerDeath)]
-		private async void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
+		private async Task OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
 		{
 			if (killer == null && reason == 0)
 			{
@@ -42,8 +43,8 @@
 				NAPI.ClientEvent.TriggerClientEventForAll("UpdateGangWarStats", gangWarStats.Ballas, gangWarStats.Bloods, gangWarStats.Marabunta, gangWarStats.Families, gangWarStats.Vagos);
 			}
 
-			ExperienceService.OnPlayerDeath(target, killer, reason);
 			MoneyService.OnPlayerDeath(target, killer, reason);
+			await ExperienceService.OnPlayerDeathAsync(target, killer, reason);
 		}
 	}
 }

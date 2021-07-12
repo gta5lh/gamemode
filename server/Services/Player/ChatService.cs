@@ -1,4 +1,5 @@
-﻿using Gamemode.Controllers;
+﻿using System.Threading.Tasks;
+using Gamemode.Controllers;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
 
@@ -6,14 +7,19 @@ namespace Gamemode.Services.Player
 {
 	public class ChatService
 	{
-		public static bool CheckMute(CustomPlayer player)
+		public static async Task<bool> CheckMute(CustomPlayer player)
 		{
 			bool isMuted = player.MuteState != null && player.MuteState.IsMuted();
 			if (isMuted && player.MuteState.HasMuteExpired())
 			{
-				player.Unmute();
-				VoiceChatController.Unmute(player);
-				player.SendChatMessage("Срок действия вашего мута истек. Не нарушайте правила сервера. Приятной игры!");
+				await player.Unmute();
+				NAPI.Task.Run(() =>
+				{
+					VoiceChatController.Unmute(player);
+					player.SendChatMessage("Срок действия вашего мута истек. Не нарушайте правила сервера. Приятной игры!");
+				});
+
+				isMuted = false;
 			}
 			else if (isMuted)
 			{

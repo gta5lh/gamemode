@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Gamemode.ApiClient.Models;
 using Gamemode.Cache.GangWar;
 using Gamemode.Cache.GangZone;
@@ -30,7 +31,7 @@ namespace Gamemode.Commands.Test
 
 		[Command("rgz", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public async void Rb(CustomPlayer player)
+		public async Task Rb(CustomPlayer player)
 		{
 			var zones = await GangZoneCache.LoadZones();
 			NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RenderGangZones", zones);
@@ -38,7 +39,7 @@ namespace Gamemode.Commands.Test
 
 		[Command("igw", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public async void InitGangWar(CustomPlayer player, string? minutesInput = null)
+		public async Task InitGangWar(CustomPlayer player, string? minutesInput = null)
 		{
 			if (minutesInput == null)
 			{
@@ -62,7 +63,7 @@ namespace Gamemode.Commands.Test
 
 		[Command("sgw", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public async void StartGangWar(CustomPlayer player, string? minutesInput = null)
+		public async Task StartGangWar(CustomPlayer player, string? minutesInput = null)
 		{
 			if (minutesInput == null)
 			{
@@ -86,14 +87,14 @@ namespace Gamemode.Commands.Test
 
 		[Command("fgw", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public async void FinishGangWar(CustomPlayer player)
+		public async Task FinishGangWar(CustomPlayer player)
 		{
 			await Services.GangWarService.FinishGangWar();
 		}
 
 		[Command("afg", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public async void AddGangWarKill(CustomPlayer player, string fractionIdInput = null, string amountInput = null)
+		public void AddGangWarKill(CustomPlayer player, string fractionIdInput = null, string amountInput = null)
 		{
 			if (fractionIdInput == null || amountInput == null) return;
 			if (!GangWarCache.IsInProgress()) return;
@@ -118,16 +119,16 @@ namespace Gamemode.Commands.Test
 
 		[Command("rup", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public async void RankUp(CustomPlayer player)
+		public async Task RankUp(CustomPlayer player)
 		{
-			ExperienceService.ChangeExperience(player, 1);
+			await ExperienceService.ChangeExperience(player, 1);
 		}
 
 		[Command("rdown", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public async void RankDown(CustomPlayer player)
+		public async Task RankDown(CustomPlayer player)
 		{
-			ExperienceService.ChangeExperience(player, -1);
+			await ExperienceService.ChangeExperience(player, -1);
 		}
 	}
 }

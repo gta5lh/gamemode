@@ -13,7 +13,7 @@ namespace Gamemode.Cache.GangZone
 	{
 		public static List<Zone> Zones { get; set; }
 
-		public static async void InitGangZoneCache()
+		public static async Task InitGangZoneCache()
 		{
 			Zones = await LoadZones();
 		}
