@@ -12,7 +12,7 @@ namespace Gamemode
 	public class ChatController : Script
 	{
 		[ServerEvent(Event.ChatMessage)]
-		private async void ChatMessage(CustomPlayer player, string message)
+		private async Task ChatMessage(CustomPlayer player, string message)
 		{
 			if (await ChatService.CheckMute(player)) return;
 
