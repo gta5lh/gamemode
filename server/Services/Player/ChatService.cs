@@ -18,6 +18,8 @@ namespace Gamemode.Services.Player
 					VoiceChatController.Unmute(player);
 					player.SendChatMessage("Срок действия вашего мута истек. Не нарушайте правила сервера. Приятной игры!");
 				});
+
+				isMuted = false;
 			}
 			else if (isMuted)
 			{
