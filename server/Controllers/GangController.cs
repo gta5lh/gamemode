@@ -101,7 +101,7 @@ namespace Gamemode
 		}
 
 		[ServerEvent(Event.PlayerDeath)]
-		private async Task OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
+		private void OnPlayerDeath(CustomPlayer target, CustomPlayer killer, uint reason)
 		{
 			if (target.Fraction == null)
 			{

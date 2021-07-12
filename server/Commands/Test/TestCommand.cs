@@ -94,7 +94,7 @@ namespace Gamemode.Commands.Test
 
 		[Command("afg", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public async Task AddGangWarKill(CustomPlayer player, string fractionIdInput = null, string amountInput = null)
+		public void AddGangWarKill(CustomPlayer player, string fractionIdInput = null, string amountInput = null)
 		{
 			if (fractionIdInput == null || amountInput == null) return;
 			if (!GangWarCache.IsInProgress()) return;
@@ -121,14 +121,14 @@ namespace Gamemode.Commands.Test
 		[AdminMiddleware(AdminRank.Owner)]
 		public async Task RankUp(CustomPlayer player)
 		{
-			ExperienceService.ChangeExperience(player, 1);
+			await ExperienceService.ChangeExperience(player, 1);
 		}
 
 		[Command("rdown", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
 		public async Task RankDown(CustomPlayer player)
 		{
-			ExperienceService.ChangeExperience(player, -1);
+			await ExperienceService.ChangeExperience(player, -1);
 		}
 	}
 }
