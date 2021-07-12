@@ -82,6 +82,5 @@ namespace Gamemode.Infrastructure
 			UserService = new Rpc.User.UserService.UserServiceClient(channel);
 			GameServerService = new Rpc.GameServer.GameServerService.GameServerServiceClient(channel);
 		}
-
 	}
 }
