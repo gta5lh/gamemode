@@ -14,6 +14,7 @@ namespace Gamemode
 	using GTANetworkAPI;
 	using Microsoft.Extensions.Caching.Memory;
 	using NLog.Extensions.Logging;
+	using Rollbar;
 	using Rpc.GameServer;
 
 	public class ResourceStartController : Script
@@ -23,6 +24,7 @@ namespace Gamemode
 		[ServerEvent(Event.ResourceStartEx)]
 		private async Task ResourceStartEx(string resourceName)
 		{
+			ExceptionController.InitRollbar();
 			this.SetServerSettings();
 			SpawnNpcs.CreateSpawnNpcs();
 
@@ -73,7 +75,7 @@ namespace Gamemode
 			string? environment = System.Environment.GetEnvironmentVariable("ENVIRONMENT");
 			if (environment == null)
 			{
-				environment = "production";
+				environment = "development";
 			}
 
 			return environment == "production";

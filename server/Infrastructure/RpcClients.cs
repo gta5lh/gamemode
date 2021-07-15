@@ -37,6 +37,7 @@ namespace Gamemode.Infrastructure
 
 			SocketsHttpHandler handler = new SocketsHttpHandler
 			{
+				PooledConnectionIdleTimeout = TimeSpan.FromMinutes(5),
 				KeepAlivePingDelay = TimeSpan.FromSeconds(10),
 				KeepAlivePingTimeout = TimeSpan.FromSeconds(20),
 				KeepAlivePingPolicy = HttpKeepAlivePingPolicy.Always,
