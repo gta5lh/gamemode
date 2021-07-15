@@ -147,6 +147,8 @@ namespace Gamemode.Controllers
 		{
 			if (player.LoggedInAt == null) return;
 
+			CustomPlayer.UnloadPlayerCache(player);
+
 			try
 			{
 				await Infrastructure.RpcClients.UserService.LogoutAsync(new LogoutRequest(player.StaticId, player.Money, player.CurrentExperience, player.GetAllWeapons()));
@@ -154,8 +156,6 @@ namespace Gamemode.Controllers
 			catch
 			{
 			}
-
-			CustomPlayer.UnloadPlayerCache(player);
 		}
 	}
 }
