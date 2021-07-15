@@ -6,6 +6,7 @@ namespace Gamemode
 {
 	using System;
 	using Gamemode.Commands.Admin;
+	using Gamemode.Controllers;
 	using Gamemode.Models.Admin;
 	using Gamemode.Models.Player;
 	using Gamemode.Models.Vehicle;
@@ -37,6 +38,14 @@ namespace Gamemode
 
 			Color randomColor = new Color(this.random.Next(0, 255), this.random.Next(0, 255), this.random.Next(0, 255));
 			Vehicle vehicle = NAPI.Vehicle.CreateVehicle(vehicleHash, admin.Position, admin.Rotation.Z, 0, 0, "ADM");
+			foreach (ColShape colShape in SafeZoneController.ColShapes)
+			{
+				if (colShape.IsPointWithin(vehicle.Position))
+				{
+					vehicle.SetSharedData("vehicle_collision_disabled", true);
+				}
+			}
+
 			vehicle.CustomPrimaryColor = randomColor;
 			vehicle.CustomSecondaryColor = randomColor;
 			vehicle.Rotation = new Vector3(0, 0, admin.Heading);

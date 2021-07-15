@@ -81,6 +81,7 @@ namespace Gamemode
 			}
 
 			CustomVehicle vehicle = (CustomVehicle)NAPI.Vehicle.CreateVehicle(vehicleModel, carSpawn.Position, carSpawn.Heading, 0, 0, gangName);
+			vehicle.SetSharedData("vehicle_collision_disabled", true);
 			vehicle.OwnerPlayerId = player.Id;
 			vehicle.CustomPrimaryColor = gangColor;
 			vehicle.CustomSecondaryColor = gangColor;
