@@ -13,6 +13,7 @@ namespace Gamemode.Controllers
 	using Grpc.Core;
 	using GTANetworkAPI;
 	using Newtonsoft.Json;
+	using Rollbar;
 	using Rpc.Errors;
 	using Rpc.User;
 
@@ -54,12 +55,17 @@ namespace Gamemode.Controllers
 				{
 					invalidFieldNames = new List<string>(new string[] { "already_online" });
 				}
+				else if (!Error.IsEqualErrorCode(e.StatusCode, ErrorCode.UserNotFound))
+				{
+					RollbarLocator.RollbarInstance.Error(e);
+				}
 
 				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
 				return;
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				RollbarLocator.RollbarInstance.Error(e);
 				invalidFieldNames = new List<string>(new string[] { "email", "password" });
 				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
 				return;
