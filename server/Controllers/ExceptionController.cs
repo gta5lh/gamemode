@@ -29,8 +29,6 @@ namespace Gamemode.Controllers
 
 			Logger.Logger.BaseLogger.Info($"Successfully inited Rollbar on {environment}");
 
-			AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
-
 			TaskScheduler.UnobservedTaskException += (sender, args) =>
 			{
 				RollbarLocator.RollbarInstance.Error(args.Exception);
