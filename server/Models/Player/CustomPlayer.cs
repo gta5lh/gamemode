@@ -356,6 +356,10 @@ namespace Gamemode.Models.Player
 
 		public static void UnloadPlayerCache(CustomPlayer player)
 		{
+			player.ResetData();
+			player.ResetSharedData(DataKey.StaticId);
+			player.AdminRank = 0;
+			player.Fraction = null;
 			IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
 			Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
 		}
