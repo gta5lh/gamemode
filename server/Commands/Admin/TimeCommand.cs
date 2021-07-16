@@ -12,7 +12,7 @@ namespace Gamemode.Commands.Admin
 
 		[Command("settime", SetTimeCommandUsage, Alias = "sett", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public void SetTime(CustomPlayer admin, string hoursInput = null, string minutesInput = null)
+		public async void SetTime(CustomPlayer admin, string hoursInput = null, string minutesInput = null)
 		{
 			if (hoursInput == null || minutesInput == null)
 			{
