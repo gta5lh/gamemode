@@ -10,6 +10,7 @@ namespace Gamemode
 	using Gamemode.Models.Player;
 	using Gamemode.Models.Spawn;
 	using Gamemode.Models.Vehicle;
+	using GamemodeCommon.Models.Data;
 	using GTANetworkAPI;
 	using Newtonsoft.Json;
 	using Rpc.User;
@@ -89,6 +90,7 @@ namespace Gamemode
 			player.Dimension = 0;
 			player.SetIntoVehicle(vehicle, 0);
 			player.OneTimeVehicleId = vehicle.Id;
+			vehicle.SetSharedData(DataKey.VehicleCollisionDisabled, true);
 		}
 
 		[RemoteEvent("PlayerSelectedGangItem")]

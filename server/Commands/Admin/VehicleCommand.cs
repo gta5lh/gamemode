@@ -6,6 +6,7 @@ namespace Gamemode
 {
 	using System;
 	using Gamemode.Commands.Admin;
+	using Gamemode.Controllers;
 	using Gamemode.Models.Admin;
 	using Gamemode.Models.Player;
 	using Gamemode.Models.Vehicle;
@@ -40,7 +41,6 @@ namespace Gamemode
 			vehicle.CustomPrimaryColor = randomColor;
 			vehicle.CustomSecondaryColor = randomColor;
 			vehicle.Rotation = new Vector3(0, 0, admin.Heading);
-
 			admin.SetIntoVehicle(vehicle, 0);
 
 			string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, vehicleName);

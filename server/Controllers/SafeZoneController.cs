@@ -1,6 +1,7 @@
 ﻿using Gamemode.Models.Gangs;
 using Gamemode.Models.Player;
 using Gamemode.Models.Spawn;
+using GamemodeCommon.Models.Data;
 using GTANetworkAPI;
 using System.Collections.Generic;
 
@@ -8,10 +9,12 @@ namespace Gamemode.Controllers
 {
 	public class SafeZoneController : Script
 	{
-		private List<ColShape> ColShapes = new List<ColShape>();
+		public static List<ColShape> ColShapes { get; private set; }
 
 		public SafeZoneController()
 		{
+			ColShapes = new List<ColShape>();
+
 			foreach (Spawn spawn in PlayerSpawns.SpawnPositions)
 			{
 				AddSafeZone(spawn.Position);
@@ -33,6 +36,8 @@ namespace Gamemode.Controllers
 		{
 			if (!ColShapes.Contains(shape)) return;
 			player.TriggerEvent("safeZone", true);
+
+			if (player.Vehicle != null && player.Vehicle.Exists) player.Vehicle.SetSharedData(DataKey.VehicleCollisionDisabled, true);
 		}
 
 		[ServerEvent(Event.PlayerExitColshape)]
@@ -40,6 +45,8 @@ namespace Gamemode.Controllers
 		{
 			if (!ColShapes.Contains(shape)) return;
 			player.TriggerEvent("safeZone", false);
+
+			if (player.Vehicle != null && player.Vehicle.Exists) player.Vehicle.SetSharedData(DataKey.VehicleCollisionDisabled, false);
 		}
 	}
 }

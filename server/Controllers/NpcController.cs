@@ -2,6 +2,7 @@
 using Gamemode.Models.Player;
 using Gamemode.Models.Spawn;
 using Gamemode.Models.Vehicle;
+using GamemodeCommon.Models.Data;
 using GTANetworkAPI;
 using Newtonsoft.Json;
 
@@ -38,6 +39,7 @@ namespace Gamemode.Controllers
 
 			player.SetIntoVehicle(vehicle, 0);
 			player.OneTimeVehicleId = vehicle.Id;
+			vehicle.SetSharedData(DataKey.VehicleCollisionDisabled, true);
 
 			NAPI.ClientEvent.TriggerClientEvent(player, "CreateWaypoint", markerLocation.Position.X, markerLocation.Position.Y);
 		}

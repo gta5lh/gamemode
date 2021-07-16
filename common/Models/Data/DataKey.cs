@@ -35,5 +35,10 @@ namespace GamemodeCommon.Models.Data
 		{
 			get { return "blip_color"; }
 		}
+
+		public static string VehicleCollisionDisabled
+		{
+			get { return "vehicle_collision_disabled"; }
+		}
 	}
 }
