@@ -38,18 +38,9 @@ namespace Gamemode
 
 			Color randomColor = new Color(this.random.Next(0, 255), this.random.Next(0, 255), this.random.Next(0, 255));
 			Vehicle vehicle = NAPI.Vehicle.CreateVehicle(vehicleHash, admin.Position, admin.Rotation.Z, 0, 0, "ADM");
-			foreach (ColShape colShape in SafeZoneController.ColShapes)
-			{
-				if (colShape.IsPointWithin(vehicle.Position))
-				{
-					vehicle.SetSharedData("vehicle_collision_disabled", true);
-				}
-			}
-
 			vehicle.CustomPrimaryColor = randomColor;
 			vehicle.CustomSecondaryColor = randomColor;
 			vehicle.Rotation = new Vector3(0, 0, admin.Heading);
-
 			admin.SetIntoVehicle(vehicle, 0);
 
 			string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, vehicleName);

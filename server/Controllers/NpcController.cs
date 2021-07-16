@@ -31,7 +31,6 @@ namespace Gamemode.Controllers
 			}
 
 			CustomVehicle vehicle = (CustomVehicle)NAPI.Vehicle.CreateVehicle(VehicleHash.Ruiner3, vehicleSpawnLocation.Position, vehicleSpawnLocation.Heading, 0, 0, "NEWBIE");
-			vehicle.SetSharedData("vehicle_collision_disabled", true);
 			vehicle.OwnerPlayerId = player.Id;
 			vehicle.CustomPrimaryColor = gangColor;
 			vehicle.CustomSecondaryColor = gangColor;
@@ -39,6 +38,7 @@ namespace Gamemode.Controllers
 
 			player.SetIntoVehicle(vehicle, 0);
 			player.OneTimeVehicleId = vehicle.Id;
+			vehicle.SetSharedData("vehicle_collision_disabled", true);
 
 			NAPI.ClientEvent.TriggerClientEvent(player, "CreateWaypoint", markerLocation.Position.X, markerLocation.Position.Y);
 		}
