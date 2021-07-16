@@ -48,8 +48,8 @@ namespace Gamemode.Commands.Admin
 				return;
 			}
 
-			DateTime mutedUntil = DateTime.UtcNow.AddMinutes(duration);
 			DateTime mutedAt = DateTime.UtcNow;
+			DateTime mutedUntil = mutedAt.AddMinutes(duration);
 
 			MuteResponse muteResponse;
 

@@ -46,8 +46,8 @@ namespace Gamemode.Commands.Admin
 			}
 
 
-			DateTime bannedUntil = DateTime.UtcNow.AddDays(duration);
 			DateTime bannedAt = DateTime.UtcNow;
+			DateTime bannedUntil = bannedAt.AddDays(duration);
 
 			string targetName = "";
 
