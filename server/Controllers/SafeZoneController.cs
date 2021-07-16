@@ -1,6 +1,7 @@
 ﻿using Gamemode.Models.Gangs;
 using Gamemode.Models.Player;
 using Gamemode.Models.Spawn;
+using GamemodeCommon.Models.Data;
 using GTANetworkAPI;
 using System.Collections.Generic;
 
@@ -35,6 +36,8 @@ namespace Gamemode.Controllers
 		{
 			if (!ColShapes.Contains(shape)) return;
 			player.TriggerEvent("safeZone", true);
+
+			if (player.Vehicle != null && player.Vehicle.Exists) player.Vehicle.SetSharedData(DataKey.VehicleCollisionDisabled, true);
 		}
 
 		[ServerEvent(Event.PlayerExitColshape)]
@@ -43,7 +46,7 @@ namespace Gamemode.Controllers
 			if (!ColShapes.Contains(shape)) return;
 			player.TriggerEvent("safeZone", false);
 
-			if (player.Vehicle != null && player.Vehicle.Exists) player.Vehicle.ResetSharedData("vehicle_collision_disabled");
+			if (player.Vehicle != null && player.Vehicle.Exists) player.Vehicle.SetSharedData(DataKey.VehicleCollisionDisabled, false);
 		}
 	}
 }

@@ -4,6 +4,7 @@
 
 namespace GamemodeClient.Controllers
 {
+	using GamemodeCommon.Models.Data;
 	using RAGE;
 	using RAGE.Elements;
 
@@ -11,7 +12,7 @@ namespace GamemodeClient.Controllers
 	{
 		public CollisionController()
 		{
-			Events.AddDataHandler("vehicle_collision_disabled", this.OnVehicleCollisionDisabled);
+			Events.AddDataHandler(DataKey.VehicleCollisionDisabled, this.OnVehicleCollisionDisabled);
 			Events.OnEntityStreamIn += OnEntityStreamIn;
 		}
 
@@ -37,7 +38,7 @@ namespace GamemodeClient.Controllers
 		public void OnEntityStreamIn(RAGE.Elements.Entity entity)
 		{
 			if (entity.Type != RAGE.Elements.Type.Vehicle) return;
-			if (Player.CurrentPlayer.Vehicle == null || !Player.CurrentPlayer.Vehicle.Exists || Player.CurrentPlayer.Vehicle.GetSharedData("vehicle_collision_disabled") == null || !(bool)Player.CurrentPlayer.Vehicle.GetSharedData("vehicle_collision_disabled")) return;
+			if (Player.CurrentPlayer.Vehicle == null || !Player.CurrentPlayer.Vehicle.Exists || Player.CurrentPlayer.Vehicle.GetSharedData(DataKey.VehicleCollisionDisabled) == null || !(bool)Player.CurrentPlayer.Vehicle.GetSharedData(DataKey.VehicleCollisionDisabled)) return;
 
 			RAGE.Elements.Vehicle target = (RAGE.Elements.Vehicle)entity;
 			target.SetNoCollisionEntity(Player.CurrentPlayer.Vehicle.Handle, false);
