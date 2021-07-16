@@ -2,6 +2,7 @@
 using Gamemode.Models.Admin;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
+using Rpc.GameServer;
 
 namespace Gamemode.Commands.Admin
 {
@@ -11,7 +12,7 @@ namespace Gamemode.Commands.Admin
 
 		[Command("settime", SetTimeCommandUsage, Alias = "sett", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public void SetTime(CustomPlayer admin, string hoursInput = null, string minutesInput = null)
+		public async void SetTime(CustomPlayer admin, string hoursInput = null, string minutesInput = null)
 		{
 			if (hoursInput == null || minutesInput == null)
 			{
@@ -44,6 +45,13 @@ namespace Gamemode.Commands.Admin
 			TimeSpan time = new TimeSpan(hours, minutes, 00);
 			TimeController.SetCurrentTime(time);
 
+			try
+			{
+				Infrastructure.RpcClients.GameServerService.SetTimeAsync(new SetTimeRequest(admin.StaticId, admin.Name, hours, minutes));
+			}
+			catch { }
+
+
 			AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} установил время на {hours:00.##}:{minutes:00.##}:00");
 			this.Logger.Warn($"Administrator {admin.Name} set time to {hours:00.##}:{minutes:00.##}:00");
 		}
@@ -52,9 +60,15 @@ namespace Gamemode.Commands.Admin
 
 		[Command("synctime", SetTimeCommandUsage, Alias = "synct", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public void SyncTime(CustomPlayer admin)
+		public async void SyncTime(CustomPlayer admin)
 		{
 			TimeController.StartTimeSync();
+
+			try
+			{
+				Infrastructure.RpcClients.GameServerService.SyncTimeAsync(new SyncTimeRequest(admin.StaticId, admin.Name));
+			}
+			catch { }
 
 			AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} возобновил синхронизацию серверного время с GMT+3");
 			this.Logger.Warn($"Administrator {admin.Name} restored time synchronization with GMT+3");
