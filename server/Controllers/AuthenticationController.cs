@@ -55,7 +55,7 @@ namespace Gamemode.Controllers
 				{
 					invalidFieldNames = new List<string>(new string[] { "already_online" });
 				}
-				else if (!Error.IsEqualErrorCode(e.StatusCode, ErrorCode.UserNotFound))
+				else if (!Error.IsEqualErrorCode(e.StatusCode, ErrorCode.UserNotFound) && !Error.IsEqualErrorCode(e.StatusCode, ErrorCode.InvalidPassword))
 				{
 					RollbarLocator.RollbarInstance.Error(e);
 				}
