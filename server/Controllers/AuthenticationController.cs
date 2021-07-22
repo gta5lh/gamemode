@@ -19,21 +19,21 @@ namespace Gamemode.Controllers
 
 	public class AuthenticationController : Script
 	{
-		[RemoteEvent("LoginSubmitted")]
-		private async Task OnLoginSubmitted(CustomPlayer player, string request)
+		[RemoteProc("LoginSubmitted", true)]
+		private async Task<System.Object> OnLoginSubmitted(CustomPlayer player, string request)
 		{
+			List<string> invalidFieldNames = new List<string>();
 			if (ResourceStartController.ShouldWait(player.Id))
 			{
-				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "WaitAuthenticationAction");
-				return;
+				invalidFieldNames.Add("wait");
+				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
 
 			GamemodeCommon.Authentication.Models.LoginRequest loginRequest = JsonConvert.DeserializeObject<GamemodeCommon.Authentication.Models.LoginRequest>(request);
-			List<string> invalidFieldNames = loginRequest.Validate();
+			invalidFieldNames = loginRequest.Validate();
 			if (invalidFieldNames.Count > 0)
 			{
-				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
-				return;
+				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
 
 			LoginResponse loginResponse;
@@ -60,31 +60,37 @@ namespace Gamemode.Controllers
 					RollbarLocator.RollbarInstance.Error(e);
 				}
 
-				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
-				return;
+				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
 			catch (Exception e)
 			{
 				RollbarLocator.RollbarInstance.Error(e);
 				invalidFieldNames = new List<string>(new string[] { "email", "password" });
-				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
-				return;
+				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
+
+			bool alreadyOnline = false;
 
 			NAPI.Task.Run(() =>
 			{
 				if (PlayerUtil.GetByStaticId(loginResponse.User.ID) != null)
 				{
-					invalidFieldNames = new List<string>(new string[] { "already_online" });
-					NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LoginSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
+					alreadyOnline = true;
 					return;
 				}
 
 				CustomPlayer.LoadPlayerCache(player, loginResponse.User);
-				NAPI.ClientEvent.TriggerClientEvent(player, "LogIn");
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
 				GangWarService.DisplayGangWarUI(player);
 			});
+
+			if (alreadyOnline)
+			{
+				invalidFieldNames = new List<string>(new string[] { "already_online" });
+				return JsonConvert.SerializeObject(invalidFieldNames);
+			}
+
+			return "";
 		}
 
 		[RemoteEvent("RegisterSubmitted")]

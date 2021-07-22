@@ -49,5 +49,6 @@
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="make copy" />
+		<Exec Command="make build-ui" />
 	</Target>
 </Project>

@@ -64,7 +64,7 @@ namespace Gamemode
 				return true;
 			}
 
-			var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(2));
+			var cacheEntryOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(3));
 			Cache.Set(cacheKey, true, cacheEntryOptions);
 
 			return false;

@@ -6,32 +6,25 @@ namespace GamemodeClient.Controllers
 {
 	using System.Collections.Generic;
 	using GamemodeCommon.Authentication.Models;
+	using static GamemodeClient.Controllers.Cef.Cef;
 	using Newtonsoft.Json;
 	using RAGE;
 	using RAGE.Ui;
+	using System;
 
 	public class AuthenticationController : Events.Script
 	{
-		private const string AuthenticationPath = "package://cs_packages/gamemode/Frontend/Authentication/index.html";
-		private readonly HtmlWindow loginCEF;
-
 		public AuthenticationController()
 		{
 			RAGE.Input.Bind(VirtualKeys.OEM3, false, this.OnCursorKeyPressed);
 
-			this.loginCEF = new HtmlWindow(AuthenticationPath);
-			Ui.OpenUI(this.loginCEF);
+			ShowAuth();
 			Task.Run(() => Cursor.Visible = true, 1000);
 
 			Events.Add("LoginSubmitted", this.OnLoginSubmitted);
-			Events.Add("LoginSubmittedFailed", this.OnLoginSubmittedFailed);
 
 			Events.Add("RegisterSubmitted", this.OnRegisterSubmitted);
 			Events.Add("RegisterSubmittedFailed", this.OnRegisterSubmittedFailed);
-
-			Events.Add("LogIn", this.OnLogIn);
-
-			Events.Add("WaitAuthenticationAction", this.OnWaitAuthenticationAction);
 		}
 
 		private void OnCursorKeyPressed()
@@ -44,29 +37,29 @@ namespace GamemodeClient.Controllers
 			Cursor.Visible = true;
 		}
 
-		private void OnWaitAuthenticationAction(object[] request)
-		{
-			this.loginCEF.ExecuteJs("wait()");
-		}
-
-		private void OnLoginSubmitted(object[] request)
+		private async void OnLoginSubmitted(object[] request)
 		{
 			LoginRequest loginRequest = JsonConvert.DeserializeObject<LoginRequest>((string)request[0]);
 			List<string> invalidFieldNames = loginRequest.Validate();
 			if (invalidFieldNames.Count > 0)
 			{
-				this.loginCEF.ExecuteJs($"loginFailed({JsonConvert.SerializeObject(invalidFieldNames)})");
+				LoginFailed(JsonConvert.SerializeObject(invalidFieldNames));
 				return;
 			}
 
-			Events.CallRemote("LoginSubmitted", (string)request[0]);
-		}
+			try
+			{
+				string result = (string)await Events.CallRemoteProc("LoginSubmitted", (string)request[0]);
+				if (result != "")
+				{
+					LoginFailed(result);
+					return;
+				}
 
-		private void OnLoginSubmittedFailed(object[] args)
-		{
-			string invalidFieldNames = (string)args[0];
-
-			this.loginCEF.ExecuteJs($"loginFailed({invalidFieldNames})");
+				HideAuth();
+				Player.AuthenticationScreen = false;
+			}
+			catch { }
 		}
 
 		private void OnRegisterSubmitted(object[] request)
@@ -75,7 +68,7 @@ namespace GamemodeClient.Controllers
 			List<string> invalidFieldNames = registerRequest.Validate();
 			if (invalidFieldNames.Count > 0)
 			{
-				this.loginCEF.ExecuteJs($"registerFailed({JsonConvert.SerializeObject(invalidFieldNames)})");
+				// this.loginCEF.ExecuteJs($"registerFailed({JsonConvert.SerializeObject(invalidFieldNames)})");
 				return;
 			}
 
@@ -86,18 +79,7 @@ namespace GamemodeClient.Controllers
 		{
 			string invalidFieldNames = (string)args[0];
 
-			this.loginCEF.ExecuteJs($"registerFailed({invalidFieldNames})");
-		}
-
-		private void OnLogIn(object[] args)
-		{
-			this.loginCEF.ExecuteJs("logIn()");
-			Task.Run(
-				() =>
-				{
-					Ui.CloseUI(this.loginCEF);
-					Player.AuthenticationScreen = false;
-				}, 550);
+			// this.loginCEF.ExecuteJs($"registerFailed({invalidFieldNames})");
 		}
 	}
 }
