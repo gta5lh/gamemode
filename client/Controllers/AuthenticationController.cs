@@ -22,9 +22,7 @@ namespace GamemodeClient.Controllers
 			Task.Run(() => Cursor.Visible = true, 1000);
 
 			Events.Add("LoginSubmitted", this.OnLoginSubmitted);
-
 			Events.Add("RegisterSubmitted", this.OnRegisterSubmitted);
-			Events.Add("RegisterSubmittedFailed", this.OnRegisterSubmittedFailed);
 		}
 
 		private void OnCursorKeyPressed()
@@ -56,30 +54,39 @@ namespace GamemodeClient.Controllers
 					return;
 				}
 
-				HideAuth();
-				Player.AuthenticationScreen = false;
+				LogIn();
 			}
 			catch { }
 		}
 
-		private void OnRegisterSubmitted(object[] request)
+		private async void OnRegisterSubmitted(object[] request)
 		{
 			RegisterRequest registerRequest = JsonConvert.DeserializeObject<RegisterRequest>((string)request[0]);
 			List<string> invalidFieldNames = registerRequest.Validate();
 			if (invalidFieldNames.Count > 0)
 			{
-				// this.loginCEF.ExecuteJs($"registerFailed({JsonConvert.SerializeObject(invalidFieldNames)})");
+				RegisterFailed(JsonConvert.SerializeObject(invalidFieldNames));
 				return;
 			}
 
-			Events.CallRemote("RegisterSubmitted", (string)request[0]);
+			try
+			{
+				string result = (string)await Events.CallRemoteProc("RegisterSubmitted", (string)request[0]);
+				if (result != "")
+				{
+					RegisterFailed(result);
+					return;
+				}
+
+				LogIn();
+			}
+			catch { }
 		}
 
-		private void OnRegisterSubmittedFailed(object[] args)
+		private void LogIn()
 		{
-			string invalidFieldNames = (string)args[0];
-
-			// this.loginCEF.ExecuteJs($"registerFailed({invalidFieldNames})");
+			HideAuth();
+			Player.AuthenticationScreen = false;
 		}
 	}
 }

@@ -93,21 +93,21 @@ namespace Gamemode.Controllers
 			return "";
 		}
 
-		[RemoteEvent("RegisterSubmitted")]
-		private async Task OnRegisterSubmitted(CustomPlayer player, string request)
+		[RemoteProc("RegisterSubmitted", true)]
+		private async Task<System.Object> OnRegisterSubmitted(CustomPlayer player, string request)
 		{
+			List<string> invalidFieldNames = new List<string>();
 			if (ResourceStartController.ShouldWait(player.Id))
 			{
-				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "WaitAuthenticationAction");
-				return;
+				invalidFieldNames.Add("wait");
+				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
 
 			GamemodeCommon.Authentication.Models.RegisterRequest registerRequest = JsonConvert.DeserializeObject<GamemodeCommon.Authentication.Models.RegisterRequest>(request);
-			List<string> invalidFieldNames = registerRequest.Validate();
+			invalidFieldNames = registerRequest.Validate();
 			if (invalidFieldNames.Count > 0)
 			{
-				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RegisterSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
-				return;
+				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
 
 			RegisterResponse registerResponse;
@@ -129,23 +129,22 @@ namespace Gamemode.Controllers
 					invalidFieldNames = new List<string>(new string[] { "email_already_exists" });
 				}
 
-				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RegisterSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
-				return;
+				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
 			catch (Exception)
 			{
 				invalidFieldNames = new List<string>(new string[] { "internal_server_error" });
-				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "RegisterSubmittedFailed", JsonConvert.SerializeObject(invalidFieldNames));
-				return;
+				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
 
 			NAPI.Task.Run(() =>
 			{
 				CustomPlayer.LoadPlayerCache(player, registerResponse.User);
-				NAPI.ClientEventThreadSafe.TriggerClientEvent(player, "LogIn");
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
 				GangWarService.DisplayGangWarUI(player);
 			});
+
+			return "";
 		}
 
 		[ServerEvent(Event.PlayerDisconnected)]

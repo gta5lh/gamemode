@@ -2,6 +2,11 @@ namespace GamemodeClient.Controllers.Cef
 {
 	public static partial class Cef
 	{
+		public static void RegisterFailed(string errors)
+		{
+			IndexCef.ExecuteJs($"RegisterFailed('{errors}')");
+		}
+
 		public static void LoginFailed(string errors)
 		{
 			IndexCef.ExecuteJs($"LoginFailed('{errors}')");
