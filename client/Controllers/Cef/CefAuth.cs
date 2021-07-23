@@ -2,6 +2,16 @@ namespace GamemodeClient.Controllers.Cef
 {
 	public static partial class Cef
 	{
+		public static void ResetPasswordSucceed()
+		{
+			IndexCef.ExecuteJs($"ResetPasswordSucceed()");
+		}
+
+		public static void ResetPasswordFailed(string errors)
+		{
+			IndexCef.ExecuteJs($"ResetPasswordFailed('{errors}')");
+		}
+
 		public static void RegisterFailed(string errors)
 		{
 			IndexCef.ExecuteJs($"RegisterFailed('{errors}')");

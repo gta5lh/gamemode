@@ -164,4 +164,12 @@ namespace Rpc.User
 			this.Weapons.Add(weapons);
 		}
 	}
+
+	public partial class RequestResetPasswordRequest
+	{
+		public RequestResetPasswordRequest(string email)
+		{
+			this.Email = email;
+		}
+	}
 }
