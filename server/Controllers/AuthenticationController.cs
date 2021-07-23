@@ -65,7 +65,7 @@ namespace Gamemode.Controllers
 			catch (Exception e)
 			{
 				RollbarLocator.RollbarInstance.Error(e);
-				invalidFieldNames = new List<string>(new string[] { "email", "password" });
+				invalidFieldNames = new List<string>(new string[] { "internal_server_error" });
 				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
 
@@ -86,7 +86,7 @@ namespace Gamemode.Controllers
 
 			if (alreadyOnline)
 			{
-				invalidFieldNames = new List<string>(new string[] { "internal_server_error" });
+				invalidFieldNames = new List<string>(new string[] { "already_online" });
 				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
 
@@ -131,8 +131,9 @@ namespace Gamemode.Controllers
 
 				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				RollbarLocator.RollbarInstance.Error(e);
 				invalidFieldNames = new List<string>(new string[] { "internal_server_error" });
 				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
@@ -180,8 +181,9 @@ namespace Gamemode.Controllers
 
 				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
-			catch (Exception)
+			catch (Exception e)
 			{
+				RollbarLocator.RollbarInstance.Error(e);
 				invalidFieldNames = new List<string>(new string[] { "internal_server_error" });
 				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
