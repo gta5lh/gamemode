@@ -86,7 +86,7 @@ namespace Gamemode.Controllers
 
 			if (alreadyOnline)
 			{
-				invalidFieldNames = new List<string>(new string[] { "already_online" });
+				invalidFieldNames = new List<string>(new string[] { "internal_server_error" });
 				return JsonConvert.SerializeObject(invalidFieldNames);
 			}
 
@@ -143,6 +143,54 @@ namespace Gamemode.Controllers
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
 				GangWarService.DisplayGangWarUI(player);
 			});
+
+			return "";
+		}
+
+		[RemoteProc("ResetPasswordSubmitted", true)]
+		private async Task<System.Object> OnResetPasswordSubmitted(CustomPlayer player, string request)
+		{
+			List<string> invalidFieldNames = new List<string>();
+			if (ResourceStartController.ShouldWait(player.Id))
+			{
+				invalidFieldNames.Add("wait");
+				return JsonConvert.SerializeObject(invalidFieldNames);
+			}
+
+			GamemodeCommon.Authentication.Models.ResetPasswordRequest resetPasswordRequest = JsonConvert.DeserializeObject<GamemodeCommon.Authentication.Models.ResetPasswordRequest>(request);
+			invalidFieldNames = resetPasswordRequest.Validate();
+			if (invalidFieldNames.Count > 0)
+			{
+				return JsonConvert.SerializeObject(invalidFieldNames);
+			}
+
+			RequestResetPasswordResponse requestResetPasswordResponse;
+
+			try
+			{
+				RequestResetPasswordRequest requestResetPasswordRequest = new RequestResetPasswordRequest(resetPasswordRequest.Email);
+				requestResetPasswordResponse = await Infrastructure.RpcClients.UserService.RequestResetPasswordAsync(requestResetPasswordRequest);
+			}
+			catch (RpcException e)
+			{
+				if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.UserNotFound))
+				{
+					invalidFieldNames = new List<string>(new string[] { "user_not_found" });
+				}
+
+				return JsonConvert.SerializeObject(invalidFieldNames);
+			}
+			catch (Exception)
+			{
+				invalidFieldNames = new List<string>(new string[] { "internal_server_error" });
+				return JsonConvert.SerializeObject(invalidFieldNames);
+			}
+
+			if (requestResetPasswordResponse.HasWaitSeconds)
+			{
+				invalidFieldNames.Add($"wait_{requestResetPasswordResponse.WaitSeconds}");
+				return JsonConvert.SerializeObject(invalidFieldNames);
+			}
 
 			return "";
 		}

@@ -23,6 +23,7 @@ namespace GamemodeClient.Controllers
 
 			Events.Add("LoginSubmitted", this.OnLoginSubmitted);
 			Events.Add("RegisterSubmitted", this.OnRegisterSubmitted);
+			Events.Add("ResetPasswordSubmitted", this.OnResetPasswordSubmitted);
 		}
 
 		private void OnCursorKeyPressed()
@@ -79,6 +80,30 @@ namespace GamemodeClient.Controllers
 				}
 
 				LogIn();
+			}
+			catch { }
+		}
+
+		private async void OnResetPasswordSubmitted(object[] request)
+		{
+			ResetPasswordRequest resetPasswordRequest = JsonConvert.DeserializeObject<ResetPasswordRequest>((string)request[0]);
+			List<string> invalidFieldNames = resetPasswordRequest.Validate();
+			if (invalidFieldNames.Count > 0)
+			{
+				ResetPasswordFailed(JsonConvert.SerializeObject(invalidFieldNames));
+				return;
+			}
+
+			try
+			{
+				string result = (string)await Events.CallRemoteProc("ResetPasswordSubmitted", (string)request[0]);
+				if (result != "")
+				{
+					ResetPasswordFailed(result);
+					return;
+				}
+
+				ResetPasswordSucceed();
 			}
 			catch { }
 		}
