@@ -61,7 +61,7 @@ namespace Gamemode.Commands.Admin
 
 		private static void SyncTime()
 		{
-			SyncDummyEntity.SetSharedData(GamemodeCommon.Models.Data.DataKey.CurrentTimeSpan, new Dictionary<string, object>(){
+			SyncDummyEntity.SetSharedData(GamemodeCommon.Models.Data.DataKey.CurrentTime, new Dictionary<string, object>(){
 				{"hours", CurrentTime.Hours},
 				{"minutes", CurrentTime.Minutes},
 				{"day", CurrentDateTime.Day},

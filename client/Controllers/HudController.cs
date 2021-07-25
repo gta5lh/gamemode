@@ -38,7 +38,7 @@ namespace GamemodeClient.Controllers
 			Events.Tick += this.Speedometer;
 			Events.Add("MoneyUpdated", this.OnMoneyUpdated);
 
-			Events.AddDataHandler(GamemodeCommon.Models.Data.DataKey.CurrentTimeSpan, this.OnTimeUpdated);
+			Events.AddDataHandler(GamemodeCommon.Models.Data.DataKey.CurrentTime, this.OnTimeUpdated);
 
 			RAGE.Input.Bind(VirtualKeys.F6, false, this.OnHideHelpKeyPressed);
 		}
@@ -97,7 +97,7 @@ namespace GamemodeClient.Controllers
 			DummyEntity? timeSyncDummyEntity = DummyEntityUtil.GetByTypeID(0);
 			if (timeSyncDummyEntity != null)
 			{
-				SetTime(timeSyncDummyEntity.GetSharedData(GamemodeCommon.Models.Data.DataKey.CurrentTimeSpan));
+				SetTime(timeSyncDummyEntity.GetSharedData(GamemodeCommon.Models.Data.DataKey.CurrentTime));
 			}
 		}
 

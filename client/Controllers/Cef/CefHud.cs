@@ -53,5 +53,15 @@ namespace GamemodeClient.Controllers.Cef
 		{
 			IndexCef.ExecuteJs($"UpdateTime('{hours:00.##}', '{minutes:00.##}', '{day:00.##}', '{month:00.##}')");
 		}
+
+		public static void HideHelpMenu()
+		{
+			IndexCef.ExecuteJs("HideHelpMenu()");
+		}
+
+		public static void ShowHelpMenu()
+		{
+			IndexCef.ExecuteJs("ShowHelpMenu()");
+		}
 	}
 }

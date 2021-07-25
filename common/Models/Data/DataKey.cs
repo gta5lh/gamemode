@@ -41,14 +41,9 @@ namespace GamemodeCommon.Models.Data
 			get { return "vehicle_collision_disabled"; }
 		}
 
-		public static string CurrentTimeSpan
+		public static string CurrentTime
 		{
-			get { return "current_time_span"; }
-		}
-
-		public static string CurrentMonth
-		{
-			get { return "current_month"; }
+			get { return "current_time"; }
 		}
 	}
 }

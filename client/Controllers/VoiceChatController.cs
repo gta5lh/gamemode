@@ -65,7 +65,7 @@ namespace GamemodeClient.Controllers
 				{
 					Voice.Muted = false;
 					Events.CallRemote("start_voice");
-					playerVoiceStateChangedEvent(true);
+					playerVoiceStateChangedEvent(!Voice.Muted);
 				}
 			}
 			else if (!speakingKeyPressed && !Voice.Muted)
@@ -74,7 +74,7 @@ namespace GamemodeClient.Controllers
 				{
 					Voice.Muted = true;
 					Events.CallRemote("stop_voice");
-					playerVoiceStateChangedEvent(false);
+					playerVoiceStateChangedEvent(!Voice.Muted);
 				}
 			}
 
