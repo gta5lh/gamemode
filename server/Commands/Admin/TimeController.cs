@@ -53,8 +53,8 @@ namespace Gamemode.Commands.Admin
 
 		private static void SetTimeToCurrent()
 		{
-			CurrentDateTime = DateTime.UtcNow;
-			CurrentTime = CurrentDateTime.AddHours(3).TimeOfDay;
+			CurrentDateTime = DateTime.UtcNow.AddHours(3);
+			CurrentTime = CurrentDateTime.TimeOfDay;
 			NAPI.World.SetTime(CurrentTime.Hours, CurrentTime.Minutes, CurrentTime.Seconds);
 			SyncTime();
 		}
