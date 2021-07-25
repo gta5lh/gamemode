@@ -9,6 +9,9 @@ namespace GamemodeClient.Controllers
 {
 	public class VoiceChatController : Events.Script
 	{
+		public delegate void playerVoiceStateChangedDelegate(bool enabled);
+		public static event playerVoiceStateChangedDelegate playerVoiceStateChangedEvent;
+
 		private const bool Use3d = true;
 		private const float MaxRange = 25.0f;
 
@@ -50,13 +53,7 @@ namespace GamemodeClient.Controllers
 				RAGE.Game.Graphics.DrawSprite("mpleaderboard", "leaderboard_audio_3", x, y, 0.025f - (dist / MaxRange * 0.020f), 0.05f - (dist / MaxRange * 0.035f), 0, 255, 255, 255, 255, 0);
 			}
 
-			bool speakingKeyPressed = Input.IsDown(RAGE.Ui.VirtualKeys.Z) && !RAGE.Ui.Cursor.Visible;
-
-			if (speakingKeyPressed && !this.Muted)
-			{
-				LoadIcon();
-				RAGE.Game.Graphics.DrawSprite("mpleaderboard", "leaderboard_audio_3", Minimap.GetMinimapAnchor().right_x + 0.01f, Minimap.GetMinimapAnchor().bottom_y - 0.035f, 0.025f, 0.05f, 0, 255, 255, 255, 255, 0);
-			}
+			bool speakingKeyPressed = Input.IsDown(RAGE.Ui.VirtualKeys.N) && !RAGE.Ui.Cursor.Visible;
 
 			long currentTime = Time.GetCurTimestamp();
 
@@ -68,6 +65,7 @@ namespace GamemodeClient.Controllers
 				{
 					Voice.Muted = false;
 					Events.CallRemote("start_voice");
+					playerVoiceStateChangedEvent(true);
 				}
 			}
 			else if (!speakingKeyPressed && !Voice.Muted)
@@ -76,6 +74,7 @@ namespace GamemodeClient.Controllers
 				{
 					Voice.Muted = true;
 					Events.CallRemote("stop_voice");
+					playerVoiceStateChangedEvent(false);
 				}
 			}
 

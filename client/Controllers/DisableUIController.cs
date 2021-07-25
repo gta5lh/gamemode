@@ -5,11 +5,14 @@ namespace GamemodeClient.Controllers
 {
 	public class DisableUIController : Events.Script
 	{
+		public delegate void disableUIStateChangedDelegate(bool enabled);
+		public static event disableUIStateChangedDelegate disableUIStateChangedEvent;
+
 		private bool uiEnabled = true;
 
 		public DisableUIController()
 		{
-			RAGE.Input.Bind(VirtualKeys.Numpad0, false, this.OnDisableUI);
+			RAGE.Input.Bind(VirtualKeys.F5, false, this.OnDisableUI);
 		}
 
 		private void OnDisableUI()
@@ -20,17 +23,8 @@ namespace GamemodeClient.Controllers
 
 			Chat.Show(uiEnabled);
 			RAGE.Game.Ui.DisplayRadar(uiEnabled);
-			if (uiEnabled)
-			{
-				ScreenController.DisplayTopRightMenu();
-			}
-			else
-			{
-				ScreenController.DisableTopRightMenu();
-			}
 
-			string enabledString = uiEnabled ? "включен" : "выключен";
-			Chat.Output($"UI был {enabledString}");
+			disableUIStateChangedEvent(uiEnabled);
 		}
 	}
 }

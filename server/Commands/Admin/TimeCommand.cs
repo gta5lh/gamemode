@@ -8,7 +8,7 @@ namespace Gamemode.Commands.Admin
 {
 	public class TimeCommand : BaseCommandHandler
 	{
-		private const string SetTimeCommandUsage = "Использование: /sett {час} {минуты}. Пример: /st 23 59";
+		private const string SetTimeCommandUsage = "Использование: /sett {час} {минуты}. Пример: /sett 23 59";
 
 		[Command("settime", SetTimeCommandUsage, Alias = "sett", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]

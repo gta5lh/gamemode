@@ -33,5 +33,15 @@ namespace GamemodeClient.Controllers.Cef
 			IndexCef.ExecuteJs("HideAuth()");
 			Ui.CloseUI(IndexCef);
 		}
+
+		public static void HideHelpMenu()
+		{
+			IndexCef.ExecuteJs("HideHelpMenu()");
+		}
+
+		public static void ShowHelpMenu()
+		{
+			IndexCef.ExecuteJs("ShowHelpMenu()");
+		}
 	}
 }

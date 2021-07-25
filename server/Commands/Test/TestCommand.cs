@@ -21,6 +21,34 @@ namespace Gamemode.Commands.Test
 			player.SendChatMessage($"{player.Money}");
 		}
 
+		[Command("amoney", "/amoney", Alias = "tm", GreedyArg = true, SensitiveInfo = true, Hide = true)]
+		[AdminMiddleware(AdminRank.Owner)]
+		public void AddMoney(CustomPlayer player, string? moneyInput = null, string? targetIdInput = null)
+		{
+			if (moneyInput == null || targetIdInput == null)
+			{
+				return;
+			}
+
+			long money = 0;
+			ushort targetId = 0;
+
+			try
+			{
+				money = long.Parse(moneyInput);
+				targetId = ushort.Parse(targetIdInput);
+			}
+			catch { }
+
+			CustomPlayer targetPlayer = PlayerUtil.GetById(targetId);
+			if (targetPlayer != null)
+			{
+				targetPlayer.Money += money;
+				player.SendChatMessage($"{targetPlayer.Money}");
+			}
+		}
+
+
 		[Command("tlogin", "/tlogin", Alias = "tl", GreedyArg = true, SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
 		public void Login(CustomPlayer player, string message = null)

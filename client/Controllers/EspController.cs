@@ -5,6 +5,7 @@ using RAGE.Game;
 using RAGE.NUI;
 using RAGE.Ui;
 using GamemodeCommon.Models.Data;
+using GamemodeClient.Services;
 
 namespace GamemodeClient.Controllers
 {
@@ -62,7 +63,7 @@ namespace GamemodeClient.Controllers
 					if (Graphics.GetScreenCoordFromWorldCoord(player.Position.X, player.Position.Y, player.Position.Z, ref screenX, ref screenY))
 					{
 						UIResText.Draw(
-							$"[SID: {player.GetSharedData(DataKey.StaticId)}], [DID: {player.Id}], [NAME: {player.Name}]~n~[HP: {player.GetHealth()}/{player.GetMaxHealth()}], [SPEED: {this.RealSpeed(player.GetSpeed()):0.#}]",
+							$"[SID: {player.GetSharedData(DataKey.StaticId)}], [DID: {player.Id}], [NAME: {player.Name}]~n~[HP: {player.GetHealth()}/{player.GetMaxHealth()}], [SPEED: {Speed.GetPlayerRealSpeed(player)}]",
 							(int)(screenX * ScreenStaticX),
 							(int)(screenY * ScreenStaticY),
 							Font.ChaletLondon, PlayerScale, Color.White, UIResText.Alignment.Centered, false, true, 0);
@@ -92,11 +93,6 @@ namespace GamemodeClient.Controllers
 					}
 				});
 			}
-		}
-
-		private double RealSpeed(float speed)
-		{
-			return speed * 3.6;
 		}
 	}
 
