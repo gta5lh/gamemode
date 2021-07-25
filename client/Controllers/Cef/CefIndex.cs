@@ -6,6 +6,12 @@ namespace GamemodeClient.Controllers.Cef
 	{
 		private const string IndexPath = "package://cs_packages/gamemode/Frontend/v2/build/index.html";
 
-		private static readonly HtmlWindow IndexCef = new HtmlWindow(IndexPath);
+		public static HtmlWindow IndexCef { get; private set; }
+
+		static Cef()
+		{
+			IndexCef = new HtmlWindow(IndexPath);
+			IndexCef.Active = true;
+		}
 	}
 }

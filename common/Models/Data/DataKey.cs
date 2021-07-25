@@ -40,5 +40,10 @@ namespace GamemodeCommon.Models.Data
 		{
 			get { return "vehicle_collision_disabled"; }
 		}
+
+		public static string CurrentTime
+		{
+			get { return "current_time"; }
+		}
 	}
 }

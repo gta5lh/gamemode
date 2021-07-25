@@ -7,7 +7,6 @@ namespace GamemodeClient.Controllers
 	{
 		public static void OpenUI(HtmlWindow window, bool displayCursor = true, bool hideChat = true)
 		{
-			window.Active = true;
 			Chat.Show(!hideChat);
 			Player.CurrentPlayer.FreezePosition(true);
 			Cursor.Visible = displayCursor;
@@ -16,7 +15,6 @@ namespace GamemodeClient.Controllers
 		public static void CloseUI(HtmlWindow window)
 		{
 			Cursor.Visible = false;
-			window.Active = false;
 			Chat.Show(true);
 			Player.CurrentPlayer.FreezePosition(false);
 		}

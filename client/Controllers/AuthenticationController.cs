@@ -14,6 +14,9 @@ namespace GamemodeClient.Controllers
 
 	public class AuthenticationController : Events.Script
 	{
+		public delegate void playerAuthenticatedDelegate();
+		public static event playerAuthenticatedDelegate playerAuthenticatedEvent;
+
 		public AuthenticationController()
 		{
 			RAGE.Input.Bind(VirtualKeys.OEM3, false, this.OnCursorKeyPressed);
@@ -112,6 +115,7 @@ namespace GamemodeClient.Controllers
 		{
 			HideAuth();
 			Player.AuthenticationScreen = false;
+			playerAuthenticatedEvent();
 		}
 	}
 }

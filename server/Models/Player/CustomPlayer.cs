@@ -52,7 +52,18 @@ namespace Gamemode.Models.Player
 		public long CurrentExperience { get; set; }
 		public long? RequiredExperience { get; set; }
 
-		public long Money { get; set; }
+		public long money { get; set; }
+
+		public long Money
+		{
+			get => this.money;
+
+			set
+			{
+				this.money = value;
+				this.TriggerEvent("MoneyUpdated", this.money);
+			}
+		}
 
 		public bool Freezed
 		{
