@@ -15,5 +15,10 @@ namespace GamemodeClient.Controllers
 		public static bool Spectating = false;
 		public const int MaxHealth = 200;
 		public static bool AuthenticationScreen = true;
+
+		public static bool IsInVehicle()
+		{
+			return Player.CurrentPlayer.Vehicle != null && Player.CurrentPlayer.Vehicle.Exists;
+		}
 	}
 }

@@ -84,6 +84,7 @@ namespace GamemodeClient.Controllers
 				UpdateTime(Hours, Minutes, Day, Month);
 
 				if (!HelpMenuEnabled) HideHelpMenu();
+				if (Player.IsInVehicle()) ShowSpeedometer();
 			}
 			else HideHud();
 		}
@@ -119,7 +120,7 @@ namespace GamemodeClient.Controllers
 
 		private void Speedometer(List<Events.TickNametagData> nametags)
 		{
-			if (Player.CurrentPlayer.Vehicle == null || !Player.CurrentPlayer.Vehicle.Exists) return;
+			if (!Player.IsInVehicle()) return;
 
 			UpdateSpeedometer(Speed.GetPlayerRealSpeed(Player.CurrentPlayer));
 		}
