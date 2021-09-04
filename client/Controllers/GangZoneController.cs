@@ -102,7 +102,7 @@ namespace GamemodeClient.Controllers
 		{
 			int blipId = RAGE.Game.Ui.AddBlipForRadius(x, y, 0, 50);
 			Invoker.Invoke(RAGE.Game.Natives.SetBlipSprite, blipId, 5);
-			Invoker.Invoke(RAGE.Game.Natives.SetBlipAlpha, blipId, 175);
+			Invoker.Invoke(RAGE.Game.Natives.SetBlipAlpha, blipId, 100);
 			this.SetBlipColor(blipId, color);
 			Invoker.Invoke(RAGE.Game.Natives.SetBlipRotation, blipId, 0);
 			return blipId;
