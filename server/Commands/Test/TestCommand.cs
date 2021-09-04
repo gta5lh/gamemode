@@ -21,7 +21,7 @@ namespace Gamemode.Commands.Test
 			player.SendChatMessage($"{player.Money}");
 		}
 
-		[Command("amoney", "/amoney", Alias = "tm", GreedyArg = true, SensitiveInfo = true, Hide = true)]
+		[Command("amoney", "/amoney", Alias = "am", GreedyArg = true, SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
 		public void AddMoney(CustomPlayer player, string? moneyInput = null, string? targetIdInput = null)
 		{
