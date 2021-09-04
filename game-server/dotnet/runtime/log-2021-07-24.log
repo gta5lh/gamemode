@@ -1,0 +1,900 @@
+2021-07-24 00:09:13.6061|0|INFO|BaseLogger|Successfully inited Rollbar on development 
+2021-07-24 00:09:13.9059|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 00:09:13.9669|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 00:09:13.9669|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 00:09:13.9749|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 00:09:13.9749|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 00:09:13.9749|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 00:09:13.9749|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 00:09:13.9916|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 00:11:37.6654|0|INFO|BaseLogger|Successfully inited Rollbar on development 
+2021-07-24 00:11:38.0373|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 00:11:38.1050|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 00:11:38.1050|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 00:11:38.1158|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 00:11:38.1158|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 00:11:38.1158|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 00:11:38.1158|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 00:11:38.1347|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 00:14:51.9074|0|INFO|BaseLogger|Successfully inited Rollbar on development 
+2021-07-24 00:14:52.2342|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 00:14:52.2908|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 00:14:52.2908|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 00:14:52.2908|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 00:14:52.3008|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 00:14:52.3008|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 00:14:52.3008|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 00:14:52.3133|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 00:15:51.2125|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: '10000', Message: 'user not found'. 
+2021-07-24 00:15:55.1451|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: '10000', Message: 'user not found'. 
+2021-07-24 00:15:58.4251|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: '10000', Message: 'user not found'. 
+2021-07-24 00:16:12.5993|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=41 
+2021-07-24 00:16:12.6069|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=41 
+2021-07-24 00:16:16.2433|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=0 
+2021-07-24 00:16:16.2433|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=41 
+2021-07-24 00:16:27.9465|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 00:16:27.9465|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 00:16:27.9522|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 00:16:27.9522|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 00:16:27.9522|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 00:16:27.9522|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 00:16:27.9522|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 00:16:27.9522|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 00:16:27.9522|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 00:16:39.8547|0|INFO|Gamemode.Models.Player.AdminsCache|Unloaded admin from cache. static_id=4 
+2021-07-24 00:16:39.8547|0|INFO|Gamemode.Models.Player.FractionsCache|Unloaded fraction member from cache. static_id=4 
+2021-07-24 00:16:39.8547|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=0 
+2021-07-24 00:16:39.8547|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=4 
+2021-07-24 00:47:27.3262|0|INFO|BaseLogger|Successfully inited Rollbar on development 
+2021-07-24 00:47:27.6195|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 00:47:27.6743|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 00:47:27.6743|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 00:47:27.6807|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 00:47:27.6807|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 00:47:27.6807|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 00:47:27.6807|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 00:47:27.6967|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 00:48:06.0681|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: '10000', Message: 'user not found'. 
+2021-07-24 00:50:59.1478|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=42 
+2021-07-24 00:50:59.1539|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=42 
+2021-07-24 00:51:02.8555|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=0 
+2021-07-24 00:51:02.8555|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=42 
+2021-07-24 00:51:11.4411|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 00:51:11.4411|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 00:51:11.4411|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 00:51:11.4411|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 00:51:11.4501|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 00:51:11.4501|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 00:51:11.4501|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 00:51:11.4501|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 00:51:11.4501|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 00:51:15.2854|0|INFO|Gamemode.Models.Player.AdminsCache|Unloaded admin from cache. static_id=4 
+2021-07-24 00:51:15.2854|0|INFO|Gamemode.Models.Player.FractionsCache|Unloaded fraction member from cache. static_id=4 
+2021-07-24 00:51:15.2854|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=0 
+2021-07-24 00:51:15.2854|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=4 
+2021-07-24 01:02:37.6426|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 01:02:37.6426|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 01:02:37.6426|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 01:02:37.6426|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 01:02:37.6426|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 01:02:37.6426|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 01:02:37.6426|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 01:02:37.6426|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 01:02:37.6426|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 12:46:53.8937|0|INFO|BaseLogger|Successfully inited Rollbar on development 
+2021-07-24 12:46:54.3016|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 12:46:54.3499|6|ERROR|Grpc.Net.Client.Internal.GrpcCall|Error starting gRPC call. System.Net.Http.HttpRequestException: Connection refused (localhost:8000)
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(short token)
+   at void System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable+ConfiguredValueTaskAwaiter.GetResult()
+   at async Task System.Net.Sockets.Socket.ConnectAsync(EndPoint remoteEP)+WaitForConnectWithCancellation(?)
+   at void System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable+ConfiguredValueTaskAwaiter.GetResult()
+   at async ValueTask<Stream> System.Net.Http.HttpConnectionPool.DefaultConnectAsync(SocketsHttpConnectionContext context, CancellationToken cancellationToken)
+   at TResult System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable<TResult>+ConfiguredValueTaskAwaiter.GetResult()
+   at async ValueTask<Stream> System.Net.Http.ConnectHelper.ConnectAsync(Func<SocketsHttpConnectionContext, CancellationToken, ValueTask<Stream>> callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(Func`3 callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp2ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Grpc.Shared.TelemetryHeaderHandler.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Internal.Retry.RetryCall`2.StartRetry(Action`1 startCallFunc)
+   at Grpc.Net.Client.Internal.GrpcCall`2.RunCall(HttpRequestMessage request, Nullable`1 timeout)
+2021-07-24 12:46:54.3592|6|ERROR|Grpc.Net.Client.Internal.GrpcCall|Error starting gRPC call. System.Net.Http.HttpRequestException: Connection refused (localhost:8000)
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(short token)
+   at void System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable+ConfiguredValueTaskAwaiter.GetResult()
+   at async Task System.Net.Sockets.Socket.ConnectAsync(EndPoint remoteEP)+WaitForConnectWithCancellation(?)
+   at void System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable+ConfiguredValueTaskAwaiter.GetResult()
+   at async ValueTask<Stream> System.Net.Http.HttpConnectionPool.DefaultConnectAsync(SocketsHttpConnectionContext context, CancellationToken cancellationToken)
+   at TResult System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable<TResult>+ConfiguredValueTaskAwaiter.GetResult()
+   at async ValueTask<Stream> System.Net.Http.ConnectHelper.ConnectAsync(Func<SocketsHttpConnectionContext, CancellationToken, ValueTask<Stream>> callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(Func`3 callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp2ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Grpc.Shared.TelemetryHeaderHandler.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Internal.Retry.RetryCall`2.StartRetry(Action`1 startCallFunc)
+   at Grpc.Net.Client.Internal.GrpcCall`2.RunCall(HttpRequestMessage request, Nullable`1 timeout)
+2021-07-24 12:46:54.3873|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 12:46:54.3873|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 12:46:54.3930|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 12:46:54.3930|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 12:46:54.3930|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 12:46:54.3930|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 12:46:54.4044|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 12:46:54.4096|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: 'Unavailable', Message: 'Error starting gRPC call. HttpRequestException: Connection refused (localhost:8000) SocketException: Connection refused'. 
+2021-07-24 12:46:54.4096|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: 'Unavailable', Message: 'Error starting gRPC call. HttpRequestException: Connection refused (localhost:8000) SocketException: Connection refused'. 
+2021-07-24 12:46:54.8611|6|ERROR|Grpc.Net.Client.Internal.GrpcCall|Error starting gRPC call. System.Net.Http.HttpRequestException: Connection refused (localhost:8000)
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(short token)
+   at void System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable+ConfiguredValueTaskAwaiter.GetResult()
+   at async Task System.Net.Sockets.Socket.ConnectAsync(EndPoint remoteEP)+WaitForConnectWithCancellation(?)
+   at void System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable+ConfiguredValueTaskAwaiter.GetResult()
+   at async ValueTask<Stream> System.Net.Http.HttpConnectionPool.DefaultConnectAsync(SocketsHttpConnectionContext context, CancellationToken cancellationToken)
+   at TResult System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable<TResult>+ConfiguredValueTaskAwaiter.GetResult()
+   at async ValueTask<Stream> System.Net.Http.ConnectHelper.ConnectAsync(Func<SocketsHttpConnectionContext, CancellationToken, ValueTask<Stream>> callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(Func`3 callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp2ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Grpc.Shared.TelemetryHeaderHandler.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Internal.Retry.RetryCall`2.StartRetry(Action`1 startCallFunc)
+   at Grpc.Net.Client.Internal.GrpcCall`2.RunCall(HttpRequestMessage request, Nullable`1 timeout)
+2021-07-24 12:46:54.8611|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: 'Unavailable', Message: 'Error starting gRPC call. HttpRequestException: Connection refused (localhost:8000) SocketException: Connection refused'. 
+2021-07-24 12:46:55.3110|6|ERROR|Grpc.Net.Client.Internal.GrpcCall|Error starting gRPC call. System.Net.Http.HttpRequestException: Connection refused (localhost:8000)
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(short token)
+   at void System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable+ConfiguredValueTaskAwaiter.GetResult()
+   at async Task System.Net.Sockets.Socket.ConnectAsync(EndPoint remoteEP)+WaitForConnectWithCancellation(?)
+   at void System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable+ConfiguredValueTaskAwaiter.GetResult()
+   at async ValueTask<Stream> System.Net.Http.HttpConnectionPool.DefaultConnectAsync(SocketsHttpConnectionContext context, CancellationToken cancellationToken)
+   at TResult System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable<TResult>+ConfiguredValueTaskAwaiter.GetResult()
+   at async ValueTask<Stream> System.Net.Http.ConnectHelper.ConnectAsync(Func<SocketsHttpConnectionContext, CancellationToken, ValueTask<Stream>> callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(Func`3 callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp2ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Grpc.Shared.TelemetryHeaderHandler.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Internal.Retry.RetryCall`2.StartRetry(Action`1 startCallFunc)
+   at Grpc.Net.Client.Internal.GrpcCall`2.RunCall(HttpRequestMessage request, Nullable`1 timeout)
+2021-07-24 12:46:55.3110|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: 'Unavailable', Message: 'Error starting gRPC call. HttpRequestException: Connection refused (localhost:8000) SocketException: Connection refused'. 
+2021-07-24 12:46:56.2064|6|ERROR|Grpc.Net.Client.Internal.GrpcCall|Error starting gRPC call. System.Net.Http.HttpRequestException: Connection refused (localhost:8000)
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(short token)
+   at async Task System.Net.Sockets.Socket.ConnectAsync(EndPoint remoteEP)+WaitForConnectWithCancellation(?)
+   at async ValueTask<Stream> System.Net.Http.HttpConnectionPool.DefaultConnectAsync(SocketsHttpConnectionContext context, CancellationToken cancellationToken)
+   at TResult System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable<TResult>+ConfiguredValueTaskAwaiter.GetResult()
+   at async ValueTask<Stream> System.Net.Http.ConnectHelper.ConnectAsync(Func<SocketsHttpConnectionContext, CancellationToken, ValueTask<Stream>> callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(Func`3 callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp2ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Grpc.Shared.TelemetryHeaderHandler.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Internal.Retry.RetryCall`2.StartRetry(Action`1 startCallFunc)
+   at Grpc.Net.Client.Internal.GrpcCall`2.RunCall(HttpRequestMessage request, Nullable`1 timeout)
+2021-07-24 12:46:56.2109|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: 'Unavailable', Message: 'Error starting gRPC call. HttpRequestException: Connection refused (localhost:8000) SocketException: Connection refused'. 
+2021-07-24 12:46:56.2645|6|ERROR|Grpc.Net.Client.Internal.GrpcCall|Error starting gRPC call. System.Net.Http.HttpRequestException: Connection refused (localhost:8000)
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(short token)
+   at async Task System.Net.Sockets.Socket.ConnectAsync(EndPoint remoteEP)+WaitForConnectWithCancellation(?)
+   at async ValueTask<Stream> System.Net.Http.HttpConnectionPool.DefaultConnectAsync(SocketsHttpConnectionContext context, CancellationToken cancellationToken)
+   at TResult System.Runtime.CompilerServices.ConfiguredValueTaskAwaitable<TResult>+ConfiguredValueTaskAwaiter.GetResult()
+   at async ValueTask<Stream> System.Net.Http.ConnectHelper.ConnectAsync(Func<SocketsHttpConnectionContext, CancellationToken, ValueTask<Stream>> callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(Func`3 callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp2ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Grpc.Shared.TelemetryHeaderHandler.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Internal.Retry.RetryCall`2.StartRetry(Action`1 startCallFunc)
+   at Grpc.Net.Client.Internal.GrpcCall`2.RunCall(HttpRequestMessage request, Nullable`1 timeout)
+2021-07-24 12:46:56.2693|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: 'Unavailable', Message: 'Error starting gRPC call. HttpRequestException: Connection refused (localhost:8000) SocketException: Connection refused'. 
+2021-07-24 12:46:58.1093|6|ERROR|Grpc.Net.Client.Internal.GrpcCall|Error starting gRPC call. System.Net.Http.HttpRequestException: Connection refused (localhost:8000)
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(short token)
+   at async Task System.Net.Sockets.Socket.ConnectAsync(EndPoint remoteEP)+WaitForConnectWithCancellation(?)
+   at async ValueTask<Stream> System.Net.Http.HttpConnectionPool.DefaultConnectAsync(SocketsHttpConnectionContext context, CancellationToken cancellationToken)
+   at async ValueTask<Stream> System.Net.Http.ConnectHelper.ConnectAsync(Func<SocketsHttpConnectionContext, CancellationToken, ValueTask<Stream>> callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(Func`3 callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp2ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Grpc.Shared.TelemetryHeaderHandler.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Internal.Retry.RetryCall`2.StartRetry(Action`1 startCallFunc)
+   at Grpc.Net.Client.Internal.GrpcCall`2.RunCall(HttpRequestMessage request, Nullable`1 timeout)
+2021-07-24 12:46:58.1093|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: 'Unavailable', Message: 'Error starting gRPC call. HttpRequestException: Connection refused (localhost:8000) SocketException: Connection refused'. 
+2021-07-24 12:46:58.1912|6|ERROR|Grpc.Net.Client.Internal.GrpcCall|Error starting gRPC call. System.Net.Http.HttpRequestException: Connection refused (localhost:8000)
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(short token)
+   at async Task System.Net.Sockets.Socket.ConnectAsync(EndPoint remoteEP)+WaitForConnectWithCancellation(?)
+   at async ValueTask<Stream> System.Net.Http.HttpConnectionPool.DefaultConnectAsync(SocketsHttpConnectionContext context, CancellationToken cancellationToken)
+   at async ValueTask<Stream> System.Net.Http.ConnectHelper.ConnectAsync(Func<SocketsHttpConnectionContext, CancellationToken, ValueTask<Stream>> callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(Func`3 callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp2ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Grpc.Shared.TelemetryHeaderHandler.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Internal.Retry.RetryCall`2.StartRetry(Action`1 startCallFunc)
+   at Grpc.Net.Client.Internal.GrpcCall`2.RunCall(HttpRequestMessage request, Nullable`1 timeout)
+2021-07-24 12:46:58.1912|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: 'Unavailable', Message: 'Error starting gRPC call. HttpRequestException: Connection refused (localhost:8000) SocketException: Connection refused'. 
+2021-07-24 12:46:58.2805|6|ERROR|Grpc.Net.Client.Internal.GrpcCall|Error starting gRPC call. System.Net.Http.HttpRequestException: Connection refused (localhost:8000)
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(short token)
+   at async Task System.Net.Sockets.Socket.ConnectAsync(EndPoint remoteEP)+WaitForConnectWithCancellation(?)
+   at async ValueTask<Stream> System.Net.Http.HttpConnectionPool.DefaultConnectAsync(SocketsHttpConnectionContext context, CancellationToken cancellationToken)
+   at async ValueTask<Stream> System.Net.Http.ConnectHelper.ConnectAsync(Func<SocketsHttpConnectionContext, CancellationToken, ValueTask<Stream>> callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(Func`3 callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp2ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Grpc.Shared.TelemetryHeaderHandler.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Internal.Retry.RetryCall`2.StartRetry(Action`1 startCallFunc)
+   at Grpc.Net.Client.Internal.GrpcCall`2.RunCall(HttpRequestMessage request, Nullable`1 timeout)
+2021-07-24 12:46:58.2805|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: 'Unavailable', Message: 'Error starting gRPC call. HttpRequestException: Connection refused (localhost:8000) SocketException: Connection refused'. 
+2021-07-24 12:47:00.5564|6|ERROR|Grpc.Net.Client.Internal.GrpcCall|Error starting gRPC call. System.Net.Http.HttpRequestException: Connection refused (localhost:8000)
+ ---> System.Net.Sockets.SocketException (111): Connection refused
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at void System.Net.Sockets.Socket+AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(short token)
+   at async Task System.Net.Sockets.Socket.ConnectAsync(EndPoint remoteEP)+WaitForConnectWithCancellation(?)
+   at async ValueTask<Stream> System.Net.Http.HttpConnectionPool.DefaultConnectAsync(SocketsHttpConnectionContext context, CancellationToken cancellationToken)
+   at async ValueTask<Stream> System.Net.Http.ConnectHelper.ConnectAsync(Func<SocketsHttpConnectionContext, CancellationToken, ValueTask<Stream>> callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.ConnectHelper.ConnectAsync(Func`3 callback, DnsEndPoint endPoint, HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.GetHttp2ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at Grpc.Shared.TelemetryHeaderHandler.SendAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Grpc.Net.Client.Internal.Retry.RetryCall`2.StartRetry(Action`1 startCallFunc)
+   at Grpc.Net.Client.Internal.GrpcCall`2.RunCall(HttpRequestMessage request, Nullable`1 timeout)
+2021-07-24 12:47:00.5608|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: 'Unavailable', Message: 'Error starting gRPC call. HttpRequestException: Connection refused (localhost:8000) SocketException: Connection refused'. 
+2021-07-24 12:49:10.3632|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 12:49:10.4620|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 12:49:10.4620|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 12:49:10.4744|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 12:49:10.5011|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 12:49:10.5011|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 12:49:10.5011|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 12:49:10.5096|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 12:50:00.0437|0|INFO|GangWarService|Inited gang war 
+2021-07-24 12:50:50.4672|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 12:50:50.4718|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 12:50:50.4718|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 12:50:50.4800|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 12:50:50.4800|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 12:50:50.4800|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 12:50:50.4800|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 12:50:50.4800|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 12:50:50.4800|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 12:50:52.3699|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 13:00:00.0017|0|INFO|GangWarService|Started gang war 
+2021-07-24 13:04:57.5379|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 13:04:57.6153|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 13:04:57.6153|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 13:04:57.6228|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 13:04:57.6228|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 13:04:57.6228|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 13:04:57.6228|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 13:04:57.6371|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 13:05:07.7149|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 13:05:07.7189|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 13:05:07.7189|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 13:05:07.7295|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 13:05:07.7295|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 13:05:07.7295|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 13:05:07.7295|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 13:05:07.7295|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 13:05:07.7295|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 13:06:53.2285|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 13:06:53.3083|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 13:06:53.3101|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 13:06:53.3186|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 13:06:53.3186|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 13:06:53.3186|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 13:06:53.3186|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 13:06:53.3292|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 13:07:07.7801|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 13:07:07.7801|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 13:07:07.7922|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 13:07:07.7922|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 13:07:07.7922|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 13:07:07.7922|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 13:07:07.7922|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 13:07:07.7922|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 13:07:07.7922|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 13:09:30.2988|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 13:09:30.3738|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 13:09:30.3738|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 13:09:30.3819|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 13:09:30.3819|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 13:09:30.3819|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 13:09:30.3819|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 13:09:30.3955|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 13:09:41.8578|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 13:09:41.8620|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 13:09:41.8699|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 13:09:41.8699|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 13:09:41.8699|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 13:09:41.8699|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 13:09:41.8699|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 13:09:41.8699|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 13:09:41.8699|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 13:16:37.0297|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 13:16:37.1011|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 13:16:37.1011|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 13:16:37.1011|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 13:16:37.1102|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 13:16:37.1102|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 13:16:37.1102|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 13:16:37.1393|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 13:16:45.8589|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 13:16:45.8589|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 13:16:45.8701|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 13:16:45.8701|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 13:16:45.8701|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 13:16:45.8701|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 13:16:45.8701|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 13:16:45.8701|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 13:16:45.8701|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 13:18:53.3644|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 13:18:53.4436|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 13:18:53.4436|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 13:18:53.4502|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 13:18:53.4502|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 13:18:53.4502|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 13:18:53.4502|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 13:18:53.4856|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 13:19:01.3006|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 13:19:01.3006|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 13:19:01.3130|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 13:19:01.3130|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 13:19:01.3130|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 13:19:01.3130|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 13:19:01.3130|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 13:19:01.3130|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 13:19:01.3130|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 13:24:53.9229|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 13:24:53.9905|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 13:24:53.9905|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 13:24:53.9905|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 13:24:54.0003|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 13:24:54.0003|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 13:24:54.0003|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 13:24:54.0003|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 13:25:00.5677|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 13:25:00.5724|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 13:25:00.5799|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 13:25:00.5799|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 13:25:00.5799|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 13:25:00.5799|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 13:25:00.5799|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 13:25:00.5799|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 13:25:00.5799|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 13:25:06.0997|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 13:27:56.1658|0|INFO|Gamemode.Models.Player.AdminsCache|Unloaded admin from cache. static_id=4 
+2021-07-24 13:27:56.1658|0|INFO|Gamemode.Models.Player.FractionsCache|Unloaded fraction member from cache. static_id=4 
+2021-07-24 13:27:56.1658|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=0 
+2021-07-24 13:27:56.1658|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=4 
+2021-07-24 13:28:09.8519|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 13:28:09.8519|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 13:28:09.8519|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 13:28:09.8519|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 13:28:09.8519|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 13:28:09.8519|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 13:28:09.8519|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 13:28:09.8519|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 13:28:09.8519|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 13:33:11.7551|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 13:33:11.8213|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 13:33:11.8213|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 13:33:11.8213|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 13:33:11.8293|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 13:33:11.8293|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 13:33:11.8293|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 13:33:11.8417|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 13:33:25.7609|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 13:33:25.7609|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 13:33:25.7725|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 13:33:25.7725|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 13:33:25.7725|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 13:33:25.7725|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 13:33:25.7725|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 13:33:25.7725|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 13:33:25.7725|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 13:33:43.4750|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 13:50:00.0625|0|INFO|GangWarService|Inited gang war 
+2021-07-24 14:00:00.0019|0|INFO|GangWarService|Started gang war 
+2021-07-24 14:10:43.9487|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 14:10:44.0181|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 14:10:44.0188|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 14:10:44.0188|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 14:10:44.0302|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 14:10:44.0302|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 14:10:44.0302|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 14:10:44.0302|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 14:11:07.5620|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 14:11:07.5620|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 14:11:07.5719|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 14:11:07.5719|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 14:11:07.5719|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 14:11:07.5719|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 14:11:07.5719|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 14:11:07.5719|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 14:11:07.5719|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 14:15:28.6336|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 14:15:28.7011|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 14:15:28.7011|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 14:15:28.7011|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 14:15:28.7102|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 14:15:28.7102|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 14:15:28.7102|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 14:15:28.7212|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 14:15:40.7964|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 14:15:40.8013|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 14:15:40.8090|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 14:15:40.8090|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 14:15:40.8090|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 14:15:40.8090|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 14:15:40.8090|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 14:15:40.8090|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 14:15:40.8090|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 14:15:53.9412|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 14:40:20.3069|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 14:40:20.3722|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 14:40:20.3722|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 14:40:20.3792|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 14:40:20.3792|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 14:40:20.3792|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 14:40:20.3792|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 14:40:20.3792|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 14:40:50.6099|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 14:40:50.6099|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 14:40:50.6208|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 14:40:50.6208|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 14:40:50.6208|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 14:40:50.6208|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 14:40:50.6208|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 14:40:50.6208|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 14:40:50.6208|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 14:40:52.6048|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 14:43:45.5473|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 14:43:45.6144|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 14:43:45.6144|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 14:43:45.6220|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 14:43:45.6220|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 14:43:45.6220|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 14:43:45.6220|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 14:43:45.6542|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 14:43:53.4749|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 14:43:53.4792|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 14:43:53.4792|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 14:43:53.4891|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 14:43:53.4891|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 14:43:53.4891|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 14:43:53.4891|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 14:43:53.4891|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 14:43:53.4891|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 14:43:55.7281|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 14:46:25.2587|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 14:46:25.3298|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 14:46:25.3298|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 14:46:25.3298|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 14:46:25.3628|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 14:46:25.3628|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 14:46:25.3628|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 14:46:25.3690|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 14:46:33.5391|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 14:46:33.5391|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 14:46:33.5516|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 14:46:33.5516|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 14:46:33.5516|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 14:46:33.5516|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 14:46:33.5516|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 14:46:33.5516|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 14:46:33.5516|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 14:46:35.8222|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 14:48:36.1152|0|WARN|AdminCommand|Administrator tests created vehicle INFERNUS 
+2021-07-24 14:50:00.0394|0|INFO|GangWarService|Inited gang war 
+2021-07-24 14:50:23.0481|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 14:50:23.1185|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 14:50:23.1185|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 14:50:23.1185|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 14:50:23.1185|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 14:50:23.1185|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 14:50:23.1185|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 14:50:23.1389|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 14:50:31.4010|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 14:50:31.4010|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 14:50:31.4108|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 14:50:31.4108|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 14:50:31.4108|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 14:50:31.4108|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 14:50:31.4108|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 14:50:31.4108|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 14:50:31.4108|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 14:50:33.6151|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 15:09:03.0504|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 15:09:03.1190|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 15:09:03.1190|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 15:09:03.1190|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 15:09:03.1291|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 15:09:03.1291|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 15:09:03.1291|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 15:09:03.1386|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 15:09:10.2984|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 15:09:10.3036|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 15:09:10.3092|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 15:09:10.3092|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 15:09:10.3092|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 15:09:10.3092|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 15:09:10.3092|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 15:09:10.3092|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 15:09:10.3092|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 15:09:11.6952|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 15:09:25.7376|0|WARN|AdminCommand|Administrator tests created vehicle formula 
+2021-07-24 15:11:32.7512|0|WARN|AdminCommand|Administrator tests created vehicle openwheel2 
+2021-07-24 15:13:42.9189|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: '10009', Message: 'already logged in'. 
+2021-07-24 15:13:47.0400|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: '10000', Message: 'user not found'. 
+2021-07-24 15:13:53.5131|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=1, static_id=23 
+2021-07-24 15:13:53.5131|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=23 
+2021-07-24 15:19:08.8645|3|INFO|Grpc.Net.Client.Internal.GrpcCall|Call failed with gRPC error status. Status code: '10009', Message: 'already logged in'. 
+2021-07-24 15:20:44.3149|0|INFO|Gamemode.Models.Player.AdminsCache|Unloaded admin from cache. static_id=4 
+2021-07-24 15:20:44.3149|0|INFO|Gamemode.Models.Player.FractionsCache|Unloaded fraction member from cache. static_id=4 
+2021-07-24 15:20:44.3149|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=0 
+2021-07-24 15:20:44.3149|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=4 
+2021-07-24 15:22:51.5412|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=1 
+2021-07-24 15:22:51.5412|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=23 
+2021-07-24 15:25:17.9083|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 15:25:17.9102|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 15:25:17.9102|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 15:25:17.9102|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 15:25:17.9102|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 15:25:17.9102|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 15:25:17.9102|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 15:25:17.9102|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 15:25:17.9102|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 15:26:06.8333|0|INFO|Gamemode.Models.Player.AdminsCache|Unloaded admin from cache. static_id=4 
+2021-07-24 15:26:06.8333|0|INFO|Gamemode.Models.Player.FractionsCache|Unloaded fraction member from cache. static_id=4 
+2021-07-24 15:26:06.8333|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=0 
+2021-07-24 15:26:06.8333|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=4 
+2021-07-24 15:27:15.2966|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 15:27:15.2966|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 15:27:15.2966|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 15:27:15.2966|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 15:27:15.2966|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 15:27:15.2966|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 15:27:15.2966|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 15:27:15.2966|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 15:27:15.2966|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 15:27:17.7900|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 15:45:25.5965|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 15:45:25.6556|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 15:45:25.6556|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 15:45:25.6664|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 15:45:25.6664|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 15:45:25.6686|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 15:45:25.6686|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 15:45:25.6792|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 15:45:32.9041|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 15:45:32.9097|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 15:45:32.9097|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 15:45:32.9209|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 15:45:32.9209|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 15:45:32.9209|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 15:45:32.9209|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 15:45:32.9209|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 15:45:32.9209|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 15:45:44.9705|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 15:50:00.0363|0|INFO|GangWarService|Inited gang war 
+2021-07-24 15:55:53.5236|0|WARN|AdminCommand|Administrator tests created vehicle INFERNUS 
+2021-07-24 15:56:44.7405|0|WARN|AdminCommand|Administrator tests created vehicle OPPRESSOR2 
+2021-07-24 15:56:54.1161|0|WARN|AdminCommand|Administrator tests created vehicle OPPRESSOR 
+2021-07-24 17:50:37.0433|0|INFO|Gamemode.Models.Player.AdminsCache|Unloaded admin from cache. static_id=4 
+2021-07-24 17:50:37.0433|0|INFO|Gamemode.Models.Player.FractionsCache|Unloaded fraction member from cache. static_id=4 
+2021-07-24 17:50:37.0433|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=0 
+2021-07-24 17:50:37.0433|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=4 
+2021-07-24 17:50:44.1056|0|INFO|GangWarService|Started gang war 
+2021-07-24 17:50:44.1249|0|INFO|GangWarService|Finished gang war 
+2021-07-24 17:58:25.5257|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 17:58:25.5935|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 17:58:25.5935|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 17:58:25.6023|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 17:58:25.6023|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 17:58:25.6023|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 17:58:25.6023|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 17:58:25.6129|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 17:59:43.1242|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 17:59:43.1287|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 17:59:43.1287|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 17:59:43.1398|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 17:59:43.1398|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 17:59:43.1398|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 17:59:43.1398|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 17:59:43.1398|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 17:59:43.1398|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 17:59:48.3106|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 18:06:23.2946|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 18:06:23.3991|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 18:06:23.3991|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 18:06:23.4307|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 18:06:23.4307|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 18:06:23.4307|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 18:06:23.4307|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 18:06:23.4456|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 18:06:36.8083|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 18:06:36.8083|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 18:06:36.8214|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 18:06:36.8214|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 18:06:36.8214|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 18:06:36.8214|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 18:06:36.8214|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 18:06:36.8214|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 18:06:36.8214|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 18:06:38.3172|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 18:12:21.6644|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 18:12:21.7334|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 18:12:21.7334|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 18:12:21.7394|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 18:12:21.7394|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 18:12:21.7394|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 18:12:21.7394|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 18:12:21.7530|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 18:12:33.1147|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 18:12:33.1200|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 18:12:33.1289|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 18:12:33.1289|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 18:12:33.1289|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 18:12:33.1289|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 18:12:33.1289|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 18:12:33.1289|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 18:12:33.1289|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 18:12:34.3943|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 18:14:09.5091|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 18:14:09.5855|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 18:14:09.5855|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 18:14:09.5928|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 18:14:09.6194|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 18:14:09.6194|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 18:14:09.6194|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 18:14:09.6194|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 18:15:44.0530|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 18:15:44.0642|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 18:15:44.0829|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 18:15:44.0829|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 18:15:44.0829|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 18:15:44.0829|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 18:15:44.0829|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 18:15:44.0829|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 18:15:44.0829|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 18:15:53.2661|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 18:16:52.1817|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-07-24 18:16:52.2527|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-07-24 18:16:52.2527|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-07-24 18:16:52.2602|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-07-24 18:16:52.2878|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-07-24 18:16:52.2878|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-07-24 18:16:52.2881|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-07-24 18:16:52.2881|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-07-24 18:17:01.4895|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-07-24 18:17:01.4895|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-07-24 18:17:01.5000|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-07-24 18:17:01.5000|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-07-24 18:17:01.5000|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Knuckle 
+2021-07-24 18:17:01.5000|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-07-24 18:17:01.5000|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-07-24 18:17:01.5000|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-07-24 18:17:01.5000|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-07-24 18:17:59.3297|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-07-24 22:21:46.4107|0|INFO|Gamemode.Models.Player.AdminsCache|Unloaded admin from cache. static_id=4 
+2021-07-24 22:21:46.4107|0|INFO|Gamemode.Models.Player.FractionsCache|Unloaded fraction member from cache. static_id=4 
+2021-07-24 22:21:46.4107|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=0 
+2021-07-24 22:21:46.4107|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=4 
+2021-07-24 22:21:53.0052|0|INFO|GangWarService|Inited gang war 

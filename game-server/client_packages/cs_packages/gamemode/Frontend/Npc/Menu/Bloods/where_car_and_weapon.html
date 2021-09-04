@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GTA FORM</title>
+    <link rel="stylesheet" href="./../style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="form-holder">
+            <div class="inner">
+                <div class="title-block">
+                    <h1>Блудс</h1>
+                </div>
+                <div class="dialog">
+                    <div class="message" id="npc_message">
+                        Возле меня ты найдёшь подходящие тебе маркеры, просто подойди к ним и нажми "E".
+                    </div>
+                    <div class="choices row" id="choice_buttons">
+                        <div class="col-6">
+                            <a class="choice" href="#" id="back">
+                                Назад
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a class="choice choice-quit" href="#">
+                                Закончить диалог
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="./../script.js"></script>
+
+    <script>
+        $("#back").click(function () {
+            window.location = "index_join.html";
+        });
+    </script>
+
+</body>
+</html>

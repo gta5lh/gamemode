@@ -1,0 +1,16 @@
+{
+	"maxplayers" : 100,
+	"name": "LByte00 [VOICE]",
+	"gamemode": "gangwar",
+	"stream-distance" : 500.0,
+	"announce" : false,
+	"csharp": "enabled",
+	"port": 22005,
+	"resources-compression-level": 0,
+	"enable-nodejs": false,
+	"language": "ru",
+	"api-threading-debugging": true,
+	"allow-cef-debugging": true,
+	"voice-chat": true,
+	"voice-chat-sample-rate": 48000
+}

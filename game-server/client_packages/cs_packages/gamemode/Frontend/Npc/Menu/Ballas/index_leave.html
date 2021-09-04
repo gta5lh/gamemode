@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GTA FORM</title>
+    <link rel="stylesheet" href="./../style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="form-holder">
+            <div class="inner">
+                <div class="title-block">
+                    <h1>Баллас</h1>
+                </div>
+                <div class="dialog">
+                    <div class="message" id="npc_message">
+                        Уходишь? Ты думаешь, что можешь взять и уйти? Направьте на него пушки! Ладно, я шучу, своего мы не убьём, если конечно ты передумал. <br />
+                        (Покидая банду, ты потеряешь весь накопленный опыт)
+                    </div>
+                    <div class="choices row" id="choice_buttons">
+                        <div class="col-6">
+                            <a class="choice" href="#" id="leave">
+                                Я ухожу (покинуть банду)
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a class="choice choice-quit" href="#">
+                                Остаюсь
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="./../script.js"></script>
+
+    <script>
+        $(function () {
+
+        });
+
+        $("#leave").click(function () {
+            let playerSelectedGangNpcActionRequest = {
+                action: "leave",
+                npc: "ballas",
+            };
+
+            mp.trigger("CloseNpcMenu");
+            mp.trigger("DisplayPressE", false, "");
+            mp.trigger("PlayerSelectedGangNpcAction", JSON.stringify(playerSelectedGangNpcActionRequest));
+        });
+    </script>
+
+</body>
+</html>

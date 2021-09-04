@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GTA FORM</title>
+    <link rel="stylesheet" href="./../style.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="form-holder">
+            <div class="inner">
+                <div class="title-block">
+                    <h1>Тревор</h1>
+                </div>
+                <div class="dialog">
+                    <div class="message" id="npc_message">
+                        Приветствую, новичок! Вижу ты к нам первый раз прилетел. В штате сейчас полный переполох, банды отвоевывают территории.
+                        Некоторым нехватает тебя, тебе следует направиться к ним и показать на что ты способен.
+                    </div>
+                    <div class="choices row" id="choice_buttons">
+                        <div class="col-6">
+                            <a class="choice" href="#" id="next_step">
+                                Как мне лучше доехать до туда?
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a class="choice choice-quit" href="#">
+                                Я сюда летел не убивать.
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="./../script.js"></script>
+
+    <script>
+        $("#next_step").click(function () {
+            window.location = "tell_me_more.html";
+        });
+    </script>
+
+</body>
+</html>

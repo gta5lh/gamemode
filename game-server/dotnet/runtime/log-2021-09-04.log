@@ -1,0 +1,180 @@
+2021-09-04 17:25:31.0143|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-09-04 17:25:31.1001|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-09-04 17:25:31.1001|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-09-04 17:25:31.1080|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-09-04 17:25:31.1080|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-09-04 17:25:31.1080|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-09-04 17:25:31.1080|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-09-04 17:25:31.1222|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-09-04 17:25:39.8522|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-09-04 17:25:39.8522|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-09-04 17:25:39.8644|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-09-04 17:25:39.8681|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-09-04 17:25:39.8681|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Hatchet 
+2021-09-04 17:25:39.8681|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-09-04 17:25:39.8681|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-09-04 17:25:39.8681|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-09-04 17:25:39.8681|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-09-04 17:28:45.4065|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-09-04 17:28:45.4812|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-09-04 17:28:45.4812|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-09-04 17:28:45.4891|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-09-04 17:28:45.4891|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-09-04 17:28:45.4891|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-09-04 17:28:45.4891|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-09-04 17:28:45.5034|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-09-04 17:31:04.8737|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-09-04 17:31:04.8791|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-09-04 17:31:04.8906|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-09-04 17:31:04.8906|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-09-04 17:31:04.8906|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Hatchet 
+2021-09-04 17:31:04.8906|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-09-04 17:31:04.8906|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-09-04 17:31:04.8906|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-09-04 17:31:04.8906|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-09-04 17:50:00.0769|0|INFO|GangWarService|Inited gang war 
+2021-09-04 17:57:54.7981|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-09-04 17:57:54.8765|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-09-04 17:57:54.8765|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-09-04 17:57:54.8852|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-09-04 17:57:54.8889|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-09-04 17:57:54.8889|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-09-04 17:57:54.8889|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-09-04 17:57:54.9161|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-09-04 17:59:50.8566|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-09-04 17:59:50.8614|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-09-04 17:59:50.8708|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-09-04 17:59:50.8708|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-09-04 17:59:50.8708|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Hatchet 
+2021-09-04 17:59:50.8708|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-09-04 17:59:50.8708|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-09-04 17:59:50.8708|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-09-04 17:59:50.8708|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-09-04 18:00:22.9825|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-09-04 18:00:23.0526|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-09-04 18:00:23.0526|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-09-04 18:00:23.0587|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-09-04 18:00:23.0587|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-09-04 18:00:23.0587|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-09-04 18:00:23.0587|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-09-04 18:00:23.0957|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-09-04 18:00:36.1800|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-09-04 18:00:36.1800|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-09-04 18:00:36.1938|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-09-04 18:00:36.1938|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-09-04 18:00:36.1938|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Hatchet 
+2021-09-04 18:00:36.1938|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-09-04 18:00:36.1938|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-09-04 18:00:36.1938|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-09-04 18:00:36.1938|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-09-04 18:01:06.9414|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-09-04 18:01:07.0125|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-09-04 18:01:07.0125|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-09-04 18:01:07.0473|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-09-04 18:01:07.0516|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-09-04 18:01:07.0516|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-09-04 18:01:07.0516|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-09-04 18:01:07.0729|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-09-04 18:01:20.4513|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-09-04 18:01:20.4513|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-09-04 18:01:20.4645|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-09-04 18:01:20.4645|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-09-04 18:01:20.4645|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Hatchet 
+2021-09-04 18:01:20.4645|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-09-04 18:01:20.4645|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-09-04 18:01:20.4645|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-09-04 18:01:20.4645|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-09-04 18:01:44.7851|0|INFO|Gamemode.Models.Player.AdminsCache|Unloaded admin from cache. static_id=4 
+2021-09-04 18:01:44.7851|0|INFO|Gamemode.Models.Player.FractionsCache|Unloaded fraction member from cache. static_id=4 
+2021-09-04 18:01:44.7887|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=0 
+2021-09-04 18:01:44.7887|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=4 
+2021-09-04 18:02:49.1568|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-09-04 18:02:49.1568|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-09-04 18:02:49.1568|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-09-04 18:02:49.1568|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-09-04 18:02:49.1568|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Hatchet 
+2021-09-04 18:02:49.1568|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-09-04 18:02:49.1568|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-09-04 18:02:49.1568|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-09-04 18:02:49.1568|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-09-04 18:03:27.3983|0|WARN|AdminCommand|Administrator tests created vehicle BULLET 
+2021-09-04 18:08:34.0780|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-09-04 18:08:34.1605|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-09-04 18:08:34.1605|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-09-04 18:08:34.1680|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-09-04 18:08:34.1680|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-09-04 18:08:34.1680|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-09-04 18:08:34.1680|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-09-04 18:08:34.1844|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-09-04 18:09:38.8547|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-09-04 18:09:38.9227|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-09-04 18:09:38.9227|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-09-04 18:09:38.9314|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-09-04 18:09:38.9314|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-09-04 18:09:38.9314|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-09-04 18:09:38.9314|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-09-04 18:09:38.9663|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-09-04 18:10:28.3438|0|INFO|Quartz.Impl.StdSchedulerFactory|Default Quartz.NET properties loaded from embedded resource file 
+2021-09-04 18:10:28.4097|0|INFO|Quartz.Core.SchedulerSignalerImpl|Initialized Scheduler Signaller of type: Quartz.Core.SchedulerSignalerImpl 
+2021-09-04 18:10:28.4097|0|INFO|Quartz.Core.QuartzScheduler|Quartz Scheduler v.3.3.2.0 created. 
+2021-09-04 18:10:28.4097|0|INFO|Quartz.Simpl.RAMJobStore|RAMJobStore initialized. 
+2021-09-04 18:10:28.4219|0|INFO|Quartz.Core.QuartzScheduler|Scheduler meta-data: Quartz Scheduler (v3.3.2.0) 'DefaultQuartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'Quartz.Core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'Quartz.Simpl.DefaultThreadPool' - with 10 threads.
+  Using job-store 'Quartz.Simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+ 
+2021-09-04 18:10:28.4219|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
+2021-09-04 18:10:28.4219|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
+2021-09-04 18:10:28.4304|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 

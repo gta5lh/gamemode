@@ -84,9 +84,9 @@
 		<Protobuf Include="../../protobuf/errors/*.proto" GrpcServices="Client" />
 	</ItemGroup>
 	<Target Name="DebugAfterBuild" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Debug' ">
-		<Copy SourceFiles="@(OutputDebugDirectory)" DestinationFolder="../../game-server/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="@(OutputDebugDirectory)" DestinationFolder="../game-server/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
 	</Target>
 	<Target Name="ReleaseAfterBuild" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Release' ">
-		<Copy SourceFiles="@(OutputReleaseDirectory)" DestinationFolder="../../game-server/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="@(OutputReleaseDirectory)" DestinationFolder="../game-server/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false" />
 	</Target>
 </Project>

@@ -1,0 +1,4 @@
+<meta>
+    <info name="Gamemode" description="The Future Rocket Science" />
+    <script src="Gamemode.dll" />
+</meta>

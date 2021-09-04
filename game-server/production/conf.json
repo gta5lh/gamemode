@@ -1,0 +1,17 @@
+{
+  "maxplayers": 5,
+  "name": "Lost Heaven | gta5lh.ru [VOICE] [BETA]",
+  "gamemode": "RPG",
+  "stream-distance": 500.0,
+  "announce": false,
+  "csharp": "enabled",
+  "port": 22005,
+  "resources-compression-level": -9,
+  "enable-nodejs": false,
+  "language": "ru",
+  "url": "https://gta5lh.ru",
+  "max-ping": 250,
+  "fqdn": "play.gta5lh.ru",
+  "voice-chat": true,
+  "voice-chat-sample-rate": 48000
+}

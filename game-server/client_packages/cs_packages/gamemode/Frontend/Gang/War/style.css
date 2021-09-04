@@ -1,0 +1,154 @@
+@charset "UTF-8";
+/*
+===============================
+Main Stylesheet
+===============================
+*/
+@font-face {
+  font-family: "icons";
+  src: url(fonts/icons.eot) format("embedded-opentype"), url(fonts/icons.woff2) format("woff2"), url(fonts/icons.woff) format("woff"), url(fonts/icons.ttf) format("truetype"), url(fonts/icons.svg) format("svg");
+}
+i[class^=icon-]:before, i[class*=" icon-"]:before {
+  font-family: icons !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-feature-settings: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-clock:before {
+  content: "";
+}
+
+.icon-rectangle:before {
+  content: "";
+}
+
+.icon-shield:before {
+  content: "";
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: url(fonts/Ubuntu-regular.ttf) format("truetype");
+}
+body {
+  text-align: center;
+  margin-top: 11px;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 20px;
+  color: white;
+}
+.timer .icon {
+  margin-right: 4px;
+  display: inline-block;
+  background-size: contain;
+  background-position: center;
+  width: 20px;
+  height: 20px;
+}
+.timer .title {
+  margin-right: 20px;
+}
+
+.stat {
+  background: rgba(26, 31, 48, 0.89);
+  display: inline-flex;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  border-radius: 15px;
+}
+.stat .item {
+  color: white;
+  display: flex;
+  align-items: center;
+}
+.stat .item:not(:last-child) {
+  margin-right: 20px;
+}
+.stat .item[gang=ballas] .points:before {
+  background: #923FA7;
+}
+.stat .item[gang=ballas] .points:after {
+  color: #923FA7;
+}
+.stat .item[gang=bloods] .points:before {
+  background: #E33A41;
+}
+.stat .item[gang=bloods] .points:after {
+  color: #E33A41;
+}
+.stat .item[gang=marabunta] .points:before {
+  background: #1D9AE3;
+}
+.stat .item[gang=marabunta] .points:after {
+  color: #1D9AE3;
+}
+.stat .item[gang=the-families] .points:before {
+  background: #2C8F4E;
+}
+.stat .item[gang=the-families] .points:after {
+  color: #2C8F4E;
+}
+.stat .item[gang=vagos] .points:before {
+  background: #D7AE16;
+}
+.stat .item[gang=vagos] .points:after {
+  color: #D7AE16;
+}
+.stat .item[defend] .points:before {
+  display: none;
+}
+.stat .item[defend] .points:after {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  position: absolute;
+  font-size: 37px;
+  background: none;
+  font-family: "icons";
+  content: "";
+}
+.stat .item .name {
+  font-size: 15px;
+  font-family: "Ubuntu";
+}
+.stat .item .points {
+  z-index: 1;
+  margin-right: 5px;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  font-size: 12px;
+  color: white;
+  font-family: "Ubuntu";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stat .item .points:before {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 5px;
+}
