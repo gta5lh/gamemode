@@ -178,3 +178,22 @@
 2021-09-04 18:10:28.4219|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler 'DefaultQuartzScheduler' initialized 
 2021-09-04 18:10:28.4219|0|INFO|Quartz.Impl.StdSchedulerFactory|Quartz scheduler version: 3.3.2.0 
 2021-09-04 18:10:28.4304|0|INFO|Quartz.Core.QuartzScheduler|Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started. 
+2021-09-04 18:12:54.4260|0|INFO|Gamemode.Models.Player.IdsCache|Loaded player ids to cache. dynamic_id=0, static_id=4 
+2021-09-04 18:12:54.4334|0|INFO|Gamemode.Models.Player.AdminsCache|Loaded admin to cache. static_id=4 
+2021-09-04 18:12:54.4415|0|INFO|Gamemode.Models.Player.FractionsCache|Loaded fraction member to cache. static_id=4 
+2021-09-04 18:12:54.4415|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Microsmg 
+2021-09-04 18:12:54.4415|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Hatchet 
+2021-09-04 18:12:54.4415|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Flare 
+2021-09-04 18:12:54.4415|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pumpshotgun 
+2021-09-04 18:12:54.4415|0|INFO|Gamemode.Models.Player.InventoryWeapons|Added weapon to inventory. weapon_hash=Pistol 
+2021-09-04 18:12:54.4415|0|INFO|Gamemode.Models.Player.CustomPlayer|Loaded player to cache. ID=4 
+2021-09-04 18:13:08.8570|0|WARN|AdminCommand|Administrator tests created vehicle formula2 
+2021-09-04 18:16:35.6633|0|INFO|Gamemode.Models.Player.AdminsCache|Unloaded admin from cache. static_id=4 
+2021-09-04 18:16:35.6633|0|INFO|Gamemode.Models.Player.FractionsCache|Unloaded fraction member from cache. static_id=4 
+2021-09-04 18:16:35.6633|0|INFO|Gamemode.Models.Player.IdsCache|Unloaded player ids from cache. dynamic_id=0 
+2021-09-04 18:16:35.6633|0|INFO|Gamemode.Models.Player.CustomPlayer|Unloaded player from cache. ID=4 
+2021-09-04 18:50:00.1340|0|INFO|GangWarService|Inited gang war 
+2021-09-04 19:00:00.0031|0|INFO|GangWarService|Started gang war 
+2021-09-04 19:15:00.1819|0|INFO|GangWarService|Finished gang war 
+2021-09-04 19:50:00.3150|0|INFO|GangWarService|Inited gang war 
+2021-09-04 20:00:00.0018|0|INFO|GangWarService|Started gang war 
