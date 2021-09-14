@@ -31,12 +31,14 @@ namespace GamemodeClient.Controllers
 			AuthenticationController.playerAuthenticatedEvent += OnPlayerAuthenticated;
 			VoiceChatController.playerVoiceStateChangedEvent += OnPlayerVoiceStateChanged;
 			DisableUIController.disableUIStateChangedEvent += OnDisableUIStateChanged;
+			SafeZoneController.playerSafeZoneEvent += OnPlayerSafeZoneEvent;
 
 			Events.OnPlayerEnterVehicle += this.OnPlayerEnterVehicle;
 			Events.OnPlayerLeaveVehicle += this.OnPlayerLeaveVehicle;
 			Events.Tick += this.Tick;
 			Events.Tick += this.Speedometer;
 			Events.Add("MoneyUpdated", this.OnMoneyUpdated);
+			Events.Add("SetZoneState", this.OnSetZoneState);
 
 			Events.AddDataHandler(GamemodeCommon.Models.Data.DataKey.CurrentTime, this.OnTimeUpdated);
 
@@ -63,6 +65,13 @@ namespace GamemodeClient.Controllers
 			UpdateMoney(Money);
 		}
 
+		private void OnSetZoneState(object[] request)
+		{
+			bool enabled = (bool)request[0];
+			string color = (string)request[1];
+
+			SetZoneState(enabled, color);
+		}
 
 		private void OnPlayerEnterVehicle(Vehicle vehicle, int seatId)
 		{
@@ -72,6 +81,11 @@ namespace GamemodeClient.Controllers
 		private void OnPlayerLeaveVehicle(Vehicle vehicle, int seatId)
 		{
 			HideSpeedometer();
+		}
+
+		public void OnPlayerSafeZoneEvent(bool enabled)
+		{
+			SetZoneState(enabled, "green");
 		}
 
 		public void OnDisableUIStateChanged(bool enabled)

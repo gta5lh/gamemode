@@ -5,6 +5,9 @@ namespace GamemodeClient.Controllers
 {
 	public class SafeZoneController : Events.Script
 	{
+		public delegate void playerSafeZoneDelegate(bool enabled);
+		public static event playerSafeZoneDelegate playerSafeZoneEvent;
+
 		private bool IsInSafeZone = false;
 
 		public SafeZoneController()
@@ -25,9 +28,7 @@ namespace GamemodeClient.Controllers
 			bool enabled = (bool)args[0];
 
 			IsInSafeZone = enabled;
-
-			string message = IsInSafeZone ? "вошел в зеленую зону" : "вышел из зеленой зоны";
-			Chat.Output($"Ты {message}");
+			playerSafeZoneEvent(IsInSafeZone);
 
 			if (!Player.NoclipEnabled && !Player.GodmodEnabled && !Player.InvisibilityEnabled)
 			{

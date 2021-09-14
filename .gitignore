@@ -3,3 +3,4 @@ game-server/log.txt
 game-server/*.log
 game-server/dotnet/server_exceptions.txt
 game-server/dotnet/server_logs.txt
+game-server/dotnet/runtime/*.log

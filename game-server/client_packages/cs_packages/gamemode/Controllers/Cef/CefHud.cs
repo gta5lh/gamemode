@@ -63,5 +63,12 @@ namespace GamemodeClient.Controllers.Cef
 		{
 			IndexCef.ExecuteJs("ShowHelpMenu()");
 		}
+
+		public static void SetZoneState(bool isInZone, string color)
+		{
+			RAGE.Chat.Output($"{isInZone.ToString().ToLower()}");
+			RAGE.Chat.Output($"{color}");
+			IndexCef.ExecuteJs($"SetZoneState({isInZone.ToString().ToLower()}, '{color}')");
+		}
 	}
 }

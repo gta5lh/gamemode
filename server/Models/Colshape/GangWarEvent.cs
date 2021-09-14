@@ -19,7 +19,7 @@ namespace Gamemode.Colshape
 			}
 
 			customPlayer.IsInWarZone = true;
-			customPlayer.SendChatMessage("Ты вошел в зону захвата территории");
+			player.TriggerEvent("SetZoneState", true, "red");
 			GangWarCache.PlayersInZone.Add(customPlayer);
 		}
 
@@ -32,7 +32,7 @@ namespace Gamemode.Colshape
 			}
 
 			customPlayer.IsInWarZone = false;
-			customPlayer.SendChatMessage("Ты вышел из зоны захвата территории");
+			player.TriggerEvent("SetZoneState", false, "red");
 			GangWarCache.PlayersInZone.Remove(customPlayer);
 		}
 	}

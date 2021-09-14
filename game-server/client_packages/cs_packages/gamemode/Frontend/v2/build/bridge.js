@@ -11,6 +11,15 @@ function trigger(eventName, args) {
 }
 
 // Hud
+function SetZoneState(enabled, color) {
+  let state = {
+    enabled: enabled,
+    color: color,
+  };
+
+  trigger("SetZoneState", JSON.stringify(state));
+}
+
 function HideHelpMenu() {
   trigger("HelpMenu", JSON.stringify({ type: "hide" }));
 }
