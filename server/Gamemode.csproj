@@ -8,6 +8,7 @@
 		<PlatformTarget>x64</PlatformTarget>
 		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
 		<TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+		<NoWarn>$(NoWarn),SA0001,SA1407</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
