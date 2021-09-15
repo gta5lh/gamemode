@@ -9,14 +9,14 @@ namespace GamemodeClient.Controllers
 
 	public class Ui
 	{
-		public static void OpenUI(HtmlWindow window, bool displayCursor = true, bool hideChat = true)
+		public static void OpenUI(bool displayCursor = true, bool hideChat = true)
 		{
 			Chat.Show(!hideChat);
 			Player.CurrentPlayer.FreezePosition(true);
 			Cursor.Visible = displayCursor;
 		}
 
-		public static void CloseUI(HtmlWindow window)
+		public static void CloseUI()
 		{
 			Cursor.Visible = false;
 			Chat.Show(true);

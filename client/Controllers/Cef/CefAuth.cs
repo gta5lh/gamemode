@@ -24,14 +24,14 @@ namespace GamemodeClient.Controllers.Cef
 
 		public static void ShowAuth()
 		{
-			Ui.OpenUI(IndexCef);
+			Ui.OpenUI();
 			IndexCef.ExecuteJs("ShowAuth()");
 		}
 
 		public static void HideAuth()
 		{
 			IndexCef.ExecuteJs("HideAuth()");
-			Ui.CloseUI(IndexCef);
+			Ui.CloseUI();
 		}
 	}
 }

@@ -20,40 +20,12 @@ namespace Gamemode.Colshape
 
 		public void OnEntityEnterColShape(ColShape shape, Player player)
 		{
-			string state = this.State(player);
-			if (state == string.Empty)
-			{
-				return;
-			}
-
-			NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", true, this.NpcName, state);
+			NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", true, this.NpcName);
 		}
 
 		public void OnEntityExitColShape(ColShape shape, Player player)
 		{
-			string state = this.State(player);
-			if (state == string.Empty)
-			{
-				return;
-			}
-
-			NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", false, this.NpcName, state);
-		}
-
-		private string State(Player player)
-		{
-			CustomPlayer customPlayer = (CustomPlayer)player;
-			if (customPlayer.Fraction == null)
-			{
-				return "join";
-			}
-
-			if (customPlayer.IsInVehicle || customPlayer.Fraction.Value != this.FractionId)
-			{
-				return string.Empty;
-			}
-
-			return "leave";
+			NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", false, this.NpcName);
 		}
 	}
 }

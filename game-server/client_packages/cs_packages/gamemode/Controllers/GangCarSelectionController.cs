@@ -158,7 +158,7 @@
 
 			uint id = Convert.ToUInt32(await Events.CallRemoteProc("SetOwnDimension"));
 
-			this.Menu = Controllers.Menu.Open(this.canInteractWithMenu, this.Menu, this.MenuPath, true, true);
+			// this.Menu = Controllers.Menu.Open(this.canInteractWithMenu, this.Menu, this.MenuPath, true, true);
 
 			GangCarSelectionData gangCarSelectionData = GangCarSelectionDataByGangId[this.GangId];
 
@@ -181,10 +181,7 @@
 
 		private void OnExitKeyPressed()
 		{
-			if (!Controllers.Menu.Close(ref this.Menu))
-			{
-				return;
-			}
+			// if (!Controllers.Menu.Close(ref this.Menu)) return;
 
 			this.Vehicle.Destroy();
 			this.Vehicle = null;
@@ -199,10 +196,10 @@
 		private void OnPlayerDeath(RAGE.Elements.Player player, uint reason, RAGE.Elements.Player killer, CancelEventArgs cancel)
 		{
 			this.canInteractWithMenu = false;
-			if (Controllers.Menu.Close(ref this.Menu))
-			{
-				Events.CallRemote("SetServerDimension");
-			}
+			// if (Controllers.Menu.Close(ref this.Menu))
+			// {
+			// 	Events.CallRemote("SetServerDimension");
+			// }
 		}
 
 

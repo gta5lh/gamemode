@@ -7,6 +7,7 @@ namespace Gamemode
 	using Gamemode.Colshape;
 	using Gamemode.Models.Npc;
 	using Gamemode.Models.Spawn;
+	using GamemodeCommon.Models;
 	using GTANetworkAPI;
 
 	public class Marabunta : Gang
@@ -24,7 +25,7 @@ namespace Gamemode
 			this.PlayerSpawn = Spawn;
 			this.CarMarker = new Marker(new Vector3(1371.9, -1519.2, 57.52), this.GangColor, (MarkerType)36, "Автомобиль", new CarSelectionEvent(GangUtil.NpcIdMarabunta, CarSpawn, ColorClientSide));
 			this.ItemMarker = new Marker(new Vector3(1384.2, -1521.7, 57.53), this.GangColor, (MarkerType)41, "Снаряжение", new ItemSelectionEvent(GangUtil.NpcIdMarabunta));
-			this.Npc = new Npc(new Vector3(1367, -1527, 56.7), -89.8f, "Старший", PedHash.SalvaGoon01GMY, new Colshape.GangNpcEvent(NpcUtil.NpcNameMarabunta, GangUtil.NpcIdMarabunta));
+			this.Npc = new Npc(new Vector3(1367, -1527, 56.7), -89.8f, "Старший", PedHash.SalvaGoon01GMY, new Colshape.GangNpcEvent(NpcNames.Marabunta, GangUtil.NpcIdMarabunta));
 			this.GangBlipColor = BlipColor;
 		}
 	}

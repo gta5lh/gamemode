@@ -11,7 +11,7 @@ namespace Gamemode.Controllers
 	public class NpcController : Script
 	{
 		[RemoteEvent("PlayerSelectedGang")]
-		private void OnPlayerSelectedGang(CustomPlayer player, string request)
+		private void OnPlayerSelectedGang(CustomPlayer player, string npcName, string gangName)
 		{
 			if (player.Fraction != null)
 			{
@@ -20,11 +20,9 @@ namespace Gamemode.Controllers
 				return;
 			}
 
-			PlayerSelectedGangRequest playerSelectedGangRequest = JsonConvert.DeserializeObject<PlayerSelectedGangRequest>(request);
-
-			Spawn markerLocation = GangSpawns.SpawnByGangName[playerSelectedGangRequest.Gang];
-			Spawn vehicleSpawnLocation = PlayerSpawns.VehicleSpawnByNpcName[playerSelectedGangRequest.Npc];
-			Color gangColor = GangUtil.GangColorByName[playerSelectedGangRequest.Gang];
+			Spawn markerLocation = GangSpawns.SpawnByGangName[gangName];
+			Spawn vehicleSpawnLocation = PlayerSpawns.VehicleSpawnByNpcName[npcName];
+			Color gangColor = GangUtil.GangColorByName[gangName];
 
 			if (player.OneTimeVehicleId != null)
 			{
@@ -43,12 +41,5 @@ namespace Gamemode.Controllers
 
 			NAPI.ClientEvent.TriggerClientEvent(player, "CreateWaypoint", markerLocation.Position.X, markerLocation.Position.Y);
 		}
-	}
-
-	public class PlayerSelectedGangRequest
-	{
-		public string Gang { get; set; }
-
-		public string Npc { get; set; }
 	}
 }

@@ -2,21 +2,29 @@
 function trigger(eventName, args) {
   try {
     var handlers = window.EventManager.events[eventName];
-    handlers.forEach((handler) =>
-      handler(args || args == 0 ? JSON.parse(args) : "")
-    );
+    if (handlers) {
+      handlers.forEach((handler) =>
+        handler(args || args == 0 ? JSON.parse(args) : "")
+      );
+    }
   } catch (e) {
     console.log(e);
   }
 }
 
 // NPC
+function SetNpcDialogue(value) {
+  trigger("SetNpcDialogue", value);
+}
+
 function InitNpcDialogue(value) {
+  HideHud();
   trigger("InitNpcDialogue", value);
 }
 
 function CloseNpcDialogue() {
   trigger("CloseNpcDialogue");
+  ShowHud();
 }
 
 // Hud

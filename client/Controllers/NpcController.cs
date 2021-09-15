@@ -1,39 +1,45 @@
-﻿using RAGE;
+﻿using GamemodeClient.Models;
+using RAGE;
 using RAGE.Ui;
+using System.Collections.Generic;
 using static RAGE.Events;
+using static GamemodeClient.Controllers.Cef.Cef;
+using GamemodeCommon.Models;
 
 namespace GamemodeClient.Controllers
 {
 	public class NpcController : Events.Script
 	{
+		private static Dictionary<string, Models.Npc> Npcs = new Dictionary<string, Npc>
+		{
+			{ NpcNames.Bloods, new Bloods() },
+			{ NpcNames.Marabunta, new Marabunta() },
+			{ NpcNames.Vagos, new Vagos() },
+			{ NpcNames.Ballas, new Ballas() },
+			{ NpcNames.TheFamilies, new TheFamilies() },
+			{ NpcNames.Trevor, new SpawnNpc(SpawnNpc.NameTrevor) },
+			{ NpcNames.Michael, new SpawnNpc(SpawnNpc.NameMichael) },
+			{ NpcNames.Franklin, new SpawnNpc(SpawnNpc.NameFranklin) },
+		};
+
 		private bool canInteractWithMenu;
 		private string npcName;
-		private string state;
 
 		private HtmlWindow? npcMenu;
 
 		public NpcController()
 		{
-			// Common
 			Events.Add("DisplayPressE", this.OnDisplayPressE);
 			Events.Add("CloseNpcMenu", this.OnCloseNpcMenu);
-
-			// Spawn NPC
-			Events.Add("PlayerSelectedGang", this.OnPlayerSelectedGang);
-			Events.Add("CreateWaypoint", this.OnCreateWaypoint);
-
-			// Gang NPC
-			Events.Add("PlayerSelectedGangNpcAction", this.OnPlayerSelectedGangNpcAction);
-
+			Events.Add("NpcActionSelected", this.OnNpcActionSelected);
 			Events.OnPlayerDeath += this.OnPlayerDeath;
+			Events.Add("CreateWaypoint", this.OnCreateWaypoint);
 		}
 
 		#region Common
 		private void OnDisplayPressE(object[] args)
 		{
-			this.state = "";
 			this.npcName = "";
-
 			this.canInteractWithMenu = (bool)args[0];
 			HelpPopUpController.Instance.SetEnabled(this.canInteractWithMenu);
 			HelpPopUpController.InteractKeyPressed = this.OnInteractKeyPressed;
@@ -43,68 +49,52 @@ namespace GamemodeClient.Controllers
 			{
 				this.npcName = (string)args[1];
 			}
-
-			if (args.Length >= 3)
-			{
-				this.state = (string)args[2];
-			}
 		}
 
-		private void OnInteractKeyPressed()
+		private async void OnInteractKeyPressed()
 		{
-			if (Cursor.Visible)
+			if (Cursor.Visible || !this.canInteractWithMenu)
 			{
 				return;
 			}
 
-			this.npcMenu = Controllers.Menu.Open(this.canInteractWithMenu, this.npcMenu, this.NpcMenuPath(this.npcName, this.state));
+			Dialogue dialogue = await (Npcs[this.npcName].OnInitDialogue());
+			InitNpcDialogue(dialogue);
 		}
 
 		private void OnExitKeyPressed()
 		{
-			Controllers.Menu.Close(ref this.npcMenu);
+			if (!this.canInteractWithMenu)
+			{
+				return;
+			}
+
+			CloseNpcDialogue();
 		}
 
 		private void OnPlayerDeath(RAGE.Elements.Player player, uint reason, RAGE.Elements.Player killer, CancelEventArgs cancel)
 		{
 			this.canInteractWithMenu = false;
-			Controllers.Menu.Close(ref this.npcMenu);
+			CloseNpcDialogue();
 		}
 
 		private void OnCloseNpcMenu(object[] args)
 		{
-			Controllers.Menu.Close(ref this.npcMenu);
+			CloseNpcDialogue();
 		}
 
-		private string NpcMenuPath(string npcName, string state)
+		private void OnNpcActionSelected(object[] args)
 		{
-			if (state == string.Empty)
-			{
-				return $"package://cs_packages/gamemode/Frontend/Npc/Menu/{char.ToUpper(npcName[0]) + npcName.Substring(1)}/index.html";
-			}
+			int action = (int)args[0];
 
-			return $"package://cs_packages/gamemode/Frontend/Npc/Menu/{char.ToUpper(npcName[0]) + npcName.Substring(1)}/index_{state}.html";
+			Npcs[this.npcName].OnActionSelected(action);
 		}
 		#endregion
-
-		#region Spawn
-		private void OnPlayerSelectedGang(object[] args)
-		{
-			Events.CallRemote("PlayerSelectedGang", (string)args[0]);
-		}
 
 		private void OnCreateWaypoint(object[] args)
 		{
 			RAGE.Game.Ui.SetNewWaypoint((float)args[0], (float)args[1]);
+			this.canInteractWithMenu = false;
 		}
-		#endregion
-
-		#region Gang
-		private void OnPlayerSelectedGangNpcAction(object[] args)
-		{
-			Events.CallRemote("PlayerSelectedGangNpcAction", (string)args[0]);
-		}
-
-		#endregion
 	}
 }

@@ -8,34 +8,16 @@ namespace Gamemode.Controllers
 {
 	public class GangNpcController : Script
 	{
-		[RemoteEvent("PlayerSelectedGangNpcAction")]
-		private async Task OnPlayerSelectedGangNpcAction(CustomPlayer player, string request)
+		[RemoteProc("IsGangMember", true)]
+		private async Task<System.Object> OnIsGangMember(CustomPlayer player)
 		{
-			PlayerSelectedGangNpcActionRequest playerSelectedGangNpcActionRequest = JsonConvert.DeserializeObject<PlayerSelectedGangNpcActionRequest>(request);
-
-			if (playerSelectedGangNpcActionRequest.Action == "leave")
-			{
-				this.HandleLeaveAction(player, playerSelectedGangNpcActionRequest.Npc);
-			}
-			else if (playerSelectedGangNpcActionRequest.Action == "join")
-			{
-				this.HandleJoinAction(player, playerSelectedGangNpcActionRequest.Npc);
-			}
+			return player.Fraction != null;
 		}
 
-		private async Task HandleLeaveAction(CustomPlayer player, string npc)
+		[RemoteEvent("JoinGang")]
+		private async Task OnJoinGang(CustomPlayer player, string request)
 		{
-			await GangService.SetAsGangMember(player, player.StaticId, 0, 0, player.StaticId);
-
-			NAPI.Task.Run(() =>
-			{
-				player.SendChatMessage("Давай удачи!");
-			});
-		}
-
-		private async Task HandleJoinAction(CustomPlayer player, string npc)
-		{
-			await GangService.SetAsGangMember(player, player.StaticId, GangUtil.GangIdByName[npc], 1, player.StaticId);
+			await GangService.SetAsGangMember(player, player.StaticId, GangUtil.GangIdByName[request], 1, player.StaticId);
 
 			NAPI.Task.Run(() =>
 			{
@@ -43,11 +25,15 @@ namespace Gamemode.Controllers
 			});
 		}
 
-		public class PlayerSelectedGangNpcActionRequest
+		[RemoteEvent("LeaveGang")]
+		private async Task OnLeaveGang(CustomPlayer player, string request)
 		{
-			public string Action { get; set; }
+			await GangService.SetAsGangMember(player, player.StaticId, 0, 0, player.StaticId);
 
-			public string Npc { get; set; }
+			NAPI.Task.Run(() =>
+			{
+				player.SendChatMessage("Давай удачи!");
+			});
 		}
 	}
 }

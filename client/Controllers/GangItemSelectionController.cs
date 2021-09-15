@@ -36,23 +36,23 @@ namespace GamemodeClient.Controllers
 				return;
 			}
 
-			this.Menu = Controllers.Menu.Open(this.canInteractWithMenu, this.Menu, this.MenuPath);
+			// this.Menu = Controllers.Menu.Open(this.canInteractWithMenu, this.Menu, this.MenuPath);
 		}
 
 		private void OnExitKeyPressed()
 		{
-			Controllers.Menu.Close(ref this.Menu);
+			// Controllers.Menu.Close(ref this.Menu);
 		}
 
 		private void OnPlayerDeath(RAGE.Elements.Player player, uint reason, RAGE.Elements.Player killer, CancelEventArgs cancel)
 		{
 			this.canInteractWithMenu = false;
-			Controllers.Menu.Close(ref this.Menu);
+			// Controllers.Menu.Close(ref this.Menu);
 		}
 
 		private void OnCloseGangItemSelectionMenu(object[] args)
 		{
-			Controllers.Menu.Close(ref this.Menu);
+			// Controllers.Menu.Close(ref this.Menu);
 		}
 
 		private void OnPlayerSelectedGangItem(object[] args)
