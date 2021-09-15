@@ -18,13 +18,11 @@ function SetNpcDialogue(value) {
 }
 
 function InitNpcDialogue(value) {
-  HideHud();
   trigger("InitNpcDialogue", value);
 }
 
 function CloseNpcDialogue() {
   trigger("CloseNpcDialogue");
-  ShowHud();
 }
 
 // Hud

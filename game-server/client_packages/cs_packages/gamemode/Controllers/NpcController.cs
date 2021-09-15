@@ -74,12 +74,13 @@ namespace GamemodeClient.Controllers
 
 		private void OnPlayerDeath(RAGE.Elements.Player player, uint reason, RAGE.Elements.Player killer, CancelEventArgs cancel)
 		{
-			this.canInteractWithMenu = false;
+			this.OnDisplayPressE(new object[] { false });
 			CloseNpcDialogue();
 		}
 
 		private void OnCloseNpcMenu(object[] args)
 		{
+			this.OnDisplayPressE(new object[] { false });
 			CloseNpcDialogue();
 		}
 

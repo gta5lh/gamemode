@@ -23,6 +23,7 @@ namespace GamemodeClient.Controllers
 		private int Minutes = 0;
 		private int Day = 0;
 		private int Month = 0;
+		private bool IsInSafeZone = false;
 
 		private bool HelpMenuEnabled = true;
 
@@ -31,6 +32,7 @@ namespace GamemodeClient.Controllers
 			AuthenticationController.playerAuthenticatedEvent += this.OnPlayerAuthenticated;
 			VoiceChatController.playerVoiceStateChangedEvent += this.OnPlayerVoiceStateChanged;
 			DisableUIController.disableUIStateChangedEvent += this.OnDisableUIStateChanged;
+			disableUIStateChangedEvent += this.OnDisableUIStateChanged;
 			SafeZoneController.playerSafeZoneEvent += this.OnPlayerSafeZoneEvent;
 
 			Events.OnPlayerEnterVehicle += this.OnPlayerEnterVehicle;
@@ -94,7 +96,8 @@ namespace GamemodeClient.Controllers
 
 		public void OnPlayerSafeZoneEvent(bool enabled)
 		{
-			SetZoneState(enabled, "green");
+			this.IsInSafeZone = enabled;
+			SetZoneState(this.IsInSafeZone, "green");
 		}
 
 		public void OnDisableUIStateChanged(bool enabled)
@@ -105,6 +108,7 @@ namespace GamemodeClient.Controllers
 				UpdateMoney(this.Money);
 				UpdateOnline();
 				UpdateTime(this.Hours, this.Minutes, this.Day, this.Month);
+				SetZoneState(this.IsInSafeZone, "green");
 
 				if (!HelpMenuEnabled)
 				{

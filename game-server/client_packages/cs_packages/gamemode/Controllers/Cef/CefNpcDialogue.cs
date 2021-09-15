@@ -6,6 +6,9 @@ namespace GamemodeClient.Controllers.Cef
 {
 	public static partial class Cef
 	{
+		public delegate void disableUIStateChangedDelegate(bool enabled);
+		public static event disableUIStateChangedDelegate disableUIStateChangedEvent;
+
 		public static void SetNpcDialogue(Dialogue dialogue)
 		{
 			string dialogueJson = JsonConvert.SerializeObject(dialogue);
@@ -17,12 +20,14 @@ namespace GamemodeClient.Controllers.Cef
 			string dialogueJson = JsonConvert.SerializeObject(dialogue);
 			IndexCef.ExecuteJs($"InitNpcDialogue('{dialogueJson}')");
 			Controllers.Menu.Open(true);
+			disableUIStateChangedEvent(false);
 		}
 
 		public static void CloseNpcDialogue()
 		{
 			IndexCef.ExecuteJs($"CloseNpcDialogue()");
 			Controllers.Menu.Close();
+			disableUIStateChangedEvent(true);
 		}
 	}
 }
