@@ -23,7 +23,8 @@ namespace GamemodeClient.Controllers
 		private int Minutes = 0;
 		private int Day = 0;
 		private int Month = 0;
-		private bool IsInSafeZone = false;
+		private bool IsInZone = false;
+		private string ZoneColor = "green";
 
 		private bool HelpMenuEnabled = true;
 
@@ -78,10 +79,10 @@ namespace GamemodeClient.Controllers
 
 		private void OnSetZoneState(object[] request)
 		{
-			bool enabled = (bool)request[0];
-			string color = (string)request[1];
+			this.IsInZone = (bool)request[0];
+			this.ZoneColor = (string)request[1];
 
-			SetZoneState(enabled, color);
+			SetZoneState(this.IsInZone, this.ZoneColor);
 		}
 
 		private void OnPlayerEnterVehicle(Vehicle vehicle, int seatId)
@@ -96,8 +97,9 @@ namespace GamemodeClient.Controllers
 
 		public void OnPlayerSafeZoneEvent(bool enabled)
 		{
-			this.IsInSafeZone = enabled;
-			SetZoneState(this.IsInSafeZone, "green");
+			this.IsInZone = enabled;
+			this.ZoneColor = "green";
+			SetZoneState(this.IsInZone, this.ZoneColor);
 		}
 
 		public void OnDisableUIStateChanged(bool enabled)
@@ -108,7 +110,7 @@ namespace GamemodeClient.Controllers
 				UpdateMoney(this.Money);
 				UpdateOnline();
 				UpdateTime(this.Hours, this.Minutes, this.Day, this.Month);
-				SetZoneState(this.IsInSafeZone, "green");
+				SetZoneState(this.IsInZone, this.ZoneColor);
 
 				if (!HelpMenuEnabled)
 				{
