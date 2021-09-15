@@ -205,7 +205,7 @@ namespace GamemodeClient.Models
 
 		private void JoinAction()
 		{
-			Events.CallRemote("отчи", this.name, this.joinGangName);
+			Events.CallRemote("PlayerSelectedGang", this.name, this.joinGangName);
 			CloseNpcDialogue();
 		}
 
