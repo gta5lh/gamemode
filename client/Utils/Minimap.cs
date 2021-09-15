@@ -1,11 +1,11 @@
-﻿using RAGE.Game;
-using System;
-
-namespace GamemodeClient.Utils
+﻿namespace GamemodeClient.Utils
 {
-	class Minimap
+	using RAGE.Game;
+	using System;
+
+	public class Minimap
 	{
-		public float width, height, left_x, bottom_y, right_x, top_y,
+		private float width, height, left_x, bottom_y, right_x, top_y,
 			x, y, xunit, yunit;
 
 		public static Minimap GetMinimapAnchor()
@@ -14,7 +14,11 @@ namespace GamemodeClient.Utils
 			float safezone_x = 1.0f / 20.0f;
 			float safezone_y = 1.0f / 20.0f;
 			float aspect_ratio = Graphics.GetAspectRatio(false);
-			if (aspect_ratio > 2) aspect_ratio = 16 / 9;
+			if (aspect_ratio > 2)
+			{
+				aspect_ratio = 16 / 9;
+			}
+
 			int res_x = 0, res_y = 0;
 			Graphics.GetActiveScreenResolution(ref res_x, ref res_y);
 			float xscale = 1.0f / res_x;

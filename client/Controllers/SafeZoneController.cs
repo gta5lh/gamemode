@@ -1,5 +1,5 @@
-﻿using RAGE;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using RAGE;
 
 namespace GamemodeClient.Controllers
 {
@@ -12,13 +12,16 @@ namespace GamemodeClient.Controllers
 
 		public SafeZoneController()
 		{
-			Events.Tick += OnTick;
-			Events.Add("safeZone", OnSafeZone);
+			Events.Tick += this.OnTick;
+			Events.Add("safeZone", this.OnSafeZone);
 		}
 
 		public void OnTick(List<Events.TickNametagData> nametags)
 		{
-			if (!IsInSafeZone) return;
+			if (!IsInSafeZone)
+			{
+				return;
+			}
 
 			RAGE.Game.Player.DisablePlayerFiring(true);
 		}
@@ -27,8 +30,8 @@ namespace GamemodeClient.Controllers
 		{
 			bool enabled = (bool)args[0];
 
-			IsInSafeZone = enabled;
-			playerSafeZoneEvent(IsInSafeZone);
+			this.IsInSafeZone = enabled;
+			playerSafeZoneEvent(this.IsInSafeZone);
 
 			if (!Player.NoclipEnabled && !Player.GodmodEnabled && !Player.InvisibilityEnabled)
 			{

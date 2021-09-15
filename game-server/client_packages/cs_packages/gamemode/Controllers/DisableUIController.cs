@@ -17,14 +17,17 @@ namespace GamemodeClient.Controllers
 
 		private void OnDisableUI()
 		{
-			if (Cursor.Visible) return;
+			if (Cursor.Visible)
+			{
+				return;
+			}
 
-			uiEnabled = !uiEnabled;
+			this.uiEnabled = !this.uiEnabled;
 
-			Chat.Show(uiEnabled);
-			RAGE.Game.Ui.DisplayRadar(uiEnabled);
+			Chat.Show(this.uiEnabled);
+			RAGE.Game.Ui.DisplayRadar(this.uiEnabled);
 
-			disableUIStateChangedEvent(uiEnabled);
+			disableUIStateChangedEvent(this.uiEnabled);
 		}
 	}
 }

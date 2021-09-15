@@ -1,4 +1,8 @@
-﻿namespace GamemodeClient.Controllers
+﻿// <copyright file="ExperienceController.cs" company="lbyte00">
+// Copyright (c) lbyte00. All rights reserved.
+// </copyright>
+
+namespace GamemodeClient.Controllers
 {
 	using GamemodeClient.Models;
 	using RAGE;
@@ -42,9 +46,15 @@
 
 		private async void DisplayRankBar(long requiredExperience, long previousExperience, long currentExperience, long currentLevel)
 		{
-			if (rankBarHidden) return;
+			if (this.rankBarHidden)
+			{
+				return;
+			}
 
-			if (GangWarController.Hide()) rankBarHidden = true;
+			if (GangWarController.Hide())
+			{
+				this.rankBarHidden = true;
+			}
 
 			int color = IncreaseColor;
 			if (currentExperience < previousExperience)
@@ -71,11 +81,11 @@
 			Natives.PushScaleformMovieFunctionParameterInt(Opasity);
 			Natives.EndScaleformMovieMethodReturn();
 
-			if (rankBarHidden)
+			if (this.rankBarHidden)
 			{
 				Task.Run(() =>
 				{
-					rankBarHidden = false;
+					this.rankBarHidden = false;
 					GangWarController.Show();
 				}, 7000);
 			}

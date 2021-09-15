@@ -18,7 +18,10 @@
 
 		private void OnUpdateGangWarStats(object[] args)
 		{
-			if (gangWarCEF == null) return;
+			if (gangWarCEF == null)
+			{
+				return;
+			}
 
 			long ballas = (long)args[0];
 			long bloods = (long)args[1];
@@ -66,7 +69,10 @@
 
 		public static bool Hide()
 		{
-			if (gangWarCEF == null) return false;
+			if (gangWarCEF == null)
+			{
+				return false;
+			}
 
 			gangWarCEF.Active = false;
 			return true;
@@ -74,7 +80,10 @@
 
 		public static void Show()
 		{
-			if (gangWarCEF == null) return;
+			if (gangWarCEF == null)
+			{
+				return;
+			}
 
 			gangWarCEF.Active = true;
 		}

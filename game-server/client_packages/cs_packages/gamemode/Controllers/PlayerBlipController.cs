@@ -9,17 +9,20 @@ namespace GamemodeClient.Controllers
 	{
 		public PlayerBlipController()
 		{
-			Events.Tick += OnTick;
-			Events.OnEntityStreamIn += OnEntityStreamIn;
-			Events.OnEntityStreamOut += OnEntityStreamOut;
-			Events.AddDataHandler(DataKey.BlipColor, OnBlipColorUpdate);
+			Events.Tick += this.OnTick;
+			Events.OnEntityStreamIn += this.OnEntityStreamIn;
+			Events.OnEntityStreamOut += this.OnEntityStreamOut;
+			Events.AddDataHandler(DataKey.BlipColor, this.OnBlipColorUpdate);
 		}
 
 		public void OnTick(List<Events.TickNametagData> nametags)
 		{
 			foreach (RAGE.Elements.Player player in Entities.Players.Streamed)
 			{
-				if (player == RAGE.Elements.Player.LocalPlayer || !player.HasData("blip")) continue;
+				if (player == RAGE.Elements.Player.LocalPlayer || !player.HasData("blip"))
+				{
+					continue;
+				}
 
 				Blip blip = player.GetData<Blip>("blip");
 
@@ -36,7 +39,10 @@ namespace GamemodeClient.Controllers
 			}
 
 			object color = entity.GetSharedData(DataKey.BlipColor);
-			if (color == null || (int)color == -1) return;
+			if (color == null || (int)color == -1)
+			{
+				return;
+			}
 
 			CreatePlayerBlip((RAGE.Elements.Player)entity, (int)color);
 		}
@@ -81,7 +87,7 @@ namespace GamemodeClient.Controllers
 			}
 			else if (color != -1 && !hasBlip)
 			{
-				CreatePlayerBlip(player, color);
+				this.CreatePlayerBlip(player, color);
 			}
 		}
 	}

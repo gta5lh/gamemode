@@ -10,6 +10,15 @@ function trigger(eventName, args) {
   }
 }
 
+// NPC
+function InitNpcDialogue(value) {
+  trigger("InitNpcDialogue", value);
+}
+
+function CloseNpcDialogue() {
+  trigger("CloseNpcDialogue");
+}
+
 // Hud
 function SetZoneState(enabled, color) {
   let state = {

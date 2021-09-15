@@ -13,25 +13,37 @@ namespace GamemodeClient.Controllers
 		public FreezeController()
 		{
 			Events.AddDataHandler(DataKey.IsFreezed, this.OnIsFreezed);
-			Events.OnEntityStreamIn += OnEntityStreamIn;
+			Events.OnEntityStreamIn += this.OnEntityStreamIn;
 		}
 
 		private void OnIsFreezed(Entity entity, object arg, object oldArg)
 		{
-			if (entity.Type != Type.Player) return;
+			if (entity.Type != Type.Player)
+			{
+				return;
+			}
 
 			bool isFreezed = (bool)arg;
 
-			if (entity.Id == Player.CurrentPlayer.Id) Player.CurrentPlayer.FreezePosition(isFreezed);
+			if (entity.Id == Player.CurrentPlayer.Id)
+			{
+				Player.CurrentPlayer.FreezePosition(isFreezed);
+			}
 			else
 			{
-				if (Entities.Players == null || Entities.Players.Count == 0) return;
+				if (Entities.Players == null || Entities.Players.Count == 0)
+				{
+					return;
+				}
 
 				RAGE.Elements.Player target = (RAGE.Elements.Player)entity;
 
 				foreach (RAGE.Elements.Player player in Entities.Players.Streamed)
 				{
-					if (!player.Exists || player.Id != target.Id) continue;
+					if (!player.Exists || player.Id != target.Id)
+					{
+						continue;
+					}
 
 					player.FreezePosition(isFreezed);
 					return;
@@ -41,8 +53,15 @@ namespace GamemodeClient.Controllers
 
 		public void OnEntityStreamIn(RAGE.Elements.Entity entity)
 		{
-			if (entity.Type != Type.Player) return;
-			if (entity.GetSharedData(DataKey.IsFreezed) == null) return;
+			if (entity.Type != Type.Player)
+			{
+				return;
+			}
+
+			if (entity.GetSharedData(DataKey.IsFreezed) == null)
+			{
+				return;
+			}
 
 			bool isFreezed = (bool)entity.GetSharedData(DataKey.IsFreezed);
 			((RAGE.Elements.Player)entity).FreezePosition(isFreezed);

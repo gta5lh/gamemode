@@ -29,9 +29,9 @@ namespace GamemodeClient.Controllers
 
 		public GangZoneController()
 		{
-			Events.Add("RenderGangZones", OnRenderGangzones);
-			Events.Add("CaptureStart", OnCaptureStart);
-			Events.Add("CaptureFinish", OnCaptureFinish);
+			Events.Add("RenderGangZones", this.OnRenderGangzones);
+			Events.Add("CaptureStart", this.OnCaptureStart);
+			Events.Add("CaptureFinish", this.OnCaptureFinish);
 
 			Models.Natives.SetThisScripCanRemoveBlipsCreatedByAnyScript(true);
 		}
@@ -40,7 +40,7 @@ namespace GamemodeClient.Controllers
 		{
 			if (args[0] == null) return;
 
-			Zones = ((JArray)args[0]).ToObject<List<GamemodeCommon.Models.Gang.Zone>>();
+			this.Zones = ((JArray)args[0]).ToObject<List<GamemodeCommon.Models.Gang.Zone>>();
 
 			int blipId;
 			while ((blipId = RAGE.Game.Ui.GetNextBlipInfoId(5)) != 0)
@@ -62,26 +62,26 @@ namespace GamemodeClient.Controllers
 				}
 			}
 
-			for (int i = 0; i < Zones.Count; i++)
+			for (int i = 0; i < this.Zones.Count; i++)
 			{
-				GamemodeCommon.Models.Gang.Zone zone = Zones[i];
+				GamemodeCommon.Models.Gang.Zone zone = this.Zones[i];
 				if (zone.BlipId != null)
 				{
 					continue;
 				}
 
-				Zones[i].BlipId = this.CreateGangBlip(zone.X, zone.Y, zone.BlipColor);
+				this.Zones[i].BlipId = this.CreateGangBlip(zone.X, zone.Y, zone.BlipColor);
 			}
 
-			for (int i = 0; i < Zones.Count; i++)
+			for (int i = 0; i < this.Zones.Count; i++)
 			{
-				if (Zones[i].IsWarInProgress)
+				if (this.Zones[i].IsWarInProgress)
 				{
-					Invoker.Invoke(RAGE.Game.Natives.SetBlipFlashes, Zones[i].BlipId, true);
+					Invoker.Invoke(RAGE.Game.Natives.SetBlipFlashes, this.Zones[i].BlipId, true);
 					continue;
 				}
 
-				Invoker.Invoke(RAGE.Game.Natives.SetBlipFlashes, Zones[i].BlipId, false);
+				Invoker.Invoke(RAGE.Game.Natives.SetBlipFlashes, this.Zones[i].BlipId, false);
 			}
 		}
 
@@ -112,11 +112,11 @@ namespace GamemodeClient.Controllers
 		{
 			long zoneID = (long)args[0];
 
-			for (int i = 0; i < Zones.Count; i++)
+			for (int i = 0; i < this.Zones.Count; i++)
 			{
-				if (Zones[i].Id == zoneID)
+				if (this.Zones[i].Id == zoneID)
 				{
-					Invoker.Invoke(RAGE.Game.Natives.SetBlipFlashes, Zones[i].BlipId, true);
+					Invoker.Invoke(RAGE.Game.Natives.SetBlipFlashes, this.Zones[i].BlipId, true);
 					return;
 				}
 			}
@@ -127,12 +127,12 @@ namespace GamemodeClient.Controllers
 			long zoneID = (long)args[0];
 			int color = (int)args[1];
 
-			for (int i = 0; i < Zones.Count; i++)
+			for (int i = 0; i < this.Zones.Count; i++)
 			{
-				if (Zones[i].Id == zoneID)
+				if (this.Zones[i].Id == zoneID)
 				{
-					Invoker.Invoke(RAGE.Game.Natives.SetBlipFlashes, Zones[i].BlipId, false);
-					Invoker.Invoke(RAGE.Game.Natives.SetBlipColour, Zones[i].BlipId, color);
+					Invoker.Invoke(RAGE.Game.Natives.SetBlipFlashes, this.Zones[i].BlipId, false);
+					Invoker.Invoke(RAGE.Game.Natives.SetBlipColour, this.Zones[i].BlipId, color);
 					return;
 				}
 			}

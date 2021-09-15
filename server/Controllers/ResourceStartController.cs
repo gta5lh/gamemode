@@ -22,7 +22,7 @@ namespace Gamemode
 		private static IMemoryCache Cache;
 
 		[ServerEvent(Event.ResourceStartEx)]
-		private async Task ResourceStartEx(string resourceName)
+		private void ResourceStartEx(string resourceName)
 		{
 			ExceptionController.InitRollbar();
 			this.SetServerSettings();

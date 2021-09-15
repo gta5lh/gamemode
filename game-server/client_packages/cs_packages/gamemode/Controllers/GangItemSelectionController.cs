@@ -18,7 +18,7 @@ namespace GamemodeClient.Controllers
 			Events.Add("CloseGangItemSelectionMenu", this.OnCloseGangItemSelectionMenu);
 			Events.Add("PlayerSelectedGangItem", this.OnPlayerSelectedGangItem);
 
-			Events.OnPlayerDeath += OnPlayerDeath;
+			Events.OnPlayerDeath += this.OnPlayerDeath;
 		}
 
 		private void OnDisplayGangItemSelectionMenu(object[] args)
@@ -31,7 +31,10 @@ namespace GamemodeClient.Controllers
 
 		public void OnInteractKeyPressed()
 		{
-			if (Cursor.Visible) return;
+			if (Cursor.Visible)
+			{
+				return;
+			}
 
 			this.Menu = Controllers.Menu.Open(this.canInteractWithMenu, this.Menu, this.MenuPath);
 		}

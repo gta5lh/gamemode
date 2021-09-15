@@ -19,7 +19,10 @@ namespace GamemodeClient.Controllers
 
 		public HelpPopUpController()
 		{
-			if (Instance != null) return;
+			if (Instance != null)
+			{
+				return;
+			}
 
 			Events.Tick += this.OnTick;
 

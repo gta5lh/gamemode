@@ -66,7 +66,7 @@ namespace GamemodeClient.Controllers
 			vector.Z = currentDirection.Z * leftAxisY * fastMult * slowMult;
 
 			var upVector = new Vector3(0, 0, 1);
-			Vector3 rightVector = CrossProduct(currentDirection.Normalized, upVector.Normalized);
+			Vector3 rightVector = this.CrossProduct(currentDirection.Normalized, upVector.Normalized);
 
 			rightVector.X *= leftAxisX * 0.5f;
 			rightVector.Y *= leftAxisX * 0.5f;
@@ -87,15 +87,13 @@ namespace GamemodeClient.Controllers
 			Player.CurrentPlayer.Position = new Vector3(
 				currentPosition.X + vector.X + 1,
 				currentPosition.Y + vector.Y + 1,
-				currentPosition.Z + vector.Z + 1
-			);
+				currentPosition.Z + vector.Z + 1);
 
 			Player.CurrentPlayer.SetHeading(currentDirection.Z);
 			RAGE.Game.Cam.SetCamCoord(this.NoclipCamera,
 				currentPosition.X - vector.X + rightVector.X,
 				currentPosition.Y - vector.Y + rightVector.Y,
-				currentPosition.Z - vector.Z + rightVector.Z + upMovement - downMovement
-				);
+				currentPosition.Z - vector.Z + rightVector.Z + upMovement - downMovement);
 
 			RAGE.Game.Cam.SetCamRot(this.NoclipCamera,
 				currentRotation.X + (rightAxisY * -5.0f),
@@ -106,7 +104,10 @@ namespace GamemodeClient.Controllers
 
 		private void OnNoclipKeyPressed()
 		{
-			if (Cursor.Visible) return;
+			if (Cursor.Visible)
+			{
+				return;
+			}
 
 			if (Player.CurrentPlayer.GetSharedData(DataKey.IsAdmin) == null || !(bool)Player.CurrentPlayer.GetSharedData(DataKey.IsAdmin))
 			{

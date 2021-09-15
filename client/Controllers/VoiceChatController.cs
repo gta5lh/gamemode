@@ -1,12 +1,16 @@
-﻿using GamemodeClient.Utils;
-using RAGE;
-using RAGE.Elements;
-using System.Collections.Generic;
-using RAGE.Ui;
-using GamemodeCommon.Models.Data;
+﻿// <copyright file="VoiceChatController.cs" company="lbyte00">
+// Copyright (c) lbyte00. All rights reserved.
+// </copyright>
 
 namespace GamemodeClient.Controllers
 {
+	using GamemodeClient.Utils;
+	using RAGE;
+	using RAGE.Elements;
+	using System.Collections.Generic;
+	using RAGE.Ui;
+	using GamemodeCommon.Models.Data;
+
 	public class VoiceChatController : Events.Script
 	{
 		public delegate void playerVoiceStateChangedDelegate(bool enabled);
@@ -23,32 +27,41 @@ namespace GamemodeClient.Controllers
 
 		public VoiceChatController()
 		{
-			Events.Tick += OnTick;
-			Events.OnPlayerQuit += OnPlayerQuit;
-			Events.OnEntityStreamOut += OnEntityStreamOut;
+			Events.Tick += this.OnTick;
+			Events.OnPlayerQuit += this.OnPlayerQuit;
+			Events.OnEntityStreamOut += this.OnEntityStreamOut;
 
-			Events.Add("muted", OnMuted);
-			Events.Add("mute", OnMute);
-			Events.Add("unmute", OnUnmute);
+			Events.Add("muted", this.OnMuted);
+			Events.Add("mute", this.OnMute);
+			Events.Add("unmute", this.OnUnmute);
 		}
 		public void OnTick(List<Events.TickNametagData> nametags)
 		{
 			foreach (RAGE.Elements.Player player in Entities.Players.Streamed)
 			{
-				if (player == RAGE.Elements.Player.LocalPlayer || MutedPlayers.Contains(player)) continue;
+				if (player == RAGE.Elements.Player.LocalPlayer || this.MutedPlayers.Contains(player))
+				{
+					continue;
+				}
 
 				object isSpeaking = player.GetSharedData(DataKey.IsSpeaking);
-				if (isSpeaking == null || !(bool)isSpeaking) continue;
+				if (isSpeaking == null || !(bool)isSpeaking)
+				{
+					continue;
+				}
 
 				float dist = Player.CurrentPlayer.Position.DistanceTo(player.Position);
-				if (dist > MaxRange) continue;
+				if (dist > MaxRange)
+				{
+					continue;
+				}
 
 				Vector3 targetPlayerPosition = player.Position + new Vector3(0, 0, 0.99f);
 
 				float x = 0;
 				float y = 0;
 
-				LoadIcon();
+				this.LoadIcon();
 				RAGE.Game.Graphics.GetScreenCoordFromWorldCoord(targetPlayerPosition.X, targetPlayerPosition.Y, targetPlayerPosition.Z, ref x, ref y);
 				RAGE.Game.Graphics.DrawSprite("mpleaderboard", "leaderboard_audio_3", x, y, 0.025f - (dist / MaxRange * 0.020f), 0.05f - (dist / MaxRange * 0.035f), 0, 255, 255, 255, 255, 0);
 			}
@@ -78,7 +91,10 @@ namespace GamemodeClient.Controllers
 				}
 			}
 
-			if (currentTime - this.LastTime < 250) return;
+			if (currentTime - this.LastTime < 250)
+			{
+				return;
+			}
 			this.LastTime = currentTime;
 
 			foreach (RAGE.Elements.Player player in Entities.Players.Streamed)
@@ -89,8 +105,14 @@ namespace GamemodeClient.Controllers
 
 					if (dist < MaxRange)
 					{
-						if (!MutedPlayers.Contains(player)) player.VoiceVolume = 2.0f - (dist / MaxRange);
-						else if (player.VoiceVolume > 0) player.VoiceVolume = 0;
+						if (!this.MutedPlayers.Contains(player))
+						{
+							player.VoiceVolume = 2.0f - (dist / MaxRange);
+						}
+						else if (player.VoiceVolume > 0)
+						{
+							player.VoiceVolume = 0;
+						}
 					}
 					else
 					{
@@ -100,7 +122,10 @@ namespace GamemodeClient.Controllers
 				else
 				{
 					if (RAGE.Elements.Player.LocalPlayer.Position.DistanceTo(player.Position) > MaxRange
-						|| player == RAGE.Elements.Player.LocalPlayer) continue;
+						|| player == RAGE.Elements.Player.LocalPlayer)
+					{
+						continue;
+					}
 					this.AddListener(player);
 				}
 			}
@@ -149,15 +174,24 @@ namespace GamemodeClient.Controllers
 
 		public void OnEntityStreamOut(Entity entity)
 		{
-			if (entity.Type != RAGE.Elements.Type.Player) return;
+			if (entity.Type != RAGE.Elements.Type.Player)
+			{
+				return;
+			}
 
 			RAGE.Elements.Player player = (RAGE.Elements.Player)entity;
-			if (this.Listeners.Contains(player)) this.RemoveListener(player, true);
+			if (this.Listeners.Contains(player))
+			{
+				this.RemoveListener(player, true);
+			}
 		}
 
 		public void OnPlayerQuit(RAGE.Elements.Player player)
 		{
-			if (this.Listeners.Contains(player)) this.RemoveListener(player, false);
+			if (this.Listeners.Contains(player))
+			{
+				this.RemoveListener(player, false);
+			}
 		}
 
 		private void AddListener(RAGE.Elements.Player player)

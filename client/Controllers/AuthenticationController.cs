@@ -58,9 +58,9 @@ namespace GamemodeClient.Controllers
 					return;
 				}
 
-				LogIn();
+				this.LogIn();
 			}
-			catch { }
+			catch { } // avoid crashing server.
 		}
 
 		private async void OnRegisterSubmitted(object[] request)
@@ -82,9 +82,9 @@ namespace GamemodeClient.Controllers
 					return;
 				}
 
-				LogIn();
+				this.LogIn();
 			}
-			catch { }
+			catch { } // avoid crashing server.
 		}
 
 		private async void OnResetPasswordSubmitted(object[] request)
@@ -108,7 +108,7 @@ namespace GamemodeClient.Controllers
 
 				ResetPasswordSucceed();
 			}
-			catch { }
+			catch { } // avoid crashing server.
 		}
 
 		private void LogIn()

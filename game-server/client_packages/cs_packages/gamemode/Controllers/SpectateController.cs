@@ -1,11 +1,15 @@
-﻿using RAGE;
-using RAGE.Elements;
-using System;
-using System.Collections.Generic;
-using Cam = RAGE.Game.Cam;
+﻿// <copyright file="SpectateController.cs" company="lbyte00">
+// Copyright (c) lbyte00. All rights reserved.
+// </copyright>
 
 namespace GamemodeClient.Controllers
 {
+	using RAGE;
+	using RAGE.Elements;
+	using System;
+	using System.Collections.Generic;
+	using Cam = RAGE.Game.Cam;
+
 	public class SpectateController : Events.Script
 	{
 		private float Sensitivity = 0.15f;
@@ -24,14 +28,14 @@ namespace GamemodeClient.Controllers
 
 		public SpectateController()
 		{
-			Events.Tick += OnTick;
-			Events.Add("spectate", Spec);
-			Events.Add("spectateStop", DisableSpec);
+			Events.Tick += this.OnTick;
+			Events.Add("spectate", this.Spec);
+			Events.Add("spectateStop", this.DisableSpec);
 		}
 
 		public void Spec(object[] args)
 		{
-			SpecId = (int)args[0];
+			this.SpecId = (int)args[0];
 			Player.Spectating = true;
 			Player.CurrentPlayer.FreezePosition(true);
 		}
@@ -47,8 +51,12 @@ namespace GamemodeClient.Controllers
 
 				foreach (RAGE.Elements.Player player in Entities.Players.Streamed)
 				{
-					if (player.RemoteId != SpecId) continue;
-					EnableSpec(player);
+					if (player.RemoteId != this.SpecId)
+					{
+						continue;
+					}
+
+					this.EnableSpec(player);
 					return;
 				}
 
@@ -56,14 +64,17 @@ namespace GamemodeClient.Controllers
 				return;
 			}
 
-			if (SpecPlayer == null) return;
+			if (this.SpecPlayer == null)
+			{
+				return;
+			}
 
 			RAGE.Game.Pad.DisableControlAction(2, 16, true);
 
 			if (!SpecPlayer.Exists)
 			{
-				Events.CallRemote("TrySpectate", SpecPlayer.RemoteId);
-				SpecPlayer = null;
+				Events.CallRemote("TrySpectate", this.SpecPlayer.RemoteId);
+				this.SpecPlayer = null;
 				return;
 			}
 
@@ -72,18 +83,18 @@ namespace GamemodeClient.Controllers
 
 		private void UpdateCameraPosition()
 		{
-			RAGE.Elements.Player.LocalPlayer.Position = SpecPlayer.Position + new Vector3(0, 0, 2);
+			RAGE.Elements.Player.LocalPlayer.Position = this.SpecPlayer.Position + new Vector3(0, 0, 2);
 
-			Vector3 newPos = GetPos();
+			Vector3 newPos = this.GetPos();
 
-			Cam.SetCamCoord(Camera, newPos.X, newPos.Y, newPos.Z);
-			Cam.PointCamAtCoord(Camera, SpecPlayer.Position.X, SpecPlayer.Position.Y, SpecPlayer.Position.Z + 0.5f);
+			Cam.SetCamCoord(this.Camera, newPos.X, newPos.Y, newPos.Z);
+			Cam.PointCamAtCoord(this.Camera, this.SpecPlayer.Position.X, this.SpecPlayer.Position.Y, this.SpecPlayer.Position.Z + 0.5f);
 		}
 
 		private void EnableSpec(RAGE.Elements.Player player)
 		{
-			SpecPlayer = player;
-			SpecId = -1;
+			this.SpecPlayer = player;
+			this.SpecId = -1;
 
 			if (!Player.InvisibilityEnabled)
 			{
@@ -93,16 +104,16 @@ namespace GamemodeClient.Controllers
 				Player.CurrentPlayer.SetCollision(false, false);
 			}
 
-			if (Cam.DoesCamExist(Camera))
+			if (Cam.DoesCamExist(this.Camera))
 			{
 				Cam.RenderScriptCams(false, false, 0, true, false, 0);
-				Cam.DestroyCam(Camera, false);
+				Cam.DestroyCam(this.Camera, false);
 			}
 
-			Camera = Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey(Constants.CameraName), SpecPlayer.Position.X, SpecPlayer.Position.Y, SpecPlayer.Position.Z, 0, 0, 0, Cam.GetGameplayCamFov(), true, 2);
-			Cam.SetCamActive(Camera, true);
+			this.Camera = Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey(Constants.CameraName), this.SpecPlayer.Position.X, this.SpecPlayer.Position.Y, this.SpecPlayer.Position.Z, 0, 0, 0, Cam.GetGameplayCamFov(), true, 2);
+			Cam.SetCamActive(this.Camera, true);
 			Cam.RenderScriptCams(true, false, 0, true, false, 0);
-			UpdateCameraPosition();
+			this.UpdateCameraPosition();
 
 			Player.CurrentPlayer.SetCurrentWeaponVisible(false, true, true, true);
 			Player.Spectating = true;
@@ -118,7 +129,7 @@ namespace GamemodeClient.Controllers
 			}
 
 			Cam.RenderScriptCams(false, false, 0, true, false, 0);
-			Cam.DestroyCam(Camera, false);
+			Cam.DestroyCam(this.Camera, false);
 			Player.CurrentPlayer.FreezePosition(false);
 			Player.CurrentPlayer.SetCollision(true, false);
 
@@ -127,27 +138,33 @@ namespace GamemodeClient.Controllers
 				Player.CurrentPlayer.SetInvincible(false);
 			}
 
-			SpecPlayer = null;
+			this.SpecPlayer = null;
 			Player.Spectating = false;
 		}
 
 		private Vector3 GetPos()
 		{
-			angleZ -= RAGE.Game.Pad.GetDisabledControlNormal(1, 1) * Sensitivity; //-- around Z axis (left / right)
-			angleY += RAGE.Game.Pad.GetDisabledControlNormal(1, 2) * Sensitivity; //-- up / down
-			radius += (RAGE.Game.Pad.GetDisabledControlNormal(1, 14) + RAGE.Game.Pad.GetDisabledControlNormal(1, 15) * -1) * Sensitivity; //-- zoom
-																																		  //-- limit up / down angle to 90°
-			if (angleY > 1.5f) angleY = 1.5f;
-			else if (angleY < -1.5f) angleY = -1.5f;
+			this.angleZ -= RAGE.Game.Pad.GetDisabledControlNormal(1, 1) * this.Sensitivity; //-- around Z axis (left / right)
+			this.angleY += RAGE.Game.Pad.GetDisabledControlNormal(1, 2) * this.Sensitivity; //-- up / down
+			this.radius += (RAGE.Game.Pad.GetDisabledControlNormal(1, 14) + RAGE.Game.Pad.GetDisabledControlNormal(1, 15) * -1) * this.Sensitivity; //-- zoom
+																																					//-- limit up / down angle to 90°
+			if (this.angleY > 1.5f)
+			{
+				this.angleY = 1.5f;
+			}
+			else if (this.angleY < -1.5f)
+			{
+				this.angleY = -1.5f;
+			}
 
-			Vector3 pCoords = SpecPlayer.Position;
+			Vector3 pCoords = this.SpecPlayer.Position;
 
 			Vector3 behindCam = new Vector3(
-				(float)(pCoords.X + ((Math.Cos(angleZ) * Math.Cos(angleY)) + (Math.Cos(angleY) * Math.Cos(angleZ))) / 2 * (radius + 0.5f)),
-				(float)(pCoords.Y + ((Math.Sin(angleZ) * Math.Cos(angleY)) + (Math.Cos(angleY) * Math.Sin(angleZ))) / 2 * (radius + 0.5f)),
-				(float)(pCoords.Z + Math.Sin(angleY) * (radius + 0.5f))
-			);
-			int rayHandle = RAGE.Game.Shapetest.StartShapeTestRay(pCoords.X, pCoords.Y, pCoords.Z + 0.5f, behindCam.X, behindCam.Y, behindCam.Z, -1, SpecPlayer.Handle, 0);
+				(float)(pCoords.X + ((Math.Cos(this.angleZ) * Math.Cos(this.angleY)) + (Math.Cos(this.angleY) * Math.Cos(this.angleZ))) / 2 * (this.radius + 0.5f)),
+				(float)(pCoords.Y + ((Math.Sin(this.angleZ) * Math.Cos(this.angleY)) + (Math.Cos(this.angleY) * Math.Sin(this.angleZ))) / 2 * (this.radius + 0.5f)),
+				(float)(pCoords.Z + Math.Sin(this.angleY) * (this.radius + 0.5f)));
+
+			int rayHandle = RAGE.Game.Shapetest.StartShapeTestRay(pCoords.X, pCoords.Y, pCoords.Z + 0.5f, behindCam.X, behindCam.Y, behindCam.Z, -1, this.SpecPlayer.Handle, 0);
 
 			int hitBool = 0;
 			Vector3 hitCoords = new Vector3();
@@ -156,23 +173,18 @@ namespace GamemodeClient.Controllers
 
 			RAGE.Game.Shapetest.GetShapeTestResult(rayHandle, ref hitBool, hitCoords, surfaceNormal, ref entityHit);
 
-			float maxRadius = radius;
-			if (Convert.ToBoolean(hitBool) && Vdist(pCoords.X, pCoords.Y, pCoords.Z + 0.5f, hitCoords) < radius + 0.5f)
+			float maxRadius = this.radius;
+			if (Convert.ToBoolean(hitBool) && Vdist(pCoords.X, pCoords.Y, pCoords.Z + 0.5f, hitCoords) < this.radius + 0.5f)
 			{
 				maxRadius = Vdist(pCoords.X, pCoords.Y, pCoords.Z + 0.5f, hitCoords);
 			}
 
 			Vector3 offset = new Vector3(
-				(float)(((Math.Cos(angleZ) * Math.Cos(angleY)) + (Math.Cos(angleY) * Math.Cos(angleZ))) / 2 * maxRadius),
-				(float)(((Math.Sin(angleZ) * Math.Cos(angleY)) + (Math.Cos(angleY) * Math.Sin(angleZ))) / 2 * maxRadius),
-				(float)(Math.Sin(angleY) * maxRadius)
-			);
+				(float)(((Math.Cos(this.angleZ) * Math.Cos(this.angleY)) + (Math.Cos(this.angleY) * Math.Cos(this.angleZ))) / 2 * maxRadius),
+				(float)(((Math.Sin(this.angleZ) * Math.Cos(this.angleY)) + (Math.Cos(this.angleY) * Math.Sin(this.angleZ))) / 2 * maxRadius),
+				(float)(Math.Sin(this.angleY) * maxRadius));
 
-			Vector3 pos = new Vector3(
-				pCoords.X + offset.X,
-				pCoords.Y + offset.Y,
-				pCoords.Z + offset.Z
-			);
+			Vector3 pos = new Vector3(pCoords.X + offset.X, pCoords.Y + offset.Y, pCoords.Z + offset.Z);
 
 			return pos;
 		}

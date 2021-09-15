@@ -25,7 +25,7 @@ namespace GamemodeClient.Controllers
 			// Gang NPC
 			Events.Add("PlayerSelectedGangNpcAction", this.OnPlayerSelectedGangNpcAction);
 
-			Events.OnPlayerDeath += OnPlayerDeath;
+			Events.OnPlayerDeath += this.OnPlayerDeath;
 		}
 
 		#region Common
@@ -52,7 +52,10 @@ namespace GamemodeClient.Controllers
 
 		private void OnInteractKeyPressed()
 		{
-			if (Cursor.Visible) return;
+			if (Cursor.Visible)
+			{
+				return;
+			}
 
 			this.npcMenu = Controllers.Menu.Open(this.canInteractWithMenu, this.npcMenu, this.NpcMenuPath(this.npcName, this.state));
 		}

@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using GamemodeClient.Models;
-using Newtonsoft.Json.Linq;
-using RAGE;
-using RAGE.Game;
-using RAGE.Ui;
-using static RAGE.Events;
-
-namespace GamemodeClient.Controllers
+﻿namespace GamemodeClient.Controllers
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Linq;
+	using GamemodeClient.Models;
+	using Newtonsoft.Json.Linq;
+	using RAGE;
+	using RAGE.Game;
+	using RAGE.Ui;
+	using static RAGE.Events;
+
 	public class GangCarSelectionData
 	{
 		public GangCarSelectionData(Vector3 cameraPosition, Vector3 cameraRotation)
 		{
-			CameraPosition = cameraPosition;
-			CameraRotation = cameraRotation;
+			this.CameraPosition = cameraPosition;
+			this.CameraRotation = cameraRotation;
 		}
 
 		public Vector3 CameraPosition { get; set; }
@@ -40,11 +40,11 @@ namespace GamemodeClient.Controllers
 
 		private static readonly Dictionary<int, GangCarSelectionData> GangCarSelectionDataByGangId = new Dictionary<int, GangCarSelectionData>()
 		{
-			{ 1, new GangCarSelectionData(new Vector3(499.03f, -1331.75f, 31.19f), new Vector3(-12.76f, 0, 100.82f))},
-			{ 2, new GangCarSelectionData(new Vector3(105.30f, -1942.38f, 23.10f), new Vector3(-14.88f, 0, 156f))},
-			{ 3, new GangCarSelectionData(new Vector3(-22.065f, -1464.6f, 32.72f), new Vector3(-14.76f, 0, 1.5f))},
-			{ 4, new GangCarSelectionData(new Vector3(325.47f, -2030.21f, 22.6f), new Vector3(-13.16f, 0, 63.30f))},
-			{ 5, new GangCarSelectionData(new Vector3(1367.528f, -1528.126f, 58.426f), new Vector3(-8.21f, 0, -57.74f))},
+			{ 1, new GangCarSelectionData(new Vector3(499.03f, -1331.75f, 31.19f), new Vector3(-12.76f, 0, 100.82f)) },
+			{ 2, new GangCarSelectionData(new Vector3(105.30f, -1942.38f, 23.10f), new Vector3(-14.88f, 0, 156f)) },
+			{ 3, new GangCarSelectionData(new Vector3(-22.065f, -1464.6f, 32.72f), new Vector3(-14.76f, 0, 1.5f)) },
+			{ 4, new GangCarSelectionData(new Vector3(325.47f, -2030.21f, 22.6f), new Vector3(-13.16f, 0, 63.30f)) },
+			{ 5, new GangCarSelectionData(new Vector3(1367.528f, -1528.126f, 58.426f), new Vector3(-8.21f, 0, -57.74f)) },
 		};
 
 		private List<GangVehicle> GangVehicles;
@@ -61,54 +61,72 @@ namespace GamemodeClient.Controllers
 			Events.Add("DisplayGangCarSelectionMenu", this.OnDisplayGangCarSelectionMenu);
 			Events.Add("SetGangVehicles", this.OnSetGangVehicles);
 
-			Input.Bind(RAGE.Ui.VirtualKeys.Left, true, Left);
-			Input.Bind(RAGE.Ui.VirtualKeys.Right, true, Right);
-			Input.Bind(RAGE.Ui.VirtualKeys.Return, true, Enter);
+			Input.Bind(RAGE.Ui.VirtualKeys.Left, true, this.Left);
+			Input.Bind(RAGE.Ui.VirtualKeys.Right, true, this.Right);
+			Input.Bind(RAGE.Ui.VirtualKeys.Return, true, this.Enter);
 
-			Events.Tick += OnTick;
-			Events.OnPlayerDeath += OnPlayerDeath;
+			Events.Tick += this.OnTick;
+			Events.OnPlayerDeath += this.OnPlayerDeath;
 		}
 
 		public void Left()
 		{
-			if (Vehicle == null || CurVeh == 0) return;
-			CurVeh--;
-			Vehicle.Model = VehModelsAvail[CurVeh];
-			Vehicle.SetOnGroundProperly(0);
+			if (this.Vehicle == null || this.CurVeh == 0)
+			{
+				return;
+			}
+
+			this.CurVeh--;
+			this.Vehicle.Model = this.VehModelsAvail[this.CurVeh];
+			this.Vehicle.SetOnGroundProperly(0);
 		}
 
 		public void Right()
 		{
-			if (Vehicle == null || CurVeh == VehModelsAvail.Count - 1) return;
-			CurVeh++;
-			Vehicle.Model = VehModelsAvail[CurVeh];
-			Vehicle.SetOnGroundProperly(0);
+			if (this.Vehicle == null || this.CurVeh == this.VehModelsAvail.Count - 1)
+			{
+				return;
+			}
+
+			this.CurVeh++;
+			this.Vehicle.Model = this.VehModelsAvail[this.CurVeh];
+			this.Vehicle.SetOnGroundProperly(0);
 		}
 
 		public void Enter()
 		{
-			if (Vehicle == null) return;
+			if (this.Vehicle == null)
+			{
+				return;
+			}
 
-			Events.CallRemote("PlayerSelectedGangCar", Vehicle.Model);
-			OnExitKeyPressed();
+			Events.CallRemote("PlayerSelectedGangCar", this.Vehicle.Model);
+			this.OnExitKeyPressed();
 		}
 
 		private float GetRot()
 		{
-			angleZ += RAGE.Game.Pad.GetDisabledControlNormal(1, 1) * Sensitivity; //-- around Z axis (left / right)
-			return angleZ;
+			this.angleZ += RAGE.Game.Pad.GetDisabledControlNormal(1, 1) * Sensitivity; //-- around Z axis (left / right)
+			return this.angleZ;
 		}
 
 		public void OnTick(List<Events.TickNametagData> nametags)
 		{
-			if (this.Menu == null) return;
+			if (this.Menu == null)
+			{
+				return;
+			}
+
 			RAGE.Game.Player.DisablePlayerFiring(true);
 
-			if (!Input.IsDown(RAGE.Ui.VirtualKeys.LeftButton)) return;
+			if (!Input.IsDown(RAGE.Ui.VirtualKeys.LeftButton))
+			{
+				return;
+			}
 
-			Vehicle.Position = this.VehiclePos.Position;
-			Vehicle.SetRotation(0, 0, GetRot(), 1, true);
-			Vehicle.SetOnGroundProperly(0);
+			this.Vehicle.Position = this.VehiclePos.Position;
+			this.Vehicle.SetRotation(0, 0, this.GetRot(), 1, true);
+			this.Vehicle.SetOnGroundProperly(0);
 		}
 
 		private void OnDisplayGangCarSelectionMenu(object[] args)
@@ -133,7 +151,10 @@ namespace GamemodeClient.Controllers
 
 		public async void OnInteractKeyPressed()
 		{
-			if (Cursor.Visible || this.Menu != null) return;
+			if (Cursor.Visible || this.Menu != null)
+			{
+				return;
+			}
 
 			uint id = Convert.ToUInt32(await Events.CallRemoteProc("SetOwnDimension"));
 
@@ -144,28 +165,34 @@ namespace GamemodeClient.Controllers
 			Player.CurrentPlayer.FreezePosition(true);
 			Player.CurrentPlayer.SetVisible(false, false);
 			RAGE.Game.Ui.DisplayRadar(false);
-			VehModelsAvail = GangVehicles.Where(x => x.Rank <= this.PlayerRank).Select(x => x.Model).ToList();
-			if (CurVeh >= VehModelsAvail.Count) CurVeh = VehModelsAvail.Count - 1;
-			Vehicle = new RAGE.Elements.Vehicle(GangVehicles[CurVeh].Model, this.VehiclePos.Position, this.VehiclePos.Heading, "", 255, false, this.VehicleColor, this.VehicleColor, id);
-			Vehicle.SetOnGroundProperly(0);
+			this.VehModelsAvail = this.GangVehicles.Where(x => x.Rank <= this.PlayerRank).Select(x => x.Model).ToList();
+			if (this.CurVeh >= this.VehModelsAvail.Count)
+			{
+				this.CurVeh = this.VehModelsAvail.Count - 1;
+			}
 
-			Camera = Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), gangCarSelectionData.CameraPosition.X, gangCarSelectionData.CameraPosition.Y, gangCarSelectionData.CameraPosition.Z, gangCarSelectionData.CameraRotation.X, gangCarSelectionData.CameraRotation.Y, gangCarSelectionData.CameraRotation.Z, 50, true, 2);
-			Cam.SetCamActive(Camera, true);
+			this.Vehicle = new RAGE.Elements.Vehicle(this.GangVehicles[this.CurVeh].Model, this.VehiclePos.Position, this.VehiclePos.Heading, string.Empty, 255, false, this.VehicleColor, this.VehicleColor, id);
+			this.Vehicle.SetOnGroundProperly(0);
+
+			this.Camera = Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), gangCarSelectionData.CameraPosition.X, gangCarSelectionData.CameraPosition.Y, gangCarSelectionData.CameraPosition.Z, gangCarSelectionData.CameraRotation.X, gangCarSelectionData.CameraRotation.Y, gangCarSelectionData.CameraRotation.Z, 50, true, 2);
+			Cam.SetCamActive(this.Camera, true);
 			Cam.RenderScriptCams(true, false, 0, true, false, 0);
-
 		}
 
 		private void OnExitKeyPressed()
 		{
-			if (!Controllers.Menu.Close(ref this.Menu)) return;
+			if (!Controllers.Menu.Close(ref this.Menu))
+			{
+				return;
+			}
 
-			Vehicle.Destroy();
-			Vehicle = null;
+			this.Vehicle.Destroy();
+			this.Vehicle = null;
 			Player.CurrentPlayer.FreezePosition(false);
 			Player.CurrentPlayer.SetVisible(true, false);
 			RAGE.Game.Ui.DisplayRadar(true);
 			Cam.RenderScriptCams(false, false, 0, true, false, 0);
-			Cam.DestroyCam(Camera, false);
+			Cam.DestroyCam(this.Camera, false);
 			Events.CallRemote("SetServerDimension");
 		}
 
@@ -189,8 +216,8 @@ namespace GamemodeClient.Controllers
 	{
 		public GangVehicle(uint model, byte rank)
 		{
-			Model = model;
-			Rank = rank;
+			this.Model = model;
+			this.Rank = rank;
 		}
 
 		public uint Model { get; set; }

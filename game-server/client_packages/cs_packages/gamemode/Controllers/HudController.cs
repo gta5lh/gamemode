@@ -28,10 +28,10 @@ namespace GamemodeClient.Controllers
 
 		public HudController()
 		{
-			AuthenticationController.playerAuthenticatedEvent += OnPlayerAuthenticated;
-			VoiceChatController.playerVoiceStateChangedEvent += OnPlayerVoiceStateChanged;
-			DisableUIController.disableUIStateChangedEvent += OnDisableUIStateChanged;
-			SafeZoneController.playerSafeZoneEvent += OnPlayerSafeZoneEvent;
+			AuthenticationController.playerAuthenticatedEvent += this.OnPlayerAuthenticated;
+			VoiceChatController.playerVoiceStateChangedEvent += this.OnPlayerVoiceStateChanged;
+			DisableUIController.disableUIStateChangedEvent += this.OnDisableUIStateChanged;
+			SafeZoneController.playerSafeZoneEvent += this.OnPlayerSafeZoneEvent;
 
 			Events.OnPlayerEnterVehicle += this.OnPlayerEnterVehicle;
 			Events.OnPlayerLeaveVehicle += this.OnPlayerLeaveVehicle;
@@ -47,22 +47,31 @@ namespace GamemodeClient.Controllers
 
 		private void OnHideHelpKeyPressed()
 		{
-			if (Cursor.Visible) return;
+			if (Cursor.Visible)
+			{
+				return;
+			}
 
-			HelpMenuEnabled = !HelpMenuEnabled;
-			if (HelpMenuEnabled) ShowHelpMenu();
-			else HideHelpMenu();
+			this.HelpMenuEnabled = !this.HelpMenuEnabled;
+			if (this.HelpMenuEnabled)
+			{
+				ShowHelpMenu();
+			}
+			else
+			{
+				HideHelpMenu();
+			}
 		}
 
 		private void OnTimeUpdated(Entity entity, object arg, object oldArg)
 		{
-			SetTime(arg);
+			this.SetTime(arg);
 		}
 
 		private void OnMoneyUpdated(object[] request)
 		{
-			Money = (long)request[0];
-			UpdateMoney(Money);
+			this.Money = (long)request[0];
+			UpdateMoney(this.Money);
 		}
 
 		private void OnSetZoneState(object[] request)
@@ -93,33 +102,49 @@ namespace GamemodeClient.Controllers
 			if (enabled)
 			{
 				ShowHud();
-				UpdateMoney(Money);
+				UpdateMoney(this.Money);
 				UpdateOnline();
-				UpdateTime(Hours, Minutes, Day, Month);
+				UpdateTime(this.Hours, this.Minutes, this.Day, this.Month);
 
-				if (!HelpMenuEnabled) HideHelpMenu();
-				if (Player.IsInVehicle()) ShowSpeedometer();
+				if (!HelpMenuEnabled)
+				{
+					HideHelpMenu();
+				}
+
+				if (Player.IsInVehicle())
+				{
+					ShowSpeedometer();
+				}
 			}
-			else HideHud();
+			else
+			{
+				HideHud();
+			}
 		}
 
 		public void OnPlayerAuthenticated()
 		{
 			ShowHud();
-			UpdateMoney(Money);
+			UpdateMoney(this.Money);
 			UpdateOnline();
 
 			DummyEntity? timeSyncDummyEntity = DummyEntityUtil.GetByTypeID(0);
 			if (timeSyncDummyEntity != null)
 			{
-				SetTime(timeSyncDummyEntity.GetSharedData(GamemodeCommon.Models.Data.DataKey.CurrentTime));
+				this.SetTime(timeSyncDummyEntity.GetSharedData(GamemodeCommon.Models.Data.DataKey.CurrentTime));
 			}
 		}
 
 		public void OnPlayerVoiceStateChanged(bool enabled)
 		{
-			if (enabled) ShowVoice();
-			else HideVoice();
+			if (enabled)
+			{
+				ShowVoice();
+			}
+			else
+			{
+				HideVoice();
+			}
 		}
 
 		private DateTime NextOnlineUpdateTime = DateTime.MinValue;
@@ -134,7 +159,10 @@ namespace GamemodeClient.Controllers
 
 		private void Speedometer(List<Events.TickNametagData> nametags)
 		{
-			if (!Player.IsInVehicle()) return;
+			if (!Player.IsInVehicle())
+			{
+				return;
+			}
 
 			UpdateSpeedometer(Speed.GetPlayerRealSpeed(Player.CurrentPlayer));
 		}
@@ -177,11 +205,11 @@ namespace GamemodeClient.Controllers
 		private void SetTime(object arg)
 		{
 			Dictionary<string, object> data = ((JObject)arg).ToObject<Dictionary<string, object>>();
-			Hours = Convert.ToInt32(data["hours"]);
-			Minutes = Convert.ToInt32(data["minutes"]);
-			Day = Convert.ToInt32(data["day"]);
-			Month = Convert.ToInt32(data["month"]);
-			UpdateTime(Hours, Minutes, Day, Month);
+			this.Hours = Convert.ToInt32(data["hours"]);
+			this.Minutes = Convert.ToInt32(data["minutes"]);
+			this.Day = Convert.ToInt32(data["day"]);
+			this.Month = Convert.ToInt32(data["month"]);
+			UpdateTime(this.Hours, this.Minutes, this.Day, this.Month);
 		}
 	}
 }

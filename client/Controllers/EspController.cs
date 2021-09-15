@@ -1,14 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using RAGE;
-using RAGE.Game;
-using RAGE.NUI;
-using RAGE.Ui;
-using GamemodeCommon.Models.Data;
-using GamemodeClient.Services;
+﻿// <copyright file="EspController.cs" company="lbyte00">
+// Copyright (c) lbyte00. All rights reserved.
+// </copyright>
 
 namespace GamemodeClient.Controllers
 {
+	using System.Collections.Generic;
+	using System.Drawing;
+	using RAGE;
+	using RAGE.Game;
+	using RAGE.NUI;
+	using RAGE.Ui;
+	using GamemodeCommon.Models.Data;
+	using GamemodeClient.Services;
+
 	public class EspController : Events.Script
 	{
 		private const int ScreenStaticX = 1920;
@@ -30,7 +34,10 @@ namespace GamemodeClient.Controllers
 
 		private void OnEspKeyPressed()
 		{
-			if (Cursor.Visible) return;
+			if (Cursor.Visible)
+			{
+				return;
+			}
 
 			if (Player.CurrentPlayer.GetSharedData(DataKey.IsAdmin) == null || !(bool)Player.CurrentPlayer.GetSharedData(DataKey.IsAdmin))
 			{
