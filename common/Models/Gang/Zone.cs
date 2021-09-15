@@ -1,15 +1,19 @@
-﻿namespace GamemodeCommon.Models.Gang
+﻿// <copyright file="Zone.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
+
+namespace GamemodeCommon.Models.Gang
 {
 	public class Zone
 	{
 		public Zone(long id, long x, long y, long fractionId, bool battleworthy, byte blipColor)
 		{
-			Id = id;
-			X = x;
-			Y = y;
-			FractionId = fractionId;
-			Battleworthy = battleworthy;
-			BlipColor = blipColor;
+			this.Id = id;
+			this.X = x;
+			this.Y = y;
+			this.FractionId = fractionId;
+			this.Battleworthy = battleworthy;
+			this.BlipColor = blipColor;
 		}
 
 		public long Id { get; set; }

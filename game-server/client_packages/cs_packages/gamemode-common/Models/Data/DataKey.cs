@@ -1,5 +1,5 @@
-﻿// <copyright file="DataKey.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="DataKey.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace GamemodeCommon.Models.Data

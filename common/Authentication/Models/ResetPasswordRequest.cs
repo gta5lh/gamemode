@@ -1,5 +1,5 @@
-﻿// <copyright file="RegisterRequest.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="ResetPasswordRequest.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace GamemodeCommon.Authentication.Models
@@ -9,7 +9,7 @@ namespace GamemodeCommon.Authentication.Models
 
 	public class ResetPasswordRequest
 	{
-		public string Email { get; set; }
+		public string Email { get; set; } = string.Empty;
 
 		public List<string> Validate()
 		{

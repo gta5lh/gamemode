@@ -1,5 +1,5 @@
-﻿// <copyright file="EmailUtil.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="EmailUtil.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace GamemodeCommon.Email
@@ -13,13 +13,14 @@ namespace GamemodeCommon.Email
 		public static bool IsValidEmail(string email)
 		{
 			if (string.IsNullOrWhiteSpace(email))
+			{
 				return false;
+			}
 
 			try
 			{
 				// Normalize the domain
-				email = Regex.Replace(email, @"(@)(.+)$", DomainMapper,
-									  RegexOptions.None, TimeSpan.FromMilliseconds(200));
+				email = Regex.Replace(email, @"(@)(.+)$", DomainMapper, RegexOptions.None, TimeSpan.FromMilliseconds(200));
 
 				// Examines the domain part of the email and normalizes it.
 				string DomainMapper(Match match)
@@ -33,20 +34,18 @@ namespace GamemodeCommon.Email
 					return match.Groups[1].Value + domainName;
 				}
 			}
-			catch (RegexMatchTimeoutException e)
+			catch (RegexMatchTimeoutException)
 			{
 				return false;
 			}
-			catch (ArgumentException e)
+			catch (ArgumentException)
 			{
 				return false;
 			}
 
 			try
 			{
-				return Regex.IsMatch(email,
-					@"^[^@\s]+@[^@\s]+\.[^@\s]+$",
-					RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+				return Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
 			}
 			catch (RegexMatchTimeoutException)
 			{

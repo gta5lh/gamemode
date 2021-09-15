@@ -5,6 +5,7 @@
 		<RuntimeFrameworkVersion>3.1.1</RuntimeFrameworkVersion>
 		<LangVersion>8.0</LangVersion>
 		<Nullable>enable</Nullable>
+		<NoWarn>$(NoWarn),SA0001</NoWarn>
 	</PropertyGroup>
 
 	<ItemGroup>

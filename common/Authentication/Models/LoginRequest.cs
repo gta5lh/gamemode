@@ -1,5 +1,5 @@
-﻿// <copyright file="LoginRequest.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="LoginRequest.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace GamemodeCommon.Authentication.Models
@@ -9,9 +9,9 @@ namespace GamemodeCommon.Authentication.Models
 
 	public class LoginRequest
 	{
-		public string Email { get; set; }
+		public string Email { get; set; } = string.Empty;
 
-		public string Password { get; set; }
+		public string Password { get; set; } = string.Empty;
 
 		public List<string> Validate()
 		{
