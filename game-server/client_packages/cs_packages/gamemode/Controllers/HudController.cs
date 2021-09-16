@@ -15,8 +15,9 @@ namespace GamemodeClient.Controllers
 	using RAGE.Elements;
 	using GamemodeClient.Utils;
 	using Newtonsoft.Json.Linq;
+	using GamemodeClient.Models;
 
-	public class HudController : Events.Script
+	public partial class HudController : Events.Script
 	{
 		private long Money = 0;
 		private int Hours = 0;
@@ -25,6 +26,10 @@ namespace GamemodeClient.Controllers
 		private int Month = 0;
 		private bool IsInZone = false;
 		private string ZoneColor = "green";
+		private Stats stats = new Stats(0, 0, 0, 0, 0);
+		private DateTime finishTime;
+		private long targetFractionId;
+		private int gangWarState = 0;
 
 		private bool HelpMenuEnabled = true;
 
@@ -42,10 +47,55 @@ namespace GamemodeClient.Controllers
 			Events.Tick += this.Speedometer;
 			Events.Add("MoneyUpdated", this.OnMoneyUpdated);
 			Events.Add("SetZoneState", this.OnSetZoneState);
+			Events.Add("InitGangWarUI", this.OnInitGangWarUI);
+			Events.Add("StartGangWarUI", this.OnStartGangWarUI);
+			Events.Add("CloseGangWarUI", this.OnCloseGangWarUI);
+			Events.Add("UpdateGangWarStats", this.OnUpdateGangWarStats);
 
 			Events.AddDataHandler(GamemodeCommon.Models.Data.DataKey.CurrentTime, this.OnTimeUpdated);
 
 			RAGE.Input.Bind(VirtualKeys.F6, false, this.OnHideHelpKeyPressed);
+		}
+
+		private void OnUpdateGangWarStats(object[] args)
+		{
+			long ballas = (long)args[0];
+			long bloods = (long)args[1];
+			long marabunta = (long)args[2];
+			long families = (long)args[3];
+			long vagos = (long)args[4];
+
+			this.stats = new Stats(ballas, bloods, marabunta, families, vagos);
+
+			UpdateStats(this.stats);
+		}
+
+		private void OnInitGangWarUI(object[] args)
+		{
+			this.finishTime = JsonConvert.DeserializeObject<DateTime>((string)args[0]);
+			this.gangWarState = 1;
+			InitGangWar(this.remainingMs());
+		}
+
+		private void OnStartGangWarUI(object[] args)
+		{
+			this.finishTime = JsonConvert.DeserializeObject<DateTime>((string)args[0]);
+			this.targetFractionId = (long)args[1];
+			this.gangWarState = 2;
+			this.stats = new Stats(0, 0, 0, 0, 0);
+			StartGangWar(new StartGangWar(this.remainingMs(), targetFractionId));
+		}
+
+		private void OnCloseGangWarUI(object[] args)
+		{
+			this.gangWarState = 0;
+			HideCapt();
+		}
+
+		private double remainingMs()
+		{
+			DateTime startTime = DateTime.UtcNow;
+			return (this.finishTime - startTime).TotalMilliseconds;
 		}
 
 		private void OnHideHelpKeyPressed()
@@ -111,6 +161,16 @@ namespace GamemodeClient.Controllers
 				UpdateOnline();
 				UpdateTime(this.Hours, this.Minutes, this.Day, this.Month);
 				SetZoneState(this.IsInZone, this.ZoneColor);
+
+				if (this.gangWarState == 1)
+				{
+					InitGangWar(this.remainingMs());
+				}
+				else if (this.gangWarState == 2)
+				{
+					StartGangWar(new StartGangWar(this.remainingMs(), this.targetFractionId));
+					UpdateStats(this.stats);
+				}
 
 				if (!HelpMenuEnabled)
 				{

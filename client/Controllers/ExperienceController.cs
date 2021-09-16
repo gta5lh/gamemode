@@ -51,10 +51,10 @@ namespace GamemodeClient.Controllers
 				return;
 			}
 
-			if (GangWarController.Hide())
-			{
-				this.rankBarHidden = true;
-			}
+			// if (GangWarController.Hide())
+			// {
+			// 	this.rankBarHidden = true;
+			// }
 
 			int color = IncreaseColor;
 			if (currentExperience < previousExperience)
@@ -86,7 +86,7 @@ namespace GamemodeClient.Controllers
 				Task.Run(() =>
 				{
 					this.rankBarHidden = false;
-					GangWarController.Show();
+					// GangWarController.Show();
 				}, 7000);
 			}
 		}

@@ -152,11 +152,5 @@ namespace Gamemode.Cache.GangWar
 				return statistics;
 			}
 		}
-
-		public static double RemainingMs()
-		{
-			StartTime = DateTime.UtcNow;
-			return (FinishTime - StartTime).TotalMilliseconds;
-		}
 	}
 }

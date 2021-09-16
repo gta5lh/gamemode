@@ -8,6 +8,7 @@ using Gamemode.Colshape;
 using Gamemode.Models.Player;
 using Gamemode.Services.Player;
 using GTANetworkAPI;
+using Newtonsoft.Json;
 using Rpc.GangWar;
 
 namespace Gamemode.Services
@@ -91,7 +92,7 @@ namespace Gamemode.Services
 				ZoneService.StartCapture(startResponse.GangWar.ZoneID);
 				GangWarCache.FinishTime = finishTime;
 
-				NAPI.ClientEvent.TriggerClientEventToPlayers(PlayerService.AllLoggedInPlayers().ToArray(), "InitGangWarUI", GangWarCache.RemainingMs().ToString());
+				NAPI.ClientEvent.TriggerClientEventToPlayers(PlayerService.AllLoggedInPlayers().ToArray(), "InitGangWarUI", JsonConvert.SerializeObject(GangWarCache.FinishTime));
 			});
 
 			Logger.Info("Inited gang war");
@@ -112,7 +113,7 @@ namespace Gamemode.Services
 
 				GangWarCache.FinishTime = finishTime;
 
-				NAPI.ClientEvent.TriggerClientEventToPlayers(PlayerService.AllLoggedInPlayers().ToArray(), "StartGangWarUI", GangWarCache.RemainingMs().ToString(), GangWarCache.GangWar.TargetFractionID);
+				NAPI.ClientEvent.TriggerClientEventToPlayers(PlayerService.AllLoggedInPlayers().ToArray(), "StartGangWarUI", JsonConvert.SerializeObject(GangWarCache.FinishTime), GangWarCache.GangWar.TargetFractionID);
 			});
 
 			Logger.Info("Started gang war");
@@ -195,12 +196,12 @@ namespace Gamemode.Services
 			if (GangWarCache.IsInProgress())
 			{
 				GangWarStats gangWarStats = GangWarCache.GetGangWarStats();
-				NAPI.ClientEvent.TriggerClientEvent(player, "StartGangWarUI", GangWarCache.RemainingMs().ToString(), GangWarCache.GangWar.TargetFractionID);
+				NAPI.ClientEvent.TriggerClientEvent(player, "StartGangWarUI", JsonConvert.SerializeObject(GangWarCache.FinishTime), GangWarCache.GangWar.TargetFractionID);
 				NAPI.ClientEvent.TriggerClientEvent(player, "UpdateGangWarStats", gangWarStats.Ballas, gangWarStats.Bloods, gangWarStats.Marabunta, gangWarStats.Families, gangWarStats.Vagos);
 			}
 			else if (GangWarCache.IsInited())
 			{
-				NAPI.ClientEvent.TriggerClientEvent(player, "InitGangWarUI", GangWarCache.RemainingMs().ToString());
+				NAPI.ClientEvent.TriggerClientEvent(player, "InitGangWarUI", JsonConvert.SerializeObject(GangWarCache.FinishTime));
 			}
 		}
 	}
