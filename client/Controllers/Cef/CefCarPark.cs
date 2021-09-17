@@ -19,5 +19,10 @@ namespace GamemodeClient.Controllers.Cef
 			Controllers.Menu.Close();
 			disableUIStateChangedEvent(true);
 		}
+
+		public static void UpdateSelectedCar(long currentVehicleId)
+		{
+			IndexCef.ExecuteJs($"UpdateSelectedCar({currentVehicleId})");
+		}
 	}
 }

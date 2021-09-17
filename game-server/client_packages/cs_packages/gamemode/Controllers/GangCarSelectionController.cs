@@ -67,6 +67,7 @@
 			}
 
 			this.CurVeh--;
+			UpdateSelectedCar(this.CurVeh);
 			this.Vehicle.Model = this.VehModelsAvail[this.CurVeh];
 			this.Vehicle.SetOnGroundProperly(0);
 		}
@@ -79,6 +80,7 @@
 			}
 
 			this.CurVeh++;
+			UpdateSelectedCar(this.CurVeh);
 			this.Vehicle.Model = this.VehModelsAvail[this.CurVeh];
 			this.Vehicle.SetOnGroundProperly(0);
 		}

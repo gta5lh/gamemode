@@ -21,6 +21,10 @@ function CloseCarPark() {
   Trigger("CloseCarPark");
 }
 
+function UpdateSelectedCar(value) {
+  Trigger("UpdateSelectedCar", value);
+}
+
 // Capt
 function InitGangWar(value) {
   Trigger("InitGangWar", value);
