@@ -28,16 +28,12 @@ namespace Gamemode.Services.Player
 				{
 					if (player.FractionRank < 10)
 					{
-						NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", (long)0, player.CurrentExperience, player.RequiredExperience, player.FractionRank);
+						NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", (long)0, player.CurrentExperience, player.RequiredExperience);
 					}
 
 					NAPI.ClientEvent.TriggerClientEvent(player, "RankedUp", player.FractionRank, player.FractionRankName);
-
-					NAPI.Task.Run(() =>
-					{
-						player.SendNotification($"Ты повысился до ранга {player.FractionRankName} [{player.FractionRank}]");
-					}, 1500);
-				}, 500);
+					player.SendNotification($"Ты повысился до ранга {player.FractionRankName} [{player.FractionRank}]");
+				});
 			}
 			else if (player.CurrentExperience < 0 && player.FractionRank > 1)
 			{
@@ -45,14 +41,10 @@ namespace Gamemode.Services.Player
 
 				NAPI.Task.Run(() =>
 				{
-					NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", (long)0, player.CurrentExperience, player.RequiredExperience, player.FractionRank);
+					NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", (long)0, player.CurrentExperience, player.RequiredExperience);
 					NAPI.ClientEvent.TriggerClientEvent(player, "RankedDown", player.FractionRank, player.FractionRankName);
-
-					NAPI.Task.Run(() =>
-					{
-						player.SendNotification($"Ты понизился до ранга {player.FractionRankName} [{player.FractionRank}]");
-					}, 1500);
-				}, 500);
+					player.SendNotification($"Ты понизился до ранга {player.FractionRankName} [{player.FractionRank}]");
+				});
 			}
 		}
 	}

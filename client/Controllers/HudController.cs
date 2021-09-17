@@ -55,6 +55,11 @@ namespace GamemodeClient.Controllers
 			Events.AddDataHandler(GamemodeCommon.Models.Data.DataKey.CurrentTime, this.OnTimeUpdated);
 
 			RAGE.Input.Bind(VirtualKeys.F6, false, this.OnHideHelpKeyPressed);
+
+			// Experience
+			Events.Add("ExperienceChanged", this.OnExperienceChanged);
+			Events.Add("RankedUp", this.OnRankedUp);
+			Events.Add("RankedDown", this.OnRankedDown);
 		}
 
 		private void OnUpdateGangWarStats(object[] args)
@@ -161,6 +166,8 @@ namespace GamemodeClient.Controllers
 				UpdateOnline();
 				UpdateTime(this.Hours, this.Minutes, this.Day, this.Month);
 				SetZoneState(this.IsInZone, this.ZoneColor);
+				this.SetCurrentExperience();
+				SetXAndY();
 
 				if (this.gangWarState == 1)
 				{
@@ -193,6 +200,8 @@ namespace GamemodeClient.Controllers
 			ShowHud();
 			UpdateMoney(this.Money);
 			UpdateOnline();
+			this.SetCurrentExperience();
+			SetXAndY();
 
 			DummyEntity? timeSyncDummyEntity = DummyEntityUtil.GetByTypeID(0);
 			if (timeSyncDummyEntity != null)

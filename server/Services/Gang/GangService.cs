@@ -36,6 +36,7 @@ namespace Gamemode.Services
 				player.CurrentExperience = 0;
 				player.SetSkin(gangId == 0 ? PedHash.Tramp01 : (PedHash)setFractionResponse.Skin);
 				player.CustomRemoveAllWeapons();
+				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 
 				if (gangId != 0)
 				{

@@ -12,6 +12,15 @@ function Trigger(eventName, args) {
   }
 }
 
+// Experience
+function UpdateExperience(value) {
+  Trigger("UpdateExperience", value);
+}
+
+function SetXAndY(value) {
+  Trigger("SetXAndY", value);
+}
+
 // Car park
 function ShowCarPark(value) {
   Trigger("ShowCarPark", value);

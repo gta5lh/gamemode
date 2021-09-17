@@ -5,7 +5,7 @@
 
 	public class Minimap
 	{
-		private float width, height, left_x, bottom_y, right_x, top_y,
+		public float width, height, left_x, bottom_y, right_x, top_y,
 			x, y, xunit, yunit;
 
 		public static Minimap GetMinimapAnchor()
@@ -41,11 +41,11 @@
 				minimap.width *= 0.995f;
 			}
 
-			minimap.bottom_y = 1.0f - yscale * (res_y * (safezone_y * (Math.Abs(safezone - 1.0f) * 10)));
+			minimap.bottom_y = 1.0f - yscale * (res_y * (safezone_y * ((Math.Abs(safezone - 1.0f)) * 10)));
 			minimap.right_x = minimap.left_x + minimap.width;
 			minimap.top_y = minimap.bottom_y - minimap.height;
-			minimap.x = minimap.left_x;
-			minimap.y = minimap.top_y;
+			minimap.x = res_x * minimap.left_x;
+			minimap.y = res_y - (res_y * minimap.top_y);
 			minimap.xunit = xscale;
 			minimap.yunit = yscale;
 
