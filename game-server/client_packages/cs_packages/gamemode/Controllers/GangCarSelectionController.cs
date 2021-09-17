@@ -4,24 +4,13 @@
 	using System.Collections.Generic;
 	using System.Linq;
 	using GamemodeClient.Models;
+	using GamemodeCommon.Models;
 	using Newtonsoft.Json.Linq;
 	using RAGE;
 	using RAGE.Game;
 	using RAGE.Ui;
 	using static RAGE.Events;
-
-	public class GangCarSelectionData
-	{
-		public GangCarSelectionData(Vector3 cameraPosition, Vector3 cameraRotation)
-		{
-			this.CameraPosition = cameraPosition;
-			this.CameraRotation = cameraRotation;
-		}
-
-		public Vector3 CameraPosition { get; set; }
-
-		public Vector3 CameraRotation { get; set; }
-	}
+	using static GamemodeClient.Controllers.Cef.Cef;
 
 	public class GangCarSelectionController : Events.Script
 	{
@@ -37,6 +26,7 @@
 		private int CurVeh = 1;
 
 		private float angleZ = 0.0f;
+		private bool isInCarSelection = false;
 
 		private static readonly Dictionary<int, GangCarSelectionData> GangCarSelectionDataByGangId = new Dictionary<int, GangCarSelectionData>()
 		{
@@ -52,14 +42,14 @@
 
 		private bool canInteractWithMenu;
 
-		private string MenuPath = $"package://cs_packages/gamemode/Frontend/Gang/Car/index.html";
-		private HtmlWindow? Menu;
-
 		public GangCarSelectionController()
 		{
 			// Common
 			Events.Add("DisplayGangCarSelectionMenu", this.OnDisplayGangCarSelectionMenu);
 			Events.Add("SetGangVehicles", this.OnSetGangVehicles);
+			Events.Add("CarSelected", this.OnCarSelected);
+			Events.Add("CloseCarPark", this.OnCloseCarPark);
+			Events.Add("TakeCar", this.OnTakeCar);
 
 			Input.Bind(RAGE.Ui.VirtualKeys.Left, true, this.Left);
 			Input.Bind(RAGE.Ui.VirtualKeys.Right, true, this.Right);
@@ -112,7 +102,7 @@
 
 		public void OnTick(List<Events.TickNametagData> nametags)
 		{
-			if (this.Menu == null)
+			if (!this.isInCarSelection)
 			{
 				return;
 			}
@@ -151,14 +141,14 @@
 
 		public async void OnInteractKeyPressed()
 		{
-			if (Cursor.Visible || this.Menu != null)
+			if (Cursor.Visible || !this.canInteractWithMenu)
 			{
 				return;
 			}
 
 			uint id = Convert.ToUInt32(await Events.CallRemoteProc("SetOwnDimension"));
 
-			// this.Menu = Controllers.Menu.Open(this.canInteractWithMenu, this.Menu, this.MenuPath, true, true);
+			ShowCarPark(new ShowCarPark(this.PlayerRank, this.CurVeh));
 
 			GangCarSelectionData gangCarSelectionData = GangCarSelectionDataByGangId[this.GangId];
 
@@ -177,48 +167,50 @@
 			this.Camera = Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), gangCarSelectionData.CameraPosition.X, gangCarSelectionData.CameraPosition.Y, gangCarSelectionData.CameraPosition.Z, gangCarSelectionData.CameraRotation.X, gangCarSelectionData.CameraRotation.Y, gangCarSelectionData.CameraRotation.Z, 50, true, 2);
 			Cam.SetCamActive(this.Camera, true);
 			Cam.RenderScriptCams(true, false, 0, true, false, 0);
+			this.isInCarSelection = true;
 		}
 
 		private void OnExitKeyPressed()
 		{
-			// if (!Controllers.Menu.Close(ref this.Menu)) return;
-
 			this.Vehicle.Destroy();
 			this.Vehicle = null;
+			this.isInCarSelection = false;
 			Player.CurrentPlayer.FreezePosition(false);
 			Player.CurrentPlayer.SetVisible(true, false);
 			RAGE.Game.Ui.DisplayRadar(true);
 			Cam.RenderScriptCams(false, false, 0, true, false, 0);
 			Cam.DestroyCam(this.Camera, false);
 			Events.CallRemote("SetServerDimension");
+			CloseCarPark();
 		}
 
 		private void OnPlayerDeath(RAGE.Elements.Player player, uint reason, RAGE.Elements.Player killer, CancelEventArgs cancel)
 		{
 			this.canInteractWithMenu = false;
-			// if (Controllers.Menu.Close(ref this.Menu))
-			// {
-			// 	Events.CallRemote("SetServerDimension");
-			// }
+			this.isInCarSelection = false;
+			Events.CallRemote("SetServerDimension");
 		}
-
 
 		public void OnSetGangVehicles(object[] args)
 		{
 			this.GangVehicles = ((JArray)args[0]).ToObject<List<GangVehicle>>();
 		}
-	}
 
-	public class GangVehicle
-	{
-		public GangVehicle(uint model, byte rank)
+		public void OnCarSelected(object[] args)
 		{
-			this.Model = model;
-			this.Rank = rank;
+			this.CurVeh = (int)args[0];
+			this.Vehicle.Model = this.VehModelsAvail[this.CurVeh];
+			this.Vehicle.SetOnGroundProperly(0);
 		}
 
-		public uint Model { get; set; }
+		public void OnCloseCarPark(object[] args)
+		{
+			this.OnExitKeyPressed();
+		}
 
-		public byte Rank { get; set; }
+		public void OnTakeCar(object[] args)
+		{
+			this.Enter();
+		}
 	}
 }

@@ -12,6 +12,15 @@ function Trigger(eventName, args) {
   }
 }
 
+// Car park
+function ShowCarPark(value) {
+  Trigger("ShowCarPark", value);
+}
+
+function CloseCarPark() {
+  Trigger("CloseCarPark");
+}
+
 // Capt
 function InitGangWar(value) {
   Trigger("InitGangWar", value);

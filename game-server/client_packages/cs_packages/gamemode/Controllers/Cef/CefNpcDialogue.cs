@@ -6,9 +6,6 @@ namespace GamemodeClient.Controllers.Cef
 {
 	public static partial class Cef
 	{
-		public delegate void disableUIStateChangedDelegate(bool enabled);
-		public static event disableUIStateChangedDelegate disableUIStateChangedEvent;
-
 		public static void SetNpcDialogue(Dialogue dialogue)
 		{
 			string dialogueJson = JsonConvert.SerializeObject(dialogue);

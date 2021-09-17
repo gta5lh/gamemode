@@ -1,4 +1,8 @@
-﻿namespace GamemodeCommon.Models
+﻿// <copyright file="NpcNames.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
+
+namespace GamemodeCommon.Models
 {
 	public static class NpcNames
 	{

@@ -11,6 +11,7 @@ namespace Gamemode
 	using Gamemode.Models.Spawn;
 	using Gamemode.Models.Vehicle;
 	using GamemodeCommon.Models.Data;
+	using GamemodeCommon.Models;
 	using GTANetworkAPI;
 	using Newtonsoft.Json;
 	using Rpc.User;
@@ -123,19 +124,6 @@ namespace Gamemode
 		{
 			NAPI.ClientEvent.TriggerClientEvent(player, "SetGangVehicles", this.GangVehicles);
 		}
-	}
-
-	public class GangVehicle
-	{
-		public GangVehicle(uint model, byte rank)
-		{
-			Model = model;
-			Rank = rank;
-		}
-
-		public uint Model { get; set; }
-
-		public byte Rank { get; set; }
 	}
 
 	public class PlayerSelectedGangCarRequest

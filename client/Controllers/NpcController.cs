@@ -25,8 +25,6 @@ namespace GamemodeClient.Controllers
 		private bool canInteractWithMenu;
 		private string npcName;
 
-		private HtmlWindow? npcMenu;
-
 		public NpcController()
 		{
 			Events.Add("DisplayPressE", this.OnDisplayPressE);
