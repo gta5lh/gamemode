@@ -19,7 +19,6 @@ namespace GamemodeClient.Controllers
 
 	public partial class HudController : Events.Script
 	{
-		private long Money = 0;
 		private int Hours = 0;
 		private int Minutes = 0;
 		private int Day = 0;
@@ -40,12 +39,12 @@ namespace GamemodeClient.Controllers
 			DisableUIController.disableUIStateChangedEvent += this.OnDisableUIStateChanged;
 			disableUIStateChangedEvent += this.OnDisableUIStateChanged;
 			SafeZoneController.playerSafeZoneEvent += this.OnPlayerSafeZoneEvent;
+			Player.moneyUpdatedEvent += this.OnMoneyUpdated;
 
 			Events.OnPlayerEnterVehicle += this.OnPlayerEnterVehicle;
 			Events.OnPlayerLeaveVehicle += this.OnPlayerLeaveVehicle;
 			Events.Tick += this.Tick;
 			Events.Tick += this.Speedometer;
-			Events.Add("MoneyUpdated", this.OnMoneyUpdated);
 			Events.Add("SetZoneState", this.OnSetZoneState);
 			Events.Add("InitGangWarUI", this.OnInitGangWarUI);
 			Events.Add("StartGangWarUI", this.OnStartGangWarUI);
@@ -126,10 +125,9 @@ namespace GamemodeClient.Controllers
 			this.SetTime(arg);
 		}
 
-		private void OnMoneyUpdated(object[] request)
+		private void OnMoneyUpdated(long money)
 		{
-			this.Money = (long)request[0];
-			UpdateMoney(this.Money);
+			UpdateMoney(money);
 		}
 
 		private void OnSetZoneState(object[] request)
@@ -162,7 +160,7 @@ namespace GamemodeClient.Controllers
 			if (enabled)
 			{
 				ShowHud();
-				UpdateMoney(this.Money);
+				UpdateMoney(Player.Money);
 				UpdateOnline();
 				UpdateTime(this.Hours, this.Minutes, this.Day, this.Month);
 				SetZoneState(this.IsInZone, this.ZoneColor);
@@ -198,7 +196,7 @@ namespace GamemodeClient.Controllers
 		public void OnPlayerAuthenticated()
 		{
 			ShowHud();
-			UpdateMoney(this.Money);
+			UpdateMoney(Player.Money);
 			UpdateOnline();
 			this.SetCurrentExperience();
 			SetXAndY();

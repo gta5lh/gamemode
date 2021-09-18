@@ -1,15 +1,15 @@
 ﻿using RAGE;
 using RAGE.Ui;
 using static RAGE.Events;
+using static GamemodeClient.Controllers.Cef.Cef;
+using GamemodeClient.Models;
 
 namespace GamemodeClient.Controllers
 {
 	public class GangItemSelectionController : Events.Script
 	{
 		private bool canInteractWithMenu;
-
-		private string MenuPath = $"package://cs_packages/gamemode/Frontend/Gang/Item/index.html";
-		private HtmlWindow? Menu;
+		private bool isInGangItemSelection = false;
 
 		public GangItemSelectionController()
 		{
@@ -27,37 +27,47 @@ namespace GamemodeClient.Controllers
 			HelpPopUpController.Instance.SetEnabled(this.canInteractWithMenu);
 			HelpPopUpController.InteractKeyPressed = this.OnInteractKeyPressed;
 			HelpPopUpController.ExitKeyPressed = this.OnExitKeyPressed;
+
+			if (!this.canInteractWithMenu)
+			{
+				HelpPopUpController.InteractKeyPressed = null;
+				HelpPopUpController.ExitKeyPressed = null;
+				return;
+			}
 		}
 
 		public void OnInteractKeyPressed()
 		{
-			if (Cursor.Visible)
+			if (Cursor.Visible || !this.canInteractWithMenu)
 			{
 				return;
 			}
 
-			// this.Menu = Controllers.Menu.Open(this.canInteractWithMenu, this.Menu, this.MenuPath);
+			ShowWeaponShop(new ShowWeaponShop(Player.Money));
+			this.isInGangItemSelection = true;
 		}
 
 		private void OnExitKeyPressed()
 		{
-			// Controllers.Menu.Close(ref this.Menu);
+			this.isInGangItemSelection = false;
+			CloseWeaponShop();
 		}
 
 		private void OnPlayerDeath(RAGE.Elements.Player player, uint reason, RAGE.Elements.Player killer, CancelEventArgs cancel)
 		{
 			this.canInteractWithMenu = false;
-			// Controllers.Menu.Close(ref this.Menu);
+			this.isInGangItemSelection = false;
 		}
 
 		private void OnCloseGangItemSelectionMenu(object[] args)
 		{
-			// Controllers.Menu.Close(ref this.Menu);
+			this.OnExitKeyPressed();
 		}
 
 		private void OnPlayerSelectedGangItem(object[] args)
 		{
 			Events.CallRemote("PlayerSelectedGangItem", (string)args[0]);
+			DisplayNotification(new Notification("Держи пушку, братушка", 0, 2000, NotificationType.Success));
 		}
 	}
 }

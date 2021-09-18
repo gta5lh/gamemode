@@ -4,4 +4,4 @@ copy:
 
 build-ui:
 	@npm --prefix ../ui run build
-	@rsync -r --include=" *" ../ui/build ../game-server/client_packages/cs_packages/gamemode/Frontend/v2/
+	@rsync -r --include=" *" ../ui/build ../game-server/client_packages/cs_packages/gamemode/ui/

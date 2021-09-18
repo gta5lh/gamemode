@@ -95,12 +95,10 @@ namespace Gamemode
 		}
 
 		[RemoteEvent("PlayerSelectedGangItem")]
-		private void PlayerSelectedGangItem(CustomPlayer player, string request)
+		private void PlayerSelectedGangItem(CustomPlayer player, string itemName)
 		{
-			PlayerSelectedGangItemRequest playerSelectedGangItemRequest = JsonConvert.DeserializeObject<PlayerSelectedGangItemRequest>(request);
-
-			uint itemHash = NAPI.Util.GetHashKey(playerSelectedGangItemRequest.ItemName);
-			player.CustomGiveWeapon((WeaponHash)itemHash, 100);
+			uint itemHash = NAPI.Util.GetHashKey(itemName);
+			player.CustomGiveWeapon((WeaponHash)itemHash, 0);
 		}
 
 		[ServerEvent(Event.PlayerDeath)]
@@ -129,10 +127,5 @@ namespace Gamemode
 	public class PlayerSelectedGangCarRequest
 	{
 		public string CarName { get; set; }
-	}
-
-	public class PlayerSelectedGangItemRequest
-	{
-		public string ItemName { get; set; }
 	}
 }
