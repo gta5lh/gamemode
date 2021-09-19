@@ -34,6 +34,7 @@ namespace Gamemode
 			Cache = new MemoryCache(new MemoryCacheOptions { }, new NLogLoggerFactory());
 			PaydayController.InitPaydayTimer();
 			TimeController.InitTimeSyncTimer();
+			WeatherController.InitWeatherSyncTimer();
 			SaveUsersController.InitSaveUserTimer();
 
 			Task initGangZoneCacheTask = GangZoneCache.InitGangZoneCache();
