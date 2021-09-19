@@ -361,8 +361,6 @@ namespace Gamemode.Models.Player
 				}
 			}
 
-			NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
-
 			Logger.Info($"Loaded player to cache. ID={player.StaticId}");
 			return player;
 		}

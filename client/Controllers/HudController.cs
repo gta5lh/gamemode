@@ -201,6 +201,16 @@ namespace GamemodeClient.Controllers
 			this.SetCurrentExperience();
 			SetXAndY();
 
+			if (this.gangWarState == 1)
+			{
+				InitGangWar(this.remainingMs());
+			}
+			else if (this.gangWarState == 2)
+			{
+				StartGangWar(new StartGangWar(this.remainingMs(), this.targetFractionId));
+				UpdateStats(this.stats);
+			}
+
 			DummyEntity? timeSyncDummyEntity = DummyEntityUtil.GetByTypeID(0);
 			if (timeSyncDummyEntity != null)
 			{

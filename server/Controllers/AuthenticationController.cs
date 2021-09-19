@@ -81,6 +81,7 @@ namespace Gamemode.Controllers
 
 				CustomPlayer.LoadPlayerCache(player, loginResponse.User);
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
+				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 				GangWarService.DisplayGangWarUI(player);
 			});
 
@@ -142,6 +143,7 @@ namespace Gamemode.Controllers
 			{
 				CustomPlayer.LoadPlayerCache(player, registerResponse.User);
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
+				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 				GangWarService.DisplayGangWarUI(player);
 			});
 
