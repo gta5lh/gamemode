@@ -85,14 +85,15 @@
 			this.Vehicle.SetOnGroundProperly(0);
 		}
 
-		public void Enter()
+		public async void Enter()
 		{
 			if (this.Vehicle == null)
 			{
 				return;
 			}
 
-			Events.CallRemote("PlayerSelectedGangCar", this.Vehicle.Model);
+			await Events.CallRemoteProc("PlayerSelectedGangCar", this.Vehicle.Model);
+			Player.CurrentPlayer.Vehicle.SetOnGroundProperly(0);
 			this.OnExitKeyPressed();
 		}
 
@@ -111,7 +112,7 @@
 
 			RAGE.Game.Player.DisablePlayerFiring(true);
 
-			if (!Input.IsDown(RAGE.Ui.VirtualKeys.LeftButton))
+			if (!Input.IsDown(RAGE.Ui.VirtualKeys.RightButton))
 			{
 				return;
 			}
@@ -164,7 +165,9 @@
 			}
 
 			this.Vehicle = new RAGE.Elements.Vehicle(this.GangVehicles[this.CurVeh].Model, this.VehiclePos.Position, this.VehiclePos.Heading, string.Empty, 255, false, this.VehicleColor, this.VehicleColor, id);
+			this.Vehicle.SetRotation(0, 0, this.VehiclePos.Heading, 1, true);
 			this.Vehicle.SetOnGroundProperly(0);
+			this.angleZ = this.VehiclePos.Heading;
 
 			this.Camera = Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), gangCarSelectionData.CameraPosition.X, gangCarSelectionData.CameraPosition.Y, gangCarSelectionData.CameraPosition.Z, gangCarSelectionData.CameraRotation.X, gangCarSelectionData.CameraRotation.Y, gangCarSelectionData.CameraRotation.Z, 50, true, 2);
 			Cam.SetCamActive(this.Camera, true);

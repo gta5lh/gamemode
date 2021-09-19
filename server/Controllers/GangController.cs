@@ -70,7 +70,7 @@ namespace Gamemode
 			this.vagos.Create();
 		}
 
-		[RemoteEvent("PlayerSelectedGangCar")]
+		[RemoteProc("PlayerSelectedGangCar")]
 		private void OnPlayerSelectedGangCar(CustomPlayer player, uint vehicleModel)
 		{
 			string gangName = GangUtil.GangNameById[player.Fraction.Value];

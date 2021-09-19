@@ -30,6 +30,8 @@ namespace Rpc.User
 
 	public partial class Weapon
 	{
+		public long Amount;
+
 		public Weapon(WeaponHash hash, int amount)
 		{
 			this.Hash = (long)hash;
