@@ -31,7 +31,11 @@ namespace GamemodeClient.Controllers
 			RAGE.Ui.Console.LogLine(RAGE.Ui.ConsoleVerbosity.Info, updateExperienceJson);
 			this.previousExperience = (long)args[0];
 			this.currentExperience = (long)args[1];
-			this.requiredExperience = (long)args[2];
+
+			if (args[2] != null)
+			{
+				this.requiredExperience = (long)args[2];
+			}
 
 			UpdateExperience(new UpdateExperience(this.currentExperience, this.previousExperience, this.requiredExperience));
 		}

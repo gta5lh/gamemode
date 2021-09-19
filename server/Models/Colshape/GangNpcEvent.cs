@@ -25,6 +25,12 @@ namespace Gamemode.Colshape
 				return;
 			}
 
+			CustomPlayer customPlayer = (CustomPlayer)player;
+			if (customPlayer.Fraction != null && customPlayer.Fraction.Value != this.FractionId)
+			{
+				return;
+			}
+
 			NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", true, this.NpcName);
 		}
 
