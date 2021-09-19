@@ -6,7 +6,6 @@ namespace GamemodeClient.Controllers
 	{
 		public GodmodController()
 		{
-			RAGE.Nametags.Enabled = false;
 			Events.Add("SetGodmod", this.OnSetGodmod);
 			Events.Add("SetInvisibility", this.OnSetInvisibility);
 		}
