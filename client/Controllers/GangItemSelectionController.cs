@@ -3,6 +3,7 @@ using RAGE.Ui;
 using static RAGE.Events;
 using static GamemodeClient.Controllers.Cef.Cef;
 using GamemodeClient.Models;
+using RAGE.Elements;
 
 namespace GamemodeClient.Controllers
 {
@@ -19,6 +20,7 @@ namespace GamemodeClient.Controllers
 			Events.Add("PlayerSelectedGangItem", this.OnPlayerSelectedGangItem);
 
 			Events.OnPlayerDeath += this.OnPlayerDeath;
+			Events.OnPlayerEnterVehicle += this.OnPlayerEnterVehicle;
 		}
 
 		private void OnDisplayGangItemSelectionMenu(object[] args)
@@ -55,8 +57,24 @@ namespace GamemodeClient.Controllers
 
 		private void OnPlayerDeath(RAGE.Elements.Player player, uint reason, RAGE.Elements.Player killer, CancelEventArgs cancel)
 		{
-			this.canInteractWithMenu = false;
+			if (!this.canInteractWithMenu)
+			{
+				return;
+			}
+
 			this.isInGangItemSelection = false;
+			this.OnDisplayGangItemSelectionMenu(new object[] { false });
+			CloseWeaponShop();
+		}
+
+		private void OnPlayerEnterVehicle(Vehicle vehicle, int seatId)
+		{
+			if (!this.canInteractWithMenu)
+			{
+				return;
+			}
+
+			this.OnDisplayGangItemSelectionMenu(new object[] { false });
 		}
 
 		private void OnCloseGangItemSelectionMenu(object[] args)

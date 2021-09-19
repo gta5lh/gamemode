@@ -20,6 +20,11 @@ namespace Gamemode.Colshape
 
 		public void OnEntityEnterColShape(ColShape shape, Player player)
 		{
+			if (player.IsInVehicle)
+			{
+				return;
+			}
+
 			NAPI.ClientEvent.TriggerClientEvent(player, "DisplayPressE", true, this.NpcName);
 		}
 

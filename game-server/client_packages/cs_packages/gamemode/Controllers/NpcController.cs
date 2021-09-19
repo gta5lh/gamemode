@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using static RAGE.Events;
 using static GamemodeClient.Controllers.Cef.Cef;
 using GamemodeCommon.Models;
+using RAGE.Elements;
 
 namespace GamemodeClient.Controllers
 {
@@ -31,6 +32,7 @@ namespace GamemodeClient.Controllers
 			Events.Add("CloseNpcMenu", this.OnCloseNpcMenu);
 			Events.Add("NpcActionSelected", this.OnNpcActionSelected);
 			Events.OnPlayerDeath += this.OnPlayerDeath;
+			Events.OnPlayerEnterVehicle += this.OnPlayerEnterVehicle;
 			Events.Add("CreateWaypoint", this.OnCreateWaypoint);
 		}
 
@@ -72,8 +74,23 @@ namespace GamemodeClient.Controllers
 
 		private void OnPlayerDeath(RAGE.Elements.Player player, uint reason, RAGE.Elements.Player killer, CancelEventArgs cancel)
 		{
+			if (!this.canInteractWithMenu)
+			{
+				return;
+			}
+
 			this.OnDisplayPressE(new object[] { false });
 			CloseNpcDialogue();
+		}
+
+		private void OnPlayerEnterVehicle(Vehicle vehicle, int seatId)
+		{
+			if (!this.canInteractWithMenu)
+			{
+				return;
+			}
+
+			this.OnDisplayPressE(new object[] { false });
 		}
 
 		private void OnCloseNpcMenu(object[] args)

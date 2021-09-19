@@ -57,6 +57,7 @@
 
 			Events.Tick += this.OnTick;
 			Events.OnPlayerDeath += this.OnPlayerDeath;
+			Events.OnPlayerEnterVehicle += this.OnPlayerEnterVehicle;
 		}
 
 		public void Left()
@@ -95,6 +96,7 @@
 			await Events.CallRemoteProc("PlayerSelectedGangCar", this.Vehicle.Model);
 			Player.CurrentPlayer.Vehicle.SetOnGroundProperly(0);
 			this.OnExitKeyPressed();
+			this.OnDisplayGangCarSelectionMenu(new object[] { false });
 		}
 
 		private float GetRot()
@@ -191,9 +193,25 @@
 
 		private void OnPlayerDeath(RAGE.Elements.Player player, uint reason, RAGE.Elements.Player killer, CancelEventArgs cancel)
 		{
-			this.canInteractWithMenu = false;
+			if (!this.canInteractWithMenu)
+			{
+				return;
+			}
+
 			this.isInCarSelection = false;
+			this.OnDisplayGangCarSelectionMenu(new object[] { false });
 			Events.CallRemote("SetServerDimension");
+			CloseCarPark();
+		}
+
+		private void OnPlayerEnterVehicle(RAGE.Elements.Vehicle vehicle, int seatId)
+		{
+			if (!this.canInteractWithMenu)
+			{
+				return;
+			}
+
+			this.OnDisplayGangCarSelectionMenu(new object[] { false });
 		}
 
 		public void OnSetGangVehicles(object[] args)

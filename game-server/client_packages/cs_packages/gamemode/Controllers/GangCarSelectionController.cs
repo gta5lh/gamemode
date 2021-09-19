@@ -57,6 +57,7 @@
 
 			Events.Tick += this.OnTick;
 			Events.OnPlayerDeath += this.OnPlayerDeath;
+			Events.OnPlayerEnterVehicle += this.OnPlayerEnterVehicle;
 		}
 
 		public void Left()
@@ -95,6 +96,7 @@
 			await Events.CallRemoteProc("PlayerSelectedGangCar", this.Vehicle.Model);
 			Player.CurrentPlayer.Vehicle.SetOnGroundProperly(0);
 			this.OnExitKeyPressed();
+			this.OnDisplayGangCarSelectionMenu(new object[] { false });
 		}
 
 		private float GetRot()
@@ -166,8 +168,8 @@
 
 			this.Vehicle = new RAGE.Elements.Vehicle(this.GangVehicles[this.CurVeh].Model, this.VehiclePos.Position, this.VehiclePos.Heading, string.Empty, 255, false, this.VehicleColor, this.VehicleColor, id);
 			this.Vehicle.SetRotation(0, 0, this.VehiclePos.Heading, 1, true);
-			this.Vehicle.SetOnGroundProperly(0);
 			this.angleZ = this.VehiclePos.Heading;
+			this.Vehicle.SetOnGroundProperly(0);
 
 			this.Camera = Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey("DEFAULT_SCRIPTED_CAMERA"), gangCarSelectionData.CameraPosition.X, gangCarSelectionData.CameraPosition.Y, gangCarSelectionData.CameraPosition.Z, gangCarSelectionData.CameraRotation.X, gangCarSelectionData.CameraRotation.Y, gangCarSelectionData.CameraRotation.Z, 50, true, 2);
 			Cam.SetCamActive(this.Camera, true);
@@ -191,9 +193,25 @@
 
 		private void OnPlayerDeath(RAGE.Elements.Player player, uint reason, RAGE.Elements.Player killer, CancelEventArgs cancel)
 		{
-			this.canInteractWithMenu = false;
+			if (!this.canInteractWithMenu)
+			{
+				return;
+			}
+
 			this.isInCarSelection = false;
+			this.OnDisplayGangCarSelectionMenu(new object[] { false });
 			Events.CallRemote("SetServerDimension");
+			CloseCarPark();
+		}
+
+		private void OnPlayerEnterVehicle(RAGE.Elements.Vehicle vehicle, int seatId)
+		{
+			if (!this.canInteractWithMenu)
+			{
+				return;
+			}
+
+			this.OnDisplayGangCarSelectionMenu(new object[] { false });
 		}
 
 		public void OnSetGangVehicles(object[] args)
