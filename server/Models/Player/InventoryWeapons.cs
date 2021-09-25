@@ -14,6 +14,11 @@ namespace Gamemode.Models.Player
 			this.inventoryWeapons = new ConcurrentDictionary<WeaponHash, bool>();
 		}
 
+		public bool HasWeapon(WeaponHash weaponHash)
+		{
+			return this.inventoryWeapons.TryGetValue(weaponHash, out _);
+		}
+
 		public void AddWeapon(WeaponHash weaponHash)
 		{
 			if (this.inventoryWeapons.TryAdd(weaponHash, true))

@@ -15,6 +15,9 @@ namespace Gamemode
 	using GTANetworkAPI;
 	using Newtonsoft.Json;
 	using Rpc.User;
+	using System;
+	using Rollbar;
+	using Gamemode.Services;
 
 	public class GangController : Script
 	{
@@ -94,11 +97,76 @@ namespace Gamemode
 			vehicle.SetSharedData(DataKey.VehicleCollisionDisabled, true);
 		}
 
-		[RemoteEvent("PlayerSelectedGangItem")]
-		private void PlayerSelectedGangItem(CustomPlayer player, string itemName)
+		[RemoteProc("PlayerSelectedGangItem", true)]
+		private async Task<System.Object> PlayerSelectedGangItem(CustomPlayer player, string itemName, bool isAmmo)
 		{
-			uint itemHash = NAPI.Util.GetHashKey(itemName);
-			player.CustomGiveWeapon((WeaponHash)itemHash, 0);
+			int price = 0;
+			if (!WeaponService.PriceByItemName.TryGetValue(itemName, out price))
+			{
+				return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Error, "Предмет недоступен в магазине :("));
+			}
+
+			if ((player.Money - price) < 0)
+			{
+				return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Error, "Недостаточно денег!"));
+			}
+
+			WeaponHash weaponHash = (WeaponHash)NAPI.Util.GetHashKey(itemName);
+			int amount = 0;
+
+			if (isAmmo)
+			{
+				if (!WeaponService.AmountByAmmoType.TryGetValue(itemName, out amount))
+				{
+					return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Error, "Выбранный тип патрон недоступен в магазине :("));
+				}
+
+				List<WeaponHash>? weaponHashesByAmmoType = WeaponService.WeaponHashesByAmmoType(itemName);
+				if (weaponHashesByAmmoType == null)
+				{
+					RollbarLocator.RollbarInstance.Error(new ArgumentOutOfRangeException(itemName));
+					return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Error, "Патроны недоступны в магазине :("));
+				}
+
+				bool found = false;
+
+				foreach (WeaponHash wh in weaponHashesByAmmoType)
+				{
+					if (player.HasWeapon(wh))
+					{
+						weaponHash = wh;
+						found = true;
+						break;
+					}
+				}
+
+				if (!found)
+				{
+					return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Error, "У тебя отсутвует оружие для выбранного типа патрон!"));
+				}
+			}
+			else
+			{
+				if (player.HasWeapon(weaponHash))
+				{
+					return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Error, "У тебя уже имеется выбранное оружие!"));
+				}
+			}
+
+			int maxAmount = 9999;
+			if (WeaponHash.Flaregun == weaponHash)
+			{
+				maxAmount = 20;
+			}
+
+			if ((player.GetWeaponAmmo(weaponHash) + amount) > maxAmount)
+			{
+				return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Error, "Патрон слишком много!"));
+			}
+
+			player.Money -= price;
+			player.CustomGiveWeapon(weaponHash, amount);
+			return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Success, "Успешная покупка!"));
 		}
 
 		[ServerEvent(Event.PlayerDeath)]

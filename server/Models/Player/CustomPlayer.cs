@@ -13,6 +13,7 @@ namespace Gamemode.Models.Player
 	using Gamemode.Services.Player;
 	using GTANetworkAPI;
 	using Rpc.User;
+	using Gamemode.Services;
 
 	public class CustomPlayer : Player
 	{
@@ -290,6 +291,11 @@ namespace Gamemode.Models.Player
 			this.FractionRankName = setFractionResponse.TierName;
 		}
 
+		public bool HasWeapon(WeaponHash weaponHash)
+		{
+			return this.InventoryWeapons.HasWeapon(weaponHash);
+		}
+
 		public void CustomGiveWeapon(WeaponHash weaponHash, long amount)
 		{
 			this.GiveWeapon(weaponHash, (int)amount);
@@ -357,7 +363,15 @@ namespace Gamemode.Models.Player
 			{
 				foreach (Weapon weapon in user.Weapons)
 				{
-					player.CustomGiveWeapon((WeaponHash)weapon.Hash, weapon.Amount);
+					player.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
+				}
+
+				foreach (Weapon weapon in user.Weapons)
+				{
+					if (weapon.Amount != 0)
+					{
+						player.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);
+					}
 				}
 			}
 
@@ -421,7 +435,15 @@ namespace Gamemode.Models.Player
 
 			foreach (Weapon weapon in this.TemporaryWeapons)
 			{
-				this.CustomGiveWeapon((WeaponHash)weapon.Hash, weapon.Amount);
+				this.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
+			}
+
+			foreach (Weapon weapon in this.TemporaryWeapons)
+			{
+				if (weapon.Amount != 0)
+				{
+					this.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);
+				}
 			}
 
 			this.TemporaryWeapons.Clear();

@@ -3,12 +3,6 @@ using Newtonsoft.Json;
 
 namespace GamemodeClient.Models
 {
-	public static class NotificationType
-	{
-		public const string Success = "accept";
-		public const string Error = "error";
-	}
-
 	public class Notification
 	{
 		[JsonProperty("text")]

@@ -3,7 +3,9 @@ using RAGE.Ui;
 using static RAGE.Events;
 using static GamemodeClient.Controllers.Cef.Cef;
 using GamemodeClient.Models;
+using GamemodeCommon.Models;
 using RAGE.Elements;
+using Newtonsoft.Json;
 
 namespace GamemodeClient.Controllers
 {
@@ -21,6 +23,7 @@ namespace GamemodeClient.Controllers
 
 			Events.OnPlayerDeath += this.OnPlayerDeath;
 			Events.OnPlayerEnterVehicle += this.OnPlayerEnterVehicle;
+			Player.moneyUpdatedEvent += this.OnMoneyUpdated;
 		}
 
 		private void OnDisplayGangItemSelectionMenu(object[] args)
@@ -82,10 +85,16 @@ namespace GamemodeClient.Controllers
 			this.OnExitKeyPressed();
 		}
 
-		private void OnPlayerSelectedGangItem(object[] args)
+		private async void OnPlayerSelectedGangItem(object[] args)
 		{
-			Events.CallRemote("PlayerSelectedGangItem", (string)args[0]);
-			DisplayNotification(new Notification("Держи пушку, братушка", 0, 2000, NotificationType.Success));
+			string result = (string)await Events.CallRemoteProc("PlayerSelectedGangItem", (string)args[0], (bool)args[1]);
+			GangItemResponse gangItemResponse = JsonConvert.DeserializeObject<GangItemResponse>(result);
+			DisplayNotification(new Notification(gangItemResponse.Text, 0, 2000, gangItemResponse.NotificationType));
+		}
+
+		private void OnMoneyUpdated(long money)
+		{
+			UpdateWeaponShopBalance(money);
 		}
 	}
 }

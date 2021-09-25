@@ -19,5 +19,10 @@ namespace GamemodeClient.Controllers.Cef
 			Controllers.Menu.Close();
 			disableUIStateChangedEvent(true);
 		}
+
+		public static void UpdateWeaponShopBalance(long balance)
+		{
+			IndexCef.ExecuteJs($"UpdateWeaponShopBalance({balance})");
+		}
 	}
 }
