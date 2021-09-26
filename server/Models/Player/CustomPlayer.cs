@@ -367,7 +367,7 @@ namespace Gamemode.Models.Player
 					player.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
 				}
 
-				List<Weapon> weapons = user.Weapons.OrderBy(o => o.Amount).ToList();
+				List<Weapon> weapons = user.Weapons.OrderByDescending(o => o.Amount).ToList();
 
 				foreach (Weapon weapon in weapons)
 				{
@@ -441,7 +441,9 @@ namespace Gamemode.Models.Player
 				this.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
 			}
 
-			foreach (Weapon weapon in this.TemporaryWeapons)
+			List<Weapon> weapons = this.TemporaryWeapons.OrderByDescending(o => o.Amount).ToList();
+
+			foreach (Weapon weapon in weapons)
 			{
 				if (weapon.Amount != 0)
 				{

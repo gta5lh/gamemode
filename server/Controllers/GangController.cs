@@ -113,6 +113,7 @@ namespace Gamemode
 
 			WeaponHash weaponHash = (WeaponHash)NAPI.Util.GetHashKey(itemName);
 			int amount = 0;
+			List<WeaponHash> ammoForWeapons = new List<WeaponHash>();
 
 			if (isAmmo)
 			{
@@ -134,9 +135,8 @@ namespace Gamemode
 				{
 					if (player.HasWeapon(wh))
 					{
-						weaponHash = wh;
 						found = true;
-						break;
+						ammoForWeapons.Add(wh);
 					}
 				}
 
@@ -165,7 +165,60 @@ namespace Gamemode
 			}
 
 			player.Money -= price;
-			player.CustomGiveWeapon(weaponHash, amount);
+
+			if (isAmmo)
+			{
+				int lowestAmount = player.GetWeaponAmmo(ammoForWeapons[0]);
+				WeaponHash weaponToGiveAmount = ammoForWeapons[0];
+				foreach (WeaponHash wh in ammoForWeapons)
+				{
+					int a = player.GetWeaponAmmo(wh);
+					if (a < lowestAmount)
+					{
+						lowestAmount = a;
+						weaponToGiveAmount = wh;
+					}
+				}
+
+				player.CustomGiveWeapon(weaponToGiveAmount, amount);
+				amount = player.GetWeaponAmmo(weaponToGiveAmount);
+
+				foreach (WeaponHash wh in ammoForWeapons)
+				{
+					player.SetWeaponAmmo(wh, amount);
+				}
+			}
+			else
+			{
+				string ammoType = WeaponService.AmmoTypeByWeapon[weaponHash];
+				List<WeaponHash> weapons = WeaponService.WeaponsByAmmoType[ammoType];
+
+				WeaponHash? existingWeaponHash = null;
+				int lowestAmount = int.MaxValue;
+
+				foreach (WeaponHash wh in weapons)
+				{
+					if (player.HasWeapon(wh))
+					{
+						int a = player.GetWeaponAmmo(wh);
+						if (a < lowestAmount)
+						{
+							lowestAmount = a;
+							existingWeaponHash = wh;
+						}
+					}
+				}
+
+				amount = 0;
+				if (existingWeaponHash != null)
+				{
+					amount = player.GetWeaponAmmo(existingWeaponHash.Value);
+				}
+
+				player.CustomGiveWeapon(weaponHash, 0);
+				player.SetWeaponAmmo(weaponHash, amount);
+			}
+
 			return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Success, "Успешная покупка!"));
 		}
 
