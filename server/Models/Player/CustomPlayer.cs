@@ -362,19 +362,12 @@ namespace Gamemode.Models.Player
 
 			if (user.Weapons != null)
 			{
+				List<Weapon> weapons = user.Weapons.OrderByDescending(o => o.Amount).ToList();
+
 				foreach (Weapon weapon in user.Weapons)
 				{
 					player.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
-				}
-
-				List<Weapon> weapons = user.Weapons.OrderByDescending(o => o.Amount).ToList();
-
-				foreach (Weapon weapon in weapons)
-				{
-					if (weapon.Amount != 0)
-					{
-						player.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);
-					}
+					player.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);
 				}
 			}
 
@@ -436,19 +429,12 @@ namespace Gamemode.Models.Player
 		{
 			if (this.TemporaryWeapons == null || this.TemporaryWeapons.Count == 0) return;
 
+			List<Weapon> weapons = this.TemporaryWeapons.OrderByDescending(o => o.Amount).ToList();
+
 			foreach (Weapon weapon in this.TemporaryWeapons)
 			{
 				this.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
-			}
-
-			List<Weapon> weapons = this.TemporaryWeapons.OrderByDescending(o => o.Amount).ToList();
-
-			foreach (Weapon weapon in weapons)
-			{
-				if (weapon.Amount != 0)
-				{
-					this.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);
-				}
+				this.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);
 			}
 
 			this.TemporaryWeapons.Clear();
