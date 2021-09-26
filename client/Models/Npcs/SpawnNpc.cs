@@ -53,6 +53,7 @@ namespace GamemodeClient.Models
 
 		public async Task<Dialogue> OnInitDialogue()
 		{
+			HideAllNotifications();
 			Dialogue dialogue = new Dialogue();
 			dialogue.NpcName = this.name;
 

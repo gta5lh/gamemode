@@ -11,6 +11,8 @@ namespace GamemodeClient.Controllers
 	using RAGE;
 	using RAGE.Ui;
 	using System;
+	using GamemodeClient.Models;
+	using GamemodeCommon.Models;
 
 	public class AuthenticationController : Events.Script
 	{
@@ -27,6 +29,7 @@ namespace GamemodeClient.Controllers
 			Events.Add("LoginSubmitted", this.OnLoginSubmitted);
 			Events.Add("RegisterSubmitted", this.OnRegisterSubmitted);
 			Events.Add("ResetPasswordSubmitted", this.OnResetPasswordSubmitted);
+			Events.Add("DisplayNoviceNotification", this.OnDisplayNoviceNotification);
 		}
 
 		private void OnCursorKeyPressed()
@@ -109,6 +112,13 @@ namespace GamemodeClient.Controllers
 				ResetPasswordSucceed();
 			}
 			catch { } // avoid crashing server.
+		}
+
+		private void OnDisplayNoviceNotification(object[] request)
+		{
+			HideAllNotifications();
+			DisplayNotification(new Notification("Добро Пожаловать на Lost Heaven! Чтобы начать свой путь поговори с НПЦ рядом с точкой появления!", 0, 15000, NotificationType.Success));
+			RAGE.Game.Audio.PlaySoundFrontend(-1, "CHECKPOINT_PERFECT", "HUD_MINI_GAME_SOUNDSET", true);
 		}
 
 		private void LogIn()

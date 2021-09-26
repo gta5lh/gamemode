@@ -10,5 +10,10 @@ namespace GamemodeClient.Controllers.Cef
 			string notificationJson = JsonConvert.SerializeObject(notification);
 			IndexCef.ExecuteJs($"DisplayNotification('{notificationJson}')");
 		}
+
+		public static void HideAllNotifications()
+		{
+			IndexCef.ExecuteJs($"HideAllNotifications()");
+		}
 	}
 }

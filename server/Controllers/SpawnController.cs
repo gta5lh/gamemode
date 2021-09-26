@@ -18,13 +18,13 @@ namespace Gamemode.Controllers
 				Spawn spawn = GangSpawns.Spawns[player.Fraction.Value];
 				player.Position = spawn.Position;
 				player.Heading = spawn.Heading;
-
 				return;
 			}
 
 			int spawnPosition = random.Next(0, 3);
 			player.Position = PlayerSpawns.SpawnPositions[spawnPosition].Position;
 			player.Heading = PlayerSpawns.SpawnPositions[spawnPosition].Heading;
+			NAPI.ClientEvent.TriggerClientEvent(player, "DisplayNoviceNotification");
 		}
 	}
 }
