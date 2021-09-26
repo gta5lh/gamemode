@@ -14,6 +14,7 @@ namespace Gamemode.Models.Player
 	using GTANetworkAPI;
 	using Rpc.User;
 	using Gamemode.Services;
+	using System.Linq;
 
 	public class CustomPlayer : Player
 	{
@@ -366,7 +367,9 @@ namespace Gamemode.Models.Player
 					player.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
 				}
 
-				foreach (Weapon weapon in user.Weapons)
+				List<Weapon> weapons = user.Weapons.OrderBy(o => o.Amount).ToList();
+
+				foreach (Weapon weapon in weapons)
 				{
 					if (weapon.Amount != 0)
 					{
