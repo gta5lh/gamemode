@@ -439,5 +439,10 @@ namespace Gamemode.Models.Player
 
 			this.TemporaryWeapons.Clear();
 		}
+
+		public void SendNotification(string text, long delay, long closeTimeMs, string notificationType)
+		{
+			this.TriggerEvent("DisplayNotification", text, delay, closeTimeMs, notificationType);
+		}
 	}
 }

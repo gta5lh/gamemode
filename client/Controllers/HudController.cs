@@ -50,6 +50,7 @@ namespace GamemodeClient.Controllers
 			Events.Add("StartGangWarUI", this.OnStartGangWarUI);
 			Events.Add("CloseGangWarUI", this.OnCloseGangWarUI);
 			Events.Add("UpdateGangWarStats", this.OnUpdateGangWarStats);
+			Events.Add("DisplayNotification", this.OnDisplayNotification);
 
 			Events.AddDataHandler(GamemodeCommon.Models.Data.DataKey.CurrentTime, this.OnTimeUpdated);
 
@@ -59,6 +60,16 @@ namespace GamemodeClient.Controllers
 			Events.Add("ExperienceChanged", this.OnExperienceChanged);
 			Events.Add("RankedUp", this.OnRankedUp);
 			Events.Add("RankedDown", this.OnRankedDown);
+		}
+
+		private void OnDisplayNotification(object[] args)
+		{
+			string text = (string)args[0];
+			long delay = (long)args[1];
+			long closeTimeMs = (long)args[2];
+			string notificationType = (string)args[3];
+
+			DisplayNotification(new Notification(text, delay, closeTimeMs, notificationType));
 		}
 
 		private void OnUpdateGangWarStats(object[] args)

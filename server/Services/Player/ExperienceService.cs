@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Gamemode.Models.Player;
+using GamemodeCommon.Models;
 using GTANetworkAPI;
 
 namespace Gamemode.Services.Player
@@ -32,7 +33,7 @@ namespace Gamemode.Services.Player
 					}
 
 					NAPI.ClientEvent.TriggerClientEvent(player, "RankedUp", player.FractionRank, player.FractionRankName);
-					player.SendNotification($"Ты повысился до ранга {player.FractionRankName} [{player.FractionRank}]");
+					player.SendNotification($"Повысился до ранга {player.FractionRankName} [{player.FractionRank}]", 1500, 5000, NotificationType.Success);
 				});
 			}
 			else if (player.CurrentExperience < 0 && player.FractionRank > 1)
@@ -43,7 +44,7 @@ namespace Gamemode.Services.Player
 				{
 					NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", (long)0, player.CurrentExperience, player.RequiredExperience);
 					NAPI.ClientEvent.TriggerClientEvent(player, "RankedDown", player.FractionRank, player.FractionRankName);
-					player.SendNotification($"Ты понизился до ранга {player.FractionRankName} [{player.FractionRank}]");
+					player.SendNotification($"Понизился до ранга {player.FractionRankName} [{player.FractionRank}]", 1500, 5000, NotificationType.Error);
 				});
 			}
 		}

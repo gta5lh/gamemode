@@ -9,15 +9,15 @@ namespace GamemodeClient.Models
 		public string Text;
 
 		[JsonProperty("delay")]
-		public int Delay;
+		public long Delay;
 
 		[JsonProperty("closeTimeMs")]
-		public int CloseTimeMs;
+		public long CloseTimeMs;
 
 		[JsonProperty("type")]
 		public string NotificationType;
 
-		public Notification(string text, int delay, int closeTimeMs, string notificationType)
+		public Notification(string text, long delay, long closeTimeMs, string notificationType)
 		{
 			this.Text = text;
 			this.Delay = delay;
