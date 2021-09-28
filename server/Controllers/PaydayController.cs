@@ -12,10 +12,10 @@
 
 		private static Timer PaydayTimer;
 
-		// private static readonly double PaydayInterval30Minutes = 1000 * 60 * 30;
-		// private static readonly double PaydayAllowedLeeway = -(1000 * 60);
-		private static readonly double PaydayInterval30Minutes = 20000;
-		private static readonly double PaydayAllowedLeeway = -2000;
+		private static readonly double PaydayInterval30Minutes = 1000 * 60 * 30;
+		private static readonly double PaydayAllowedLeeway = -(1000 * 60);
+		// private static readonly double PaydayInterval30Minutes = 20000;
+		// private static readonly double PaydayAllowedLeeway = -2000;
 
 		public static void InitPaydayTimer()
 		{

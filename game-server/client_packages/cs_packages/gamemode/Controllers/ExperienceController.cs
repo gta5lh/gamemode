@@ -27,8 +27,6 @@ namespace GamemodeClient.Controllers
 
 		private void OnExperienceChanged(object[] args)
 		{
-			string updateExperienceJson = JsonConvert.SerializeObject(GamemodeClient.Utils.Minimap.GetMinimapAnchor());
-			RAGE.Ui.Console.LogLine(RAGE.Ui.ConsoleVerbosity.Info, updateExperienceJson);
 			this.previousExperience = (long)args[0];
 			this.currentExperience = (long)args[1];
 
