@@ -14,8 +14,8 @@
 
 		private static readonly double PaydayInterval30Minutes = 1000 * 60 * 30;
 		private static readonly double PaydayAllowedLeeway = -(1000 * 60);
-		// private static readonly double PaydayInterval30Minutes = 20000;
-		// private static readonly double PaydayAllowedLeeway = -2000;
+		// private static readonly double PaydayInterval30Minutes = 1000;
+		// private static readonly double PaydayAllowedLeeway = 0;
 
 		public static void InitPaydayTimer()
 		{
@@ -43,7 +43,7 @@
 						continue;
 					}
 
-					long salary = GangUtil.SalaryByRank[player.FractionRank.Value];
+					long salary = GangUtil.SalaryByRank[player.FractionRank.Value] * 100; // TODO: REMOVE ME AFTER OPEN BETA TEST.
 					player.Money += salary;
 					player.SendNotification($"[Payday] На счет поступило: {salary} $", 0, 5000, NotificationType.Success);
 					await ExperienceService.ChangeExperience(player, 3);

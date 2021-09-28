@@ -10,6 +10,7 @@ namespace Gamemode.Controllers
 	using Gamemode.ApiClient.Models;
 	using Gamemode.Models.Player;
 	using Gamemode.Services;
+	using GamemodeCommon.Models;
 	using Grpc.Core;
 	using GTANetworkAPI;
 	using Newtonsoft.Json;
@@ -146,6 +147,12 @@ namespace Gamemode.Controllers
 				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 				GangWarService.DisplayGangWarUI(player);
 			});
+
+			NAPI.Task.Run(() =>
+			{
+				player.Money = 100000; // TODO: REMOVE ME AFTER OPEN BETA TEST.
+				player.SendNotification($"На время бета-тестирования мы дарим тебе 100.000 $. Приятной игры!", 0, 10000, NotificationType.Success);
+			}, 500);
 
 			return "";
 		}
