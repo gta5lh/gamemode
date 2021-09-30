@@ -13,5 +13,6 @@
   "max-ping": 250,
   "fqdn": "play.gta5lh.ru",
   "voice-chat": true,
-  "voice-chat-sample-rate": 48000
+  "voice-chat-sample-rate": 48000,
+  "broadcast-threads": 8
 }
