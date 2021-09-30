@@ -1,8 +1,8 @@
 {
-  "maxplayers": 5,
-  "name": "Lost Heaven | gta5lh.ru [VOICE] [BETA]",
-  "gamemode": "RPG",
-  "stream-distance": 500.0,
+  "maxplayers": 200,
+  "name": "✨ Lost Heaven | Бонус 100.000 $ | PayDay x100 ✨ [VOICE] [DM] [ROLEPLAY]",
+  "gamemode": "ROLEPLAY",
+  "stream-distance": 300.0,
   "announce": false,
   "csharp": "enabled",
   "port": 22005,
