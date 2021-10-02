@@ -22,6 +22,7 @@ namespace Gamemode.Services
 		}
 
 		public static readonly Dictionary<WeaponHash, string> AmmoTypeByWeapon = new Dictionary<WeaponHash, string>(){
+			{ WeaponHash.Pistol, "1" },
 			{ WeaponHash.Revolver, "1" },
 			{ WeaponHash.Revolver_mk2, "1" },
 			{ WeaponHash.Pistol_mk2, "1" },
@@ -33,6 +34,7 @@ namespace Gamemode.Services
 			{ WeaponHash.Heavypistol, "1" },
 			{ WeaponHash.Flaregun, "1" },
 
+			{ WeaponHash.Microsmg, "2" },
 			{ WeaponHash.Smg, "2" },
 			{ WeaponHash.Smg_mk2, "2" },
 			{ WeaponHash.Assaultsmg, "2" },
@@ -50,6 +52,7 @@ namespace Gamemode.Services
 			{ WeaponHash.Bullpuprifle_mk2, "3" },
 			{ WeaponHash.Compactrifle, "3" },
 
+			{ WeaponHash.Pumpshotgun, "4" },
 			{ WeaponHash.Pumpshotgun_mk2, "4" },
 			{ WeaponHash.Sawnoffshotgun, "4" },
 			{ WeaponHash.Bullpupshotgun, "4" },
@@ -58,6 +61,7 @@ namespace Gamemode.Services
 
 		public static readonly Dictionary<string, List<WeaponHash>> WeaponsByAmmoType = new Dictionary<string, List<WeaponHash>>(){
 			{"1", new List<WeaponHash>() {
+				WeaponHash.Pistol,
 				WeaponHash.Revolver,
 				WeaponHash.Revolver_mk2,
 				WeaponHash.Pistol_mk2,
@@ -70,6 +74,7 @@ namespace Gamemode.Services
 				WeaponHash.Flaregun,
 			}},
 			{"2", new List<WeaponHash>() {
+				WeaponHash.Microsmg,
 				WeaponHash.Smg,
 				WeaponHash.Smg_mk2,
 				WeaponHash.Assaultsmg,
@@ -89,6 +94,7 @@ namespace Gamemode.Services
 				WeaponHash.Compactrifle,
 			}},
 			{"4", new List<WeaponHash>() {
+				WeaponHash.Pumpshotgun,
 				WeaponHash.Pumpshotgun_mk2,
 				WeaponHash.Sawnoffshotgun,
 				WeaponHash.Bullpupshotgun,
