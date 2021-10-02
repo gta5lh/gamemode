@@ -136,6 +136,8 @@ namespace Gamemode.Services
 			{ "2", 1000 },
 			{ "3", 1000 },
 			{ "4", 500 },
+			{ "armor", 1000 },
+			{ "health", 500 },
 		};
 
 		public static readonly Dictionary<string, int> AmountByAmmoType = new Dictionary<string, int>(){

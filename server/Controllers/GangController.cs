@@ -111,6 +111,30 @@ namespace Gamemode
 				return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Error, "Недостаточно денег!"));
 			}
 
+			if (itemName == "armor")
+			{
+				if (player.Armor >= 100)
+				{
+					return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Error, "Бронежилет уже имеется!"));
+				}
+
+				player.Armor = 100;
+				player.Money -= price;
+				return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Success, "Успешная покупка!"));
+			}
+
+			if (itemName == "health")
+			{
+				if (player.Health >= 100)
+				{
+					return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Error, "Здоровье уже восполнено!"));
+				}
+
+				player.Health = 100;
+				player.Money -= price;
+				return JsonConvert.SerializeObject(new GangItemResponse(NotificationType.Success, "Успешная покупка!"));
+			}
+
 			WeaponHash weaponHash = (WeaponHash)NAPI.Util.GetHashKey(itemName);
 			int amount = 0;
 			List<WeaponHash> ammoForWeapons = new List<WeaponHash>();
