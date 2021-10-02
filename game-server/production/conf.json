@@ -1,7 +1,7 @@
 {
   "maxplayers": 200,
-  "name": "✨ Lost Heaven | Бонус 100.000 $ | PayDay x100 ✨ [VOICE] [DM] [ROLEPLAY]",
-  "gamemode": "ROLEPLAY",
+  "name": "✨ Lost Heaven | Бонус 100.000 $ | PayDay x100 [VOICE] [DM] [RPG]",
+  "gamemode": "GANGWAR",
   "stream-distance": 300.0,
   "announce": false,
   "csharp": "enabled",
