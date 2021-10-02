@@ -10,6 +10,7 @@ namespace Gamemode.Controllers
 	using Gamemode.ApiClient.Models;
 	using Gamemode.Models.Player;
 	using Gamemode.Services;
+	using Gamemode.Utils;
 	using GamemodeCommon.Models;
 	using Grpc.Core;
 	using GTANetworkAPI;
@@ -146,6 +147,7 @@ namespace Gamemode.Controllers
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
 				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 				GangWarService.DisplayGangWarUI(player);
+				NAPI.Chat.SendChatMessageToAll($"Приветствуем нового игрока нашего сервера: {ChatColor.NewPlayerChatColor}{player.Name}~w~ (ID: {player.Id})");
 			});
 
 			NAPI.Task.Run(() =>
