@@ -22,6 +22,8 @@ namespace Gamemode.Services
 		}
 
 		public static readonly Dictionary<WeaponHash, string> AmmoTypeByWeapon = new Dictionary<WeaponHash, string>(){
+			{ WeaponHash.Revolver, "1" },
+			{ WeaponHash.Revolver_mk2, "1" },
 			{ WeaponHash.Pistol_mk2, "1" },
 			{ WeaponHash.Combatpistol, "1" },
 			{ WeaponHash.Appistol, "1" },
@@ -56,6 +58,8 @@ namespace Gamemode.Services
 
 		public static readonly Dictionary<string, List<WeaponHash>> WeaponsByAmmoType = new Dictionary<string, List<WeaponHash>>(){
 			{"1", new List<WeaponHash>() {
+				WeaponHash.Revolver,
+				WeaponHash.Revolver_mk2,
 				WeaponHash.Pistol_mk2,
 				WeaponHash.Combatpistol,
 				WeaponHash.Appistol,
@@ -93,6 +97,8 @@ namespace Gamemode.Services
 		};
 
 		public static readonly Dictionary<string, int> PriceByItemName = new Dictionary<string, int>(){
+			{ "weapon_revolver", 4000 },
+			{ "weapon_revolver_mk2", 4500 },
 			{ "weapon_pistol_mk2", 1500 },
 			{ "weapon_combatpistol", 1000 },
 			{ "weapon_appistol", 3500 },

@@ -17,11 +17,11 @@
 
 		private static Timer SaveUsersTimer;
 
-		private static readonly double SaveUserInterval10Seconds = 30000;
+		private static readonly double SaveUserInterval120Seconds = 120000;
 
 		public static void InitSaveUserTimer()
 		{
-			SaveUsersTimer = new System.Timers.Timer(SaveUserInterval10Seconds);
+			SaveUsersTimer = new System.Timers.Timer(SaveUserInterval120Seconds);
 			SaveUsersTimer.Elapsed += OnSaveUsers;
 			SaveUsersTimer.AutoReset = true;
 			SaveUsersTimer.Start();
