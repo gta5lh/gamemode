@@ -2,11 +2,10 @@
 using Gamemode.Utils;
 using GTANetworkAPI;
 
-namespace Gamemode.Models.Player
+namespace Gamemode.Cache.Player
 {
 	public class FractionsCache
 	{
-		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 		private static readonly Dictionary<byte, Dictionary<long, string>> FractionMembers = new Dictionary<byte, Dictionary<long, string>>()
 		{
 			{ 1, new Dictionary<long, string>() },
@@ -24,7 +23,6 @@ namespace Gamemode.Models.Player
 			}
 
 			FractionMembers[fractionId][staticId] = name;
-			Logger.Info($"Loaded fraction member to cache. static_id={staticId}");
 		}
 
 		public static void UnloadFractionMemberFromCache(byte fractionId, long staticId)
@@ -34,8 +32,7 @@ namespace Gamemode.Models.Player
 				return;
 			}
 
-			FractionMembers[fractionId].Remove(staticId, out _);
-			Logger.Info($"Unloaded fraction member from cache. static_id={staticId}");
+			FractionMembers[fractionId].Remove(staticId);
 		}
 
 		public static void SendMessageToAllFractionMembers(byte fractionId, string message)

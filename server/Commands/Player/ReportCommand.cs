@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
 using Rpc.Report;
+using Gamemode.Cache.Player;
 
 namespace Gamemode.Commands.Player
 {

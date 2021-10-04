@@ -10,6 +10,7 @@ namespace Gamemode
 	using Gamemode.Models.Player;
 	using GTANetworkAPI;
 	using Rpc.User;
+	using Gamemode.Cache.Player;
 
 	public class WeaponCommand : BaseCommandHandler
 	{

@@ -5,9 +5,10 @@
 namespace Gamemode.Commands.Admin
 {
 	using Gamemode.Models.Admin;
-	using Gamemode.Models.Player;
+	using Gamemode.Cache.Player;
 	using Gamemode.Utils;
 	using GTANetworkAPI;
+	using Gamemode.Models.Player;
 
 	public class AdminChatCommand : Script
 	{

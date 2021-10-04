@@ -11,6 +11,7 @@ namespace Gamemode
 	using Gamemode.Models.Player;
 	using Gamemode.Models.Vehicle;
 	using GTANetworkAPI;
+	using Gamemode.Cache.Player;
 
 	public class VehicleCommand : BaseCommandHandler
 	{

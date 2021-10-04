@@ -15,11 +15,14 @@ namespace Gamemode.Models.Player
 	using Rpc.User;
 	using Gamemode.Services;
 	using System.Linq;
+	using Gamemode.Cache.Player;
+	using Gamemode.Models.Vip;
 
 	public class CustomPlayer : Player
 	{
 		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
-		private Models.Admin.AdminRank adminRank;
+		private AdminRank adminRank;
+		private VipRank vipRank;
 		private bool invisible;
 		private bool spectating;
 		private bool noclip;
@@ -209,7 +212,7 @@ namespace Gamemode.Models.Player
 			}
 		}
 
-		public Models.Admin.AdminRank AdminRank
+		public AdminRank AdminRank
 		{
 			get => this.adminRank;
 
@@ -220,12 +223,33 @@ namespace Gamemode.Models.Player
 				if (this.adminRank.IsAdmin())
 				{
 					AdminsCache.LoadAdminToCache(this.StaticId, this.Name);
+					VipsCache.LoadVipToCache(this.StaticId, this.Name);
 					this.SetSharedData(DataKey.IsAdmin, true);
 				}
 				else
 				{
 					AdminsCache.UnloadAdminFromCache(this.StaticId);
+					VipsCache.UnloadVipFromCache(this.StaticId);
 					this.ResetSharedData(DataKey.IsAdmin);
+				}
+			}
+		}
+
+		public VipRank VipRank
+		{
+			get => this.vipRank;
+
+			set
+			{
+				this.vipRank = value;
+
+				if (this.vipRank.IsVip())
+				{
+					VipsCache.LoadVipToCache(this.StaticId, this.Name);
+				}
+				else
+				{
+					VipsCache.UnloadVipFromCache(this.StaticId);
 				}
 			}
 		}
@@ -342,6 +366,7 @@ namespace Gamemode.Models.Player
 			player.SetSharedData(DataKey.StaticId, player.StaticId);
 			player.Name = user.Name;
 			player.AdminRank = user.HasAdminRankID ? (Models.Admin.AdminRank)user.AdminRankID : 0;
+			player.VipRank = user.HasAdminRankID ? VipRank.Premium : 0;
 			player.InventoryWeapons = new InventoryWeapons();
 			player.CurrentExperience = user.Experience;
 			player.Money = user.Money;

@@ -12,6 +12,7 @@ namespace Gamemode.Commands.Admin
 	using Gamemode.Utils;
 	using GTANetworkAPI;
 	using Rpc.User;
+	using Gamemode.Cache.Player;
 
 	public class SetAdminRankCommand : BaseCommandHandler
 	{
