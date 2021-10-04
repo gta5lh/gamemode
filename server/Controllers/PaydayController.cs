@@ -1,54 +1,31 @@
 ﻿namespace Gamemode.Controllers
 {
-	using System;
-	using System.Timers;
-	using Gamemode.Models.Player;
-	using Gamemode.Services.Player;
-	using GamemodeCommon.Models;
+	using System.Threading.Tasks;
+	using Gamemode.Jobs.PayDay;
 	using GTANetworkAPI;
+	using Quartz;
+	using Quartz.Impl;
 
-	public class PaydayController : Script
+	public class PayDayController : Script
 	{
+		private static IScheduler scheduler;
 
-		private static Timer PaydayTimer;
-
-		private static readonly double PaydayInterval30Minutes = 1000 * 60 * 30;
-		private static readonly double PaydayAllowedLeeway = -(1000 * 60);
-		// private static readonly double PaydayInterval30Minutes = 1000;
-		// private static readonly double PaydayAllowedLeeway = 0;
-
-		public static void InitPaydayTimer()
+		public static async Task StartPayDayJob()
 		{
-			PaydayTimer = new System.Timers.Timer(PaydayInterval30Minutes);
-			PaydayTimer.Elapsed += OnPaydayTime;
-			PaydayTimer.AutoReset = true;
-			PaydayTimer.Start();
+			StdSchedulerFactory factory = new StdSchedulerFactory();
+			scheduler = await factory.GetScheduler();
+
+			await scheduler.Start();
+
+			string payDayCronExpression = "0 0,30 * * * ?";
+			PayDayJob payDayJob = new PayDayJob(payDayCronExpression);
+
+			await payDayJob.Configure(scheduler);
 		}
 
-		private static async void OnPaydayTime(object source, ElapsedEventArgs e)
+		public static async Task StopPayDayJob()
 		{
-			NAPI.Task.Run(async () =>
-			{
-				DateTime paydayTime = DateTime.UtcNow.AddMilliseconds(PaydayAllowedLeeway);
-
-				foreach (CustomPlayer player in NAPI.Pools.GetAllPlayers())
-				{
-					if (player.Fraction == null || player.LoggedInAt == null)
-					{
-						continue;
-					}
-
-					if (DateTime.Compare(player.LoggedInAt.Value.AddMilliseconds(PaydayInterval30Minutes), paydayTime) >= 1)
-					{
-						continue;
-					}
-
-					long salary = GangUtil.SalaryByRank[player.FractionRank.Value] * 100; // TODO: REMOVE ME AFTER OPEN BETA TEST.
-					player.Money += salary;
-					player.SendNotification($"[Payday] На счет поступило: {salary} $", 0, 5000, NotificationType.Success);
-					await ExperienceService.ChangeExperience(player, 3);
-				}
-			});
+			await scheduler.Shutdown();
 		}
 	}
 }

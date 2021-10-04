@@ -16,9 +16,10 @@ namespace Gamemode
 		{
 			Task finishGangWarAsFailed = GangWarService.FinishGangWarAsFailed();
 			Task stopGangWarJobs = GangWarController.StopGangWarJobs();
+			Task stopPayDayJob = PayDayController.StopPayDayJob();
 			Task savePlayersOnServerStop = PlayerService.SavePlayersOnServerStop();
 
-			Task.WaitAll(finishGangWarAsFailed, stopGangWarJobs, savePlayersOnServerStop);
+			Task.WaitAll(finishGangWarAsFailed, stopGangWarJobs, stopPayDayJob, savePlayersOnServerStop);
 		}
 	}
 }

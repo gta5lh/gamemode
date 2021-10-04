@@ -32,7 +32,6 @@ namespace Gamemode
 			RAGE.Entities.Vehicles.CreateEntity = (NetHandle handle) => new CustomVehicle(handle);
 
 			Cache = new MemoryCache(new MemoryCacheOptions { }, new NLogLoggerFactory());
-			PaydayController.InitPaydayTimer();
 			TimeController.InitTimeSyncTimer();
 			WeatherController.InitWeatherSyncTimer();
 			SaveUsersController.InitSaveUserTimer();
@@ -40,8 +39,9 @@ namespace Gamemode
 			Task initGangZoneCacheTask = GangZoneCache.InitGangZoneCache();
 			Task onGameServerStartTask = OnGameServerStart();
 			Task startGangWarJobsTask = GangWarController.StartGangWarJobs();
+			Task payDayJobTask = PayDayController.StartPayDayJob();
 
-			Task.WaitAll(initGangZoneCacheTask, onGameServerStartTask, startGangWarJobsTask);
+			Task.WaitAll(initGangZoneCacheTask, onGameServerStartTask, startGangWarJobsTask, payDayJobTask);
 		}
 
 		private void SetServerSettings()
