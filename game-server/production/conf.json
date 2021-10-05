@@ -3,7 +3,7 @@
   "name": "✨ Lost Heaven | Бонус 100.000 $ | PayDay x100 [VOICE] [DM] [RPG]",
   "gamemode": "GANGWAR",
   "stream-distance": 300.0,
-  "announce": true,
+  "announce": false,
   "csharp": "enabled",
   "port": 22005,
   "resources-compression-level": -9,
