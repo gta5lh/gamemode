@@ -32,8 +32,8 @@ namespace GamemodeClient.Controllers
 			ShowAuth();
 			Task.Run(() =>
 			{
-				Cursor.Visible = true;
 				Events.CallLocal("CheckAuthToken");
+				Cursor.Visible = true;
 			}, 1000);
 		}
 

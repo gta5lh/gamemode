@@ -41,7 +41,6 @@ namespace GamemodeClient.Controllers.Cef
 		public static void SetAuthToken(SetAuthToken setAuthToken)
 		{
 			string json = JsonConvert.SerializeObject(setAuthToken);
-			RAGE.Ui.Console.Log(RAGE.Ui.ConsoleVerbosity.Error, json);
 			IndexCef.ExecuteJs($"SetAuthToken('{json}')");
 		}
 	}
