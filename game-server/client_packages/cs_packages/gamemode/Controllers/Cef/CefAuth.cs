@@ -1,3 +1,7 @@
+using GamemodeClient.Models;
+using Newtonsoft.Json;
+using RAGE;
+
 namespace GamemodeClient.Controllers.Cef
 {
 	public static partial class Cef
@@ -32,6 +36,13 @@ namespace GamemodeClient.Controllers.Cef
 		{
 			IndexCef.ExecuteJs("HideAuth()");
 			Ui.CloseUI();
+		}
+
+		public static void SetAuthToken(SetAuthToken setAuthToken)
+		{
+			string json = JsonConvert.SerializeObject(setAuthToken);
+			RAGE.Ui.Console.Log(RAGE.Ui.ConsoleVerbosity.Error, json);
+			IndexCef.ExecuteJs($"SetAuthToken('{json}')");
 		}
 	}
 }

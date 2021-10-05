@@ -58,7 +58,7 @@ namespace Rpc.User
 
 	public partial class LoginRequest
 	{
-		public LoginRequest(string email, string password, string lastIPAddress, string socialClubID, string computerSerialNumber, GameTypes gameLauncherID)
+		public LoginRequest(string email, string password, string lastIPAddress, string socialClubID, string computerSerialNumber, GameTypes gameLauncherID, string token)
 		{
 			this.Email = email;
 			this.Password = password;
@@ -66,6 +66,7 @@ namespace Rpc.User
 			this.SocialClubID = socialClubID;
 			this.ComputerSerialNumber = computerSerialNumber;
 			this.GameLauncherID = (long)gameLauncherID;
+			this.Token = token;
 		}
 	}
 

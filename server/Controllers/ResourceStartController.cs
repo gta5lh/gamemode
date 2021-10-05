@@ -50,7 +50,7 @@ namespace Gamemode
 			NAPI.Server.SetAutoSpawnOnConnect(false);
 			NAPI.Server.SetCommandErrorMessage("Команда не найдена.");
 
-			if (IsProduction())
+			if (Utils.Environment.IsProduction())
 			{
 				NAPI.Server.SetLogCommandParamParserExceptions(false);
 			}
@@ -69,17 +69,6 @@ namespace Gamemode
 			Cache.Set(cacheKey, true, cacheEntryOptions);
 
 			return false;
-		}
-
-		private static bool IsProduction()
-		{
-			string? environment = System.Environment.GetEnvironmentVariable("ENVIRONMENT");
-			if (environment == null)
-			{
-				environment = "development";
-			}
-
-			return environment == "production";
 		}
 
 		private static async Task OnGameServerStart()

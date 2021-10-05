@@ -23,13 +23,18 @@ namespace GamemodeClient.Controllers
 		{
 			RAGE.Input.Bind(VirtualKeys.OEM3, false, this.OnCursorKeyPressed);
 
-			ShowAuth();
-			Task.Run(() => Cursor.Visible = true, 1000);
-
 			Events.Add("LoginSubmitted", this.OnLoginSubmitted);
 			Events.Add("RegisterSubmitted", this.OnRegisterSubmitted);
 			Events.Add("ResetPasswordSubmitted", this.OnResetPasswordSubmitted);
 			Events.Add("DisplayNoviceNotification", this.OnDisplayNoviceNotification);
+			Events.Add("UseAuthToken", this.OnUseAuthToken);
+
+			ShowAuth();
+			Task.Run(() =>
+			{
+				Events.CallLocal("CheckAuthToken");
+				Cursor.Visible = true;
+			}, 1000);
 		}
 
 		private void OnCursorKeyPressed()
@@ -119,6 +124,13 @@ namespace GamemodeClient.Controllers
 			HideAllNotifications();
 			DisplayNotification(new Notification("Добро Пожаловать на Lost Heaven! Чтобы начать свой путь поговори с НПЦ рядом с точкой появления!", 0, 15000, NotificationType.Success));
 			RAGE.Game.Audio.PlaySoundFrontend(-1, "CHECKPOINT_PERFECT", "HUD_MINI_GAME_SOUNDSET", true);
+		}
+
+		private void OnUseAuthToken(object[] request)
+		{
+			string email = (string)request[0];
+			string token = (string)request[1];
+			SetAuthToken(new SetAuthToken(email, token));
 		}
 
 		private void LogIn()

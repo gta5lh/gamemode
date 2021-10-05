@@ -42,7 +42,7 @@ namespace Gamemode.Controllers
 
 			try
 			{
-				LoginRequest loginUserRequest = new LoginRequest(loginRequest.Email, loginRequest.Password, player.Address, player.SocialClubId.ToString(), player.Serial, player.GameType);
+				LoginRequest loginUserRequest = new LoginRequest(loginRequest.Email, loginRequest.Password, player.Address, player.SocialClubId.ToString(), player.Serial, player.GameType, loginRequest.Token);
 				loginResponse = await Infrastructure.RpcClients.UserService.LoginAsync(loginUserRequest);
 			}
 			catch (RpcException e)
@@ -85,6 +85,14 @@ namespace Gamemode.Controllers
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
 				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 				GangWarService.DisplayGangWarUI(player);
+
+				if (player.AdminRank > 0 && Utils.Environment.IsProduction())
+				{
+					loginResponse.User.Email = "";
+					loginResponse.Token = "";
+				}
+
+				NAPI.ClientEvent.TriggerClientEvent(player, "SaveAuthToken", loginResponse.User.Email, loginResponse.Token);
 			});
 
 			if (alreadyOnline)
