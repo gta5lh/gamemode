@@ -34,7 +34,7 @@ namespace Gamemode.Cache.GangZone
 
 			foreach (Rpc.Zone.Zone zone in allResponse.Zones)
 			{
-				zones.Add(new Zone(zone.ID, zone.X, zone.Y, zone.FractionID, zone.Battleworthy, GangUtil.BlipColorByGangId[zone.FractionID]));
+				zones.Add(new Zone(zone.ID, zone.X, zone.Y, zone.FractionID, zone.Battleworthy, zone.Neutral ? (byte)55 : GangUtil.BlipColorByGangId[zone.FractionID]));
 			}
 
 			return zones;
