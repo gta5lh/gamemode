@@ -27,7 +27,6 @@ namespace Gamemode.Commands.Admin
 				try
 				{
 					amount = int.Parse(amountInput);
-
 				}
 				catch
 				{

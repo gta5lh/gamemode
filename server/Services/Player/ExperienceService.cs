@@ -33,7 +33,7 @@ namespace Gamemode.Services.Player
 					}
 
 					NAPI.ClientEvent.TriggerClientEvent(player, "RankedUp", player.FractionRank, player.FractionRankName);
-					player.SendNotification($"Повысился до ранга {player.FractionRankName} [{player.FractionRank}]", 1500, 5000, NotificationType.Success);
+					player.SendNotification($"Повысился до ранга {player.FractionRankName} [{player.FractionRank}]. Открытые ТС: {GangUtil.VehiclesByRankId[player.FractionRank.Value]}", 1500, 7500, NotificationType.Success);
 				});
 			}
 			else if (player.CurrentExperience < 0 && player.FractionRank > 1)

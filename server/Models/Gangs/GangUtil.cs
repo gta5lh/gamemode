@@ -129,6 +129,19 @@ namespace Gamemode
 			{ NpcIdMarabunta, Marabunta.BlipColor},
 		};
 
+		public static readonly Dictionary<long, string> VehiclesByRankId = new Dictionary<long, string>()
+		{
+			{ 2, "Manana, Emperor" },
+			{ 3, "Voodoo"},
+			{ 4, "Picador, Moonbeam"},
+			{ 5, "Hexer, Sovereign" },
+			{ 6, "Yosemite, Faction, Warrener"},
+			{ 7, "Buccaneer, Ruiner"},
+			{ 8, "Riata, Cognoscenti"},
+			{ 9, "Gauntlet"},
+			{ 10, "Superd, Dubsta, Dominator"},
+		};
+
 		public const string BallasName = "Ballas";
 		public const string BloodsName = "Bloods";
 		public const string MarabuntaName = "Marabunta";
