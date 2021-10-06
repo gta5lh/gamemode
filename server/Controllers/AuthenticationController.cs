@@ -83,6 +83,9 @@ namespace Gamemode.Controllers
 
 				CustomPlayer.LoadPlayerCache(player, loginResponse.User);
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
+				player.Health = (int)loginResponse.User.Health;
+				player.Armor = (int)loginResponse.User.Armor;
+
 				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 				GangWarService.DisplayGangWarUI(player);
 
@@ -225,7 +228,7 @@ namespace Gamemode.Controllers
 
 			try
 			{
-				await Infrastructure.RpcClients.UserService.LogoutAsync(new LogoutRequest(player.StaticId, player.Money, player.CurrentExperience, player.GetAllWeapons()));
+				await Infrastructure.RpcClients.UserService.LogoutAsync(new LogoutRequest(player.StaticId, player.Money, player.CurrentExperience, player.GetAllWeapons(), player.Health, player.Armor));
 			}
 			catch
 			{

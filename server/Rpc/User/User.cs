@@ -39,12 +39,14 @@ namespace Rpc.User
 
 	public partial class SaveRequest
 	{
-		public SaveRequest(long id, long experience, long money, List<Weapon> weapons)
+		public SaveRequest(long id, long experience, long money, List<Weapon> weapons, long health, long armor)
 		{
 			this.ID = id;
 			this.Experience = experience;
 			this.Money = money;
 			this.Weapons.Add(weapons);
+			this.Health = health;
+			this.Armor = armor;
 		}
 	}
 
@@ -157,12 +159,14 @@ namespace Rpc.User
 
 	public partial class LogoutRequest
 	{
-		public LogoutRequest(long id, long money, long experience, List<Weapon> weapons)
+		public LogoutRequest(long id, long money, long experience, List<Weapon> weapons, long health, long armor)
 		{
 			this.ID = id;
 			this.Money = money;
 			this.Experience = experience;
 			this.Weapons.Add(weapons);
+			this.Health = health;
+			this.Armor = armor;
 		}
 	}
 

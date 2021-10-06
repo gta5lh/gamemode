@@ -13,6 +13,8 @@ namespace Gamemode.Controllers
 		[ServerEvent(Event.PlayerSpawn)]
 		private void OnPlayerSpawn(CustomPlayer player)
 		{
+			int health = player.Health;
+
 			if (player.Fraction != null)
 			{
 				Spawn spawn = GangSpawns.Spawns[player.Fraction.Value];

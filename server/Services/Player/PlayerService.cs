@@ -21,7 +21,7 @@ namespace Gamemode.Services.Player
 			{
 				foreach (CustomPlayer player in players)
 				{
-					saveUserRequests.Add(new SaveRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons()));
+					saveUserRequests.Add(new SaveRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons(), player.Health, player.Armor));
 				}
 			});
 
@@ -52,7 +52,7 @@ namespace Gamemode.Services.Player
 
 			foreach (CustomPlayer player in players)
 			{
-				saveUserRequests.Add(new SaveRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons()));
+				saveUserRequests.Add(new SaveRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons(), player.Health, player.Armor));
 			}
 
 			try
