@@ -25,15 +25,11 @@ namespace GamemodeClient.Controllers
 			RAGE.Game.Audio.PlayMissionCompleteAudio("GENERIC_FAILED");
 		}
 
-		private void OnExperienceChanged(object[] args)
+		private void OnExperienceUpdated(long previousExperience, long currentExperience, long requiredExperience)
 		{
-			this.previousExperience = (long)args[0];
-			this.currentExperience = (long)args[1];
-
-			if (args[2] != null)
-			{
-				this.requiredExperience = (long)args[2];
-			}
+			this.previousExperience = previousExperience;
+			this.currentExperience = currentExperience;
+			this.requiredExperience = requiredExperience;
 
 			UpdateExperience(new UpdateExperience(this.currentExperience, this.previousExperience, this.requiredExperience));
 		}

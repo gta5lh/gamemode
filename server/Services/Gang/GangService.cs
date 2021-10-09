@@ -31,12 +31,12 @@ namespace Gamemode.Services
 			{
 				player.Fraction = gangId == 0 ? null : (long?)gangId;
 				player.FractionRank = tier == 0 ? null : (long?)tier;
-				player.FractionRankName = setFractionResponse.TierName;
+				player.FractionRankName = setFractionResponse.TierName == "" ? null : setFractionResponse.TierName;
 				player.RequiredExperience = setFractionResponse.TierRequiredExperience;
 				player.CurrentExperience = 0;
 				player.SetSkin(gangId == 0 ? PedHash.Tramp01 : (PedHash)setFractionResponse.Skin);
 				player.CustomRemoveAllWeapons();
-				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
+				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceUpdated", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 
 				if (gangId != 0)
 				{

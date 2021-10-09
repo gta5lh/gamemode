@@ -17,6 +17,15 @@ namespace Gamemode
 		public static readonly byte NpcIdVagos = 4;
 		public static readonly byte NpcIdMarabunta = 5;
 
+		public static readonly Dictionary<long, string> GangReadableNameById = new Dictionary<long, string>()
+		{
+			{ NpcIdBloods, "Bloods" },
+			{ NpcIdBallas, "Ballas"},
+			{ NpcIdTheFamilies, "The Families"},
+			{ NpcIdVagos, "Vagos" },
+			{ NpcIdMarabunta, "Marabunta"},
+		};
+
 		public static readonly Dictionary<long, string> GangNameById = new Dictionary<long, string>()
 		{
 			{ NpcIdBloods, "bloods" },

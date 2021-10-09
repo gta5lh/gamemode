@@ -86,7 +86,7 @@ namespace Gamemode.Controllers
 				player.Health = (int)loginResponse.User.Health;
 				player.Armor = (int)loginResponse.User.Armor;
 
-				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
+				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceUpdated", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 				GangWarService.DisplayGangWarUI(player);
 
 				if (player.AdminRank > 0 && Utils.Environment.IsProduction())
@@ -156,7 +156,7 @@ namespace Gamemode.Controllers
 			{
 				CustomPlayer.LoadPlayerCache(player, registerResponse.User);
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
-				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceChanged", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
+				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceUpdated", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 				GangWarService.DisplayGangWarUI(player);
 				NAPI.Chat.SendChatMessageToAll($"Приветствуем нового игрока нашего сервера: {ChatColor.NewPlayerChatColor}{player.Name}~w~ (ID: {player.Id})");
 			});

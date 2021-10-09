@@ -22,12 +22,37 @@ namespace Gamemode
 
 		[Command("vehicle", CreateVehicleCommandUsage, Alias = "v", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void Vehicle(CustomPlayer admin, string vehicleName = null)
+		public void Vehicle(CustomPlayer admin, string vehicleName = null, string rInput = null, string gInput = null, string bInput = null)
 		{
 			if (vehicleName == null)
 			{
 				admin.SendChatMessage(CreateVehicleCommandUsage);
 				return;
+			}
+
+			Color randomColorOne = new Color(this.random.Next(0, 255), this.random.Next(0, 255), this.random.Next(0, 255));
+			Color randomColorTwo = new Color(this.random.Next(0, 255), this.random.Next(0, 255), this.random.Next(0, 255));
+
+			if (rInput != null && gInput != null && bInput != null)
+			{
+				int r;
+				int g;
+				int b;
+
+				try
+				{
+					r = int.Parse(rInput);
+					g = int.Parse(gInput);
+					b = int.Parse(bInput);
+				}
+				catch
+				{
+					admin.SendChatMessage("Введите цвета rgb через пробел. От 0 до 255. Пример: /veh infernus 255 255 255");
+					return;
+				}
+
+				randomColorOne = new Color(r, g, b);
+				randomColorTwo = randomColorOne;
 			}
 
 			uint vehicleHash = NAPI.Util.GetHashKey(vehicleName);
@@ -37,10 +62,9 @@ namespace Gamemode
 				return;
 			}
 
-			Color randomColor = new Color(this.random.Next(0, 255), this.random.Next(0, 255), this.random.Next(0, 255));
 			Vehicle vehicle = NAPI.Vehicle.CreateVehicle(vehicleHash, admin.Position, admin.Rotation.Z, 0, 0, "ADM");
-			vehicle.CustomPrimaryColor = randomColor;
-			vehicle.CustomSecondaryColor = randomColor;
+			vehicle.CustomPrimaryColor = randomColorOne;
+			vehicle.CustomSecondaryColor = randomColorTwo;
 			vehicle.Rotation = new Vector3(0, 0, admin.Heading);
 			admin.SetIntoVehicle(vehicle, 0);
 

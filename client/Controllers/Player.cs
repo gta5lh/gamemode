@@ -19,8 +19,17 @@ namespace GamemodeClient.Controllers
 
 		public delegate void moneyUpdatedDelegate(long money);
 		public static event moneyUpdatedDelegate moneyUpdatedEvent;
+		public delegate void experienceUpdatedDelegate(long previousExperience, long currentExperience, long requiredExperience);
+		public static event experienceUpdatedDelegate experienceUpdatedEvent;
+
 
 		public static long Money { get; set; } = 0;
+		public static long CurrentExperience { get; set; } = 0;
+		public static long PreviousExperience { get; set; } = 0;
+		public static long RequiredExperience { get; set; } = 0;
+		public static string FractionRankName { get; set; } = "-";
+		public static string FractionName { get; set; } = "-";
+
 		public static RAGE.Elements.Player CurrentPlayer = RAGE.Elements.Player.LocalPlayer;
 		public static bool GodmodEnabled = false;
 		public static bool InvisibilityEnabled = false;
@@ -40,6 +49,9 @@ namespace GamemodeClient.Controllers
 			Stats.StatSetInt(Misc.GetHashKey(Wheelie), 100, false);
 
 			Events.Add("MoneyUpdated", this.OnMoneyUpdated);
+			Events.Add("ExperienceUpdated", this.OnExperienceUpdated);
+			Events.Add("FractionRankNameUpdated", this.OnFractionRankNameUpdated);
+			Events.Add("FractionNameUpdated", this.OnFractionNameUpdated);
 		}
 
 		public static bool IsInVehicle()
@@ -51,6 +63,41 @@ namespace GamemodeClient.Controllers
 		{
 			Money = (long)request[0];
 			moneyUpdatedEvent(Money);
+		}
+
+		private void OnExperienceUpdated(object[] args)
+		{
+			PreviousExperience = (long)args[0];
+			CurrentExperience = (long)args[1];
+
+			if (args[2] != null)
+			{
+				RequiredExperience = (long)args[2];
+			}
+
+			experienceUpdatedEvent(PreviousExperience, CurrentExperience, RequiredExperience);
+		}
+
+		private void OnFractionRankNameUpdated(object[] args)
+		{
+			if (args == null || args.Length < 1 || (string)args[0] == "" || args[0] == null)
+			{
+				FractionRankName = "-";
+				return;
+			}
+
+			FractionRankName = (string)args[0];
+		}
+
+		private void OnFractionNameUpdated(object[] args)
+		{
+			if (args == null || args.Length < 1 || (string)args[0] == "" || args[0] == null)
+			{
+				FractionName = "-";
+				return;
+			}
+
+			FractionName = (string)args[0];
 		}
 	}
 }

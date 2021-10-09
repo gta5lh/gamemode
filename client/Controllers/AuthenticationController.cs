@@ -21,8 +21,6 @@ namespace GamemodeClient.Controllers
 
 		public AuthenticationController()
 		{
-			RAGE.Input.Bind(VirtualKeys.OEM3, false, this.OnCursorKeyPressed);
-
 			Events.Add("LoginSubmitted", this.OnLoginSubmitted);
 			Events.Add("RegisterSubmitted", this.OnRegisterSubmitted);
 			Events.Add("ResetPasswordSubmitted", this.OnResetPasswordSubmitted);
@@ -35,16 +33,6 @@ namespace GamemodeClient.Controllers
 				Events.CallLocal("CheckAuthToken");
 				Cursor.Visible = true;
 			}, 1000);
-		}
-
-		private void OnCursorKeyPressed()
-		{
-			if (!Player.AuthenticationScreen)
-			{
-				return;
-			}
-
-			Cursor.Visible = true;
 		}
 
 		private async void OnLoginSubmitted(object[] request)

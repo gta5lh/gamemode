@@ -48,9 +48,18 @@ namespace Gamemode.Models.Player
 
 		public ushort? OneTimeVehicleId { get; set; }
 
-		public long? fraction { get; set; }
 		public long? FractionRank { get; set; }
-		public string? FractionRankName { get; set; }
+
+		public string? fractionRankName;
+		public string? FractionRankName
+		{
+			get => this.fractionRankName;
+			set
+			{
+				this.fractionRankName = value;
+				this.TriggerEvent("FractionRankNameUpdated", this.fractionRankName);
+			}
+		}
 
 		public bool IsInWarZone { get; set; }
 
@@ -85,6 +94,7 @@ namespace Gamemode.Models.Player
 
 		public Vector3? SpectatePosition { get; set; }
 
+		public long? fraction { get; set; }
 		public long? Fraction
 		{
 			get => this.fraction;
@@ -100,12 +110,15 @@ namespace Gamemode.Models.Player
 
 				if (this.fraction != null)
 				{
+
+					this.TriggerEvent("FractionNameUpdated", GangUtil.GangReadableNameById[(byte)this.fraction]);
 					FractionsCache.LoadFractionMemberToCache((byte)this.fraction, this.StaticId, this.Name);
 					this.SetBlipColor(GangUtil.BlipColorByGangId[this.fraction.Value]);
 					return;
 				}
 
 				this.SetBlipColor(62);
+				this.TriggerEvent("FractionNameUpdated");
 			}
 		}
 
@@ -279,10 +292,13 @@ namespace Gamemode.Models.Player
 				return;
 			}
 
-			this.FractionRank = fractionRank;
-			this.CurrentExperience = (short)(this.CurrentExperience - this.RequiredExperience.Value);
-			this.RequiredExperience = setFractionResponse.TierRequiredExperience;
-			this.FractionRankName = setFractionResponse.TierName;
+			NAPI.Task.Run(() =>
+			{
+				this.FractionRank = fractionRank;
+				this.CurrentExperience = (short)(this.CurrentExperience - this.RequiredExperience.Value);
+				this.RequiredExperience = setFractionResponse.TierRequiredExperience;
+				this.FractionRankName = setFractionResponse.TierName;
+			});
 		}
 
 		public async Task RankDown()
@@ -310,10 +326,13 @@ namespace Gamemode.Models.Player
 				return;
 			}
 
-			this.FractionRank = fractionRank;
-			this.CurrentExperience = (short)(setFractionResponse.TierRequiredExperience - 1);
-			this.RequiredExperience = setFractionResponse.TierRequiredExperience;
-			this.FractionRankName = setFractionResponse.TierName;
+			NAPI.Task.Run(() =>
+			{
+				this.FractionRank = fractionRank;
+				this.CurrentExperience = (short)(setFractionResponse.TierRequiredExperience - 1);
+				this.RequiredExperience = setFractionResponse.TierRequiredExperience;
+				this.FractionRankName = setFractionResponse.TierName;
+			});
 		}
 
 		public bool HasWeapon(WeaponHash weaponHash)

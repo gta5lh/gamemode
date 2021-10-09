@@ -31,6 +31,7 @@ namespace GamemodeClient.Controllers
 		private int gangWarState = 0;
 
 		private bool HelpMenuEnabled = true;
+		private bool cursorVisible = false;
 
 		public HudController()
 		{
@@ -40,6 +41,7 @@ namespace GamemodeClient.Controllers
 			disableUIStateChangedEvent += this.OnDisableUIStateChanged;
 			SafeZoneController.playerSafeZoneEvent += this.OnPlayerSafeZoneEvent;
 			Player.moneyUpdatedEvent += this.OnMoneyUpdated;
+			Player.experienceUpdatedEvent += this.OnExperienceUpdated;
 
 			Events.OnPlayerEnterVehicle += this.OnPlayerEnterVehicle;
 			Events.OnPlayerLeaveVehicle += this.OnPlayerLeaveVehicle;
@@ -55,11 +57,17 @@ namespace GamemodeClient.Controllers
 			Events.AddDataHandler(GamemodeCommon.Models.Data.DataKey.CurrentTime, this.OnTimeUpdated);
 
 			RAGE.Input.Bind(VirtualKeys.F6, false, this.OnHideHelpKeyPressed);
+			RAGE.Input.Bind(VirtualKeys.OEM3, false, this.OnCursorKeyPressed);
 
 			// Experience
-			Events.Add("ExperienceChanged", this.OnExperienceChanged);
 			Events.Add("RankedUp", this.OnRankedUp);
 			Events.Add("RankedDown", this.OnRankedDown);
+		}
+
+		private void OnCursorKeyPressed()
+		{
+			this.cursorVisible = !this.cursorVisible;
+			Cursor.Visible = this.cursorVisible;
 		}
 
 		private void OnDisplayNotification(object[] args)
