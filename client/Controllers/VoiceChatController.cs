@@ -38,38 +38,39 @@ namespace GamemodeClient.Controllers
 		}
 		public void OnTick(List<Events.TickNametagData> nametags)
 		{
-			if (nametags == null) return;
-
-			int screenX = 0, screenY = 0;
-			RAGE.Game.Graphics.GetScreenResolution(ref screenX, ref screenY);
-
-			foreach (Events.TickNametagData nametag in nametags)
+			if (nametags != null)
 			{
-				if (nametag.Player == RAGE.Elements.Player.LocalPlayer || this.MutedPlayers.Contains(nametag.Player))
+				int screenX = 0, screenY = 0;
+				RAGE.Game.Graphics.GetScreenResolution(ref screenX, ref screenY);
+
+				foreach (Events.TickNametagData nametag in nametags)
 				{
-					continue;
+					if (nametag.Player == RAGE.Elements.Player.LocalPlayer || this.MutedPlayers.Contains(nametag.Player))
+					{
+						continue;
+					}
+
+					object isSpeaking = nametag.Player.GetSharedData(DataKey.IsSpeaking);
+					if (isSpeaking == null || !(bool)isSpeaking)
+					{
+						continue;
+					}
+
+					if (nametag.Distance > MaxRange)
+					{
+						continue;
+					}
+
+					Vector3 targetPlayerPosition = nametag.Player.Position + new Vector3(0, 0, 1.30f);
+
+					float x = 0;
+					float y = 0;
+
+					this.LoadIcon();
+					RAGE.Game.Graphics.GetScreenCoordFromWorldCoord(targetPlayerPosition.X, targetPlayerPosition.Y, targetPlayerPosition.Z, ref x, ref y);
+					float dist = Player.CurrentPlayer.Position.DistanceTo(nametag.Player.Position);
+					RAGE.Game.Graphics.DrawSprite("mpleaderboard", "leaderboard_audio_3", x, y, 0.025f - (dist / MaxDist * 0.020f), 0.05f - (dist / MaxDist * 0.035f), 0, 255, 255, 255, 255, 0);
 				}
-
-				object isSpeaking = nametag.Player.GetSharedData(DataKey.IsSpeaking);
-				if (isSpeaking == null || !(bool)isSpeaking)
-				{
-					continue;
-				}
-
-				if (nametag.Distance > MaxRange)
-				{
-					continue;
-				}
-
-				Vector3 targetPlayerPosition = nametag.Player.Position + new Vector3(0, 0, 1.30f);
-
-				float x = 0;
-				float y = 0;
-
-				this.LoadIcon();
-				RAGE.Game.Graphics.GetScreenCoordFromWorldCoord(targetPlayerPosition.X, targetPlayerPosition.Y, targetPlayerPosition.Z, ref x, ref y);
-				float dist = Player.CurrentPlayer.Position.DistanceTo(nametag.Player.Position);
-				RAGE.Game.Graphics.DrawSprite("mpleaderboard", "leaderboard_audio_3", x, y, 0.025f - (dist / MaxDist * 0.020f), 0.05f - (dist / MaxDist * 0.035f), 0, 255, 255, 255, 255, 0);
 			}
 
 			bool speakingKeyPressed = Input.IsDown(RAGE.Ui.VirtualKeys.N) && !RAGE.Ui.Cursor.Visible;
