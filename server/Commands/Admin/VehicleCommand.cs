@@ -18,6 +18,7 @@ namespace Gamemode
 		private const string CreateVehicleCommandUsage = "Использование: /vehicle {название}. Пример: /v buffalo";
 		private const string FixVehicleCommandUsage = "Использование: /fixvehicle {vehicle_id}. Пример: /fv 10";
 		private const string DeleteVehicleCommandUsage = "Использование: /deletevehicle {vehicle_id}. Пример: /dv 10";
+		private const string FlipVehicleCommandUsage = "Использование: /flipvehicle {vehicle_id}. Пример: /flv 10";
 		private readonly Random random = new Random();
 
 		[Command("vehicle", CreateVehicleCommandUsage, Alias = "v", SensitiveInfo = true, Hide = true)]
@@ -70,7 +71,7 @@ namespace Gamemode
 
 			string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, vehicleName);
 			AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} создал автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
-			this.Logger.Warn($"Administrator {admin.Name} created vehicle {vehicleDisplayName}");
+			this.Logger.Warn($"Administrator {admin.Name} created vehicle {vehicleDisplayName.ToLower()}");
 		}
 
 		[Command("fixvehicle", FixVehicleCommandUsage, Alias = "fv", SensitiveInfo = true, Hide = true)]
@@ -106,7 +107,7 @@ namespace Gamemode
 
 			string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, string.Empty);
 			AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} починил автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
-			this.Logger.Warn($"Administrator {admin.Name} fixed vehicle {vehicleDisplayName}");
+			this.Logger.Warn($"Administrator {admin.Name} fixed vehicle {vehicleDisplayName.ToLower()}");
 		}
 
 		[Command("deletevehicle", DeleteVehicleCommandUsage, Alias = "dv", SensitiveInfo = true, Hide = true)]
@@ -144,11 +145,47 @@ namespace Gamemode
 				vehicleOwner.OneTimeVehicleId = null;
 			}
 
+			string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, string.Empty);
 			vehicle.Delete();
 
+			AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} удалил автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
+			this.Logger.Warn($"Administrator {admin.Name} deleted vehicle {vehicleDisplayName.ToLower()}");
+		}
+
+		[Command("flipvehicle", FlipVehicleCommandUsage, Alias = "flv", SensitiveInfo = true, Hide = true)]
+		[AdminMiddleware(AdminRank.Junior)]
+		public void FlipVehicle(CustomPlayer admin, string vehicleIdInput = null)
+		{
+			if (vehicleIdInput == null)
+			{
+				admin.SendChatMessage(FlipVehicleCommandUsage);
+				return;
+			}
+
+			ushort vehicleId;
+
+			try
+			{
+				vehicleId = ushort.Parse(vehicleIdInput);
+			}
+			catch (Exception)
+			{
+				admin.SendChatMessage(FlipVehicleCommandUsage);
+				return;
+			}
+
+			CustomVehicle vehicle = (CustomVehicle)VehicleUtil.GetById(vehicleId);
+			if (vehicle == null)
+			{
+				admin.SendChatMessage($"Автомобиль с ID {vehicleId} не найден");
+				return;
+			}
+
+			vehicle.Rotation = new Vector3(0, 0, vehicle.Rotation.Z);
+
 			string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, string.Empty);
-			AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} удалил автомобиль {vehicleDisplayName} [{vehicle.Id}]");
-			this.Logger.Warn($"Administrator {admin.Name} deleted vehicle {vehicleDisplayName}");
+			AdminsCache.SendMessageToAllAdminsAction($"{admin.Name} перевенул автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
+			this.Logger.Warn($"Administrator {admin.Name} flipped vehicle {vehicleDisplayName.ToLower()}");
 		}
 	}
 }
