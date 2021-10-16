@@ -15,7 +15,7 @@ namespace Gamemode.Services.Player
 			List<GTANetworkAPI.Player> found = NAPI.Player.GetPlayersInRadiusOfPlayer(3, target);
 			foreach (CustomPlayer player in found)
 			{
-				if (player == target) continue;
+				if (player == target || player.Invisible || player.Noclip || player.Spectating) continue;
 				foundKiller = player;
 				foundReason = (uint)player.CurrentWeapon;
 				return;
