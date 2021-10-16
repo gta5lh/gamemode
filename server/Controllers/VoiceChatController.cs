@@ -37,12 +37,13 @@ namespace Gamemode.Controllers
 			player.SetSharedData(DataKey.IsSpeaking, false);
 		}
 
-		[RemoteEvent("add_voice_listener")]
-		public void AddVoiceListener(CustomPlayer player, CustomPlayer target)
+		[RemoteProc("add_voice_listener", true)]
+		public async Task<System.Object> AddVoiceListener(CustomPlayer player, CustomPlayer target)
 		{
-			if (Vector3.Distance(player.Position, target.Position) > MaxRange || (player.MuteState != null && player.MuteState.IsMuted())) return;
+			if (Vector3.Distance(player.Position, target.Position) > MaxRange || (player.MuteState != null && player.MuteState.IsMuted())) return false;
 
 			player.EnableVoiceTo(target);
+			return true;
 		}
 
 		[RemoteEvent("remove_voice_listener")]

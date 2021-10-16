@@ -10,6 +10,7 @@ namespace GamemodeClient.Controllers
 	using System.Collections.Generic;
 	using RAGE.Ui;
 	using GamemodeCommon.Models.Data;
+	using System;
 
 	public class VoiceChatController : Events.Script
 	{
@@ -201,12 +202,14 @@ namespace GamemodeClient.Controllers
 			}
 		}
 
-		private void AddListener(RAGE.Elements.Player player)
+		private async void AddListener(RAGE.Elements.Player player)
 		{
-			this.Listeners.Add(player);
-			Events.CallRemote("add_voice_listener", player);
-
-			player.Voice3d = Use3d;
+			bool added = Convert.ToBoolean(await Events.CallRemoteProc("add_voice_listener", player));
+			if (added)
+			{
+				this.Listeners.Add(player);
+				player.Voice3d = Use3d;
+			}
 		}
 
 		private void RemoveListener(RAGE.Elements.Player player, bool notify)
