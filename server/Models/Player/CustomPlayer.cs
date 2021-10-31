@@ -415,7 +415,6 @@ namespace Gamemode.Models.Player
 				}
 			}
 
-			Logger.Info($"Loaded player to cache. ID={player.StaticId}");
 			return player;
 		}
 
@@ -426,7 +425,6 @@ namespace Gamemode.Models.Player
 			player.AdminRank = 0;
 			player.Fraction = null;
 			IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
-			Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
 		}
 
 		public List<Weapon> GetAllWeapons()

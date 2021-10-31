@@ -53,11 +53,14 @@ namespace GamemodeClient.Controllers
 			Events.Add("CloseGangWarUI", this.OnCloseGangWarUI);
 			Events.Add("UpdateGangWarStats", this.OnUpdateGangWarStats);
 			Events.Add("DisplayNotification", this.OnDisplayNotification);
+			Events.Add("SendChatMessage", this.OnSendChatMessage);
+			Events.Add("CloseChat", this.OnCloseChat);
 
 			Events.AddDataHandler(GamemodeCommon.Models.Data.DataKey.CurrentTime, this.OnTimeUpdated);
 
 			RAGE.Input.Bind(VirtualKeys.F6, false, this.OnHideHelpKeyPressed);
 			RAGE.Input.Bind(VirtualKeys.OEM3, false, this.OnCursorKeyPressed);
+			RAGE.Input.Bind(VirtualKeys.T, false, this.OnOpenChatKeyPressed);
 
 			// Experience
 			Events.Add("RankedUp", this.OnRankedUp);
@@ -219,6 +222,8 @@ namespace GamemodeClient.Controllers
 			UpdateOnline();
 			this.SetCurrentExperience();
 			SetXAndY();
+			RAGE.Chat.Show(false);
+			RAGE.Chat.Activate(false);
 
 			if (this.gangWarState == 1)
 			{
