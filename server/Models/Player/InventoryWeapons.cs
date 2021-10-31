@@ -21,18 +21,12 @@ namespace Gamemode.Models.Player
 
 		public void AddWeapon(WeaponHash weaponHash)
 		{
-			if (this.inventoryWeapons.TryAdd(weaponHash, true))
-			{
-				logger.Info($"Added weapon to inventory. weapon_hash={weaponHash}");
-			}
+			this.inventoryWeapons.TryAdd(weaponHash, true);
 		}
 
 		public void RemoveWeapon(WeaponHash weaponHash)
 		{
-			if (this.inventoryWeapons.TryRemove(weaponHash, out _))
-			{
-				logger.Info($"Removed weapon from inventory. weapon_hash={weaponHash}");
-			}
+			this.inventoryWeapons.TryRemove(weaponHash, out _);
 		}
 
 		public ICollection<WeaponHash> GetAllWeapons()
