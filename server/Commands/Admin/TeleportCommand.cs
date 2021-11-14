@@ -171,5 +171,35 @@ namespace Gamemode
 		{
 			NAPI.ClientEvent.TriggerClientEvent(admin, "TeleportToWaypoint");
 		}
+
+		private const string TeleportInteriorCommandUsage = "Использование: /tpi {name} {x} {y} {z}. Пример: [/tpi 0apa_v_mp_h_01_a -786.8663, 315.7642, 217.6385]";
+
+		[Command("teleportinterior", TeleportCommandUsage, Alias = "tpi", SensitiveInfo = true, GreedyArg = true, Hide = true)]
+		[AdminMiddleware(AdminRank.Junior)]
+		public void TeleportInterior(CustomPlayer admin, string interiorNameInput = null, string xInput = null, string yInput = null, string zInput = null)
+		{
+			if (interiorNameInput == null)
+			{
+				admin.SendChatMessage(TeleportInteriorCommandUsage);
+				return;
+			}
+
+			float x, y, z = 0;
+
+			try
+			{
+				x = float.Parse(xInput);
+				y = float.Parse(yInput);
+				z = float.Parse(zInput);
+			}
+			catch (Exception)
+			{
+				admin.SendChatMessage(TeleportInteriorCommandUsage);
+				return;
+			}
+
+			NAPI.ClientEvent.TriggerClientEvent(admin, "TeleportToInterior", interiorNameInput, x, y, z);
+			admin.SendChatMessage($"Вы телепортировались в интерьер {interiorNameInput}");
+		}
 	}
 }
