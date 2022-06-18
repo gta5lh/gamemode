@@ -1,0 +1,21 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "RAGE-MP Launch (build)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "compile",
+      "program": "/home/lbyte00/go/gta5lh/gamemode/game-server/ragemp-server", // The RAGEMP server executable
+      "args": [],
+      "cwd": "/home/lbyte00/go/gta5lh/gamemode/game-server/", // Or absolute path to your X:/RAGEMP/server-files/
+      "stopAtEntry": false,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "requireExactSource": false
+    }
+  ]
+}
