@@ -25,7 +25,7 @@ namespace Gamemode.Controllers
 			var bus = RabbitHutch.CreateBus(rabbitMQURL, sr => sr.Register(typeof(ITypeNameSerializer), new Serializer()));
 
 			await bus.PubSub.SubscribeAsync<DepositMadeEvent>(
-				string.Empty, msg => DonationService.DisplayDonationNotification(msg.PlayerID, msg.Amount)
+				string.Empty, msg => DonationService.DisplayDonationNotification(msg.PlayerID, msg.Amount), x => x.WithTopic("deposit.made")
 			);
 		}
 	}
