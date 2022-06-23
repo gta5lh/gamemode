@@ -24,7 +24,7 @@ namespace GamemodeClient.Controllers
 		private void OnDisplayDonationNotification(object[] request)
 		{
 			long amount = (long)request[0];
-			DisplayNotification(new Notification(string.Format("Тебе на счет было начислено {0} LC. Спасибо за поддержку нашего проекта!", amount), 0, 10000, NotificationType.Success));
+			DisplayNotification(new Notification(string.Format("Спасибо за поддержку проекта в размере {0} LC!", amount), 0, 10000, NotificationType.Success));
 			RAGE.Game.Audio.PlaySoundFrontend(-1, "CHECKPOINT_PERFECT", "HUD_MINI_GAME_SOUNDSET", true);
 		}
 	}

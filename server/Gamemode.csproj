@@ -84,6 +84,7 @@
   <ItemGroup>
     <Protobuf Include="../../protobuf/platform/*.proto" GrpcServices="Client"/>
     <Protobuf Include="../../protobuf/errors/*.proto" GrpcServices="Client"/>
+    <Protobuf Include="../../protobuf/eventbus/*.proto" GrpcServices="Client"/>
   </ItemGroup>
   <Target Name="DebugAfterBuild" AfterTargets="AfterBuild" Condition=" '$(Configuration)' == 'Debug' ">
     <Copy SourceFiles="@(OutputDebugDirectory)" DestinationFolder="../game-server/dotnet/resources/Gamemode/" OverwriteReadOnlyFiles="true" SkipUnchangedFiles="false"/>
