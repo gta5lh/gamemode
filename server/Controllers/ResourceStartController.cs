@@ -34,7 +34,7 @@ namespace Gamemode
 			Cache = new MemoryCache(new MemoryCacheOptions { }, new NLogLoggerFactory());
 			TimeController.InitTimeSyncTimer();
 			WeatherController.InitWeatherSyncTimer();
-			SaveUsersController.InitSaveUserTimer();
+			SavePlayersController.InitSavePlayerTimer();
 
 			Task initGangZoneCacheTask = GangZoneCache.InitGangZoneCache();
 			Task onGameServerStartTask = OnGameServerStart();
@@ -58,7 +58,7 @@ namespace Gamemode
 
 		public static bool ShouldWait(ushort playerId)
 		{
-			string cacheKey = $"{CacheKeys.UserAuthenticationAction}{playerId}";
+			string cacheKey = $"{CacheKeys.PlayerAuthenticationAction}{playerId}";
 
 			if (Cache.Get<bool?>(cacheKey) != null)
 			{
@@ -85,6 +85,6 @@ namespace Gamemode
 
 	public static class CacheKeys
 	{
-		public static string UserAuthenticationAction { get { return "UserAuthenticationAction"; } }
+		public static string PlayerAuthenticationAction { get { return "PlayerAuthenticationAction"; } }
 	}
 }

@@ -11,7 +11,7 @@ namespace GamemodeCommon.Authentication.Models
 	{
 		public string Email { get; set; } = string.Empty;
 
-		public string Username { get; set; } = string.Empty;
+		public string Name { get; set; } = string.Empty;
 
 		public string Password { get; set; } = string.Empty;
 
@@ -26,9 +26,9 @@ namespace GamemodeCommon.Authentication.Models
 				invalidFieldNames.Add("email");
 			}
 
-			if (string.IsNullOrEmpty(this.Username) || this.Username.Length < 1 || this.Username.Length > 32)
+			if (string.IsNullOrEmpty(this.Name) || this.Name.Length < 1 || this.Name.Length > 32)
 			{
-				invalidFieldNames.Add("username");
+				invalidFieldNames.Add("name");
 			}
 
 			if (string.IsNullOrEmpty(this.Password) || this.Password.Length < 6 || this.Password.Length > 50)

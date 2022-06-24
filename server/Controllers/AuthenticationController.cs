@@ -17,7 +17,7 @@ namespace Gamemode.Controllers
 	using Newtonsoft.Json;
 	using Rollbar;
 	using Rpc.Errors;
-	using Rpc.User;
+	using Rpc.Player;
 
 	public class AuthenticationController : Script
 	{
@@ -42,14 +42,14 @@ namespace Gamemode.Controllers
 
 			try
 			{
-				LoginRequest loginUserRequest = new LoginRequest(loginRequest.Email, loginRequest.Password, player.Address, player.SocialClubId.ToString(), player.Serial, player.GameType, loginRequest.Token);
-				loginResponse = await Infrastructure.RpcClients.UserService.LoginAsync(loginUserRequest);
+				LoginRequest loginPlayerRequest = new LoginRequest(loginRequest.Email, loginRequest.Password, player.Address, player.SocialClubId.ToString(), player.Serial, player.GameType, loginRequest.Token);
+				loginResponse = await Infrastructure.RpcClients.PlayerService.LoginAsync(loginPlayerRequest);
 			}
 			catch (RpcException e)
 			{
 				invalidFieldNames = new List<string>(new string[] { "email", "password" });
 
-				if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.UserBanned))
+				if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.PlayerBanned))
 				{
 					invalidFieldNames = new List<string>(new string[] { "banned" });
 				}
@@ -57,7 +57,7 @@ namespace Gamemode.Controllers
 				{
 					invalidFieldNames = new List<string>(new string[] { "already_online" });
 				}
-				else if (!Error.IsEqualErrorCode(e.StatusCode, ErrorCode.UserNotFound) && !Error.IsEqualErrorCode(e.StatusCode, ErrorCode.InvalidPassword))
+				else if (!Error.IsEqualErrorCode(e.StatusCode, ErrorCode.PlayerNotFound) && !Error.IsEqualErrorCode(e.StatusCode, ErrorCode.InvalidPassword))
 				{
 					RollbarLocator.RollbarInstance.Error(e);
 				}
@@ -75,27 +75,27 @@ namespace Gamemode.Controllers
 
 			NAPI.Task.Run(() =>
 			{
-				if (PlayerUtil.GetByStaticId(loginResponse.User.ID) != null)
+				if (PlayerUtil.GetByStaticId(loginResponse.Player.ID) != null)
 				{
 					alreadyOnline = true;
 					return;
 				}
 
-				CustomPlayer.LoadPlayerCache(player, loginResponse.User);
+				CustomPlayer.LoadPlayerCache(player, loginResponse.Player);
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
-				player.Health = (int)loginResponse.User.Health;
-				player.Armor = (int)loginResponse.User.Armor;
+				player.Health = (int)loginResponse.Player.Health;
+				player.Armor = (int)loginResponse.Player.Armor;
 
 				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceUpdated", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 				GangWarService.DisplayGangWarUI(player);
 
 				if (player.AdminRank > 0 && Utils.Environment.IsProduction())
 				{
-					loginResponse.User.Email = "";
+					loginResponse.Player.Email = "";
 					loginResponse.Token = "";
 				}
 
-				NAPI.ClientEvent.TriggerClientEvent(player, "SaveAuthToken", loginResponse.User.Email, loginResponse.Token);
+				NAPI.ClientEvent.TriggerClientEvent(player, "SaveAuthToken", loginResponse.Player.Email, loginResponse.Token);
 			});
 
 			if (alreadyOnline)
@@ -128,14 +128,14 @@ namespace Gamemode.Controllers
 
 			try
 			{
-				RegisterRequest registerUserRequest = new RegisterRequest(registerRequest.Email, registerRequest.Username, registerRequest.Password, player.Address, player.SocialClubId.ToString(), player.Serial, player.GameType);
-				registerResponse = await Infrastructure.RpcClients.UserService.RegisterAsync(registerUserRequest);
+				RegisterRequest registerPlayerRequest = new RegisterRequest(registerRequest.Email, registerRequest.Name, registerRequest.Password, player.Address, player.SocialClubId.ToString(), player.Serial, player.GameType);
+				registerResponse = await Infrastructure.RpcClients.PlayerService.RegisterAsync(registerPlayerRequest);
 			}
 			catch (RpcException e)
 			{
-				if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.UsernameAlreadyExists))
+				if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.PlayerNameAlreadyExists))
 				{
-					invalidFieldNames = new List<string>(new string[] { "username_already_exists" });
+					invalidFieldNames = new List<string>(new string[] { "player_name_already_exists" });
 				}
 
 				if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.EmailAlreadyExists))
@@ -154,11 +154,11 @@ namespace Gamemode.Controllers
 
 			NAPI.Task.Run(() =>
 			{
-				CustomPlayer.LoadPlayerCache(player, registerResponse.User);
+				CustomPlayer.LoadPlayerCache(player, registerResponse.Player);
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
 				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceUpdated", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 				GangWarService.DisplayGangWarUI(player);
-				NAPI.Chat.SendChatMessageToAll($"Приветствуем нового игрока нашего сервера: {ChatColor.NewPlayerChatColor}{player.Name}~w~ (ID: {player.Id})");
+				NAPI.Chat.SendChatMessageToAll($"Приветствуем нового игрока нашего сервера: {ChatColor.NewPlayerChatColor}{player.Name}~w~ (ID: {player.StaticId})");
 			});
 
 			NAPI.Task.Run(() =>
@@ -192,13 +192,13 @@ namespace Gamemode.Controllers
 			try
 			{
 				RequestResetPasswordRequest requestResetPasswordRequest = new RequestResetPasswordRequest(resetPasswordRequest.Email);
-				requestResetPasswordResponse = await Infrastructure.RpcClients.UserService.RequestResetPasswordAsync(requestResetPasswordRequest);
+				requestResetPasswordResponse = await Infrastructure.RpcClients.PlayerService.RequestResetPasswordAsync(requestResetPasswordRequest);
 			}
 			catch (RpcException e)
 			{
-				if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.UserNotFound))
+				if (Error.IsEqualErrorCode(e.StatusCode, ErrorCode.PlayerNotFound))
 				{
-					invalidFieldNames = new List<string>(new string[] { "user_not_found" });
+					invalidFieldNames = new List<string>(new string[] { "player_not_found" });
 				}
 
 				return JsonConvert.SerializeObject(invalidFieldNames);
@@ -228,7 +228,7 @@ namespace Gamemode.Controllers
 
 			try
 			{
-				await Infrastructure.RpcClients.UserService.LogoutAsync(new LogoutRequest(player.StaticId, player.Money, player.CurrentExperience, player.GetAllWeapons(), player.Health, player.Armor));
+				await Infrastructure.RpcClients.PlayerService.LogoutAsync(new LogoutRequest(player.StaticId, player.Money, player.CurrentExperience, player.GetAllWeapons(), player.Health, player.Armor));
 			}
 			catch
 			{

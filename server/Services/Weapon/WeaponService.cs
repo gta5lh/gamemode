@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Gamemode.ApiClient.Models;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
-using Rpc.User;
+using Rpc.Player;
 
 namespace Gamemode.Services
 {

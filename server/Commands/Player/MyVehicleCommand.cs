@@ -7,7 +7,7 @@ using Grpc.Core;
 using GTANetworkAPI;
 using Rpc.Errors;
 using Rpc.Report;
-using Rpc.User;
+using Rpc.Player;
 
 namespace Gamemode.Commands.Player
 {
@@ -19,17 +19,17 @@ namespace Gamemode.Commands.Player
 		public async Task MyVehicleAsync(CustomPlayer player)
 		{
 			MyVehicleRequest request = new MyVehicleRequest();
-			request.UserID = player.StaticId;
+			request.PlayerID = player.StaticId;
 
 			MyVehicleResponse response;
 
 			try
 			{
-				response = await Infrastructure.RpcClients.UserService.MyVehicleAsync(request);
+				response = await Infrastructure.RpcClients.PlayerService.MyVehicleAsync(request);
 			}
 			catch (RpcException ex)
 			{
-				if (Error.IsEqualErrorCode(ex.StatusCode, ErrorCode.UserNotFound))
+				if (Error.IsEqualErrorCode(ex.StatusCode, ErrorCode.PlayerNotFound))
 				{
 					NAPI.Task.Run(() => player.SendChatMessage($"У вас отсуствует автомобиль!"));
 				}

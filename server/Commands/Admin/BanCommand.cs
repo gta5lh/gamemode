@@ -5,7 +5,7 @@ using Gamemode.Utils;
 using Grpc.Core;
 using GTANetworkAPI;
 using Rpc.Errors;
-using Rpc.User;
+using Rpc.Player;
 
 namespace Gamemode.Commands.Admin
 {
@@ -53,12 +53,12 @@ namespace Gamemode.Commands.Admin
 
 			try
 			{
-				BanResponse banResponse = await Infrastructure.RpcClients.UserService.BanAsync(new BanRequest(staticId, reason, admin.StaticId, bannedAt, bannedUntil));
+				BanResponse banResponse = await Infrastructure.RpcClients.PlayerService.BanAsync(new BanRequest(staticId, reason, admin.StaticId, bannedAt, bannedUntil));
 				targetName = banResponse.Name;
 			}
 			catch (RpcException ex)
 			{
-				if (Error.IsEqualErrorCode(ex.StatusCode, ErrorCode.UserNotFound))
+				if (Error.IsEqualErrorCode(ex.StatusCode, ErrorCode.PlayerNotFound))
 				{
 					NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь со static ID {staticId} не найден"));
 				}
@@ -110,7 +110,7 @@ namespace Gamemode.Commands.Admin
 
 			try
 			{
-				unbanResponse = await Infrastructure.RpcClients.UserService.UnbanAsync(new UnbanRequest(staticId, admin.StaticId));
+				unbanResponse = await Infrastructure.RpcClients.PlayerService.UnbanAsync(new UnbanRequest(staticId, admin.StaticId));
 			}
 			catch (Exception)
 			{

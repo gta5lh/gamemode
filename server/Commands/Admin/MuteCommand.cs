@@ -10,7 +10,7 @@ namespace Gamemode.Commands.Admin
 	using Gamemode.Models.Player;
 	using Gamemode.Utils;
 	using GTANetworkAPI;
-	using Rpc.User;
+	using Rpc.Player;
 
 	public class MuteCommand : BaseCommandHandler
 	{
@@ -55,7 +55,7 @@ namespace Gamemode.Commands.Admin
 
 			try
 			{
-				muteResponse = await Infrastructure.RpcClients.UserService.MuteAsync(new MuteRequest(targetId, reason, admin.StaticId, mutedAt, mutedUntil));
+				muteResponse = await Infrastructure.RpcClients.PlayerService.MuteAsync(new MuteRequest(targetId, reason, admin.StaticId, mutedAt, mutedUntil));
 			}
 			catch (Exception)
 			{
@@ -103,7 +103,7 @@ namespace Gamemode.Commands.Admin
 
 			try
 			{
-				unmuteResponse = await Infrastructure.RpcClients.UserService.UnmuteAsync(new UnmuteRequest(targetId, admin.StaticId));
+				unmuteResponse = await Infrastructure.RpcClients.PlayerService.UnmuteAsync(new UnmuteRequest(targetId, admin.StaticId));
 			}
 			catch (Exception)
 			{
