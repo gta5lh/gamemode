@@ -158,7 +158,7 @@ namespace Gamemode.Controllers
 				NAPI.Player.SpawnPlayer(player, new Vector3(0, 0, 0));
 				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceUpdated", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
 				GangWarService.DisplayGangWarUI(player);
-				NAPI.Chat.SendChatMessageToAll($"Приветствуем нового игрока нашего сервера: {ChatColor.NewPlayerChatColor}{player.Name}~w~ (ID: {player.Id})");
+				NAPI.Chat.SendChatMessageToAll($"Приветствуем нового игрока нашего сервера: {ChatColor.NewPlayerChatColor}{player.Name}~w~ (ID: {player.StaticId})");
 			});
 
 			NAPI.Task.Run(() =>
