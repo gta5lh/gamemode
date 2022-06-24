@@ -12,13 +12,13 @@ namespace Gamemode.Models.Player
 	using GamemodeCommon.Models.Data;
 	using Gamemode.Services.Player;
 	using GTANetworkAPI;
-	using Rpc.User;
+	using Rpc.Player;
 	using Gamemode.Services;
 	using System.Linq;
 	using Gamemode.Cache.Player;
 	using Gamemode.Models.Vip;
 
-	public class CustomPlayer : Player
+	public class CustomPlayer : GTANetworkAPI.Player
 	{
 		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 		private AdminRank adminRank;
@@ -39,7 +39,7 @@ namespace Gamemode.Models.Player
 
 		public string ChatColor { get; set; }
 
-		public string Username { get; set; }
+		public string PlayerName { get; set; }
 
 		public long StaticId { get; set; }
 
@@ -88,7 +88,7 @@ namespace Gamemode.Models.Player
 				if (value == this.freezed) return;
 				this.freezed = value;
 
-				PlayerService.Freeze(this, this.freezed);
+				Gamemode.Services.Player.PlayerService.Freeze(this, this.freezed);
 			}
 		}
 
@@ -285,7 +285,7 @@ namespace Gamemode.Models.Player
 				setFractionRequest.Fraction = this.Fraction.Value;
 				setFractionRequest.Tier = fractionRank;
 
-				setFractionResponse = await Infrastructure.RpcClients.UserService.SetFractionAsync(setFractionRequest);
+				setFractionResponse = await Infrastructure.RpcClients.PlayerService.SetFractionAsync(setFractionRequest);
 			}
 			catch (Exception)
 			{
@@ -319,7 +319,7 @@ namespace Gamemode.Models.Player
 				setFractionRequest.Fraction = this.Fraction.Value;
 				setFractionRequest.Tier = fractionRank;
 
-				setFractionResponse = await Infrastructure.RpcClients.UserService.SetFractionAsync(setFractionRequest);
+				setFractionResponse = await Infrastructure.RpcClients.PlayerService.SetFractionAsync(setFractionRequest);
 			}
 			catch (Exception)
 			{
@@ -367,7 +367,7 @@ namespace Gamemode.Models.Player
 				unmuteRequest.ID = this.StaticId;
 				unmuteRequest.UnmutedBy = this.StaticId;
 
-				await Infrastructure.RpcClients.UserService.UnmuteAsync(unmuteRequest);
+				await Infrastructure.RpcClients.PlayerService.UnmuteAsync(unmuteRequest);
 			}
 			catch (Exception)
 			{
@@ -378,37 +378,37 @@ namespace Gamemode.Models.Player
 			Logger.Info($"Player mute has expired. ID={this.StaticId}");
 		}
 
-		public static CustomPlayer LoadPlayerCache(CustomPlayer player, User user)
+		public static CustomPlayer LoadPlayerCache(CustomPlayer player, Rpc.Player.Player playerToLoad)
 		{
-			IdsCache.LoadIdsToCache(player.Id, user.ID);
-			player.StaticId = user.ID;
+			IdsCache.LoadIdsToCache(player.Id, playerToLoad.ID);
+			player.StaticId = playerToLoad.ID;
 			player.SetSharedData(DataKey.StaticId, player.StaticId);
-			player.Name = user.Name;
-			player.AdminRank = user.HasAdminRankID ? (Models.Admin.AdminRank)user.AdminRankID : 0;
-			player.VipRank = user.HasAdminRankID ? VipRank.Premium : 0;
+			player.Name = playerToLoad.Name;
+			player.AdminRank = playerToLoad.HasAdminRankID ? (Models.Admin.AdminRank)playerToLoad.AdminRankID : 0;
+			player.VipRank = playerToLoad.HasAdminRankID ? VipRank.Premium : 0;
 			player.InventoryWeapons = new InventoryWeapons();
-			player.CurrentExperience = user.Experience;
-			player.Money = user.Money;
+			player.CurrentExperience = playerToLoad.Experience;
+			player.Money = playerToLoad.Money;
 			player.LoggedInAt = DateTime.UtcNow;
 			player.SetSkin(PedHash.Tramp01);
 
-			DateTime? mutedUntil = user.MutedUntil != null ? user.MutedUntil.ToDateTime() : (DateTime?)null;
-			player.MuteState = new MuteState(mutedUntil, user.MutedByID, user.MuteReason);
+			DateTime? mutedUntil = playerToLoad.MutedUntil != null ? playerToLoad.MutedUntil.ToDateTime() : (DateTime?)null;
+			player.MuteState = new MuteState(mutedUntil, playerToLoad.MutedByID, playerToLoad.MuteReason);
 
-			if (user.HasFractionRankID)
+			if (playerToLoad.HasFractionRankID)
 			{
-				player.Fraction = user.Fraction;
-				player.FractionRank = user.FractionRank.Tier;
-				player.FractionRankName = user.FractionRank.Name;
-				player.RequiredExperience = user.FractionRank.RequiredExperience;
-				player.SetSkin((PedHash)user.FractionRank.Skin);
+				player.Fraction = playerToLoad.Fraction;
+				player.FractionRank = playerToLoad.FractionRank.Tier;
+				player.FractionRankName = playerToLoad.FractionRank.Name;
+				player.RequiredExperience = playerToLoad.FractionRank.RequiredExperience;
+				player.SetSkin((PedHash)playerToLoad.FractionRank.Skin);
 			}
 
-			if (user.Weapons != null)
+			if (playerToLoad.Weapons != null)
 			{
-				List<Weapon> weapons = user.Weapons.OrderByDescending(o => o.Amount).ToList();
+				List<Weapon> weapons = playerToLoad.Weapons.OrderByDescending(o => o.Amount).ToList();
 
-				foreach (Weapon weapon in user.Weapons)
+				foreach (Weapon weapon in playerToLoad.Weapons)
 				{
 					player.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
 					player.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);

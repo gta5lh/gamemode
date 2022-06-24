@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Gamemode.ApiClient.Models;
 using Gamemode.Models.Player;
 using GTANetworkAPI;
-using Rpc.User;
+using Rpc.Player;
 
 namespace Gamemode.Services
 {
@@ -15,7 +15,7 @@ namespace Gamemode.Services
 
 			try
 			{
-				setFractionResponse = await Infrastructure.RpcClients.UserService.SetFractionAsync(new SetFractionRequest(playerId, gangId, tier, setBy));
+				setFractionResponse = await Infrastructure.RpcClients.PlayerService.SetFractionAsync(new SetFractionRequest(playerId, gangId, tier, setBy));
 			}
 			catch (Exception e)
 			{

@@ -9,7 +9,7 @@ namespace Gamemode
 	using Gamemode.Commands.Admin;
 	using Gamemode.Models.Player;
 	using GTANetworkAPI;
-	using Rpc.User;
+	using Rpc.Player;
 	using Gamemode.Cache.Player;
 
 	public class WeaponCommand : BaseCommandHandler
@@ -64,7 +64,7 @@ namespace Gamemode
 			{
 				try
 				{
-					GiveWeaponResponse giveWeaponResponse = await Infrastructure.RpcClients.UserService.GiveWeaponAsync(new GiveWeaponRequest(targetStaticId, weaponHash, amount, admin.StaticId));
+					GiveWeaponResponse giveWeaponResponse = await Infrastructure.RpcClients.PlayerService.GiveWeaponAsync(new GiveWeaponRequest(targetStaticId, weaponHash, amount, admin.StaticId));
 					targetName = giveWeaponResponse.Name;
 				}
 				catch (Exception)
@@ -129,7 +129,7 @@ namespace Gamemode
 			{
 				try
 				{
-					RemoveWeaponResponse removeWeaponResponse = await Infrastructure.RpcClients.UserService.RemoveWeaponAsync(new RemoveWeaponRequest(targetStaticId, weaponHash, admin.StaticId));
+					RemoveWeaponResponse removeWeaponResponse = await Infrastructure.RpcClients.PlayerService.RemoveWeaponAsync(new RemoveWeaponRequest(targetStaticId, weaponHash, admin.StaticId));
 					targetName = removeWeaponResponse.Name;
 				}
 				catch (Exception)

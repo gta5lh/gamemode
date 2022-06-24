@@ -5,7 +5,7 @@
 using System.Collections.Generic;
 using Gamemode.Models.Spawn;
 using GTANetworkAPI;
-using Rpc.User;
+using Rpc.Player;
 
 namespace Gamemode
 {

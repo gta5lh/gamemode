@@ -14,7 +14,7 @@ namespace Gamemode
 	using GamemodeCommon.Models;
 	using GTANetworkAPI;
 	using Newtonsoft.Json;
-	using Rpc.User;
+	using Rpc.Player;
 	using System;
 	using Rollbar;
 	using Gamemode.Services;
@@ -263,7 +263,7 @@ namespace Gamemode
 		}
 
 		[ServerEvent(Event.PlayerConnected)]
-		private void OnPlayerConnected(Player player)
+		private void OnPlayerConnected(GTANetworkAPI.Player player)
 		{
 			NAPI.ClientEvent.TriggerClientEvent(player, "SetGangVehicles", this.GangVehicles);
 		}

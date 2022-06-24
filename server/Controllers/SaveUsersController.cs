@@ -11,23 +11,23 @@
 	using Gamemode.Services.Player;
 	using GTANetworkAPI;
 
-	public class SaveUsersController : Script
+	public class SavePlayersController : Script
 	{
-		private static readonly NLog.Logger Logger = Gamemode.Logger.Logger.LogFactory.GetLogger("SaveUsersController");
+		private static readonly NLog.Logger Logger = Gamemode.Logger.Logger.LogFactory.GetLogger("SavePlayersController");
 
-		private static Timer SaveUsersTimer;
+		private static Timer SavePlayersTimer;
 
-		private static readonly double SaveUserInterval120Seconds = 120000;
+		private static readonly double SavePlayerInterval120Seconds = 120000;
 
-		public static void InitSaveUserTimer()
+		public static void InitSavePlayerTimer()
 		{
-			SaveUsersTimer = new System.Timers.Timer(SaveUserInterval120Seconds);
-			SaveUsersTimer.Elapsed += OnSaveUsers;
-			SaveUsersTimer.AutoReset = true;
-			SaveUsersTimer.Start();
+			SavePlayersTimer = new System.Timers.Timer(SavePlayerInterval120Seconds);
+			SavePlayersTimer.Elapsed += OnSavePlayers;
+			SavePlayersTimer.AutoReset = true;
+			SavePlayersTimer.Start();
 		}
 
-		private static async void OnSaveUsers(object source, ElapsedEventArgs e)
+		private static async void OnSavePlayers(object source, ElapsedEventArgs e)
 		{
 			List<CustomPlayer> players = null;
 
@@ -40,7 +40,7 @@
 
 			if (players == null || players.Count == 0)
 			{
-				Logger.Debug("skipping users save: no users online");
+				Logger.Debug("skipping players save: no players online");
 				return;
 			}
 

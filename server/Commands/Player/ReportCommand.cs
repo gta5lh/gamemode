@@ -23,7 +23,7 @@ namespace Gamemode.Commands.Player
 
 			CreateRequest createRequest = new CreateRequest();
 			createRequest.Question = message;
-			createRequest.UserID = player.StaticId;
+			createRequest.PlayerID = player.StaticId;
 
 			CreateResponse createResponse;
 

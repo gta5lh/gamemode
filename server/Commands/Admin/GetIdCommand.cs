@@ -9,7 +9,7 @@ namespace Gamemode.Commands.Admin
 	using Gamemode.Models.Admin;
 	using Gamemode.Models.Player;
 	using GTANetworkAPI;
-	using Rpc.User;
+	using Rpc.Player;
 
 	public class GetIdCommand : Script
 	{
@@ -19,9 +19,9 @@ namespace Gamemode.Commands.Admin
 
 		[Command("getid", GetIdCommandUsage, Alias = "gid", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public async Task GetId(Player player, string idType = null, string idOrUsername = null)
+		public async Task GetId(GTANetworkAPI.Player player, string idType = null, string idOrPlayerName = null)
 		{
-			if (idType == null || idOrUsername == null || (idType != "s" && idType != "d"))
+			if (idType == null || idOrPlayerName == null || (idType != "s" && idType != "d"))
 			{
 				player.SendChatMessage(GetIdCommandUsage);
 				return;
@@ -31,13 +31,13 @@ namespace Gamemode.Commands.Admin
 
 			try
 			{
-				_ = long.Parse(idOrUsername);
+				_ = long.Parse(idOrPlayerName);
 			}
 			catch (Exception)
 			{
 				try
 				{
-					IDByNameResponse idByNameResponse = await Infrastructure.RpcClients.UserService.IDByNameAsync(new IDByNameRequest(idOrUsername));
+					IDByNameResponse idByNameResponse = await Infrastructure.RpcClients.PlayerService.IDByNameAsync(new IDByNameRequest(idOrPlayerName));
 					staticId = idByNameResponse.ID;
 				}
 				catch (Exception)
@@ -50,11 +50,11 @@ namespace Gamemode.Commands.Admin
 
 			if (idType == IdTypeStatic)
 			{
-				expectedId = staticId == null ? IdsCache.StaticIdByDynamic(idOrUsername) : staticId;
+				expectedId = staticId == null ? IdsCache.StaticIdByDynamic(idOrPlayerName) : staticId;
 			}
 			else
 			{
-				expectedId = staticId == null ? IdsCache.DynamicIdByStatic(idOrUsername) : IdsCache.DynamicIdByStatic(staticId.Value);
+				expectedId = staticId == null ? IdsCache.DynamicIdByStatic(idOrPlayerName) : IdsCache.DynamicIdByStatic(staticId.Value);
 			}
 
 			NAPI.Task.Run(() =>
@@ -63,11 +63,11 @@ namespace Gamemode.Commands.Admin
 				{
 					if (staticId == null)
 					{
-						player.SendChatMessage($"Пользователь с ID {idOrUsername} не найден");
+						player.SendChatMessage($"Пользователь с ID {idOrPlayerName} не найден");
 					}
 					else
 					{
-						player.SendChatMessage($"Пользователь с именем {idOrUsername} не найден");
+						player.SendChatMessage($"Пользователь с именем {idOrPlayerName} не найден");
 					}
 
 					return;

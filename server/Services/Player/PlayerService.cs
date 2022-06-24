@@ -7,7 +7,7 @@ using Gamemode.ApiClient.Models;
 using Gamemode.Models.Player;
 using GamemodeCommon.Models.Data;
 using GTANetworkAPI;
-using Rpc.User;
+using Rpc.Player;
 
 namespace Gamemode.Services.Player
 {
@@ -15,13 +15,13 @@ namespace Gamemode.Services.Player
 	{
 		public static async Task SavePlayers(List<CustomPlayer> players)
 		{
-			List<SaveRequest> saveUserRequests = new List<SaveRequest>();
+			List<SaveRequest> savePlayerRequests = new List<SaveRequest>();
 
 			NAPI.Task.Run(() =>
 			{
 				foreach (CustomPlayer player in players)
 				{
-					saveUserRequests.Add(new SaveRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons(), player.Health, player.Armor));
+					savePlayerRequests.Add(new SaveRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons(), player.Health, player.Armor));
 				}
 			});
 
@@ -29,7 +29,7 @@ namespace Gamemode.Services.Player
 
 			try
 			{
-				await Infrastructure.RpcClients.UserService.SaveAllAsync(new SaveAllRequest(saveUserRequests));
+				await Infrastructure.RpcClients.PlayerService.SaveAllAsync(new SaveAllRequest(savePlayerRequests));
 			}
 			catch (Exception ex)
 			{
@@ -44,20 +44,20 @@ namespace Gamemode.Services.Player
 			players = NAPI.Pools.GetAllPlayers().Cast<CustomPlayer>().Where(p => p.LoggedInAt != null).ToList();
 			if (players == null || players.Count == 0)
 			{
-				Logger.Logger.BaseLogger.Info("skipping users save on server stop: no users online");
+				Logger.Logger.BaseLogger.Info("skipping players save on server stop: no players online");
 				return;
 			}
 
-			List<SaveRequest> saveUserRequests = new List<SaveRequest>();
+			List<SaveRequest> savePlayerRequests = new List<SaveRequest>();
 
 			foreach (CustomPlayer player in players)
 			{
-				saveUserRequests.Add(new SaveRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons(), player.Health, player.Armor));
+				savePlayerRequests.Add(new SaveRequest(player.StaticId, player.CurrentExperience, player.Money, player.GetAllWeapons(), player.Health, player.Armor));
 			}
 
 			try
 			{
-				await Infrastructure.RpcClients.UserService.SaveAllAsync(new SaveAllRequest(saveUserRequests));
+				await Infrastructure.RpcClients.PlayerService.SaveAllAsync(new SaveAllRequest(savePlayerRequests));
 			}
 			catch (Exception ex)
 			{

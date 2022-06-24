@@ -11,7 +11,7 @@ namespace Gamemode.Commands.Admin
 	using Gamemode.Models.Player;
 	using Gamemode.Utils;
 	using GTANetworkAPI;
-	using Rpc.User;
+	using Rpc.Player;
 	using Gamemode.Cache.Player;
 
 	public class SetAdminRankCommand : BaseCommandHandler
@@ -46,7 +46,7 @@ namespace Gamemode.Commands.Admin
 
 			try
 			{
-				setAdminRankResponse = await Infrastructure.RpcClients.UserService.SetAdminRankAsync(new SetAdminRankRequest(targetStaticId, adminRank, admin.StaticId));
+				setAdminRankResponse = await Infrastructure.RpcClients.PlayerService.SetAdminRankAsync(new SetAdminRankRequest(targetStaticId, adminRank, admin.StaticId));
 			}
 			catch (Exception)
 			{

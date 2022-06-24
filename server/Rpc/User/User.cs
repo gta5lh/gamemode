@@ -5,7 +5,7 @@ using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using GTANetworkAPI;
 
-namespace Rpc.User
+namespace Rpc.Player
 {
 	public partial class UnbanRequest
 	{
