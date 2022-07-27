@@ -74,7 +74,7 @@ namespace Gamemode.Infrastructure
 				MaxReceiveMessageSize = mb64,
 				MaxSendMessageSize = mb64,
 				MaxRetryBufferSize = mb64,
-				LoggerFactory = new LoggerFactory().AddNLog(),
+				LoggerFactory = LoggerFactory.Create(logging => logging.AddNLog()),
 			});
 
 			ZoneService = new Rpc.Zone.ZoneService.ZoneServiceClient(channel);
