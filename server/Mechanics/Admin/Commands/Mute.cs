@@ -55,7 +55,7 @@ namespace Gamemode.Mechanics.Admin.Commands
 
 			try
 			{
-				muteResponse = await Infrastructure.RpcClients.PlayerService.MuteAsync(new MuteRequest(targetId, reason, admin.StaticId, mutedAt, mutedUntil));
+				muteResponse = await Infrastructure.RpcClients.PlayerService.MuteAsync(new MuteRequest(targetId, reason, admin.PKId, mutedAt, mutedUntil));
 			}
 			catch (Exception)
 			{
@@ -105,7 +105,7 @@ namespace Gamemode.Mechanics.Admin.Commands
 
 			try
 			{
-				unmuteResponse = await Infrastructure.RpcClients.PlayerService.UnmuteAsync(new UnmuteRequest(targetId, admin.StaticId));
+				unmuteResponse = await Infrastructure.RpcClients.PlayerService.UnmuteAsync(new UnmuteRequest(targetId, admin.PKId));
 			}
 			catch (Exception)
 			{

@@ -45,7 +45,7 @@ namespace Gamemode.Mechanics.Admin.Commands
 
 			try
 			{
-				setAdminRankResponse = await Infrastructure.RpcClients.PlayerService.SetAdminRankAsync(new SetAdminRankRequest(targetStaticId, adminRank, admin.StaticId));
+				setAdminRankResponse = await Infrastructure.RpcClients.PlayerService.SetAdminRankAsync(new SetAdminRankRequest(targetStaticId, adminRank, admin.PKId));
 			}
 			catch (Exception)
 			{

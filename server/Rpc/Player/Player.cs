@@ -30,11 +30,11 @@ namespace Rpc.Player
 
 	public partial class MuteRequest
 	{
-		public MuteRequest(string staticID, string reason, string mutedByID, DateTime mutedAt, DateTime mutedUntil)
+		public MuteRequest(string staticID, string reason, Guid mutedByID, DateTime mutedAt, DateTime mutedUntil)
 		{
 			this.StaticID = staticID;
 			this.MuteReason = reason;
-			this.MutedByID = mutedByID;
+			this.MutedByID = mutedByID.ToString();
 			this.MutedAt = Timestamp.FromDateTime(mutedAt);
 			this.MutedUntil = Timestamp.FromDateTime(mutedUntil);
 		}
@@ -42,10 +42,10 @@ namespace Rpc.Player
 
 	public partial class UnmuteRequest
 	{
-		public UnmuteRequest(string staticID, string unmutedByID)
+		public UnmuteRequest(string staticID, Guid unmutedByID)
 		{
 			this.StaticID = staticID;
-			this.UnmutedByID = unmutedByID;
+			this.UnmutedByID = unmutedByID.ToString();
 		}
 	}
 
@@ -59,32 +59,32 @@ namespace Rpc.Player
 
 	public partial class SetAdminRankRequest
 	{
-		public SetAdminRankRequest(string staticID, AdminRank rank, string setByID)
+		public SetAdminRankRequest(string staticID, AdminRank rank, Guid setByID)
 		{
 			this.StaticID = staticID;
 			this.Rank = (long)rank;
-			this.SetByID = setByID;
+			this.SetByID = setByID.ToString();
 		}
 	}
 
 	public partial class GiveWeaponRequest
 	{
-		public GiveWeaponRequest(string staticID, WeaponHash weaponHash, long amount, string givenByID)
+		public GiveWeaponRequest(string staticID, WeaponHash weaponHash, long amount, Guid givenByID)
 		{
 			this.StaticID = staticID;
 			this.Hash = (long)weaponHash;
 			this.Amount = amount;
-			this.GivenByID = givenByID;
+			this.GivenByID = givenByID.ToString();
 		}
 	}
 
 	public partial class RemoveWeaponRequest
 	{
-		public RemoveWeaponRequest(string staticID, WeaponHash weaponHash, string removedByID)
+		public RemoveWeaponRequest(string staticID, WeaponHash weaponHash, Guid removedByID)
 		{
 			this.StaticID = staticID;
 			this.Hash = (long)weaponHash;
-			this.RemovedByID = removedByID;
+			this.RemovedByID = removedByID.ToString();
 		}
 	}
 }

@@ -51,9 +51,11 @@ namespace Gamemode.Mechanics.Admin.Commands
 			}
 			catch { }
 
-
-			Cache.SendMessageToAllAdminsAction($"{admin.Name} установил время на {hours:00.##}:{minutes:00.##}:00");
-			this.Logger.Warn($"Administrator {admin.Name} set time to {hours:00.##}:{minutes:00.##}:00");
+			NAPI.Task.Run(() =>
+			{
+				Cache.SendMessageToAllAdminsAction($"{admin.Name} установил время на {hours:00.##}:{minutes:00.##}:00");
+				this.Logger.Warn($"Administrator {admin.Name} set time to {hours:00.##}:{minutes:00.##}:00");
+			});
 		}
 
 		private const string SyncTimeUsage = "Использование: /synct";
@@ -70,8 +72,11 @@ namespace Gamemode.Mechanics.Admin.Commands
 			}
 			catch { }
 
-			Cache.SendMessageToAllAdminsAction($"{admin.Name} возобновил синхронизацию серверного время с GMT+3");
-			this.Logger.Warn($"Administrator {admin.Name} restored time synchronization with GMT+3");
+			NAPI.Task.Run(() =>
+			{
+				Cache.SendMessageToAllAdminsAction($"{admin.Name} возобновил синхронизацию серверного времени с GMT+3");
+				this.Logger.Warn($"Administrator {admin.Name} restored time synchronization with GMT+3");
+			});
 		}
 
 		private const string GetTimeUsage = "Использование: /gett";

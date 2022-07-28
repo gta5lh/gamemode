@@ -65,7 +65,7 @@ namespace Gamemode
 			{
 				try
 				{
-					GiveWeaponResponse giveWeaponResponse = await Infrastructure.RpcClients.PlayerService.GiveWeaponAsync(new GiveWeaponRequest(targetStaticId, weaponHash, amount, admin.StaticId));
+					GiveWeaponResponse giveWeaponResponse = await Infrastructure.RpcClients.PlayerService.GiveWeaponAsync(new GiveWeaponRequest(targetStaticId, weaponHash, amount, admin.PKId));
 					targetName = giveWeaponResponse.Name;
 				}
 				catch (Exception)
@@ -113,7 +113,7 @@ namespace Gamemode
 				return;
 			}
 
-			string targetName = "";
+			string targetName;
 			CPlayer? targetPlayer = PlayerUtil.GetByStaticId(targetStaticId);
 
 			if (targetPlayer != null)
@@ -130,7 +130,7 @@ namespace Gamemode
 			{
 				try
 				{
-					RemoveWeaponResponse removeWeaponResponse = await Infrastructure.RpcClients.PlayerService.RemoveWeaponAsync(new RemoveWeaponRequest(targetStaticId, weaponHash, admin.StaticId));
+					RemoveWeaponResponse removeWeaponResponse = await Infrastructure.RpcClients.PlayerService.RemoveWeaponAsync(new RemoveWeaponRequest(targetStaticId, weaponHash, admin.PKId));
 					targetName = removeWeaponResponse.Name;
 				}
 				catch (Exception)

@@ -6,6 +6,7 @@ namespace Gamemode.Mechanics.Player.Models
 {
 	using System;
 	using System.Collections.Generic;
+	using System.Linq;
 	using System.Threading.Tasks;
 	using Gamemode.Mechanics.Admin.Models;
 	using GamemodeCommon.Models.Data;
@@ -41,6 +42,25 @@ namespace Gamemode.Mechanics.Player.Models
 				{
 					Admin.Cache.UnloadAdminFromCache(this.StaticId);
 					this.ResetSharedData(DataKey.IsAdmin);
+				}
+			}
+		}
+
+		public VipRank VipRank
+		{
+			get => this.vipRank;
+
+			set
+			{
+				this.vipRank = value;
+
+				if (this.vipRank.IsVip())
+				{
+					Vip.Cache.LoadVipToCache(this.StaticId, this.Name);
+				}
+				else
+				{
+					Vip.Cache.UnloadVipFromCache(this.StaticId);
 				}
 			}
 		}
@@ -168,6 +188,7 @@ namespace Gamemode.Mechanics.Player.Models
 		public string StaticId { get; set; }
 
 		private AdminRank adminRank;
+		private VipRank vipRank;
 
 		private bool invisible;
 
@@ -187,11 +208,38 @@ namespace Gamemode.Mechanics.Player.Models
 			IdsCache.LoadIdsToCache(player.Id, playerToLoad.StaticID);
 			player.PKId = Guid.Parse(playerToLoad.ID);
 			player.StaticId = playerToLoad.StaticID;
-			player.AdminRank = playerToLoad.HasAdminRankID ? (AdminRank)playerToLoad.AdminRankID : 0;
 			player.SetSharedData(DataKey.StaticId, player.StaticId);
+			player.Name = playerToLoad.Name;
+			player.AdminRank = playerToLoad.HasAdminRankID ? (AdminRank)playerToLoad.AdminRankID : 0;
+			player.VipRank = playerToLoad.HasAdminRankID ? VipRank.Premium : 0;
+			player.InventoryWeapons = new InventoryWeapons();
+			// player.CurrentExperience = playerToLoad.Experience;
+			// player.Money = playerToLoad.Money;
+			// player.LoggedInAt = DateTime.UtcNow;
+			player.SetSkin(PedHash.Tramp01);
 
 			DateTime? mutedUntil = playerToLoad.MutedUntil != null ? playerToLoad.MutedUntil.ToDateTime() : (DateTime?)null;
 			player.MuteState = new MuteState(mutedUntil, playerToLoad.MutedByID, playerToLoad.MuteReason);
+
+			if (playerToLoad.HasFractionRankID)
+			{
+				// player.Fraction = playerToLoad.Fraction;
+				// player.FractionRank = playerToLoad.FractionRank.Tier;
+				// player.FractionRankName = playerToLoad.FractionRank.Name;
+				// player.RequiredExperience = playerToLoad.FractionRank.RequiredExperience;
+				player.SetSkin((PedHash)playerToLoad.FractionRank.Skin);
+			}
+
+			if (playerToLoad.Weapons != null)
+			{
+				List<Weapon> weapons = playerToLoad.Weapons.OrderByDescending(o => o.Amount).ToList();
+
+				foreach (Weapon weapon in playerToLoad.Weapons)
+				{
+					player.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
+					player.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);
+				}
+			}
 
 			Logger.Info($"Loaded player to cache. ID={player.StaticId}");
 			return player;
@@ -201,6 +249,9 @@ namespace Gamemode.Mechanics.Player.Models
 		{
 			player.ResetData();
 			player.ResetSharedData(DataKey.StaticId);
+			player.AdminRank = 0;
+			// player.Fraction = null;
+			IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
 			Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
 		}
 
@@ -224,27 +275,25 @@ namespace Gamemode.Mechanics.Player.Models
 
 		private void SaveTemporaryWeapons()
 		{
-			// TODO
-			// List<Weapon> weapons = this.GetAllWeapons();
-			// if (weapons == null || weapons.Count == 0) return;
+			List<Weapon> weapons = this.GetAllWeapons();
+			if (weapons == null || weapons.Count == 0) return;
 
-			// this.TemporaryWeapons = weapons;
+			this.TemporaryWeapons = weapons;
 		}
 
 		private void GiveAndResetTemporaryWeapons()
 		{
-			// TODO
-			// if (this.TemporaryWeapons == null || this.TemporaryWeapons.Count == 0) return;
+			if (this.TemporaryWeapons == null || this.TemporaryWeapons.Count == 0) return;
 
-			// List<Weapon> weapons = this.TemporaryWeapons.OrderByDescending(o => o.Amount).ToList();
+			List<Weapon> weapons = this.TemporaryWeapons.OrderByDescending(o => o.Amount).ToList();
 
-			// foreach (Weapon weapon in this.TemporaryWeapons)
-			// {
-			// 	this.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
-			// 	this.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);
-			// }
+			foreach (Weapon weapon in this.TemporaryWeapons)
+			{
+				this.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
+				this.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);
+			}
 
-			// this.TemporaryWeapons.Clear();
+			this.TemporaryWeapons.Clear();
 		}
 
 		public void SendNotification(string text, long delay, long closeTimeMs, string notificationType)
@@ -256,7 +305,7 @@ namespace Gamemode.Mechanics.Player.Models
 		{
 			try
 			{
-				UnmuteRequest unmuteRequest = new UnmuteRequest(this.StaticId, this.StaticId);
+				UnmuteRequest unmuteRequest = new UnmuteRequest(this.StaticId, this.PKId);
 				await Infrastructure.RpcClients.PlayerService.UnmuteAsync(unmuteRequest);
 			}
 			catch (Exception)
@@ -293,6 +342,21 @@ namespace Gamemode.Mechanics.Player.Models
 
 			this.RemoveAllWeapons();
 			this.InventoryWeapons = new InventoryWeapons();
+		}
+
+		public List<Weapon> GetAllWeapons()
+		{
+			List<Weapon> weapons = new List<Weapon>();
+			foreach (WeaponHash weaponHash in this.InventoryWeapons.GetAllWeapons())
+			{
+				Weapon weapon = new Weapon();
+				weapon.Hash = (long)weaponHash;
+				weapon.Amount = this.GetWeaponAmmo(weaponHash);
+
+				weapons.Add(weapon);
+			}
+
+			return weapons;
 		}
 	}
 }
