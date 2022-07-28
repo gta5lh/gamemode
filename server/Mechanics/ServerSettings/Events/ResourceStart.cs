@@ -12,6 +12,8 @@ namespace Gamemode.Mechanics.ServerSettings.Events
 		[ServerEvent(Event.ResourceStartEx)]
 		private void ResourceStartEx(string resourceName)
 		{
+			Settings.Init();
+
 			NAPI.Server.SetGlobalServerChat(false);
 			NAPI.Server.SetAutoSpawnOnConnect(true); // TODO set to false.
 			NAPI.Server.SetCommandErrorMessage("Команда не найдена.");

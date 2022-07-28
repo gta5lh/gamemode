@@ -18,7 +18,7 @@ namespace Gamemode.Mechanics.Vehicle.Commands
 		public async Task OnMyVehicleAsync(CPlayer player)
 		{
 			MyVehicleRequest request = new MyVehicleRequest();
-			request.PlayerID = player.StaticId;
+			request.PlayerID = player.PKId.ToString();
 
 			MyVehicleResponse response;
 

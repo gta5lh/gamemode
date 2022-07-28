@@ -4,6 +4,7 @@ using GTANetworkAPI;
 using Rpc.Report;
 using Gamemode.Mechanics.Admin;
 using Gamemode.Mechanics.Player.Models;
+using Gamemode.Mechanics.ServerSettings;
 
 namespace Gamemode.Mechanics.Report.Commands
 {
@@ -23,7 +24,8 @@ namespace Gamemode.Mechanics.Report.Commands
 
 			CreateRequest createRequest = new CreateRequest();
 			createRequest.Question = message;
-			createRequest.PlayerID = player.StaticId;
+			createRequest.PlayerID = player.PKId.ToString();
+			createRequest.ServerID = Settings.ServerID;
 
 			CreateResponse createResponse;
 
