@@ -1,5 +1,5 @@
-// <copyright file="PlayerCache.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+// <copyright file="CVehicle.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace Gamemode.Game.Vehicle.Models
@@ -10,7 +10,8 @@ namespace Gamemode.Game.Vehicle.Models
 	{
 		public ushort OwnerPlayerId { get; set; }
 
-		public CVehicle(NetHandle handle) : base(handle)
+		public CVehicle(NetHandle handle)
+			: base(handle)
 		{
 		}
 	}

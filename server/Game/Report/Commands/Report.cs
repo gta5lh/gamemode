@@ -1,26 +1,29 @@
-﻿using System;
-using System.Threading.Tasks;
-using Gamemode.Game.Admin;
-using Gamemode.Game.Player.Models;
-using Gamemode.Game.ServerSettings;
-using GTANetworkAPI;
-using Rpc.Report;
+﻿// <copyright file="Report.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Report.Commands
 {
+	using System;
+	using System.Threading.Tasks;
+	using Gamemode.Game.Admin;
+	using Gamemode.Game.Player.Models;
+	using Gamemode.Game.ServerSettings;
+	using GTANetworkAPI;
+	using Rpc.Report;
+
 	public class Report : Script
 	{
 		private const string ReportUsage = "Использование: /report {сообщение}. Пример: /r ИД 10 читер";
 
 		[Command("report", ReportUsage, Alias = "r", GreedyArg = true)]
-		public async Task OnReportAsync(CPlayer player, string? message = null)
+		public static async Task OnReportAsync(CPlayer player, string? message = null)
 		{
 			if (message == null)
 			{
 				player.SendChatMessage(ReportUsage);
 				return;
 			}
-
 
 			CreateRequest createRequest = new CreateRequest();
 			createRequest.Question = message;
@@ -35,7 +38,7 @@ namespace Gamemode.Game.Report.Commands
 			}
 			catch (Exception)
 			{
-				NAPI.Task.Run(() => player.SendChatMessage($"Что-то пошло не так, попробуйте еще раз."));
+				NAPI.Task.Run(() => player.SendChatMessage("Что-то пошло не так, попробуйте еще раз."));
 				return;
 			}
 

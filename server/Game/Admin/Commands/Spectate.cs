@@ -1,10 +1,14 @@
-﻿using System;
-using Gamemode.Game.Admin.Models;
-using Gamemode.Game.Player.Models;
-using GTANetworkAPI;
+﻿// <copyright file="Spectate.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Admin.Commands
 {
+	using System;
+	using Gamemode.Game.Admin.Models;
+	using Gamemode.Game.Player.Models;
+	using GTANetworkAPI;
+
 	public class SpectateCommand : BaseHandler
 	{
 		private const string SpectateUsage = "Использование: /spectate {player_id}. Пример: /spectate 10";
@@ -52,7 +56,6 @@ namespace Gamemode.Game.Admin.Commands
 
 			// TODO
 			// SpectateController.StartSpectate(admin, targetPlayer);
-
 			Cache.SendMessageToAllAdminsAction($"{admin.Name} начал следить за {targetPlayer.Name}");
 			this.Logger.Warn($"Administrator {admin.Name} started spectate {targetPlayer.Name}");
 		}
@@ -61,7 +64,7 @@ namespace Gamemode.Game.Admin.Commands
 
 		[AdminMiddleware(AdminRank.Junior)]
 		[Command("spectatestop", SpectateStopUsage, Alias = "specstop", GreedyArg = true, Hide = true)]
-		public void OnSpectateStop(CPlayer admin)
+		public static void OnSpectateStop(CPlayer admin)
 		{
 			if (admin.SpectatePosition == null)
 			{

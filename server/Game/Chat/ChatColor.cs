@@ -1,11 +1,11 @@
-﻿// <copyright file="ChatColor.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+﻿// <copyright file="ChatColor.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
-
-using GTANetworkAPI;
 
 namespace Gamemode.Game.Chat
 {
+	using GTANetworkAPI;
+
 	public static class ChatColor
 	{
 		public static void SendColorizedChatMessageToAll(string color, string message)

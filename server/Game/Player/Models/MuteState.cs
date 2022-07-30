@@ -1,5 +1,5 @@
-﻿// <copyright file="MuteState.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="MuteState.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace Gamemode.Game.Player.Models
@@ -20,7 +20,6 @@ namespace Gamemode.Game.Player.Models
 			this.MutedByID = null;
 			this.Reason = null;
 		}
-
 
 		public MuteState(int? duration = null, string? mutedByID = null, string? reason = null)
 		{

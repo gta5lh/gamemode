@@ -1,18 +1,22 @@
-﻿using System;
-using Gamemode.Game.Admin.Models;
-using Gamemode.Game.Player.Models;
-using GTANetworkAPI;
-using Rpc.GameServer;
+﻿// <copyright file="Time.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Admin.Commands
 {
+	using System;
+	using Gamemode.Game.Admin.Models;
+	using Gamemode.Game.Player.Models;
+	using GTANetworkAPI;
+	using Rpc.GameServer;
+
 	public class Time : BaseHandler
 	{
 		private const string SetTimeUsage = "Использование: /sett {час} {минуты}. Пример: /sett 23 59";
 
 		[Command("settime", SetTimeUsage, Alias = "sett", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public async void OnSetTime(CPlayer admin, string? hoursInput = null, string? minutesInput = null)
+		public async System.Threading.Tasks.Task OnSetTime(CPlayer admin, string? hoursInput = null, string? minutesInput = null)
 		{
 			if (hoursInput == null || minutesInput == null)
 			{
@@ -49,7 +53,9 @@ namespace Gamemode.Game.Admin.Commands
 			{
 				await Infrastructure.RpcClients.GameServerService.SetTimeAsync(new SetTimeRequest(admin.StaticId, admin.Name, hours, minutes));
 			}
-			catch { }
+			catch
+			{
+			}
 
 			NAPI.Task.Run(() =>
 			{
@@ -58,11 +64,9 @@ namespace Gamemode.Game.Admin.Commands
 			});
 		}
 
-		private const string SyncTimeUsage = "Использование: /synct";
-
 		[Command("synctime", SetTimeUsage, Alias = "synct", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public async void OnSyncTime(CPlayer admin)
+		public async System.Threading.Tasks.Task OnSyncTime(CPlayer admin)
 		{
 			Game.Time.Controllers.Time.StartTimeSync();
 
@@ -70,7 +74,9 @@ namespace Gamemode.Game.Admin.Commands
 			{
 				await Infrastructure.RpcClients.GameServerService.SyncTimeAsync(new SyncTimeRequest(admin.StaticId, admin.Name));
 			}
-			catch { }
+			catch
+			{
+			}
 
 			NAPI.Task.Run(() =>
 			{
@@ -79,11 +85,9 @@ namespace Gamemode.Game.Admin.Commands
 			});
 		}
 
-		private const string GetTimeUsage = "Использование: /gett";
-
 		[Command("gettime", SetTimeUsage, Alias = "gett", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
-		public void OnGetTime(CPlayer admin)
+		public static void OnGetTime(CPlayer admin)
 		{
 			TimeSpan currentTime = Game.Time.Controllers.Time.CurrentTime;
 			admin.SendChatMessage($"Текущее время на сервере: {currentTime.Hours:00.##}:{currentTime.Minutes:00.##}:{currentTime.Seconds:00.##}");

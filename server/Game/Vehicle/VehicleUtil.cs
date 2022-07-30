@@ -1,5 +1,5 @@
-﻿// <copyright file="PlayerUtil.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="VehicleUtil.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace Gamemode.Game.Vehicle
@@ -15,7 +15,7 @@ namespace Gamemode.Game.Vehicle
 
 		public static string DisplayName(Vehicle vehicle, string defaultName)
 		{
-			return vehicle.DisplayName != null ? vehicle.DisplayName : defaultName;
+			return vehicle.DisplayName ?? defaultName;
 		}
 	}
 }

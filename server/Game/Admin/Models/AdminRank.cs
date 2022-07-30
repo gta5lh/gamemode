@@ -1,14 +1,18 @@
-﻿using System;
+﻿// <copyright file="AdminRank.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Admin.Models
 {
+	using System;
+
 	public enum AdminRank : ushort
 	{
 		Junior = 1,
 		Middle,
 		Senior,
 		Lead,
-		Owner
+		Owner,
 	}
 
 	public static class AdminRankMethods
@@ -46,7 +50,6 @@ namespace Gamemode.Game.Admin.Models
 					return "игрок";
 			}
 		}
-
 
 		public static AdminRank ToAdminRank(this string enumString)
 		{

@@ -1,4 +1,8 @@
-﻿namespace Gamemode.Game.Admin.Commands
+﻿// <copyright file="AdminChat.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
+
+namespace Gamemode.Game.Admin.Commands
 {
 	using Gamemode.Game.Admin.Models;
 	using Gamemode.Game.Chat;
@@ -11,7 +15,7 @@
 
 		[Command("adminchat", AdminChatUsage, Alias = "ac", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void OnAdminChat(CPlayer admin, string? message = null)
+		public static void OnAdminChat(CPlayer admin, string? message = null)
 		{
 			if (message == null)
 			{
@@ -26,7 +30,7 @@
 
 		[Command("adminannouncement", AdminAnnouncementUsage, Alias = "aa", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void OnAdminAnnouncement(CPlayer admin, string? message = null)
+		public static void OnAdminAnnouncement(CPlayer admin, string? message = null)
 		{
 			if (message == null)
 			{

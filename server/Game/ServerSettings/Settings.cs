@@ -1,3 +1,6 @@
+// <copyright file="Settings.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.ServerSettings
 {
@@ -23,7 +26,7 @@ namespace Gamemode.Game.ServerSettings
 			Environment = environment;
 			ServerID = serverID;
 
-			logger.Info($"Settings: {Environment} {ServerID}");
+			Logger.Info($"Settings: {Environment} {ServerID}");
 		}
 
 		public static bool IsProduction()
@@ -32,8 +35,9 @@ namespace Gamemode.Game.ServerSettings
 		}
 
 		public static void Init()
-		{ }
+		{
+		}
 
-		private static readonly NLog.ILogger logger = Logger.Logger.LogFactory.GetCurrentClassLogger();
+		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 	}
 }

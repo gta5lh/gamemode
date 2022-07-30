@@ -1,5 +1,5 @@
-﻿// <copyright file="ResourceStartController.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="PlayerSpawn.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 namespace Gamemode.Game.Auth.Events
 {
@@ -10,7 +10,7 @@ namespace Gamemode.Game.Auth.Events
 	public class PlayerSpawn : Script
 	{
 		[ServerEvent(Event.PlayerSpawn)]
-		private void OnPlayerSpawn(CPlayer player)
+		private static void OnPlayerSpawn(CPlayer player)
 		{
 			Rpc.Player.Player rpcPlayer = new Rpc.Player.Player();
 			rpcPlayer.AdminRankID = 5;

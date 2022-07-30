@@ -1,18 +1,22 @@
-﻿using System;
-using Gamemode.Game.Admin.Models;
-using Gamemode.Game.Chat;
-using Gamemode.Game.Player.Models;
-using GTANetworkAPI;
+﻿// <copyright file="Report.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Admin.Commands
 {
+	using System;
+	using Gamemode.Game.Admin.Models;
+	using Gamemode.Game.Chat;
+	using Gamemode.Game.Player.Models;
+	using GTANetworkAPI;
+
 	public class Report : BaseHandler
 	{
 		private const string ReportAnswerUsage = "Использование: /reportanswer. Пример: /ra";
 
 		[Command("reportanswer", ReportAnswerUsage, Alias = "ra", GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void OnReportAnswer(CPlayer admin, string? targetIdInput = null, string? message = null)
+		public static void OnReportAnswer(CPlayer admin, string? targetIdInput = null, string? message = null)
 		{
 			if (targetIdInput == null || message == null)
 			{

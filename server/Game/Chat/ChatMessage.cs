@@ -1,5 +1,5 @@
-﻿// <copyright file="ChatMessage.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="ChatMessage.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace Gamemode.Game.Chat

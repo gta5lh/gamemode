@@ -1,5 +1,5 @@
-﻿// <copyright file="GetId.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="SetAdminRank.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace Gamemode.Game.Admin.Commands
@@ -48,10 +48,7 @@ namespace Gamemode.Game.Admin.Commands
 			}
 			catch (Exception)
 			{
-				NAPI.Task.Run(() =>
-				{
-					admin.SendChatMessage($"Пользователь с static_id {targetStaticId} отсутствует");
-				});
+				NAPI.Task.Run(() => admin.SendChatMessage($"Пользователь с static_id {targetStaticId} отсутствует"));
 
 				return;
 			}

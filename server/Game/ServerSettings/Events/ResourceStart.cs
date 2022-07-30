@@ -1,5 +1,5 @@
-﻿// <copyright file="ResourceStartController.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="ResourceStart.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 namespace Gamemode.Game.ServerSettings.Events
 {
@@ -10,7 +10,7 @@ namespace Gamemode.Game.ServerSettings.Events
 	public class ResourceStart : Script
 	{
 		[ServerEvent(Event.ResourceStartEx)]
-		private void ResourceStartEx(string resourceName)
+		private static void ResourceStartEx(string resourceName)
 		{
 			Settings.Init();
 

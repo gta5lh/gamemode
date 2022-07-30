@@ -1,21 +1,25 @@
-﻿using System;
-using System.Threading.Tasks;
-using Gamemode.Game.Player.Models;
-using Gamemode.Game.Vehicle.Models;
-using GamemodeCommon.Models;
-using Grpc.Core;
-using GTANetworkAPI;
-using Rpc.Errors;
-using Rpc.Player;
+﻿// <copyright file="MyVehicle.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Vehicle.Commands
 {
+	using System;
+	using System.Threading.Tasks;
+	using Gamemode.Game.Player.Models;
+	using Gamemode.Game.Vehicle.Models;
+	using GamemodeCommon.Models;
+	using Grpc.Core;
+	using GTANetworkAPI;
+	using Rpc.Errors;
+	using Rpc.Player;
+
 	public class MyVehicle : Script
 	{
 		private const string MyVehicleUsage = "Использование: /myvehicle. Пример: /myveh";
 
 		[Command("myvehicle", MyVehicleUsage, Alias = "myveh", GreedyArg = true)]
-		public async Task OnMyVehicleAsync(CPlayer player)
+		public static async Task OnMyVehicleAsync(CPlayer player)
 		{
 			MyVehicleRequest request = new MyVehicleRequest();
 			request.PlayerID = player.PKId.ToString();
@@ -30,14 +34,14 @@ namespace Gamemode.Game.Vehicle.Commands
 			{
 				if (Error.IsEqualErrorCode(ex.StatusCode, ErrorCode.PlayerNotFound))
 				{
-					NAPI.Task.Run(() => player.SendChatMessage($"У вас отсуствует автомобиль!"));
+					NAPI.Task.Run(() => player.SendChatMessage("У вас отсуствует автомобиль!"));
 				}
 
 				return;
 			}
 			catch (Exception)
 			{
-				NAPI.Task.Run(() => player.SendChatMessage($"Что-то пошло не так, попробуйте еще раз."));
+				NAPI.Task.Run(() => player.SendChatMessage("Что-то пошло не так, попробуйте еще раз."));
 				return;
 			}
 

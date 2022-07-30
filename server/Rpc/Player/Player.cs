@@ -1,12 +1,16 @@
-using System;
-using System.Collections.Generic;
-using Gamemode.Game.Admin.Models;
-using Google.Protobuf;
-using Google.Protobuf.WellKnownTypes;
-using GTANetworkAPI;
+// <copyright file="Player.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Rpc.Player
 {
+	using System;
+	using System.Collections.Generic;
+	using Gamemode.Game.Admin.Models;
+	using Google.Protobuf;
+	using Google.Protobuf.WellKnownTypes;
+	using GTANetworkAPI;
+
 	public partial class UnbanRequest
 	{
 		public UnbanRequest(string staticID, Guid unbannedByID)

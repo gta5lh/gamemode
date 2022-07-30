@@ -1,12 +1,16 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
-using GTANetworkAPI;
+﻿// <copyright file="InventoryWeapons.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Player.Models
 {
+	using System.Collections.Concurrent;
+	using System.Collections.Generic;
+	using GTANetworkAPI;
+
 	public class InventoryWeapons
 	{
-		private static readonly NLog.ILogger logger = Logger.Logger.LogFactory.GetCurrentClassLogger();
+		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 		private readonly ConcurrentDictionary<WeaponHash, bool> inventoryWeapons;
 
 		public InventoryWeapons()
@@ -23,7 +27,7 @@ namespace Gamemode.Game.Player.Models
 		{
 			if (this.inventoryWeapons.TryAdd(weaponHash, true))
 			{
-				logger.Info($"Added weapon to inventory. weapon_hash={weaponHash}");
+				Logger.Info($"Added weapon to inventory. weapon_hash={weaponHash}");
 			}
 		}
 
@@ -31,7 +35,7 @@ namespace Gamemode.Game.Player.Models
 		{
 			if (this.inventoryWeapons.TryRemove(weaponHash, out _))
 			{
-				logger.Info($"Removed weapon from inventory. weapon_hash={weaponHash}");
+				Logger.Info($"Removed weapon from inventory. weapon_hash={weaponHash}");
 			}
 		}
 

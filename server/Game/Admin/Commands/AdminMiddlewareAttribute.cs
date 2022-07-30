@@ -1,4 +1,8 @@
-﻿namespace Gamemode.Game.Admin.Commands
+﻿// <copyright file="AdminMiddlewareAttribute.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
+
+namespace Gamemode.Game.Admin.Commands
 {
 	using Gamemode.Game.Admin.Models;
 	using Gamemode.Game.Player.Models;

@@ -1,13 +1,17 @@
-using System.Collections.Generic;
-using Gamemode.Game.Chat;
-using GTANetworkAPI;
+// <copyright file="Cache.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Admin
 {
-	public class Cache
+	using System.Collections.Generic;
+	using Gamemode.Game.Chat;
+	using GTANetworkAPI;
+
+	public static class Cache
 	{
-		private static readonly NLog.ILogger logger = Logger.Logger.LogFactory.GetCurrentClassLogger();
-		private static readonly Dictionary<string, string> Admins = new Dictionary<string, string>();
+		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
+		private static readonly Dictionary<string, string> Admins = new();
 
 		public static void LoadAdminToCache(string staticId, string name)
 		{
@@ -17,7 +21,7 @@ namespace Gamemode.Game.Admin
 			}
 
 			Admins.Add(staticId, name);
-			logger.Info($"Loaded admin to cache. name={name}, static_id={staticId}");
+			Logger.Info($"Loaded admin to cache. name={name}, static_id={staticId}");
 		}
 
 		public static void UnloadAdminFromCache(string staticId)
@@ -28,7 +32,7 @@ namespace Gamemode.Game.Admin
 			}
 
 			Admins.Remove(staticId);
-			logger.Info($"Unloaded admin from cache. static_id={staticId}");
+			Logger.Info($"Unloaded admin from cache. static_id={staticId}");
 		}
 
 		public static string GetAdminNames()

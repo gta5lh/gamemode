@@ -1,5 +1,5 @@
-﻿// <copyright file="Position.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="Position.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace Gamemode
@@ -13,7 +13,7 @@ namespace Gamemode
 	{
 		[Command("position", "Usage: /position {player_id}", Alias = "pos", SensitiveInfo = true, GreedyArg = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void OnPosition(CPlayer admin, string playerID)
+		public static void OnPosition(CPlayer admin, string playerID)
 		{
 			if (admin.IsInVehicle)
 			{
@@ -27,7 +27,7 @@ namespace Gamemode
 
 		[Command("cameraposition", "Usage: /cameraposition {player_id}", Alias = "cpos", SensitiveInfo = true, GreedyArg = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void OnCameraPosition(CPlayer admin, string playerID)
+		public static void OnCameraPosition(CPlayer admin, string playerID)
 		{
 			NAPI.ClientEvent.TriggerClientEvent(admin, "ShowCameraPosition");
 		}

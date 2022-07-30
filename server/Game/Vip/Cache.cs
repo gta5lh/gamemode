@@ -1,12 +1,16 @@
-using System.Collections.Generic;
-using Gamemode.Game.Chat;
-using GTANetworkAPI;
+// <copyright file="Cache.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Vip
 {
-	public class Cache
+	using System.Collections.Generic;
+	using Gamemode.Game.Chat;
+	using GTANetworkAPI;
+
+	public static class Cache
 	{
-		private static readonly NLog.ILogger logger = Logger.Logger.LogFactory.GetCurrentClassLogger();
+		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 		private static readonly Dictionary<string, string> Vips = new Dictionary<string, string>();
 
 		public static void LoadVipToCache(string staticId, string name)
@@ -17,13 +21,13 @@ namespace Gamemode.Game.Vip
 			}
 
 			Vips.Add(staticId, name);
-			logger.Info($"Loaded VIP to cache. name={name}, static_id={staticId}");
+			Logger.Info($"Loaded VIP to cache. name={name}, static_id={staticId}");
 		}
 
 		public static void UnloadVipFromCache(string staticId)
 		{
 			Vips.Remove(staticId);
-			logger.Info($"Unloaded VIP from cache. static_id={staticId}");
+			Logger.Info($"Unloaded VIP from cache. static_id={staticId}");
 		}
 
 		public static string GetVipNames()

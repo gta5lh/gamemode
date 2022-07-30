@@ -1,5 +1,5 @@
-﻿// <copyright file="MuteCommand.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="Mute.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace Gamemode.Game.Admin.Commands
@@ -68,6 +68,7 @@ namespace Gamemode.Game.Admin.Commands
 				if (targetPlayer != null)
 				{
 					targetPlayer.MuteState = new MuteState(mutedUntil, admin.StaticId, reason);
+
 					// VoiceChatController.Mute(targetPlayer);
 				}
 
@@ -118,6 +119,7 @@ namespace Gamemode.Game.Admin.Commands
 				if (targetPlayer != null)
 				{
 					targetPlayer.MuteState = new MuteState();
+
 					// VoiceChatController.Unmute(targetPlayer);
 				}
 

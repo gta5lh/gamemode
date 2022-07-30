@@ -1,15 +1,19 @@
-﻿using System;
-using Gamemode.Game.Player.Models;
-using GTANetworkAPI;
+﻿// <copyright file="VoiceMute.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Voice.Commands
 {
+	using System;
+	using Gamemode.Game.Player.Models;
+	using GTANetworkAPI;
+
 	public class VoiceMute : Script
 	{
 		private const string VoiceMuteUsage = "Использование: /vm {player_id}. Пример: /vm 10";
 
 		[Command("voicemute", VoiceMuteUsage, Alias = "vm", GreedyArg = true)]
-		public void OnVoiceMute(CPlayer player, string? targetIdInput = null)
+		public static void OnVoiceMute(CPlayer player, string? targetIdInput = null)
 		{
 			if (targetIdInput == null)
 			{
@@ -48,7 +52,7 @@ namespace Gamemode.Game.Voice.Commands
 		private const string VoiceUnmuteUsage = "Использование: /vum {player_id}. Пример: /vum 10";
 
 		[Command("voiceunmute", VoiceUnmuteUsage, Alias = "vum", GreedyArg = true)]
-		public void VoiceUnmute(CPlayer player, string? targetIdInput = null)
+		public static void VoiceUnmute(CPlayer player, string? targetIdInput = null)
 		{
 			if (targetIdInput == null)
 			{

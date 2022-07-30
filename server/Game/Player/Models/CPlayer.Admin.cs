@@ -1,3 +1,7 @@
+// <copyright file="CPlayer.Admin.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
+
 namespace Gamemode.Game.Player.Models
 {
 	using System.Collections.Generic;
@@ -46,12 +50,10 @@ namespace Gamemode.Game.Player.Models
 
 				if (this.Invisible)
 				{
-					if (this.spectating) this.Freezed = true;
-					else this.Freezed = false;
+					this.Freezed = this.spectating;
 
 					return;
 				}
-
 
 				if (this.Spectating)
 				{
@@ -110,8 +112,7 @@ namespace Gamemode.Game.Player.Models
 
 				if (this.Invisible)
 				{
-					if (this.noclip) this.Freezed = true;
-					else this.Freezed = false;
+					this.Freezed = this.noclip;
 
 					return;
 				}
@@ -138,29 +139,35 @@ namespace Gamemode.Game.Player.Models
 		private bool invisible;
 		private bool spectating;
 		private bool noclip;
-		private List<Rpc.Player.Weapon> TemporaryWeapons;
+		private List<Rpc.Player.Weapon> temporaryWeapons;
 
 		private void SaveTemporaryWeapons()
 		{
 			List<Rpc.Player.Weapon> weapons = this.GetAllWeapons();
-			if (weapons == null || weapons.Count == 0) return;
+			if (weapons == null || weapons.Count == 0)
+			{
+				return;
+			}
 
-			this.TemporaryWeapons = weapons;
+			this.temporaryWeapons = weapons;
 		}
 
 		private void GiveAndResetTemporaryWeapons()
 		{
-			if (this.TemporaryWeapons == null || this.TemporaryWeapons.Count == 0) return;
+			if (this.temporaryWeapons == null || this.temporaryWeapons.Count == 0)
+			{
+				return;
+			}
 
-			List<Rpc.Player.Weapon> weapons = this.TemporaryWeapons.OrderByDescending(o => o.Amount).ToList();
+			List<Rpc.Player.Weapon> weapons = this.temporaryWeapons.OrderByDescending(o => o.Amount).ToList();
 
-			foreach (Rpc.Player.Weapon weapon in this.TemporaryWeapons)
+			foreach (Rpc.Player.Weapon weapon in this.temporaryWeapons)
 			{
 				this.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
 				this.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);
 			}
 
-			this.TemporaryWeapons.Clear();
+			this.temporaryWeapons.Clear();
 		}
 	}
 }

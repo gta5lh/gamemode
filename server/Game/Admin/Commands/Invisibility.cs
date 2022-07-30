@@ -1,16 +1,20 @@
-﻿using Gamemode.Game.Admin.Models;
-using Gamemode.Game.Player.Models;
-using GTANetworkAPI;
+﻿// <copyright file="Invisibility.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Admin.Commands
 {
+	using Gamemode.Game.Admin.Models;
+	using Gamemode.Game.Player.Models;
+	using GTANetworkAPI;
+
 	public class Invisibility : BaseHandler
 	{
 		private const string InvisibilityUsage = "Использование: /invisibility. Пример: /i";
 
 		[AdminMiddleware(AdminRank.Junior)]
 		[Command("invisibility", InvisibilityUsage, Alias = "i", GreedyArg = true, Hide = true)]
-		public void OnInvisibility(CPlayer admin)
+		public static void OnInvisibility(CPlayer admin)
 		{
 			if (admin.Noclip || admin.Spectating)
 			{

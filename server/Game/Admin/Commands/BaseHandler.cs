@@ -1,4 +1,8 @@
-﻿namespace Gamemode.Game.Admin.Commands
+﻿// <copyright file="BaseHandler.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
+
+namespace Gamemode.Game.Admin.Commands
 {
 	using GTANetworkAPI;
 

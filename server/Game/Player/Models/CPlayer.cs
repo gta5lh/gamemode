@@ -1,5 +1,5 @@
-// <copyright file="PlayerCache.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+// <copyright file="CPlayer.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace Gamemode.Game.Player.Models
@@ -15,15 +15,14 @@ namespace Gamemode.Game.Player.Models
 
 	public partial class CPlayer : GTANetworkAPI.Player
 	{
-		public CPlayer(NetHandle handle) : base(handle)
+		public CPlayer(NetHandle handle)
+			: base(handle)
 		{
 		}
 
 		public ushort? OneTimeVehicleId { get; set; }
 
 		public MuteState? MuteState { get; set; }
-
-
 
 		public VipRank VipRank
 		{
@@ -50,7 +49,11 @@ namespace Gamemode.Game.Player.Models
 
 			set
 			{
-				if (value == this.freezed) return;
+				if (value == this.freezed)
+				{
+					return;
+				}
+
 				this.freezed = value;
 
 				// TODO
@@ -60,11 +63,12 @@ namespace Gamemode.Game.Player.Models
 
 		// Primary Key in database.
 		public Guid PKId { get; set; }
+
 		public string StaticId { get; set; }
 
 		private VipRank vipRank;
 		private bool freezed;
-		private InventoryWeapons InventoryWeapons;
+		private InventoryWeapons inventoryWeapons;
 
 		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 
@@ -77,7 +81,8 @@ namespace Gamemode.Game.Player.Models
 			player.Name = playerToLoad.Name;
 			player.AdminRank = playerToLoad.HasAdminRankID ? (AdminRank)playerToLoad.AdminRankID : 0;
 			player.VipRank = playerToLoad.HasAdminRankID ? VipRank.Premium : 0;
-			player.InventoryWeapons = new InventoryWeapons();
+			player.inventoryWeapons = new InventoryWeapons();
+
 			// player.CurrentExperience = playerToLoad.Experience;
 			// player.Money = playerToLoad.Money;
 			// player.LoggedInAt = DateTime.UtcNow;
@@ -115,6 +120,7 @@ namespace Gamemode.Game.Player.Models
 			player.ResetData();
 			player.ResetSharedData(DataKey.StaticId);
 			player.AdminRank = 0;
+
 			// player.Fraction = null;
 			IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
 			Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
@@ -130,11 +136,12 @@ namespace Gamemode.Game.Player.Models
 			// TODO
 			// if (this.fraction != null)
 			// {
-			// 	this.SetBlipColor(GangUtil.BlipColorByGangId[this.fraction.Value]);
+			//  this.SetBlipColor(GangUtil.BlipColorByGangId[this.fraction.Value]);
 			// }
 			// else
 			// {
 			this.SetBlipColor(62);
+
 			// }
 		}
 
@@ -155,41 +162,37 @@ namespace Gamemode.Game.Player.Models
 				return;
 			}
 
-			if (this.MuteState != null)
-			{
-				this.MuteState.Unmute();
-			}
+			this.MuteState?.Unmute();
 			Logger.Info($"Player mute has expired. ID={this.StaticId}");
 		}
 
 		public bool HasWeapon(WeaponHash weaponHash)
 		{
-			return this.InventoryWeapons.HasWeapon(weaponHash);
+			return this.inventoryWeapons.HasWeapon(weaponHash);
 		}
 
 		public void CustomGiveWeapon(WeaponHash weaponHash, long amount)
 		{
 			this.GiveWeapon(weaponHash, (int)amount);
-			this.InventoryWeapons.AddWeapon(weaponHash);
+			this.inventoryWeapons.AddWeapon(weaponHash);
 		}
 
 		public void CustomRemoveWeapon(WeaponHash weaponHash)
 		{
 			this.RemoveWeapon(weaponHash);
-			this.InventoryWeapons.RemoveWeapon(weaponHash);
+			this.inventoryWeapons.RemoveWeapon(weaponHash);
 		}
 
 		public void CustomRemoveAllWeapons()
 		{
-
 			this.RemoveAllWeapons();
-			this.InventoryWeapons = new InventoryWeapons();
+			this.inventoryWeapons = new InventoryWeapons();
 		}
 
 		public List<Weapon> GetAllWeapons()
 		{
 			List<Weapon> weapons = new List<Weapon>();
-			foreach (WeaponHash weaponHash in this.InventoryWeapons.GetAllWeapons())
+			foreach (WeaponHash weaponHash in this.inventoryWeapons.GetAllWeapons())
 			{
 				Weapon weapon = new Weapon();
 				weapon.Hash = (long)weaponHash;

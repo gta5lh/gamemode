@@ -1,11 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
-using Gamemode.Game.Admin.Models;
-using Gamemode.Game.Player.Models;
-using GTANetworkAPI;
+﻿// <copyright file="SetFraction.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Admin.Commands
 {
+	using System;
+	using System.Threading.Tasks;
+	using Gamemode.Game.Admin.Models;
+	using Gamemode.Game.Player.Models;
+	using GTANetworkAPI;
+
 	public class SetFraction : BaseHandler
 	{
 		private const string SetFractionUsage = "Использование: /setfraction {static_id} {fraction_id} {rank_id}. Пример: /setfraction 10 1 9";
@@ -36,11 +40,12 @@ namespace Gamemode.Game.Admin.Commands
 				return;
 			}
 
-			string targetName = "TODO";
+			const string targetName = "TODO";
 
 			try
 			{
 				CPlayer? targetPlayer = PlayerUtil.GetByStaticId(staticId);
+
 				// targetName = await GangService.SetAsGangMember(targetPlayer, staticId, fractionId, rankId, admin.StaticId);
 			}
 			catch (Exception)

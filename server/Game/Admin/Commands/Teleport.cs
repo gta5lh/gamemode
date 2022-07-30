@@ -1,5 +1,5 @@
-﻿// <copyright file="Teleport.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="Teleport.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace Gamemode
@@ -17,7 +17,7 @@ namespace Gamemode
 
 		[Command("teleport", TeleportUsage, Alias = "tp", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void OnTeleport(CPlayer admin, string? firstPlayerIdInput = null, string? secondPlayerIdInput = null)
+		public static void OnTeleport(CPlayer admin, string? firstPlayerIdInput = null, string? secondPlayerIdInput = null)
 		{
 			if (firstPlayerIdInput == null)
 			{
@@ -84,7 +84,7 @@ namespace Gamemode
 
 		[Command("getcar", GetCarUsage, Alias = "gc", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void OnGetCar(CPlayer admin, string? vehicleIdInput = null)
+		public static void OnGetCar(CPlayer admin, string? vehicleIdInput = null)
 		{
 			if (vehicleIdInput == null)
 			{
@@ -118,21 +118,20 @@ namespace Gamemode
 
 		// TODO
 		// private Spawn[] spawns = new Spawn[] {
-		// 	Bloods.Spawn,
-		// 	Ballas.Spawn,
-		// 	TheFamilies.Spawn,
-		// 	Vagos.Spawn,
-		// 	Marabunta.Spawn,
-		// 	PlayerSpawns.SpawnPositions[0],
-		// 	PlayerSpawns.SpawnPositions[1],
-		// 	PlayerSpawns.SpawnPositions[2],
+		//  Bloods.Spawn,
+		//  Ballas.Spawn,
+		//  TheFamilies.Spawn,
+		//  Vagos.Spawn,
+		//  Marabunta.Spawn,
+		//  PlayerSpawns.SpawnPositions[0],
+		//  PlayerSpawns.SpawnPositions[1],
+		//  PlayerSpawns.SpawnPositions[2],
 		// };
-
 		private const string TeleportLocationUsage = "Использование: /tpl {location_id}. Пример: [/tpl 0]";
 
 		[Command("teleportlocation", TeleportUsage, Alias = "tpl", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void OnTeleport(CPlayer admin, string? locationIdInput = null)
+		public static void OnTeleport(CPlayer admin, string? locationIdInput = null)
 		{
 			if (locationIdInput == null)
 			{
@@ -155,8 +154,8 @@ namespace Gamemode
 			// TODO
 			// if (locationId < 0 || locationId >= spawns.Length)
 			// {
-			// 	admin.SendChatMessage($"Максимальный ID локации = {spawns.Length - 1}");
-			// 	return;
+			//  admin.SendChatMessage($"Максимальный ID локации = {spawns.Length - 1}");
+			//  return;
 			// }
 
 			// Spawn spawn = spawns[locationId];
@@ -165,11 +164,9 @@ namespace Gamemode
 			// admin.SendChatMessage($"Вы телепортировались в локацию {locationId}");
 		}
 
-		private const string TeleportWaypointUsage = "Использование: /tpw";
-
 		[Command("teleportwaypoint", TeleportUsage, Alias = "tpw", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void OnTeleportWaypoint(CPlayer admin)
+		public static void OnTeleportWaypoint(CPlayer admin)
 		{
 			NAPI.ClientEvent.TriggerClientEvent(admin, "TeleportToWaypoint");
 		}
@@ -178,7 +175,7 @@ namespace Gamemode
 
 		[Command("teleportinterior", TeleportUsage, Alias = "tpi", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void OnTeleportInterior(CPlayer admin, string? interiorNameInput = null, string xInput = "0", string yInput = "0", string zInput = "0")
+		public static void OnTeleportInterior(CPlayer admin, string? interiorNameInput = null, string xInput = "0", string yInput = "0", string zInput = "0")
 		{
 			if (interiorNameInput == null)
 			{

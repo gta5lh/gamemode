@@ -1,15 +1,19 @@
-﻿using System;
-using System.Threading.Tasks;
-using Gamemode.Game.Admin.Models;
-using Gamemode.Game.Chat;
-using Gamemode.Game.Player.Models;
-using Grpc.Core;
-using GTANetworkAPI;
-using Rpc.Errors;
-using Rpc.Player;
+﻿// <copyright file="Ban.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Admin.Commands
 {
+	using System;
+	using System.Threading.Tasks;
+	using Gamemode.Game.Admin.Models;
+	using Gamemode.Game.Chat;
+	using Gamemode.Game.Player.Models;
+	using Grpc.Core;
+	using GTANetworkAPI;
+	using Rpc.Errors;
+	using Rpc.Player;
+
 	public class Ban : BaseHandler
 	{
 		private const string BanUsage = "Использование: /ban {static_id} {дни} {причина}. Пример: /ban 1 31 Спидхак";
@@ -48,7 +52,7 @@ namespace Gamemode.Game.Admin.Commands
 			DateTime bannedAt = DateTime.UtcNow;
 			DateTime bannedUntil = bannedAt.AddDays(duration);
 
-			string targetName = "";
+			string targetName = string.Empty;
 
 			try
 			{
@@ -66,7 +70,7 @@ namespace Gamemode.Game.Admin.Commands
 			}
 			catch (Exception)
 			{
-				NAPI.Task.Run(() => admin.SendChatMessage($"Что-то пошло не так, попробуй снова"));
+				NAPI.Task.Run(() => admin.SendChatMessage("Что-то пошло не так, попробуй снова"));
 				return;
 			}
 
@@ -76,10 +80,7 @@ namespace Gamemode.Game.Admin.Commands
 				this.Logger.Warn($"Administrator {admin.Name} banned {targetName} for {duration} days");
 
 				CPlayer? targetPlayer = PlayerUtil.GetByStaticId(staticId);
-				if (targetPlayer != null)
-				{
-					targetPlayer.Ban();
-				}
+				targetPlayer?.Ban();
 			});
 		}
 

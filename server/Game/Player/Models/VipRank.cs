@@ -1,7 +1,11 @@
-﻿using System;
+﻿// <copyright file="VipRank.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Player.Models
 {
+	using System;
+
 	public enum VipRank : ushort
 	{
 		Basic = 1,
@@ -22,7 +26,7 @@ namespace Gamemode.Game.Player.Models
 
 		public static string ToPosition(this VipRank vipRank)
 		{
-			return "";
+			return string.Empty;
 		}
 
 		public static VipRank ToVipRank(this string enumString)

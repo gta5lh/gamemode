@@ -1,47 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Timers;
-using GTANetworkAPI;
+﻿// <copyright file="Time.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace Gamemode.Game.Time.Controllers
 {
+	using System;
+	using System.Collections.Generic;
+	using System.Timers;
+	using GTANetworkAPI;
+
 	public class Time : Script
 	{
-		private static DummyEntity SyncDummyEntity;
+		private static DummyEntity syncDummyEntity;
 
-		private static Timer TimeSyncTimer;
+		private static Timer timeSyncTimer;
 
 		public static DateTime CurrentDateTime { get; private set; }
+
 		public static TimeSpan CurrentTime { get; private set; }
-		private static readonly double TimeSyncInterval1Minute = 1000 * 60;
+
+		private const double TimeSyncInterval1Minute = 1000 * 60;
 
 		public static void InitTimeSyncTimer()
 		{
-			SyncDummyEntity = NAPI.DummyEntity.CreateDummyEntity(0, new Dictionary<string, object>());
+			syncDummyEntity = NAPI.DummyEntity.CreateDummyEntity(0, new Dictionary<string, object>());
 			SetTimeToCurrent();
-			TimeSyncTimer = new Timer(TimeSyncInterval1Minute);
-			TimeSyncTimer.Elapsed += OnTimeSync;
-			TimeSyncTimer.AutoReset = true;
-			TimeSyncTimer.Start();
+			timeSyncTimer = new Timer(TimeSyncInterval1Minute);
+			timeSyncTimer.Elapsed += OnTimeSync;
+			timeSyncTimer.AutoReset = true;
+			timeSyncTimer.Start();
 		}
 
 		private static void OnTimeSync(object sender, ElapsedEventArgs e)
 		{
-			NAPI.Task.Run(() =>
-			{
-				SetTimeToCurrent();
-			});
+			NAPI.Task.Run(() => SetTimeToCurrent());
 		}
 
 		public static void StopTimeSync()
 		{
-			TimeSyncTimer.Stop();
+			timeSyncTimer.Stop();
 		}
 
 		public static void StartTimeSync()
 		{
 			SetTimeToCurrent();
-			TimeSyncTimer.Start();
+			timeSyncTimer.Start();
 		}
 
 		public static void SetCurrentTime(TimeSpan time)
@@ -61,11 +64,12 @@ namespace Gamemode.Game.Time.Controllers
 
 		private static void SyncTime()
 		{
-			SyncDummyEntity.SetSharedData(GamemodeCommon.Models.Data.DataKey.CurrentTime, new Dictionary<string, object>(){
-				{"hours", CurrentTime.Hours},
-				{"minutes", CurrentTime.Minutes},
-				{"day", CurrentDateTime.Day},
-				{"month", CurrentDateTime.Month},
+			syncDummyEntity.SetSharedData(GamemodeCommon.Models.Data.DataKey.CurrentTime, new Dictionary<string, object>()
+			{
+				{ "hours", CurrentTime.Hours },
+				{ "minutes", CurrentTime.Minutes },
+				{ "day", CurrentDateTime.Day },
+				{ "month", CurrentDateTime.Month },
 			});
 		}
 	}
