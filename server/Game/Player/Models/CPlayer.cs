@@ -55,9 +55,7 @@ namespace Gamemode.Game.Player.Models
 				}
 
 				this.freezed = value;
-
-				// TODO
-				// Gamemode.Services.Player.PlayerService.Freeze(this, this.freezed);
+				this.SetSharedData(DataKey.IsFreezed, this.freezed);
 			}
 		}
 

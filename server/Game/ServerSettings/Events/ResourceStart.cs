@@ -10,7 +10,7 @@ namespace Gamemode.Game.ServerSettings.Events
 	public class ResourceStart : Script
 	{
 		[ServerEvent(Event.ResourceStartEx)]
-		private static void ResourceStartEx(string resourceName)
+		private static void OnResourceStartEx(string resourceName)
 		{
 			Settings.Init();
 
