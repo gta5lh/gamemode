@@ -1,10 +1,14 @@
+// <copyright file="DummyEntityUtil.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
+
 namespace GamemodeClient.Utils
 {
+	using System;
 	using RAGE.Game;
 	using RAGE.Ui;
-	using System;
 
-	class DummyEntityUtil
+	internal static class DummyEntityUtil
 	{
 		public static RAGE.Elements.DummyEntity? GetByTypeID(int typeId)
 		{

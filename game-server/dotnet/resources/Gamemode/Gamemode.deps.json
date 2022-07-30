@@ -32,7 +32,8 @@
           "Quartz.AspNetCore": "3.4.0",
           "RAGEMP-Bootstrapper": "1.1.3",
           "Rollbar": "4.0.3",
-          "Roslynator.Analyzers": "3.1.0",
+          "Roslynator.Analyzers": "4.1.1",
+          "Roslynator.CodeAnalysis.Analyzers": "4.1.1",
           "SonarAnalyzer.CSharp": "8.19.0.28253",
           "StyleCop.Analyzers": "1.1.118",
           "System.Net.Http.Json": "5.0.0",
@@ -471,7 +472,8 @@
           }
         }
       },
-      "Roslynator.Analyzers/3.1.0": {},
+      "Roslynator.Analyzers/4.1.1": {},
+      "Roslynator.CodeAnalysis.Analyzers/4.1.1": {},
       "SonarAnalyzer.CSharp/8.19.0.28253": {},
       "StyleCop.Analyzers/1.1.118": {},
       "System.Collections.Immutable/5.0.0": {},
@@ -926,12 +928,19 @@
       "path": "rollbar/4.0.3",
       "hashPath": "rollbar.4.0.3.nupkg.sha512"
     },
-    "Roslynator.Analyzers/3.1.0": {
+    "Roslynator.Analyzers/4.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-K9qNjlkXqKd/8zOfedaNcbqPLFGZL0I8pTKENbwlrCJ4dm0b5N4ci2h4x3fpcwr5433ievJJXlRSr4JBQQKsvw==",
-      "path": "roslynator.analyzers/3.1.0",
-      "hashPath": "roslynator.analyzers.3.1.0.nupkg.sha512"
+      "sha512": "sha512-3cPVlrB1PytlO1ztZZBOExDKQWpMZgI15ZDa0BqLu0l6xv+xIRfEpqjNRcpvUy3aLxWTkPgSKZbbaO+VoFEJ1g==",
+      "path": "roslynator.analyzers/4.1.1",
+      "hashPath": "roslynator.analyzers.4.1.1.nupkg.sha512"
+    },
+    "Roslynator.CodeAnalysis.Analyzers/4.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Xz897MdF4lg9pU/2dwpEXwEZnlgOw7/S4BeVQKVDGdsOLFQqzIb9aXQHcMr0umKNQ6DZTMFZbxGFGq8OBSEwTw==",
+      "path": "roslynator.codeanalysis.analyzers/4.1.1",
+      "hashPath": "roslynator.codeanalysis.analyzers.4.1.1.nupkg.sha512"
     },
     "SonarAnalyzer.CSharp/8.19.0.28253": {
       "type": "package",

@@ -15,5 +15,6 @@
   "voice-chat-sample-rate": 48000,
   "api-threading-debugging": true,
   "allow-cef-debugging": true,
-  "broadcast-threads": 8
+  "broadcast-threads": 8,
+  "sync-rate": 100
 }

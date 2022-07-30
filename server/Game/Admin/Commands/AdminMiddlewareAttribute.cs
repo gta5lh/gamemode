@@ -22,7 +22,7 @@ namespace Gamemode.Game.Admin.Commands
 		{
 			CPlayer cPlayer = (CPlayer)player;
 
-			if (!Settings.IsProduction())
+			if (!Settings.IsProduction() && !cPlayer.AdminRank.IsAdmin())
 			{
 				player.SendChatMessage($"Admin commands available to all players on development environment. Current={cPlayer.AdminRank} Required={this.atLeast}");
 				return true;
