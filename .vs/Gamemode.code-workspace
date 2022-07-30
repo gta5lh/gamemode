@@ -1,13 +1,13 @@
 {
 	"folders": [
 		{
-			"path": "../../.."
+			"path": "../server"
 		},
 		{
-			"path": "../../../../common"
+			"path": "../common"
 		},
 		{
-			"path": "../../../../client"
+			"path": "../client"
 		}
 	],
 	"settings": {

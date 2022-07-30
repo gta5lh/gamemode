@@ -16,7 +16,7 @@ namespace Gamemode.Game.Admin.Commands
 
 		[Command("kick", KickUsage, SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public void Ban(CPlayer admin, string? targetIdInput = null, string? reason = null)
+		public void OnKick(CPlayer admin, string? targetIdInput = null, string? reason = null)
 		{
 			if (targetIdInput == null || reason == null)
 			{
