@@ -15,6 +15,7 @@ namespace Gamemode.Game.Admin.Commands
 	public class Mute : BaseHandler
 	{
 		private const string MuteUsage = "Использование: /mute {static_id} {минуты} {причина}. Пример: /m 1 100 Оскорбления";
+		private const string UnMuteUsage = "Использование: /unmute {static_id}. Пример: /um 1";
 		private const int MonthInMinutes = 44640;
 
 		[AdminMiddleware(AdminRank.Junior)]
@@ -76,8 +77,6 @@ namespace Gamemode.Game.Admin.Commands
 				this.Logger.Warn($"Administrator {admin.Name} muted {muteResponse.Name} for {duration} minutes");
 			});
 		}
-
-		private const string UnMuteUsage = "Использование: /unmute {static_id}. Пример: /um 1";
 
 		[Command("unmute", UnMuteUsage, Alias = "um", GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]

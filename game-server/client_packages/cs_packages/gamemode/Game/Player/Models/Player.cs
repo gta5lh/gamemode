@@ -17,33 +17,9 @@ namespace GamemodeClient.Game.Player.Models
 		public const string Wheelie = "SP0_WHEELIE_ABILITY";
 		public const string Lung = "SP0_LUNG_CAPACITY";
 
-		public delegate void MoneyUpdatedDelegate(long money);
+		public static readonly RAGE.Elements.Player CurrentPlayer = RAGE.Elements.Player.LocalPlayer;
 
-		public static event MoneyUpdatedDelegate MoneyUpdatedEvent;
-
-		public delegate void ExperienceUpdatedDelegate(long previousExperience, long currentExperience, long requiredExperience);
-
-		public static event ExperienceUpdatedDelegate ExperienceUpdatedEvent;
-
-		public static long Money { get; set; } = 0;
-
-		public static long CurrentExperience { get; set; } = 0;
-
-		public static long PreviousExperience { get; set; } = 0;
-
-		public static long RequiredExperience { get; set; } = 0;
-
-		public static string FractionRankName { get; set; } = "-";
-
-		public static string FractionName { get; set; } = "-";
-
-		public static RAGE.Elements.Player CurrentPlayer = RAGE.Elements.Player.LocalPlayer;
-		public static bool GodmodEnabled = false;
-		public static bool InvisibilityEnabled = false;
-		public static bool NoclipEnabled = false;
-		public static bool Spectating = false;
-		public const int MaxHealth = 200;
-		public static bool AuthenticationScreen = true;
+		private const int MaxHealthValue = 200;
 
 		public Player()
 		{
@@ -61,9 +37,41 @@ namespace GamemodeClient.Game.Player.Models
 			Events.Add("FractionNameUpdated", this.OnFractionNameUpdated);
 		}
 
+		public delegate void MoneyUpdatedDelegate(long money);
+
+		public delegate void ExperienceUpdatedDelegate(long previousExperience, long currentExperience, long requiredExperience);
+
+		public static event MoneyUpdatedDelegate MoneyUpdatedEvent;
+
+		public static event ExperienceUpdatedDelegate ExperienceUpdatedEvent;
+
+		public static long Money { get; set; } = 0;
+
+		public static long CurrentExperience { get; set; } = 0;
+
+		public static long PreviousExperience { get; set; } = 0;
+
+		public static long RequiredExperience { get; set; } = 0;
+
+		public static string FractionRankName { get; set; } = "-";
+
+		public static string FractionName { get; set; } = "-";
+
+		public static bool GodmodEnabled { get; set; } = false;
+
+		public static bool InvisibilityEnabled { get; set; } = false;
+
+		public static bool NoclipEnabled { get; set; } = false;
+
+		public static bool Spectating { get; set; } = false;
+
+		public static bool AuthenticationScreen { get; set; } = true;
+
+		public static int MaxHealth => MaxHealthValue;
+
 		public static bool IsInVehicle()
 		{
-			return Player.CurrentPlayer.Vehicle?.Exists == true;
+			return CurrentPlayer.Vehicle?.Exists == true;
 		}
 
 		private void OnMoneyUpdated(object[] request)

@@ -9,9 +9,10 @@ namespace Gamemode.Game.Admin.Commands
 	using Gamemode.Game.Player.Models;
 	using GTANetworkAPI;
 
-	public class SpectateCommand : BaseHandler
+	public class Spectate : BaseHandler
 	{
 		private const string SpectateUsage = "Использование: /spectate {player_id}. Пример: /spectate 10";
+		private const string SpectateStopUsage = "Использование: /spectatestop. Пример: /specstop";
 
 		[Command("spectate", SpectateUsage, Alias = "spec", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
@@ -29,8 +30,7 @@ namespace Gamemode.Game.Admin.Commands
 				return;
 			}
 
-			ushort targetId = 0;
-
+			ushort targetId;
 			try
 			{
 				targetId = ushort.Parse(targetIdInput);
@@ -59,8 +59,6 @@ namespace Gamemode.Game.Admin.Commands
 			Cache.SendMessageToAllAdminsAction($"{admin.Name} начал следить за {targetPlayer.Name}");
 			this.Logger.Warn($"Administrator {admin.Name} started spectate {targetPlayer.Name}");
 		}
-
-		private const string SpectateStopUsage = "Использование: /spectatestop. Пример: /specstop";
 
 		[AdminMiddleware(AdminRank.Junior)]
 		[Command("spectatestop", SpectateStopUsage, Alias = "specstop", GreedyArg = true, Hide = true)]

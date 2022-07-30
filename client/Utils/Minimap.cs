@@ -9,16 +9,25 @@ namespace GamemodeClient.Utils
 
 	public class Minimap
 	{
-		public float Width;
-		public float Height;
-		public float LeftX;
-		public float BottomY;
-		public float RightX;
-		public float TopY;
-		public float X;
-		public float Y;
-		public float Xunit;
-		public float Yunit;
+		public float Width { get; set; }
+
+		public float Height { get; set; }
+
+		public float LeftX { get; set; }
+
+		public float BottomY { get; set; }
+
+		public float RightX { get; set; }
+
+		public float TopY { get; set; }
+
+		public float X { get; set; }
+
+		public float Y { get; set; }
+
+		public float Xunit { get; set; }
+
+		public float Yunit { get; set; }
 
 		public static Minimap GetMinimapAnchor()
 		{
@@ -28,7 +37,7 @@ namespace GamemodeClient.Utils
 			float aspect_ratio = Graphics.GetAspectRatio(false);
 			if (aspect_ratio > 2)
 			{
-				aspect_ratio = 16 / 9;
+				aspect_ratio = 16F / 9;
 			}
 
 			int res_x = 0, res_y = 0;
@@ -36,11 +45,12 @@ namespace GamemodeClient.Utils
 			float xscale = 1.0f / res_x;
 			float yscale = 1.0f / res_y;
 
-			Minimap minimap = new Minimap();
-
-			minimap.Width = xscale * (res_x / (4 * aspect_ratio));
-			minimap.Height = yscale * (res_y / 5.674f);
-			minimap.LeftX = xscale * (res_x * (safezone_x * (Math.Abs(safezone - 1.0f) * 10)));
+			Minimap minimap = new Minimap
+			{
+				Width = xscale * (res_x / (4 * aspect_ratio)),
+				Height = yscale * (res_y / 5.674f),
+				LeftX = xscale * (res_x * (safezone_x * (Math.Abs(safezone - 1.0f) * 10))),
+			};
 
 			if (Graphics.GetAspectRatio(false) > 2)
 			{

@@ -17,6 +17,7 @@ namespace Gamemode.Game.Admin.Commands
 	public class Ban : BaseHandler
 	{
 		private const string BanUsage = "Использование: /ban {static_id} {дни} {причина}. Пример: /ban 1 31 Спидхак";
+		private const string UnBanUsage = "Использование: /unban {static_id}";
 		private const int MaxBanInDays = 99999;
 
 		[Command("ban", BanUsage, Alias = "b", SensitiveInfo = true, GreedyArg = true, Hide = true)]
@@ -83,8 +84,6 @@ namespace Gamemode.Game.Admin.Commands
 				targetPlayer?.Ban();
 			});
 		}
-
-		private const string UnBanUsage = "Использование: /unban {static_id}";
 
 		[Command("unban", UnBanUsage, Alias = "ub", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]

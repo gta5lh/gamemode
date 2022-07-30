@@ -14,6 +14,9 @@ namespace Gamemode
 	public class Teleport : Script
 	{
 		private const string TeleportUsage = "Использование: /tp {player_id} | /tp {player_id} {player_id}. Пример: [/tp 2], [/tp 2 10]";
+		private const string TeleportLocationUsage = "Использование: /tpl {location_id}. Пример: [/tpl 0]";
+		private const string TeleportInteriorUsage = "Использование: /tpi {name} {x} {y} {z}. Пример: [/tpi 0apa_v_mp_h_01_a -786.8663, 315.7642, 217.6385]";
+		private const string GetCarUsage = "Использование: /getcar {id}. Пример: /getcar 0";
 
 		[Command("teleport", TeleportUsage, Alias = "tp", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
@@ -80,8 +83,6 @@ namespace Gamemode
 			admin.SendChatMessage($"Вы телепортировались к {targetPlayer.Name} [{targetPlayer.Id}]");
 		}
 
-		private const string GetCarUsage = "Использование: /getcar {id}. Пример: /getcar 0";
-
 		[Command("getcar", GetCarUsage, Alias = "gc", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
 		public static void OnGetCar(CPlayer admin, string? vehicleIdInput = null)
@@ -127,11 +128,9 @@ namespace Gamemode
 		//  PlayerSpawns.SpawnPositions[1],
 		//  PlayerSpawns.SpawnPositions[2],
 		// };
-		private const string TeleportLocationUsage = "Использование: /tpl {location_id}. Пример: [/tpl 0]";
-
 		[Command("teleportlocation", TeleportUsage, Alias = "tpl", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public static void OnTeleport(CPlayer admin, string? locationIdInput = null)
+		public static void OnTeleportLocation(CPlayer admin, string? locationIdInput = null)
 		{
 			if (locationIdInput == null)
 			{
@@ -171,8 +170,6 @@ namespace Gamemode
 			NAPI.ClientEvent.TriggerClientEvent(admin, "TeleportToWaypoint");
 		}
 
-		private const string TeleportInteriorUsage = "Использование: /tpi {name} {x} {y} {z}. Пример: [/tpi 0apa_v_mp_h_01_a -786.8663, 315.7642, 217.6385]";
-
 		[Command("teleportinterior", TeleportUsage, Alias = "tpi", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
 		public static void OnTeleportInterior(CPlayer admin, string? interiorNameInput = null, string xInput = "0", string yInput = "0", string zInput = "0")
@@ -183,7 +180,7 @@ namespace Gamemode
 				return;
 			}
 
-			float x, y, z = 0;
+			float x, y, z;
 
 			try
 			{

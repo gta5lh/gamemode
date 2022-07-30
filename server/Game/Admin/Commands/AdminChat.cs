@@ -12,6 +12,7 @@ namespace Gamemode.Game.Admin.Commands
 	public class AdminChat : BaseHandler
 	{
 		private const string AdminChatUsage = "Использование: /adminchat {сообщение}. Пример: /ac Привет коллеги!";
+		private const string AdminAnnouncementUsage = "Использование: /adminannouncement {сообщение}. Пример: /aa Уважаемые игроки...";
 
 		[Command("adminchat", AdminChatUsage, Alias = "ac", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
@@ -25,8 +26,6 @@ namespace Gamemode.Game.Admin.Commands
 
 			Cache.SendMessageToAllAdminsChat($"{admin.Name}: {message}");
 		}
-
-		private const string AdminAnnouncementUsage = "Использование: /adminannouncement {сообщение}. Пример: /aa Уважаемые игроки...";
 
 		[Command("adminannouncement", AdminAnnouncementUsage, Alias = "aa", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]

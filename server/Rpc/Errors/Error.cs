@@ -1,4 +1,4 @@
-// <copyright file="ErrorCode.cs" company="Lost Heaven">
+// <copyright file="Error.cs" company="Lost Heaven">
 // Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 

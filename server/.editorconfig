@@ -11,3 +11,6 @@ dotnet_diagnostic.CS8618.severity = none
 
 # SA1000: new should be followed by a space
 dotnet_diagnostic.SA1000.severity = none
+
+# SA1601: Partial elements should be documented
+dotnet_diagnostic.SA1601.severity = none

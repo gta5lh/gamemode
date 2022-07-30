@@ -1,4 +1,4 @@
-﻿// <copyright file="NoclipManager.cs" company="Lost Heaven">
+﻿// <copyright file="Noclip.cs" company="Lost Heaven">
 // Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
@@ -11,14 +11,14 @@ namespace GamemodeClient.Game.Admin
 	using RAGE;
 	using RAGE.Ui;
 
-	public class NoclipManager : Events.Script
+	public class Noclip : Events.Script
 	{
-		private int noclipCamera;
+		private static int noclipCamera;
 
-		public NoclipManager()
+		static Noclip()
 		{
-			RAGE.Input.Bind(VirtualKeys.F10, false, this.OnNoclipKeyPressed);
-			Events.Tick += this.OnTick;
+			Input.Bind(VirtualKeys.F10, false, OnNoclipKeyPressed);
+			Events.Tick += OnTick;
 		}
 
 		public static Vector3 GetDirectionByRotation(Vector3 rotation)
@@ -29,17 +29,17 @@ namespace GamemodeClient.Game.Admin
 			return new Vector3 { X = -MathF.Sin(num) * num3, Y = MathF.Cos(num) * num3, Z = MathF.Sin(num2) };
 		}
 
-		private Vector3 CrossProduct(Vector3 vector1, Vector3 vector2)
+		private static Vector3 CrossProduct(Vector3 vector1, Vector3 vector2)
 		{
-			Vector3 vectorResult = new Vector3(0, 0, 0);
-			vectorResult.X = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y);
-			vectorResult.Y = (vector1.Z * vector2.X) - (vector1.X * vector2.Z);
-			vectorResult.Z = (vector1.X * vector2.Y) - (vector1.Y * vector2.X);
-
-			return vectorResult;
+			return new Vector3(0, 0, 0)
+			{
+				X = (vector1.Y * vector2.Z) - (vector1.Z * vector2.Y),
+				Y = (vector1.Z * vector2.X) - (vector1.X * vector2.Z),
+				Z = (vector1.X * vector2.Y) - (vector1.Y * vector2.X),
+			};
 		}
 
-		private void OnTick(List<Events.TickNametagData> nametags)
+		private static void OnTick(List<Events.TickNametagData> nametags)
 		{
 			if (!Player.NoclipEnabled || Cursor.Visible)
 			{
@@ -61,17 +61,18 @@ namespace GamemodeClient.Game.Admin
 			var leftAxisY = RAGE.Game.Pad.GetDisabledControlNormal(0, (int)RAGE.Game.Control.ScriptLeftAxisY);
 			var rightAxisX = RAGE.Game.Pad.GetDisabledControlNormal(0, (int)RAGE.Game.Control.ScriptRightAxisX);
 			var rightAxisY = RAGE.Game.Pad.GetDisabledControlNormal(0, (int)RAGE.Game.Control.ScriptRightAxisY);
-			var currentPosition = RAGE.Game.Cam.GetCamCoord(this.noclipCamera);
-			var currentRotation = RAGE.Game.Cam.GetCamRot(this.noclipCamera, 2);
+			var currentPosition = RAGE.Game.Cam.GetCamCoord(noclipCamera);
+			var currentRotation = RAGE.Game.Cam.GetCamRot(noclipCamera, 2);
 			var currentDirection = GetDirectionByRotation(currentRotation);
-			Vector3 vector = new Vector3(0, 0, 0);
-
-			vector.X = currentDirection.X * leftAxisY * fastMult * slowMult;
-			vector.Y = currentDirection.Y * leftAxisY * fastMult * slowMult;
-			vector.Z = currentDirection.Z * leftAxisY * fastMult * slowMult;
+			Vector3 vector = new Vector3(0, 0, 0)
+			{
+				X = currentDirection.X * leftAxisY * fastMult * slowMult,
+				Y = currentDirection.Y * leftAxisY * fastMult * slowMult,
+				Z = currentDirection.Z * leftAxisY * fastMult * slowMult,
+			};
 
 			var upVector = new Vector3(0, 0, 1);
-			Vector3 rightVector = this.CrossProduct(currentDirection.Normalized, upVector.Normalized);
+			Vector3 rightVector = CrossProduct(currentDirection.Normalized, upVector.Normalized);
 
 			rightVector.X *= leftAxisX * 0.5f;
 			rightVector.Y *= leftAxisX * 0.5f;
@@ -96,20 +97,20 @@ namespace GamemodeClient.Game.Admin
 
 			Player.CurrentPlayer.SetHeading(currentDirection.Z);
 			RAGE.Game.Cam.SetCamCoord(
-				this.noclipCamera,
+				noclipCamera,
 				currentPosition.X - vector.X + rightVector.X,
 				currentPosition.Y - vector.Y + rightVector.Y,
 				currentPosition.Z - vector.Z + rightVector.Z + upMovement - downMovement);
 
 			RAGE.Game.Cam.SetCamRot(
-				this.noclipCamera,
+				noclipCamera,
 				currentRotation.X + (rightAxisY * -5.0f),
 				0.0f,
 				currentRotation.Z + (rightAxisX * -5.0f),
 				2);
 		}
 
-		private void OnNoclipKeyPressed()
+		private static void OnNoclipKeyPressed()
 		{
 			if (Cursor.Visible)
 			{
@@ -131,18 +132,18 @@ namespace GamemodeClient.Game.Admin
 
 			if (Player.NoclipEnabled)
 			{
-				this.EnableNoclip();
+				EnableNoclip();
 			}
 			else
 			{
-				this.DisableNoclip();
+				DisableNoclip();
 			}
 
 			string enabledString = Player.NoclipEnabled ? "включили" : "выключили";
 			Chat.Output($"Вы {enabledString} noclip");
 		}
 
-		private void EnableNoclip()
+		private static void EnableNoclip()
 		{
 			Player.NoclipEnabled = true;
 			Events.CallRemote("SetNoclip", Player.NoclipEnabled);
@@ -157,14 +158,14 @@ namespace GamemodeClient.Game.Admin
 
 			Vector3 playerPosition = Player.CurrentPlayer.Position;
 			Vector3 playerRotation = RAGE.Game.Cam.GetGameplayCamRot(2);
-			this.noclipCamera = RAGE.Game.Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey(Constants.CameraName), playerPosition.X, playerPosition.Y, playerPosition.Z, playerRotation.X, playerRotation.Y, playerRotation.Z, RAGE.Game.Cam.GetGameplayCamFov(), true, 2);
-			RAGE.Game.Cam.SetCamActive(this.noclipCamera, true);
+			noclipCamera = RAGE.Game.Cam.CreateCameraWithParams(RAGE.Game.Misc.GetHashKey(Constants.CameraName), playerPosition.X, playerPosition.Y, playerPosition.Z, playerRotation.X, playerRotation.Y, playerRotation.Z, RAGE.Game.Cam.GetGameplayCamFov(), true, 2);
+			RAGE.Game.Cam.SetCamActive(noclipCamera, true);
 			RAGE.Game.Cam.RenderScriptCams(true, false, 0, true, false, 0);
 			Player.CurrentPlayer.SetCurrentWeaponVisible(false, true, true, true);
 			Player.CurrentPlayer.FreezePosition(true);
 		}
 
-		private void DisableNoclip()
+		private static void DisableNoclip()
 		{
 			Player.NoclipEnabled = false;
 			Events.CallRemote("SetNoclip", Player.NoclipEnabled);
@@ -176,9 +177,9 @@ namespace GamemodeClient.Game.Admin
 				Player.CurrentPlayer.SetVisible(true, false);
 			}
 
-			Player.CurrentPlayer.Position = RAGE.Game.Cam.GetCamCoord(this.noclipCamera);
-			Player.CurrentPlayer.SetHeading(RAGE.Game.Cam.GetCamRot(this.noclipCamera, 2).Z);
-			RAGE.Game.Cam.DestroyCam(this.noclipCamera, false);
+			Player.CurrentPlayer.Position = RAGE.Game.Cam.GetCamCoord(noclipCamera);
+			Player.CurrentPlayer.SetHeading(RAGE.Game.Cam.GetCamRot(noclipCamera, 2).Z);
+			RAGE.Game.Cam.DestroyCam(noclipCamera, false);
 			RAGE.Game.Cam.RenderScriptCams(false, false, 0, true, false, 0);
 			Player.CurrentPlayer.FreezePosition(false);
 			Player.CurrentPlayer.SetCollision(true, false);
