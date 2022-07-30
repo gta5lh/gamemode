@@ -1,4 +1,8 @@
-﻿namespace Gamemode.Logger
+﻿// <copyright file="Logger.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
+
+namespace Gamemode.Logger
 {
 	using System.IO;
 

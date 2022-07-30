@@ -1,5 +1,5 @@
-﻿// <copyright file="GetId.cs" company="lbyte00">
-// Copyright (c) lbyte00. All rights reserved.
+﻿// <copyright file="GetId.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
 namespace Gamemode.Game.Admin.Commands
@@ -13,12 +13,11 @@ namespace Gamemode.Game.Admin.Commands
 	public class GetId : Script
 	{
 		private const string IdTypeStatic = "s";
-		private const string IdTypeDynamic = "d";
 		private const string GetIdUsage = "Использование: /getid {s-статичный или d-динамичный} {id или имя}. Примеры: [/getid s 100], [/getid s lbyte00]";
 
 		[Command("getid", GetIdUsage, Alias = "gid", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public async Task OnGetId(GTANetworkAPI.Player player, string? idType = null, string? idOrPlayerName = null)
+		public static async Task OnGetId(Player player, string? idType = null, string? idOrPlayerName = null)
 		{
 			if (idType == null || idOrPlayerName == null || (idType != "s" && idType != "d"))
 			{
@@ -41,7 +40,8 @@ namespace Gamemode.Game.Admin.Commands
 				}
 				catch (Exception)
 				{
-
+					NAPI.Task.Run(() => player.SendChatMessage($"Пользователь с ID {idOrPlayerName} не найден"));
+					return;
 				}
 			}
 
@@ -49,7 +49,7 @@ namespace Gamemode.Game.Admin.Commands
 
 			if (idType == IdTypeStatic)
 			{
-				expectedId = staticId == null ? IdsCache.StaticIdByDynamic(idOrPlayerName) : staticId;
+				expectedId = staticId ?? IdsCache.StaticIdByDynamic(idOrPlayerName);
 			}
 			else
 			{
@@ -60,14 +60,7 @@ namespace Gamemode.Game.Admin.Commands
 			{
 				if (expectedId == null)
 				{
-					if (staticId == null)
-					{
-						player.SendChatMessage($"Пользователь с ID {idOrPlayerName} не найден");
-					}
-					else
-					{
-						player.SendChatMessage($"Пользователь с именем {idOrPlayerName} не найден");
-					}
+					player.SendChatMessage($"Пользователь с именем {idOrPlayerName} не найден");
 
 					return;
 				}
