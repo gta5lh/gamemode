@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Gamemode.Mechanics.Admin.Models;
+using Gamemode.Game.Admin.Models;
 using Google.Protobuf;
 using Google.Protobuf.WellKnownTypes;
 using GTANetworkAPI;
