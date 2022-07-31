@@ -7,6 +7,7 @@ namespace Gamemode.Game.Admin.Commands
 	using System;
 	using System.Threading.Tasks;
 	using Gamemode.Game.Admin.Models;
+	using Gamemode.Game.Gang;
 	using Gamemode.Game.Player.Models;
 	using GTANetworkAPI;
 
@@ -40,13 +41,13 @@ namespace Gamemode.Game.Admin.Commands
 				return;
 			}
 
-			const string targetName = "TODO";
+			string targetName;
 
 			try
 			{
 				CPlayer? targetPlayer = PlayerUtil.GetByStaticId(staticId);
 
-				// targetName = await GangService.SetAsGangMember(targetPlayer, staticId, fractionId, rankId, admin.StaticId);
+				targetName = await GangMgr.SetAsGangMember(targetPlayer!, staticId, fractionId, rankId, admin.PKId);
 			}
 			catch (Exception)
 			{

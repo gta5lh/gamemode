@@ -7,7 +7,9 @@ namespace Gamemode
 	using System;
 	using Gamemode.Game.Admin.Commands;
 	using Gamemode.Game.Admin.Models;
+	using Gamemode.Game.Gang;
 	using Gamemode.Game.Player.Models;
+	using Gamemode.Game.Spawn;
 	using Gamemode.Game.Vehicle;
 	using GTANetworkAPI;
 
@@ -117,17 +119,6 @@ namespace Gamemode
 			admin.SendChatMessage($"Вы телепортировали автомобиль {vehicleIdInput} к себе");
 		}
 
-		// TODO
-		// private Spawn[] spawns = new Spawn[] {
-		//  Bloods.Spawn,
-		//  Ballas.Spawn,
-		//  TheFamilies.Spawn,
-		//  Vagos.Spawn,
-		//  Marabunta.Spawn,
-		//  PlayerSpawns.SpawnPositions[0],
-		//  PlayerSpawns.SpawnPositions[1],
-		//  PlayerSpawns.SpawnPositions[2],
-		// };
 		[Command("teleportlocation", TeleportUsage, Alias = "tpl", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
 		public static void OnTeleportLocation(CPlayer admin, string? locationIdInput = null)
@@ -150,17 +141,16 @@ namespace Gamemode
 				return;
 			}
 
-			// TODO
-			// if (locationId < 0 || locationId >= spawns.Length)
-			// {
-			//  admin.SendChatMessage($"Максимальный ID локации = {spawns.Length - 1}");
-			//  return;
-			// }
+			if (locationId >= Spawns.All.Length)
+			{
+				admin.SendChatMessage($"Максимальный ID локации = {Spawns.All.Length - 1}");
+				return;
+			}
 
-			// Spawn spawn = spawns[locationId];
-			// admin.Position = spawn.Position;
-			// admin.Heading = spawn.Heading;
-			// admin.SendChatMessage($"Вы телепортировались в локацию {locationId}");
+			Game.Spawn.Spawn spawn = Spawns.All[locationId];
+			admin.Position = spawn.Position;
+			admin.Heading = spawn.Heading;
+			admin.SendChatMessage($"Вы телепортировались в локацию {locationId}");
 		}
 
 		[Command("teleportwaypoint", TeleportUsage, Alias = "tpw", SensitiveInfo = true, GreedyArg = true, Hide = true)]

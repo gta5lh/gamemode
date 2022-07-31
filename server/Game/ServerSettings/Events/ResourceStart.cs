@@ -30,7 +30,7 @@ namespace Gamemode.Game.ServerSettings.Events
 		{
 			try
 			{
-				await Infrastructure.RpcClients.GameServerService.OnGameServerStartAsync(new OnGameServerStartRequest());
+				await Infrastructure.RpcClients.GameServerService.OnGameServerStartAsync(new OnGameServerStartRequest(Settings.ServerID));
 			}
 			catch (System.Exception e)
 			{
