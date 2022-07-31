@@ -8,12 +8,6 @@ namespace Gamemode.Game.Player.Models
 
 	public class MuteState
 	{
-		public DateTime? MutedUntil { get; set; }
-
-		public string? Reason { get; set; }
-
-		public string? MutedByID { get; set; }
-
 		public MuteState()
 		{
 			this.MutedUntil = null;
@@ -34,6 +28,12 @@ namespace Gamemode.Game.Player.Models
 			this.MutedByID = mutedByID;
 			this.Reason = reason;
 		}
+
+		public DateTime? MutedUntil { get; set; }
+
+		public string? Reason { get; set; }
+
+		public string? MutedByID { get; set; }
 
 		public bool IsMuted()
 		{

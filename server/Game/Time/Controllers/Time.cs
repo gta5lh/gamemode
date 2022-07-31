@@ -11,6 +11,8 @@ namespace Gamemode.Game.Time.Controllers
 
 	public class Time : Script
 	{
+		private const double TimeSyncInterval1Minute = 1000 * 60;
+
 		private static DummyEntity syncDummyEntity;
 
 		private static Timer timeSyncTimer;
@@ -18,8 +20,6 @@ namespace Gamemode.Game.Time.Controllers
 		public static DateTime CurrentDateTime { get; private set; }
 
 		public static TimeSpan CurrentTime { get; private set; }
-
-		private const double TimeSyncInterval1Minute = 1000 * 60;
 
 		public static void InitTimeSyncTimer()
 		{
@@ -29,11 +29,6 @@ namespace Gamemode.Game.Time.Controllers
 			timeSyncTimer.Elapsed += OnTimeSync;
 			timeSyncTimer.AutoReset = true;
 			timeSyncTimer.Start();
-		}
-
-		private static void OnTimeSync(object sender, ElapsedEventArgs e)
-		{
-			NAPI.Task.Run(() => SetTimeToCurrent());
 		}
 
 		public static void StopTimeSync()
@@ -71,6 +66,11 @@ namespace Gamemode.Game.Time.Controllers
 				{ "day", CurrentDateTime.Day },
 				{ "month", CurrentDateTime.Month },
 			});
+		}
+
+		private static void OnTimeSync(object sender, ElapsedEventArgs e)
+		{
+			NAPI.Task.Run(() => SetTimeToCurrent());
 		}
 	}
 }

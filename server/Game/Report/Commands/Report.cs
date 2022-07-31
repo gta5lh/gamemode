@@ -25,10 +25,12 @@ namespace Gamemode.Game.Report.Commands
 				return;
 			}
 
-			CreateRequest createRequest = new CreateRequest();
-			createRequest.Question = message;
-			createRequest.PlayerID = player.PKId.ToString();
-			createRequest.ServerID = Settings.ServerID;
+			CreateRequest createRequest = new()
+			{
+				Question = message,
+				PlayerID = player.PKId.ToString(),
+				ServerID = Settings.ServerID,
+			};
 
 			CreateResponse createResponse;
 

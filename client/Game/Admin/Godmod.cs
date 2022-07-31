@@ -9,13 +9,13 @@ namespace GamemodeClient.Game.Admin
 
 	public class Godmod : Events.Script
 	{
-		public Godmod()
+		static Godmod()
 		{
-			Events.Add("SetGodmod", this.OnSetGodmod);
-			Events.Add("SetInvisibility", this.OnSetInvisibility);
+			Events.Add("SetGodmod", OnSetGodmod);
+			Events.Add("SetInvisibility", OnSetInvisibility);
 		}
 
-		private void OnSetGodmod(object[] args)
+		private static void OnSetGodmod(object[] args)
 		{
 			Player.GodmodEnabled = !Player.GodmodEnabled;
 			if (!Player.InvisibilityEnabled)
@@ -29,7 +29,7 @@ namespace GamemodeClient.Game.Admin
 			Chat.Output($"Вы {enabledString} себе годмод");
 		}
 
-		private void OnSetInvisibility(object[] args)
+		private static void OnSetInvisibility(object[] args)
 		{
 			Player.InvisibilityEnabled = !Player.InvisibilityEnabled;
 			if (!Player.GodmodEnabled)

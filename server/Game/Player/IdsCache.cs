@@ -10,24 +10,24 @@ namespace Gamemode.Game.Player
 	public static class IdsCache
 	{
 		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
-		private static readonly ConcurrentDictionary<ushort, string> DynamicStaticPairs = new ConcurrentDictionary<ushort, string>();
-		private static readonly ConcurrentDictionary<string, ushort> StaticDynamicPairs = new ConcurrentDictionary<string, ushort>();
+		private static readonly ConcurrentDictionary<ushort, string> DynamicStaticPairs = new();
+		private static readonly ConcurrentDictionary<string, ushort> StaticDynamicPairs = new();
 
 		public static ushort? DynamicIdByStatic(string id)
 		{
-			return StaticDynamicPairs.TryGetValue(id, out ushort dynamicId) ? (ushort?)dynamicId : null;
+			return StaticDynamicPairs.TryGetValue(id, out ushort dynamicId) ? dynamicId : null;
 		}
 
 		public static string? StaticIdByDynamic(ushort id)
 		{
-			return DynamicStaticPairs.TryGetValue(id, out string? staticId) ? (string?)staticId : null;
+			return DynamicStaticPairs.TryGetValue(id, out string? staticId) ? staticId : null;
 		}
 
 		public static string? StaticIdByDynamic(string id)
 		{
 			try
 			{
-				return DynamicStaticPairs.TryGetValue(ushort.Parse(id), out string? staticId) ? (string?)staticId : null;
+				return DynamicStaticPairs.TryGetValue(ushort.Parse(id), out string? staticId) ? staticId : null;
 			}
 			catch (Exception)
 			{

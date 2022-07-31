@@ -6,28 +6,49 @@ namespace Gamemode.Game.ServerSettings
 {
 	public static class Settings
 	{
-		public static readonly string Environment;
-		public static readonly string ServerID;
+		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
+
+		private static readonly string? EnvironmentValue = System.Environment.GetEnvironmentVariable("GS_ENVIRONMENT");
+		private static readonly string? ServerIDValue = System.Environment.GetEnvironmentVariable("GS_ID");
+		private static readonly string? PlatformURLValue = System.Environment.GetEnvironmentVariable("GS_PLATFORM_URL");
+		private static readonly string? PlatformCertificateValue = System.Environment.GetEnvironmentVariable("GS_PLATFORM_CERTIFICATE");
 
 		static Settings()
 		{
-			string? environment = System.Environment.GetEnvironmentVariable("GS_ENVIRONMENT");
-			if (environment == null)
+			if (EnvironmentValue == null)
 			{
 				System.Environment.FailFast("Specify GS_ENVIRONMENT");
+				return;
 			}
 
-			string? serverID = System.Environment.GetEnvironmentVariable("GS_ID");
-			if (serverID == null)
+			if (ServerIDValue == null)
 			{
 				System.Environment.FailFast("Specify GS_ID");
+				return;
 			}
 
-			Environment = environment;
-			ServerID = serverID;
+			if (PlatformURLValue == null)
+			{
+				System.Environment.FailFast("Specify GS_PLATFORM_URL");
+				return;
+			}
 
-			Logger.Info($"Settings: {Environment} {ServerID}");
+			if (PlatformCertificateValue == null)
+			{
+				System.Environment.FailFast("Specify GS_PLATFORM_CERTIFICATE");
+				return;
+			}
+
+			Logger.Info($"Settings: {Environment} {ServerID} {PlatformURLValue} {PlatformCertificateValue}");
 		}
+
+		public static string Environment { get => EnvironmentValue!; }
+
+		public static string ServerID { get => ServerIDValue!; }
+
+		public static string PlatformURL { get => PlatformURLValue!; }
+
+		public static string PlatformCertificate { get => PlatformCertificateValue!; }
 
 		public static bool IsProduction()
 		{
@@ -36,8 +57,7 @@ namespace Gamemode.Game.ServerSettings
 
 		public static void Init()
 		{
+			// Method intentionally left empty.
 		}
-
-		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 	}
 }

@@ -11,7 +11,7 @@ namespace Gamemode.Game.Vip
 	public static class Cache
 	{
 		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
-		private static readonly Dictionary<string, string> Vips = new Dictionary<string, string>();
+		private static readonly Dictionary<string, string> Vips = new();
 
 		public static void LoadVipToCache(string staticId, string name)
 		{

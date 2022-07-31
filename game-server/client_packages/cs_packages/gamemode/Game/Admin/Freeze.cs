@@ -36,9 +36,9 @@ namespace GamemodeClient.Controllers
 					return;
 				}
 
-				RAGE.Elements.Player target = (RAGE.Elements.Player)entity;
+				Player target = (Player)entity;
 
-				foreach (RAGE.Elements.Player player in Entities.Players.Streamed)
+				foreach (Player player in Entities.Players.Streamed)
 				{
 					if (!player.Exists || player.Id != target.Id)
 					{
@@ -51,7 +51,7 @@ namespace GamemodeClient.Controllers
 			}
 		}
 
-		private static void OnEntityStreamIn(RAGE.Elements.Entity entity)
+		private static void OnEntityStreamIn(Entity entity)
 		{
 			if (entity.Type != Type.Player)
 			{
@@ -64,7 +64,7 @@ namespace GamemodeClient.Controllers
 			}
 
 			bool isFreezed = (bool)entity.GetSharedData(DataKey.IsFreezed);
-			((RAGE.Elements.Player)entity).FreezePosition(isFreezed);
+			((Player)entity).FreezePosition(isFreezed);
 		}
 	}
 }

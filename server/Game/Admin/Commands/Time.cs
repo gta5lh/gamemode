@@ -13,6 +13,16 @@ namespace Gamemode.Game.Admin.Commands
 	public class Time : BaseHandler
 	{
 		private const string SetTimeUsage = "Использование: /sett {час} {минуты}. Пример: /sett 23 59";
+		private const string SyncTimeUsage = "Использование: /synct";
+		private const string GetTimeUsage = "Использование: /gett";
+
+		[Command("gettime", GetTimeUsage, Alias = "gett", SensitiveInfo = true, GreedyArg = true, Hide = true)]
+		[AdminMiddleware(AdminRank.Owner)]
+		public static void OnGetTime(CPlayer admin)
+		{
+			TimeSpan currentTime = Game.Time.Controllers.Time.CurrentTime;
+			admin.SendChatMessage($"Текущее время на сервере: {currentTime.Hours:00.##}:{currentTime.Minutes:00.##}:{currentTime.Seconds:00.##}");
+		}
 
 		[Command("settime", SetTimeUsage, Alias = "sett", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
@@ -46,7 +56,7 @@ namespace Gamemode.Game.Admin.Commands
 
 			Game.Time.Controllers.Time.StopTimeSync();
 
-			TimeSpan time = new TimeSpan(hours, minutes, 00);
+			TimeSpan time = new(hours, minutes, 00);
 			Game.Time.Controllers.Time.SetCurrentTime(time);
 
 			try
@@ -55,6 +65,8 @@ namespace Gamemode.Game.Admin.Commands
 			}
 			catch
 			{
+				NAPI.Task.Run(() => admin.SendChatMessage("Установить время неполучилось!"));
+				return;
 			}
 
 			NAPI.Task.Run(() =>
@@ -64,7 +76,7 @@ namespace Gamemode.Game.Admin.Commands
 			});
 		}
 
-		[Command("synctime", SetTimeUsage, Alias = "synct", SensitiveInfo = true, GreedyArg = true, Hide = true)]
+		[Command("synctime", SyncTimeUsage, Alias = "synct", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Owner)]
 		public async System.Threading.Tasks.Task OnSyncTime(CPlayer admin)
 		{
@@ -76,6 +88,8 @@ namespace Gamemode.Game.Admin.Commands
 			}
 			catch
 			{
+				NAPI.Task.Run(() => admin.SendChatMessage("Синхронизировать время неполучилось!"));
+				return;
 			}
 
 			NAPI.Task.Run(() =>
@@ -83,14 +97,6 @@ namespace Gamemode.Game.Admin.Commands
 				Cache.SendMessageToAllAdminsAction($"{admin.Name} возобновил синхронизацию серверного времени с GMT+3");
 				this.Logger.Warn($"Administrator {admin.Name} restored time synchronization with GMT+3");
 			});
-		}
-
-		[Command("gettime", SetTimeUsage, Alias = "gett", SensitiveInfo = true, GreedyArg = true, Hide = true)]
-		[AdminMiddleware(AdminRank.Owner)]
-		public static void OnGetTime(CPlayer admin)
-		{
-			TimeSpan currentTime = Game.Time.Controllers.Time.CurrentTime;
-			admin.SendChatMessage($"Текущее время на сервере: {currentTime.Hours:00.##}:{currentTime.Minutes:00.##}:{currentTime.Seconds:00.##}");
 		}
 	}
 }

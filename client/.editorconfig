@@ -19,3 +19,8 @@ dotnet_diagnostic.SA1601.severity = none
 dotnet_diagnostic.SA1602.severity = none
 
 csharp_style_prefer_switch_expression = false
+
+dotnet_style_qualification_for_field = true
+dotnet_style_qualification_for_property = true
+dotnet_style_qualification_for_method = true
+dotnet_style_qualification_for_event = true

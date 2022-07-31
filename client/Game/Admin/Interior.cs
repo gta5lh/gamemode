@@ -8,12 +8,12 @@ namespace GamemodeClient.Controllers
 
 	public class Interior : Events.Script
 	{
-		public Interior()
+		static Interior()
 		{
-			Events.Add("TeleportToInterior", this.OnTeleportToInterior);
+			Events.Add("TeleportToInterior", OnTeleportToInterior);
 		}
 
-		public void OnTeleportToInterior(object[] args)
+		public static void OnTeleportToInterior(object[] args)
 		{
 			RAGE.Game.Streaming.RequestIpl((string)args[0]);
 			Game.Player.Models.Player.CurrentPlayer.Position = new Vector3((float)args[1], (float)args[2], (float)args[3]);
