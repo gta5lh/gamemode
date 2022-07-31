@@ -32,7 +32,9 @@ namespace Gamemode.Infrastructure
 				},
 			};
 
-			handler.SslOptions.ClientCertificates.Add(new X509Certificate2(System.Text.Encoding.UTF8.GetBytes(Settings.PlatformCertificate)));
+			string cert = Settings.PlatformCertificate.Replace("-----BEGIN CERTIFICATE-----", string.Empty).Replace("-----END CERTIFICATE-----", string.Empty).Replace("\\n", Environment.NewLine);
+
+			handler.SslOptions.ClientCertificates.Add(new X509Certificate2(Convert.FromBase64String(cert)));
 			handler.SslOptions.RemoteCertificateValidationCallback = (message, certificate2, arg3, arg4) => true;
 
 			var defaultmethodConfig = new MethodConfig

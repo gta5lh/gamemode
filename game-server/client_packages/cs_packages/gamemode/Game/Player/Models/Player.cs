@@ -21,7 +21,7 @@ namespace GamemodeClient.Game.Player.Models
 
 		private const int MaxHealthValue = 200;
 
-		public Player()
+		static Player()
 		{
 			Stats.StatSetInt(Misc.GetHashKey(Flying), 100, false);
 			Stats.StatSetInt(Misc.GetHashKey(Lung), 100, false);
@@ -31,10 +31,10 @@ namespace GamemodeClient.Game.Player.Models
 			Stats.StatSetInt(Misc.GetHashKey(Strength), 100, false);
 			Stats.StatSetInt(Misc.GetHashKey(Wheelie), 100, false);
 
-			Events.Add("MoneyUpdated", this.OnMoneyUpdated);
-			Events.Add("ExperienceUpdated", this.OnExperienceUpdated);
-			Events.Add("FractionRankNameUpdated", this.OnFractionRankNameUpdated);
-			Events.Add("FractionNameUpdated", this.OnFractionNameUpdated);
+			Events.Add("MoneyUpdated", OnMoneyUpdated);
+			Events.Add("ExperienceUpdated", OnExperienceUpdated);
+			Events.Add("FractionRankNameUpdated", OnFractionRankNameUpdated);
+			Events.Add("FractionNameUpdated", OnFractionNameUpdated);
 		}
 
 		public delegate void MoneyUpdatedDelegate(long money);
@@ -57,13 +57,13 @@ namespace GamemodeClient.Game.Player.Models
 
 		public static string FractionName { get; set; } = "-";
 
-		public static bool GodmodEnabled { get; set; } = false;
+		public static bool GodmodEnabled { get; set; }
 
-		public static bool InvisibilityEnabled { get; set; } = false;
+		public static bool InvisibilityEnabled { get; set; }
 
-		public static bool NoclipEnabled { get; set; } = false;
+		public static bool NoclipEnabled { get; set; }
 
-		public static bool Spectating { get; set; } = false;
+		public static bool Spectating { get; set; }
 
 		public static bool AuthenticationScreen { get; set; } = true;
 
@@ -74,13 +74,13 @@ namespace GamemodeClient.Game.Player.Models
 			return CurrentPlayer.Vehicle?.Exists == true;
 		}
 
-		private void OnMoneyUpdated(object[] request)
+		private static void OnMoneyUpdated(object[] request)
 		{
 			Money = (long)request[0];
 			MoneyUpdatedEvent(Money);
 		}
 
-		private void OnExperienceUpdated(object[] args)
+		private static void OnExperienceUpdated(object[] args)
 		{
 			PreviousExperience = (long)args[0];
 			CurrentExperience = (long)args[1];
@@ -93,7 +93,7 @@ namespace GamemodeClient.Game.Player.Models
 			ExperienceUpdatedEvent(PreviousExperience, CurrentExperience, RequiredExperience);
 		}
 
-		private void OnFractionRankNameUpdated(object[] args)
+		private static void OnFractionRankNameUpdated(object[] args)
 		{
 			if (args == null || args.Length < 1 || ((string)args[0])?.Length == 0 || args[0] == null)
 			{
@@ -104,7 +104,7 @@ namespace GamemodeClient.Game.Player.Models
 			FractionRankName = (string)args[0];
 		}
 
-		private void OnFractionNameUpdated(object[] args)
+		private static void OnFractionNameUpdated(object[] args)
 		{
 			if (args == null || args.Length < 1 || ((string)args[0])?.Length == 0 || args[0] == null)
 			{

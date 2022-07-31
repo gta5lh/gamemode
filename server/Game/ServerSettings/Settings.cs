@@ -8,40 +8,47 @@ namespace Gamemode.Game.ServerSettings
 	{
 		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 
+		private static readonly string? EnvironmentValue = System.Environment.GetEnvironmentVariable("GS_ENVIRONMENT");
+		private static readonly string? ServerIDValue = System.Environment.GetEnvironmentVariable("GS_ID");
+		private static readonly string? PlatformURLValue = System.Environment.GetEnvironmentVariable("GS_PLATFORM_URL");
+		private static readonly string? PlatformCertificateValue = System.Environment.GetEnvironmentVariable("GS_PLATFORM_CERTIFICATE");
+
 		static Settings()
 		{
-			if (Environment == null)
+			if (EnvironmentValue == null)
 			{
 				System.Environment.FailFast("Specify GS_ENVIRONMENT");
+				return;
 			}
 
-			if (ServerID == null)
+			if (ServerIDValue == null)
 			{
 				System.Environment.FailFast("Specify GS_ID");
+				return;
 			}
 
-			if (PlatformURL == null)
+			if (PlatformURLValue == null)
 			{
 				System.Environment.FailFast("Specify GS_PLATFORM_URL");
+				return;
 			}
 
-			if (PlatformCertificate == null)
+			if (PlatformCertificateValue == null)
 			{
 				System.Environment.FailFast("Specify GS_PLATFORM_CERTIFICATE");
+				return;
 			}
 
-			Logger.Info($"Settings: {Environment} {ServerID}");
+			Logger.Info($"Settings: {Environment} {ServerID} {PlatformURLValue} {PlatformCertificateValue}");
 		}
 
-#pragma warning disable CS8601
-		public static string Environment { get; } = System.Environment.GetEnvironmentVariable("GS_ENVIRONMENT");
+		public static string Environment { get => EnvironmentValue!; }
 
-		public static string ServerID { get; } = System.Environment.GetEnvironmentVariable("GS_ID");
+		public static string ServerID { get => ServerIDValue!; }
 
-		public static string PlatformURL { get; } = System.Environment.GetEnvironmentVariable("GS_PLATFORM_URL");
+		public static string PlatformURL { get => PlatformURLValue!; }
 
-		public static string PlatformCertificate { get; } = System.Environment.GetEnvironmentVariable("GS_PLATFORM_CERTIFICATE");
-#pragma warning restore CS8601
+		public static string PlatformCertificate { get => PlatformCertificateValue!; }
 
 		public static bool IsProduction()
 		{
