@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../server"
+		},
+		{
+			"path": "../common"
+		},
+		{
+			"path": "../client"
+		}
+	],
+	"settings": {
+		"omnisharp.enableRoslynAnalyzers": true
+	}
+}

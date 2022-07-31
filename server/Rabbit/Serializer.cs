@@ -1,9 +1,13 @@
-using System;
-using System.Collections.Concurrent;
-using EasyNetQ;
+// <copyright file="Serializer.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
-namespace server.Rabbit
+namespace Server.Rabbit
 {
+	using System;
+	using System.Collections.Concurrent;
+	using EasyNetQ;
+
 	public class Serializer : ITypeNameSerializer
 	{
 		public Serializer()

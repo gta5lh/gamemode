@@ -20,7 +20,7 @@ namespace GamemodeCommon.Email
 			try
 			{
 				// Normalize the domain
-				email = Regex.Replace(email, @"(@)(.+)$", DomainMapper, RegexOptions.None, TimeSpan.FromMilliseconds(200));
+				email = Regex.Replace(email, "(@)(.+)$", DomainMapper, RegexOptions.None, TimeSpan.FromMilliseconds(200));
 
 				// Examines the domain part of the email and normalizes it.
 				string DomainMapper(Match match)

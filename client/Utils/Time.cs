@@ -1,8 +1,12 @@
-﻿using System;
+﻿// <copyright file="Time.cs" company="Lost Heaven">
+// Copyright (c) Lost Heaven. All rights reserved.
+// </copyright>
 
 namespace GamemodeClient.Utils
 {
-	class Time
+	using System;
+
+	internal static class Time
 	{
 		public static long GetCurTimestamp()
 		{

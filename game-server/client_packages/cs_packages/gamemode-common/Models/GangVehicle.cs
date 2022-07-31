@@ -6,6 +6,11 @@ namespace GamemodeCommon.Models
 {
 	public class GangVehicle
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="GangVehicle"/> class.
+		/// </summary>
+		/// <param name="model"></param>
+		/// <param name="rank"></param>
 		public GangVehicle(uint model, byte rank)
 		{
 			this.Model = model;

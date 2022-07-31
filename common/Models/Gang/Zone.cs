@@ -6,6 +6,15 @@ namespace GamemodeCommon.Models.Gang
 {
 	public class Zone
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Zone"/> class.
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="x"></param>
+		/// <param name="y"></param>
+		/// <param name="fractionId"></param>
+		/// <param name="battleworthy"></param>
+		/// <param name="blipColor"></param>
 		public Zone(long id, long x, long y, long fractionId, bool battleworthy, byte blipColor)
 		{
 			this.Id = id;
