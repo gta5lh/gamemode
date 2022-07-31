@@ -4,7 +4,6 @@
 
 namespace Gamemode.Game.Admin.Commands
 {
-	using Gamemode.Game.Admin.Models;
 	using Gamemode.Game.Player.Models;
 	using GTANetworkAPI;
 

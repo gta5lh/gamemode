@@ -21,8 +21,10 @@ namespace Gamemode.Game.Vehicle.Commands
 		[Command("myvehicle", MyVehicleUsage, Alias = "myveh", GreedyArg = true)]
 		public static async Task OnMyVehicleAsync(CPlayer player)
 		{
-			MyVehicleRequest request = new MyVehicleRequest();
-			request.PlayerID = player.PKId.ToString();
+			MyVehicleRequest request = new()
+			{
+				PlayerID = player.PKId.ToString(),
+			};
 
 			MyVehicleResponse response;
 

@@ -16,6 +16,7 @@ namespace Gamemode
 	public class Weapon : BaseHandler
 	{
 		private const string WeaponUsage = "Usage: /weapon {static_id} {название} {кол-во_патрон}. Пример: /weapon 0 pistol 100";
+		private const string RemoveWeaponUsage = "Usage: /removeweapon {static_id} {название}. Пример: /weapon 0 pistol";
 
 		[Command("weapon", WeaponUsage, Alias = "w", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Senior)]
@@ -81,8 +82,6 @@ namespace Gamemode
 				this.Logger.Warn($"Administrator {admin.Name} gave weapon to {targetName}. Name: {weaponName}. Amount: {amount}");
 			});
 		}
-
-		private const string RemoveWeaponUsage = "Usage: /removeweapon {static_id} {название}. Пример: /weapon 0 pistol";
 
 		[Command("removeweapon", RemoveWeaponUsage, Alias = "rw", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Senior)]

@@ -13,7 +13,7 @@ namespace Gamemode
 	{
 		[Command("position", "Usage: /position {player_id}", Alias = "pos", SensitiveInfo = true, GreedyArg = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public static void OnPosition(CPlayer admin, string playerID)
+		public static void OnPosition(CPlayer admin)
 		{
 			if (admin.IsInVehicle)
 			{
@@ -27,7 +27,7 @@ namespace Gamemode
 
 		[Command("cameraposition", "Usage: /cameraposition {player_id}", Alias = "cpos", SensitiveInfo = true, GreedyArg = true)]
 		[AdminMiddleware(AdminRank.Junior)]
-		public static void OnCameraPosition(CPlayer admin, string playerID)
+		public static void OnCameraPosition(CPlayer admin)
 		{
 			NAPI.ClientEvent.TriggerClientEvent(admin, "ShowCameraPosition");
 		}

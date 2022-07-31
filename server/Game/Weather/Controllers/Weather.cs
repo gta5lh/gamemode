@@ -9,13 +9,12 @@ namespace Gamemode.Game.Weather.Controllers
 
 	public class Weather : Script
 	{
-		private static Timer weatherSyncTimer;
 		private const double WeatherSyncInterval1Minute = 1000 * 60;
 
 		public static void InitWeatherSyncTimer()
 		{
 			SetWeatherToCurrent();
-			weatherSyncTimer = new Timer(WeatherSyncInterval1Minute);
+			Timer weatherSyncTimer = new(WeatherSyncInterval1Minute);
 			weatherSyncTimer.Elapsed += OnWeatherSync;
 			weatherSyncTimer.AutoReset = true;
 			weatherSyncTimer.Start();

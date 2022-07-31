@@ -16,8 +16,11 @@ namespace Gamemode
 	public class Vehicle : BaseHandler
 	{
 		private const string CreateVehicleUsage = "Использование: /vehicle {название}. Пример: /v buffalo";
+		private const string FixVehicleUsage = "Использование: /fixvehicle {vehicle_id}. Пример: /fv 10";
+		private const string DeleteVehicleUsage = "Использование: /deletevehicle {vehicle_id}. Пример: /dv 10";
+		private const string FlipVehicleUsage = "Использование: /flipvehicle {vehicle_id}. Пример: /flv 10";
 
-		private readonly Random random = new Random();
+		private readonly Random random = new();
 
 		[Command("vehicle", CreateVehicleUsage, Alias = "v", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
@@ -29,8 +32,8 @@ namespace Gamemode
 				return;
 			}
 
-			Color randomColorOne = new Color(this.random.Next(0, 255), this.random.Next(0, 255), this.random.Next(0, 255));
-			Color randomColorTwo = new Color(this.random.Next(0, 255), this.random.Next(0, 255), this.random.Next(0, 255));
+			Color randomColorOne = new(this.random.Next(0, 255), this.random.Next(0, 255), this.random.Next(0, 255));
+			Color randomColorTwo = new(this.random.Next(0, 255), this.random.Next(0, 255), this.random.Next(0, 255));
 
 			if (rInput != null && gInput != null && bInput != null)
 			{
@@ -72,8 +75,6 @@ namespace Gamemode
 			this.Logger.Warn($"Administrator {admin.Name} created vehicle {vehicleDisplayName.ToLower()}");
 		}
 
-		private const string FixVehicleUsage = "Использование: /fixvehicle {vehicle_id}. Пример: /fv 10";
-
 		[Command("fixvehicle", FixVehicleUsage, Alias = "fv", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
 		public void OnFixVehicle(CPlayer admin, string? vehicleIdInput = null)
@@ -109,8 +110,6 @@ namespace Gamemode
 			Cache.SendMessageToAllAdminsAction($"{admin.Name} починил автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
 			this.Logger.Warn($"Administrator {admin.Name} fixed vehicle {vehicleDisplayName.ToLower()}");
 		}
-
-		private const string DeleteVehicleUsage = "Использование: /deletevehicle {vehicle_id}. Пример: /dv 10";
 
 		[Command("deletevehicle", DeleteVehicleUsage, Alias = "dv", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
@@ -153,8 +152,6 @@ namespace Gamemode
 			Cache.SendMessageToAllAdminsAction($"{admin.Name} удалил автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
 			this.Logger.Warn($"Administrator {admin.Name} deleted vehicle {vehicleDisplayName.ToLower()}");
 		}
-
-		private const string FlipVehicleUsage = "Использование: /flipvehicle {vehicle_id}. Пример: /flv 10";
 
 		[Command("flipvehicle", FlipVehicleUsage, Alias = "flv", SensitiveInfo = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]

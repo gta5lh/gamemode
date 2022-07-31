@@ -15,7 +15,7 @@ namespace Gamemode.Game.ServerSettings.Events
 			Settings.Init();
 
 			NAPI.Server.SetGlobalServerChat(false);
-			NAPI.Server.SetAutoSpawnOnConnect(true); // TODO set to false.
+			NAPI.Server.SetAutoSpawnOnConnect(true);
 			NAPI.Server.SetCommandErrorMessage("Команда не найдена.");
 
 			if (Settings.IsProduction())

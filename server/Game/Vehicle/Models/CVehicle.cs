@@ -6,13 +6,13 @@ namespace Gamemode.Game.Vehicle.Models
 {
 	using GTANetworkAPI;
 
-	public class CVehicle : GTANetworkAPI.Vehicle
+	public class CVehicle : Vehicle
 	{
-		public ushort OwnerPlayerId { get; set; }
-
 		public CVehicle(NetHandle handle)
 			: base(handle)
 		{
 		}
+
+		public ushort OwnerPlayerId { get; set; }
 	}
 }

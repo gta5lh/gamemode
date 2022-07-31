@@ -24,7 +24,7 @@ namespace Gamemode.Game.Admin.Commands
 				return;
 			}
 
-			ushort playerId = 0;
+			ushort playerId;
 
 			try
 			{

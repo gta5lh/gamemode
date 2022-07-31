@@ -15,6 +15,12 @@ namespace Gamemode.Game.Player.Models
 
 	public partial class CPlayer : GTANetworkAPI.Player
 	{
+		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
+
+		private VipRank vipRank;
+		private bool freezed;
+		private InventoryWeapons inventoryWeapons;
+
 		public CPlayer(NetHandle handle)
 			: base(handle)
 		{
@@ -63,12 +69,6 @@ namespace Gamemode.Game.Player.Models
 		public Guid PKId { get; set; }
 
 		public string StaticId { get; set; }
-
-		private VipRank vipRank;
-		private bool freezed;
-		private InventoryWeapons inventoryWeapons;
-
-		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 
 		public static CPlayer LoadPlayerCache(CPlayer player, Rpc.Player.Player playerToLoad)
 		{
@@ -124,25 +124,6 @@ namespace Gamemode.Game.Player.Models
 			Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
 		}
 
-		private void SetBlipColor(int color)
-		{
-			this.SetSharedData(DataKey.BlipColor, color);
-		}
-
-		private void SetDefaultBlipColor()
-		{
-			// TODO
-			// if (this.fraction != null)
-			// {
-			//  this.SetBlipColor(GangUtil.BlipColorByGangId[this.fraction.Value]);
-			// }
-			// else
-			// {
-			this.SetBlipColor(62);
-
-			// }
-		}
-
 		public void SendNotification(string text, long delay, long closeTimeMs, string notificationType)
 		{
 			this.TriggerEvent("DisplayNotification", text, delay, closeTimeMs, notificationType);
@@ -152,7 +133,7 @@ namespace Gamemode.Game.Player.Models
 		{
 			try
 			{
-				UnmuteRequest unmuteRequest = new UnmuteRequest(this.StaticId, this.PKId);
+				UnmuteRequest unmuteRequest = new(this.StaticId, this.PKId);
 				await Infrastructure.RpcClients.PlayerService.UnmuteAsync(unmuteRequest);
 			}
 			catch (Exception)
@@ -189,17 +170,38 @@ namespace Gamemode.Game.Player.Models
 
 		public List<Weapon> GetAllWeapons()
 		{
-			List<Weapon> weapons = new List<Weapon>();
+			List<Weapon> weapons = new();
 			foreach (WeaponHash weaponHash in this.inventoryWeapons.GetAllWeapons())
 			{
-				Weapon weapon = new Weapon();
-				weapon.Hash = (long)weaponHash;
-				weapon.Amount = this.GetWeaponAmmo(weaponHash);
+				Weapon weapon = new()
+				{
+					Hash = (long)weaponHash,
+					Amount = this.GetWeaponAmmo(weaponHash),
+				};
 
 				weapons.Add(weapon);
 			}
 
 			return weapons;
+		}
+
+		private void SetBlipColor(int color)
+		{
+			this.SetSharedData(DataKey.BlipColor, color);
+		}
+
+		private void SetDefaultBlipColor()
+		{
+			// TODO
+			// if (this.fraction != null)
+			// {
+			//  this.SetBlipColor(GangUtil.BlipColorByGangId[this.fraction.Value]);
+			// }
+			// else
+			// {
+			this.SetBlipColor(62);
+
+			// }
 		}
 	}
 }

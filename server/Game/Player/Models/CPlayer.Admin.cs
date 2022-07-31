@@ -5,13 +5,18 @@
 namespace Gamemode.Game.Player.Models
 {
 	using System.Collections.Generic;
-	using System.Linq;
 	using Gamemode.Game.Admin.Models;
 	using GamemodeCommon.Models.Data;
 	using GTANetworkAPI;
 
 	public partial class CPlayer
 	{
+		private AdminRank adminRank;
+		private bool invisible;
+		private bool spectating;
+		private bool noclip;
+		private List<Rpc.Player.Weapon> temporaryWeapons;
+
 		public Vector3? SpectatePosition { get; set; }
 
 		public AdminRank AdminRank
@@ -135,12 +140,6 @@ namespace Gamemode.Game.Player.Models
 			}
 		}
 
-		private AdminRank adminRank;
-		private bool invisible;
-		private bool spectating;
-		private bool noclip;
-		private List<Rpc.Player.Weapon> temporaryWeapons;
-
 		private void SaveTemporaryWeapons()
 		{
 			List<Rpc.Player.Weapon> weapons = this.GetAllWeapons();
@@ -158,8 +157,6 @@ namespace Gamemode.Game.Player.Models
 			{
 				return;
 			}
-
-			List<Rpc.Player.Weapon> weapons = this.temporaryWeapons.OrderByDescending(o => o.Amount).ToList();
 
 			foreach (Rpc.Player.Weapon weapon in this.temporaryWeapons)
 			{

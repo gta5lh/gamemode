@@ -6,28 +6,42 @@ namespace Gamemode.Game.ServerSettings
 {
 	public static class Settings
 	{
-		public static readonly string Environment;
-		public static readonly string ServerID;
+		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 
 		static Settings()
 		{
-			string? environment = System.Environment.GetEnvironmentVariable("GS_ENVIRONMENT");
-			if (environment == null)
+			if (Environment == null)
 			{
 				System.Environment.FailFast("Specify GS_ENVIRONMENT");
 			}
 
-			string? serverID = System.Environment.GetEnvironmentVariable("GS_ID");
-			if (serverID == null)
+			if (ServerID == null)
 			{
 				System.Environment.FailFast("Specify GS_ID");
 			}
 
-			Environment = environment;
-			ServerID = serverID;
+			if (PlatformURL == null)
+			{
+				System.Environment.FailFast("Specify GS_PLATFORM_URL");
+			}
+
+			if (PlatformCertificate == null)
+			{
+				System.Environment.FailFast("Specify GS_PLATFORM_CERTIFICATE");
+			}
 
 			Logger.Info($"Settings: {Environment} {ServerID}");
 		}
+
+#pragma warning disable CS8601
+		public static string Environment { get; } = System.Environment.GetEnvironmentVariable("GS_ENVIRONMENT");
+
+		public static string ServerID { get; } = System.Environment.GetEnvironmentVariable("GS_ID");
+
+		public static string PlatformURL { get; } = System.Environment.GetEnvironmentVariable("GS_PLATFORM_URL");
+
+		public static string PlatformCertificate { get; } = System.Environment.GetEnvironmentVariable("GS_PLATFORM_CERTIFICATE");
+#pragma warning restore CS8601
 
 		public static bool IsProduction()
 		{
@@ -36,8 +50,7 @@ namespace Gamemode.Game.ServerSettings
 
 		public static void Init()
 		{
+			// Method intentionally left empty.
 		}
-
-		private static readonly NLog.ILogger Logger = Gamemode.Logger.Logger.LogFactory.GetCurrentClassLogger();
 	}
 }
