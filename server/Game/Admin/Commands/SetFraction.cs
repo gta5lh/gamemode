@@ -45,7 +45,7 @@ namespace Gamemode.Game.Admin.Commands
 
 			try
 			{
-				CPlayer? targetPlayer = PlayerUtil.GetByStaticId(staticId);
+				CPlayer? targetPlayer = Gamemode.Game.Player.Util.GetByStaticId(staticId);
 
 				targetName = await GangMgr.SetAsGangMember(targetPlayer!, staticId, fractionId, rankId, admin.PKId);
 			}

@@ -1,6 +1,7 @@
-﻿// <copyright file="PlayerSpawn.cs" company="Lost Heaven">
+﻿// <copyright file="PlayerConnet.cs" company="Lost Heaven">
 // Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
+
 namespace Gamemode.Game.Auth.Events
 {
 	using System.Threading.Tasks;
@@ -11,10 +12,10 @@ namespace Gamemode.Game.Auth.Events
 	using Rpc.Errors;
 	using Rpc.Player;
 
-	public class PlayerSpawn : Script
+	public class PlayerConnect : Script
 	{
-		[ServerEvent(Event.PlayerSpawn)]
-		private static async Task OnPlayerSpawn(CPlayer player)
+		[ServerEvent(Event.PlayerConnected)]
+		private static async Task OnPlayerConnected(CPlayer player)
 		{
 			if (player.LoggedInAt != null)
 			{

@@ -24,3 +24,6 @@ dotnet_style_qualification_for_field = true
 dotnet_style_qualification_for_property = true
 dotnet_style_qualification_for_method = true
 dotnet_style_qualification_for_event = true
+
+# IDE0051: Private member is unused
+dotnet_diagnostic.IDE0051.severity = none

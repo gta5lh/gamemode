@@ -2,12 +2,11 @@
 // Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
-namespace Gamemode
+namespace Gamemode.Game.Admin.Commands
 {
 	using System;
 	using System.Threading.Tasks;
 	using Gamemode.Game.Admin;
-	using Gamemode.Game.Admin.Commands;
 	using Gamemode.Game.Admin.Models;
 	using Gamemode.Game.Player.Models;
 	using GTANetworkAPI;
@@ -50,7 +49,7 @@ namespace Gamemode
 			}
 
 			string targetName = string.Empty;
-			CPlayer? targetPlayer = PlayerUtil.GetByStaticId(targetStaticId);
+			CPlayer? targetPlayer = Game.Player.Util.GetByStaticId(targetStaticId);
 
 			if (targetPlayer != null)
 			{
@@ -113,7 +112,7 @@ namespace Gamemode
 			}
 
 			string targetName;
-			CPlayer? targetPlayer = PlayerUtil.GetByStaticId(targetStaticId);
+			CPlayer? targetPlayer = Game.Player.Util.GetByStaticId(targetStaticId);
 
 			if (targetPlayer != null)
 			{

@@ -43,7 +43,7 @@ namespace Gamemode.Game.Fraction
 		{
 			foreach (string staticId in FractionMembers[fractionId].Keys)
 			{
-				NAPI.Chat.SendChatMessageToPlayer(PlayerUtil.GetByStaticId(staticId), $"{ChatColor.FractionChatColor}[F] {message}");
+				NAPI.Chat.SendChatMessageToPlayer(Gamemode.Game.Player.Util.GetByStaticId(staticId), $"{ChatColor.FractionChatColor}[F] {message}");
 			}
 		}
 	}

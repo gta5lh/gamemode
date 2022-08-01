@@ -28,6 +28,8 @@ namespace Gamemode.Game.Player.Models
 		{
 		}
 
+		public string ChatColor { get; set; }
+
 		public DateTime? LoggedInAt { get; set; }
 
 		public bool IsInWarZone { get; set; }

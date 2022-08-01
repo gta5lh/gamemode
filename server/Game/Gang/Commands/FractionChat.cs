@@ -13,7 +13,7 @@ namespace Gamemode.Game.Gang.Commands
 		private const string FractionChatUsage = "Использование: /f";
 
 		[Command("f", FractionChatUsage, GreedyArg = true)]
-		public void OnFractionChat(CPlayer player, string? message = null)
+		public static void OnFractionChat(CPlayer player, string? message = null)
 		{
 			if (message == null)
 			{

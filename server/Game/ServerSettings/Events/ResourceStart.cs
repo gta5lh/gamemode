@@ -22,20 +22,6 @@ namespace Gamemode.Game.ServerSettings.Events
 			{
 				NAPI.Server.SetLogCommandParamParserExceptions(false);
 			}
-
-			Task.WaitAll(OnGameServerStart());
-		}
-
-		private static async Task OnGameServerStart()
-		{
-			try
-			{
-				await Infrastructure.RpcClients.GameServerService.OnGameServerStartAsync(new OnGameServerStartRequest(Settings.ServerID));
-			}
-			catch (System.Exception e)
-			{
-				System.Environment.FailFast("OnGameServerStart failed", e);
-			}
 		}
 	}
 }

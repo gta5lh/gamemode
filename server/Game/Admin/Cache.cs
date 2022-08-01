@@ -44,7 +44,7 @@ namespace Gamemode.Game.Admin
 		{
 			foreach (string adminStaticId in Admins.Keys)
 			{
-				NAPI.Chat.SendChatMessageToPlayer(PlayerUtil.GetByStaticId(adminStaticId), $"{ChatColor.AdminActionColor}[AF] {message}");
+				NAPI.Chat.SendChatMessageToPlayer(Gamemode.Game.Player.Util.GetByStaticId(adminStaticId), $"{ChatColor.AdminActionColor}[AF] {message}");
 			}
 		}
 
@@ -52,7 +52,7 @@ namespace Gamemode.Game.Admin
 		{
 			foreach (string adminStaticId in Admins.Keys)
 			{
-				NAPI.Chat.SendChatMessageToPlayer(PlayerUtil.GetByStaticId(adminStaticId), $"{ChatColor.AdminChatColor}[AC] {message}");
+				NAPI.Chat.SendChatMessageToPlayer(Gamemode.Game.Player.Util.GetByStaticId(adminStaticId), $"{ChatColor.AdminChatColor}[AC] {message}");
 			}
 		}
 
@@ -60,7 +60,7 @@ namespace Gamemode.Game.Admin
 		{
 			foreach (string adminStaticId in Admins.Keys)
 			{
-				NAPI.Chat.SendChatMessageToPlayer(PlayerUtil.GetByStaticId(adminStaticId), $"{ChatColor.AdminReportColor}[AR] {message}");
+				NAPI.Chat.SendChatMessageToPlayer(Gamemode.Game.Player.Util.GetByStaticId(adminStaticId), $"{ChatColor.AdminReportColor}[AR] {message}");
 			}
 		}
 
@@ -68,7 +68,7 @@ namespace Gamemode.Game.Admin
 		{
 			foreach (string adminStaticId in Admins.Keys)
 			{
-				NAPI.Chat.SendChatMessageToPlayer(PlayerUtil.GetByStaticId(adminStaticId), $"{ChatColor.AdminReportAnswerColor}[AR] {message}");
+				NAPI.Chat.SendChatMessageToPlayer(Gamemode.Game.Player.Util.GetByStaticId(adminStaticId), $"{ChatColor.AdminReportAnswerColor}[AR] {message}");
 			}
 		}
 	}

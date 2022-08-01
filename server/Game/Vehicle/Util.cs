@@ -1,4 +1,4 @@
-﻿// <copyright file="VehicleUtil.cs" company="Lost Heaven">
+﻿// <copyright file="Util.cs" company="Lost Heaven">
 // Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
@@ -6,7 +6,7 @@ namespace Gamemode.Game.Vehicle
 {
 	using GTANetworkAPI;
 
-	public static class VehicleUtil
+	public static class Util
 	{
 		public static Vehicle GetById(ushort vehicleId)
 		{

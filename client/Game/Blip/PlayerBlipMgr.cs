@@ -1,17 +1,17 @@
-﻿// <copyright file="PlayerBlip.cs" company="Lost Heaven">
+﻿// <copyright file="PlayerBlipMgr.cs" company="Lost Heaven">
 // Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
-namespace GamemodeClient.Controllers
+namespace GamemodeClient.Game.Blip
 {
 	using System.Collections.Generic;
 	using GamemodeCommon.Models.Data;
 	using RAGE;
 	using RAGE.Elements;
 
-	public class PlayerBlipController : Events.Script
+	public class PlayerBlipMgr : Events.Script
 	{
-		public PlayerBlipController()
+		public PlayerBlipMgr()
 		{
 			Events.Tick += this.OnTick;
 			Events.OnEntityStreamIn += this.OnEntityStreamIn;
@@ -48,7 +48,7 @@ namespace GamemodeClient.Controllers
 				return;
 			}
 
-			CreatePlayerBlip((RAGE.Elements.Player)entity, (int)color);
+			this.CreatePlayerBlip((RAGE.Elements.Player)entity, (int)color);
 		}
 
 		public void OnEntityStreamOut(RAGE.Elements.Entity entity)
@@ -58,7 +58,10 @@ namespace GamemodeClient.Controllers
 				return;
 			}
 
-			if (entity.HasData("blip")) entity.GetData<Blip>("blip").Destroy();
+			if (entity.HasData("blip"))
+			{
+				entity.GetData<Blip>("blip").Destroy();
+			}
 		}
 
 		private void CreatePlayerBlip(RAGE.Elements.Player player, int color)

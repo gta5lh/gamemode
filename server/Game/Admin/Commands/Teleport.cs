@@ -2,15 +2,13 @@
 // Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
-namespace Gamemode
+namespace Gamemode.Game.Admin.Commands
 {
 	using System;
-	using Gamemode.Game.Admin.Commands;
 	using Gamemode.Game.Admin.Models;
-	using Gamemode.Game.Gang;
+	using Gamemode.Game.Player;
 	using Gamemode.Game.Player.Models;
 	using Gamemode.Game.Spawn;
-	using Gamemode.Game.Vehicle;
 	using GTANetworkAPI;
 
 	public class Teleport : Script
@@ -55,14 +53,14 @@ namespace Gamemode
 					return;
 				}
 
-				CPlayer firstPlayer = PlayerUtil.GetById(firstPlayerId);
+				CPlayer firstPlayer = Util.GetById(firstPlayerId);
 				if (firstPlayer == null)
 				{
 					admin.SendChatMessage($"Пользователь с DID {firstPlayerId} не найден");
 					return;
 				}
 
-				CPlayer secondPlayer = PlayerUtil.GetById(secondPlayerId);
+				CPlayer secondPlayer = Util.GetById(secondPlayerId);
 				if (secondPlayer == null)
 				{
 					admin.SendChatMessage($"Пользователь с DID {secondPlayerId} не найден");
@@ -74,7 +72,7 @@ namespace Gamemode
 				return;
 			}
 
-			CPlayer targetPlayer = PlayerUtil.GetById(firstPlayerId);
+			CPlayer targetPlayer = Util.GetById(firstPlayerId);
 			if (targetPlayer == null)
 			{
 				admin.SendChatMessage($"Пользователь с DID {firstPlayerId} не найден");
@@ -107,7 +105,7 @@ namespace Gamemode
 				return;
 			}
 
-			GTANetworkAPI.Vehicle vehicle = VehicleUtil.GetById(vehicleId);
+			GTANetworkAPI.Vehicle vehicle = Game.Vehicle.Util.GetById(vehicleId);
 			if (vehicle == null)
 			{
 				admin.SendChatMessage($"Автомобиль с ID {vehicleIdInput} отсутствует");
