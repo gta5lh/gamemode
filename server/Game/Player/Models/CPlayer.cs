@@ -93,7 +93,7 @@ namespace Gamemode.Game.Player.Models
 
 		public string StaticId { get; set; }
 
-		public static CPlayer LoadPlayerCache(CPlayer player, Rpc.Player.Player playerToLoad)
+		public static CPlayer LoadPlayer(CPlayer player, Rpc.Player.Player playerToLoad)
 		{
 			IdsCache.LoadIdsToCache(player.Id, playerToLoad.StaticID);
 			player.PKId = Guid.Parse(playerToLoad.ID);
@@ -129,11 +129,11 @@ namespace Gamemode.Game.Player.Models
 				}
 			}
 
-			Logger.Info($"Loaded player to cache. ID={player.StaticId}");
+			Logger.Info($"Loaded player. ID={player.StaticId}");
 			return player;
 		}
 
-		public static void UnloadPlayerCache(CPlayer player)
+		public static void UnloadPlayer(CPlayer player)
 		{
 			player.ResetData();
 			player.ResetSharedData(DataKey.StaticId);
@@ -141,7 +141,7 @@ namespace Gamemode.Game.Player.Models
 
 			player.Fraction = null;
 			IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
-			Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
+			Logger.Info($"Unloaded player. ID={player.StaticId}");
 		}
 
 		public void SendNotification(string text, long delay, long closeTimeMs, string notificationType)

@@ -19,7 +19,7 @@ namespace Gamemode.Game.Auth.Events
 				return;
 			}
 
-			CPlayer.UnloadPlayerCache(player);
+			CPlayer.UnloadPlayer(player);
 
 			try
 			{

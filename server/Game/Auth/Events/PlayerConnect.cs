@@ -47,7 +47,7 @@ namespace Gamemode.Game.Auth.Events
 				return;
 			}
 
-			NAPI.Task.Run(() => CPlayer.LoadPlayerCache(player, loginResponse.Player));
+			NAPI.Task.Run(() => CPlayer.LoadPlayer(player, loginResponse.Player));
 		}
 	}
 }
