@@ -12,6 +12,7 @@ namespace Gamemode.Game.ServerSettings
 		private static readonly string? ServerIDValue = System.Environment.GetEnvironmentVariable("GS_ID");
 		private static readonly string? PlatformURLValue = System.Environment.GetEnvironmentVariable("GS_PLATFORM_URL");
 		private static readonly string? PlatformCertificateValue = System.Environment.GetEnvironmentVariable("GS_PLATFORM_CERTIFICATE");
+		private static readonly string? RollbarTokenValue = System.Environment.GetEnvironmentVariable("GS_ROLLBAR_TOKEN");
 
 		static Settings()
 		{
@@ -39,6 +40,12 @@ namespace Gamemode.Game.ServerSettings
 				return;
 			}
 
+			if (RollbarTokenValue == null)
+			{
+				System.Environment.FailFast("Specify GS_ROLLBAR_TOKEN");
+				return;
+			}
+
 			Logger.Info($"Settings: {Environment} {ServerID} {PlatformURLValue} {PlatformCertificateValue}");
 		}
 
@@ -49,6 +56,8 @@ namespace Gamemode.Game.ServerSettings
 		public static string PlatformURL { get => PlatformURLValue!; }
 
 		public static string PlatformCertificate { get => PlatformCertificateValue!; }
+
+		public static string RollbarToken { get => RollbarTokenValue!; }
 
 		public static bool IsProduction()
 		{

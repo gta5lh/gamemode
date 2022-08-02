@@ -33,7 +33,7 @@ namespace Gamemode.Game.Voice.Commands
 				return;
 			}
 
-			CPlayer? targetPlayer = PlayerUtil.GetById(targetId);
+			CPlayer? targetPlayer = Gamemode.Game.Player.Util.GetById(targetId);
 			if (targetPlayer == null)
 			{
 				player.SendChatMessage($"Пользователь с {targetId} ID не найден");
@@ -69,7 +69,7 @@ namespace Gamemode.Game.Voice.Commands
 				return;
 			}
 
-			CPlayer targetPlayer = PlayerUtil.GetById(targetId);
+			CPlayer targetPlayer = Gamemode.Game.Player.Util.GetById(targetId);
 			if (targetPlayer == null)
 			{
 				player.SendChatMessage($"Пользователь с {targetId} ID не найден");

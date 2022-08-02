@@ -80,7 +80,7 @@ namespace Gamemode.Game.Admin.Commands
 				ChatColor.SendColorizedChatMessageToAll(ChatColor.AdminAnnouncementColor, $"Администратор: {admin.Name} выдал бан {targetName} на {duration} дней. Причина: {reason}");
 				this.Logger.Warn($"Administrator {admin.Name} banned {targetName} for {duration} days");
 
-				CPlayer? targetPlayer = PlayerUtil.GetByStaticId(staticId);
+				CPlayer? targetPlayer = Gamemode.Game.Player.Util.GetByStaticId(staticId);
 				targetPlayer?.Ban();
 			});
 		}

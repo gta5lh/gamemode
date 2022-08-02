@@ -2,11 +2,10 @@
 // Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
-namespace Gamemode
+namespace Gamemode.Game.Admin.Commands
 {
 	using System;
 	using Gamemode.Game.Admin;
-	using Gamemode.Game.Admin.Commands;
 	using Gamemode.Game.Admin.Models;
 	using Gamemode.Game.Player.Models;
 	using Gamemode.Game.Vehicle;
@@ -70,7 +69,7 @@ namespace Gamemode
 			vehicle.Rotation = new Vector3(0, 0, admin.Heading);
 			admin.SetIntoVehicle(vehicle, 0);
 
-			string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, vehicleName);
+			string vehicleDisplayName = Util.DisplayName(vehicle, vehicleName);
 			Cache.SendMessageToAllAdminsAction($"{admin.Name} создал автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
 			this.Logger.Warn($"Administrator {admin.Name} created vehicle {vehicleDisplayName.ToLower()}");
 		}
@@ -97,7 +96,7 @@ namespace Gamemode
 				return;
 			}
 
-			GTANetworkAPI.Vehicle vehicle = VehicleUtil.GetById(vehicleId);
+			GTANetworkAPI.Vehicle vehicle = Util.GetById(vehicleId);
 			if (vehicle == null)
 			{
 				admin.SendChatMessage($"Автомобиль с ID {vehicleId} не найден");
@@ -106,7 +105,7 @@ namespace Gamemode
 
 			vehicle.Repair();
 
-			string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, string.Empty);
+			string vehicleDisplayName = Util.DisplayName(vehicle, string.Empty);
 			Cache.SendMessageToAllAdminsAction($"{admin.Name} починил автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
 			this.Logger.Warn($"Administrator {admin.Name} fixed vehicle {vehicleDisplayName.ToLower()}");
 		}
@@ -133,20 +132,20 @@ namespace Gamemode
 				return;
 			}
 
-			CVehicle vehicle = (CVehicle)VehicleUtil.GetById(vehicleId);
+			CVehicle vehicle = (CVehicle)Util.GetById(vehicleId);
 			if (vehicle == null)
 			{
 				admin.SendChatMessage($"Автомобиль с ID {vehicleId} не найден");
 				return;
 			}
 
-			CPlayer vehicleOwner = PlayerUtil.GetById(vehicle.OwnerPlayerId);
+			CPlayer vehicleOwner = Game.Player.Util.GetById(vehicle.OwnerPlayerId);
 			if (vehicleOwner != null)
 			{
 				vehicleOwner.OneTimeVehicleId = null;
 			}
 
-			string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, string.Empty);
+			string vehicleDisplayName = Util.DisplayName(vehicle, string.Empty);
 			vehicle.Delete();
 
 			Cache.SendMessageToAllAdminsAction($"{admin.Name} удалил автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
@@ -175,7 +174,7 @@ namespace Gamemode
 				return;
 			}
 
-			CVehicle vehicle = (CVehicle)VehicleUtil.GetById(vehicleId);
+			CVehicle vehicle = (CVehicle)Util.GetById(vehicleId);
 			if (vehicle == null)
 			{
 				admin.SendChatMessage($"Автомобиль с ID {vehicleId} не найден");
@@ -184,7 +183,7 @@ namespace Gamemode
 
 			vehicle.Rotation = new Vector3(0, 0, vehicle.Rotation.Z);
 
-			string vehicleDisplayName = VehicleUtil.DisplayName(vehicle, string.Empty);
+			string vehicleDisplayName = Util.DisplayName(vehicle, string.Empty);
 			Cache.SendMessageToAllAdminsAction($"{admin.Name} перевенул автомобиль {vehicleDisplayName.ToLower()} [{vehicle.Id}]");
 			this.Logger.Warn($"Administrator {admin.Name} flipped vehicle {vehicleDisplayName.ToLower()}");
 		}

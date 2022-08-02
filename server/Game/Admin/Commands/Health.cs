@@ -50,7 +50,7 @@ namespace Gamemode.Game.Admin.Commands
 				return;
 			}
 
-			CPlayer targetPlayer = PlayerUtil.GetById(playerId);
+			CPlayer targetPlayer = Gamemode.Game.Player.Util.GetById(playerId);
 			if (targetPlayer == null)
 			{
 				admin.SendChatMessage($"Пользователь с DID {playerId} не найден");

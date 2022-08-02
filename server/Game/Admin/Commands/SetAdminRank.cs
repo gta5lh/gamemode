@@ -57,7 +57,7 @@ namespace Gamemode.Game.Admin.Commands
 
 			NAPI.Task.Run(() =>
 			{
-				CPlayer? targetPlayer = PlayerUtil.GetByStaticId(targetStaticId);
+				CPlayer? targetPlayer = Gamemode.Game.Player.Util.GetByStaticId(targetStaticId);
 				if (targetPlayer != null)
 				{
 					targetPlayer.AdminRank = adminRank;

@@ -1,4 +1,4 @@
-// <copyright file="AdminChat.cs" company="Lost Heaven">
+// <copyright file="AdminAnnouncement.cs" company="Lost Heaven">
 // Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 

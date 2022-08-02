@@ -2,13 +2,13 @@
 // Copyright (c) Lost Heaven. All rights reserved.
 // </copyright>
 
-namespace Gamemode
+namespace Gamemode.Game.Admin.Commands
 {
 	using System;
-	using Gamemode.Game.Admin.Commands;
 	using Gamemode.Game.Admin.Models;
+	using Gamemode.Game.Player;
 	using Gamemode.Game.Player.Models;
-	using Gamemode.Game.Vehicle;
+	using Gamemode.Game.Spawn;
 	using GTANetworkAPI;
 
 	public class Teleport : Script
@@ -53,14 +53,14 @@ namespace Gamemode
 					return;
 				}
 
-				CPlayer firstPlayer = PlayerUtil.GetById(firstPlayerId);
+				CPlayer firstPlayer = Util.GetById(firstPlayerId);
 				if (firstPlayer == null)
 				{
 					admin.SendChatMessage($"Пользователь с DID {firstPlayerId} не найден");
 					return;
 				}
 
-				CPlayer secondPlayer = PlayerUtil.GetById(secondPlayerId);
+				CPlayer secondPlayer = Util.GetById(secondPlayerId);
 				if (secondPlayer == null)
 				{
 					admin.SendChatMessage($"Пользователь с DID {secondPlayerId} не найден");
@@ -72,7 +72,7 @@ namespace Gamemode
 				return;
 			}
 
-			CPlayer targetPlayer = PlayerUtil.GetById(firstPlayerId);
+			CPlayer targetPlayer = Util.GetById(firstPlayerId);
 			if (targetPlayer == null)
 			{
 				admin.SendChatMessage($"Пользователь с DID {firstPlayerId} не найден");
@@ -105,7 +105,7 @@ namespace Gamemode
 				return;
 			}
 
-			GTANetworkAPI.Vehicle vehicle = VehicleUtil.GetById(vehicleId);
+			GTANetworkAPI.Vehicle vehicle = Game.Vehicle.Util.GetById(vehicleId);
 			if (vehicle == null)
 			{
 				admin.SendChatMessage($"Автомобиль с ID {vehicleIdInput} отсутствует");
@@ -117,17 +117,6 @@ namespace Gamemode
 			admin.SendChatMessage($"Вы телепортировали автомобиль {vehicleIdInput} к себе");
 		}
 
-		// TODO
-		// private Spawn[] spawns = new Spawn[] {
-		//  Bloods.Spawn,
-		//  Ballas.Spawn,
-		//  TheFamilies.Spawn,
-		//  Vagos.Spawn,
-		//  Marabunta.Spawn,
-		//  PlayerSpawns.SpawnPositions[0],
-		//  PlayerSpawns.SpawnPositions[1],
-		//  PlayerSpawns.SpawnPositions[2],
-		// };
 		[Command("teleportlocation", TeleportUsage, Alias = "tpl", SensitiveInfo = true, GreedyArg = true, Hide = true)]
 		[AdminMiddleware(AdminRank.Junior)]
 		public static void OnTeleportLocation(CPlayer admin, string? locationIdInput = null)
@@ -150,17 +139,16 @@ namespace Gamemode
 				return;
 			}
 
-			// TODO
-			// if (locationId < 0 || locationId >= spawns.Length)
-			// {
-			//  admin.SendChatMessage($"Максимальный ID локации = {spawns.Length - 1}");
-			//  return;
-			// }
+			if (locationId >= Spawns.All.Length)
+			{
+				admin.SendChatMessage($"Максимальный ID локации = {Spawns.All.Length - 1}");
+				return;
+			}
 
-			// Spawn spawn = spawns[locationId];
-			// admin.Position = spawn.Position;
-			// admin.Heading = spawn.Heading;
-			// admin.SendChatMessage($"Вы телепортировались в локацию {locationId}");
+			Game.Spawn.Spawn spawn = Spawns.All[locationId];
+			admin.Position = spawn.Position;
+			admin.Heading = spawn.Heading;
+			admin.SendChatMessage($"Вы телепортировались в локацию {locationId}");
 		}
 
 		[Command("teleportwaypoint", TeleportUsage, Alias = "tpw", SensitiveInfo = true, GreedyArg = true, Hide = true)]

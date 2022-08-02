@@ -9,6 +9,7 @@ namespace Gamemode.Game.Player.Models
 	using System.Linq;
 	using System.Threading.Tasks;
 	using Gamemode.Game.Admin.Models;
+	using Gamemode.Game.Gang;
 	using GamemodeCommon.Models.Data;
 	using GTANetworkAPI;
 	using Rpc.Player;
@@ -20,15 +21,37 @@ namespace Gamemode.Game.Player.Models
 		private VipRank vipRank;
 		private bool freezed;
 		private InventoryWeapons inventoryWeapons;
+		private long money;
 
 		public CPlayer(NetHandle handle)
 			: base(handle)
 		{
 		}
 
+		public string ChatColor { get; set; }
+
+		public DateTime? LoggedInAt { get; set; }
+
+		public bool IsInWarZone { get; set; }
+
+		public long CurrentExperience { get; set; }
+
+		public long? RequiredExperience { get; set; }
+
 		public ushort? OneTimeVehicleId { get; set; }
 
 		public MuteState? MuteState { get; set; }
+
+		public long Money
+		{
+			get => this.money;
+
+			set
+			{
+				this.money = value;
+				this.TriggerEvent("MoneyUpdated", this.money);
+			}
+		}
 
 		public VipRank VipRank
 		{
@@ -70,7 +93,7 @@ namespace Gamemode.Game.Player.Models
 
 		public string StaticId { get; set; }
 
-		public static CPlayer LoadPlayerCache(CPlayer player, Rpc.Player.Player playerToLoad)
+		public static CPlayer LoadPlayer(CPlayer player, Rpc.Player.Player playerToLoad)
 		{
 			IdsCache.LoadIdsToCache(player.Id, playerToLoad.StaticID);
 			player.PKId = Guid.Parse(playerToLoad.ID);
@@ -80,10 +103,9 @@ namespace Gamemode.Game.Player.Models
 			player.AdminRank = playerToLoad.HasAdminRankID ? (AdminRank)playerToLoad.AdminRankID : 0;
 			player.VipRank = playerToLoad.HasAdminRankID ? VipRank.Premium : 0;
 			player.inventoryWeapons = new InventoryWeapons();
-
-			// player.CurrentExperience = playerToLoad.Experience;
-			// player.Money = playerToLoad.Money;
-			// player.LoggedInAt = DateTime.UtcNow;
+			player.CurrentExperience = playerToLoad.Experience;
+			player.Money = playerToLoad.Money;
+			player.LoggedInAt = DateTime.UtcNow;
 			player.SetSkin(PedHash.Tramp01);
 
 			DateTime? mutedUntil = playerToLoad.MutedUntil != null ? playerToLoad.MutedUntil.ToDateTime() : (DateTime?)null;
@@ -91,37 +113,35 @@ namespace Gamemode.Game.Player.Models
 
 			if (playerToLoad.HasFractionRankID)
 			{
-				// player.Fraction = playerToLoad.Fraction;
-				// player.FractionRank = playerToLoad.FractionRank.Tier;
-				// player.FractionRankName = playerToLoad.FractionRank.Name;
-				// player.RequiredExperience = playerToLoad.FractionRank.RequiredExperience;
+				player.Fraction = playerToLoad.Fraction;
+				player.FractionRank = playerToLoad.FractionRank.Tier;
+				player.FractionRankName = playerToLoad.FractionRank.Name;
+				player.RequiredExperience = playerToLoad.FractionRank.RequiredExperience;
 				player.SetSkin((PedHash)playerToLoad.FractionRank.Skin);
 			}
 
 			if (playerToLoad.Weapons != null)
 			{
-				List<Weapon> weapons = playerToLoad.Weapons.OrderByDescending(o => o.Amount).ToList();
-
-				foreach (Weapon weapon in playerToLoad.Weapons)
+				foreach (Weapon weapon in (List<Weapon>)playerToLoad.Weapons.OrderByDescending(o => o.Amount).ToList())
 				{
 					player.CustomGiveWeapon((WeaponHash)weapon.Hash, 0);
 					player.SetWeaponAmmo((WeaponHash)weapon.Hash, (int)weapon.Amount);
 				}
 			}
 
-			Logger.Info($"Loaded player to cache. ID={player.StaticId}");
+			Logger.Info($"Loaded player. ID={player.StaticId}");
 			return player;
 		}
 
-		public static void UnloadPlayerCache(CPlayer player)
+		public static void UnloadPlayer(CPlayer player)
 		{
 			player.ResetData();
 			player.ResetSharedData(DataKey.StaticId);
 			player.AdminRank = 0;
 
-			// player.Fraction = null;
+			player.Fraction = null;
 			IdsCache.UnloadIdsFromCacheByDynamicId(player.Id);
-			Logger.Info($"Unloaded player from cache. ID={player.StaticId}");
+			Logger.Info($"Unloaded player. ID={player.StaticId}");
 		}
 
 		public void SendNotification(string text, long delay, long closeTimeMs, string notificationType)
@@ -192,16 +212,14 @@ namespace Gamemode.Game.Player.Models
 
 		private void SetDefaultBlipColor()
 		{
-			// TODO
-			// if (this.fraction != null)
-			// {
-			//  this.SetBlipColor(GangUtil.BlipColorByGangId[this.fraction.Value]);
-			// }
-			// else
-			// {
-			this.SetBlipColor(62);
-
-			// }
+			if (this.fractionValue != null)
+			{
+				this.SetBlipColor(Util.BlipColorByGangId[this.fractionValue.Value]);
+			}
+			else
+			{
+				this.SetBlipColor(62);
+			}
 		}
 	}
 }

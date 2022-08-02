@@ -65,7 +65,7 @@ namespace Gamemode.Game.Admin.Commands
 
 			NAPI.Task.Run(() =>
 			{
-				CPlayer? targetPlayer = PlayerUtil.GetByStaticId(targetId);
+				CPlayer? targetPlayer = Gamemode.Game.Player.Util.GetByStaticId(targetId);
 				if (targetPlayer != null)
 				{
 					targetPlayer.MuteState = new MuteState(mutedUntil, admin.StaticId, reason);
@@ -114,7 +114,7 @@ namespace Gamemode.Game.Admin.Commands
 
 			NAPI.Task.Run(() =>
 			{
-				CPlayer? targetPlayer = PlayerUtil.GetByStaticId(targetId);
+				CPlayer? targetPlayer = Gamemode.Game.Player.Util.GetByStaticId(targetId);
 				if (targetPlayer != null)
 				{
 					targetPlayer.MuteState = new MuteState();

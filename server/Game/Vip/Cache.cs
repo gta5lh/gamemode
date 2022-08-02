@@ -41,7 +41,7 @@ namespace Gamemode.Game.Vip
 
 			foreach (string vipStaticId in Vips.Keys)
 			{
-				NAPI.Chat.SendChatMessageToPlayer(PlayerUtil.GetByStaticId(vipStaticId), $"{prefix}~w~ {message}");
+				NAPI.Chat.SendChatMessageToPlayer(Gamemode.Game.Player.Util.GetByStaticId(vipStaticId), $"{prefix}~w~ {message}");
 			}
 		}
 	}

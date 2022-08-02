@@ -51,7 +51,7 @@ namespace Gamemode.Game.Vehicle.Commands
 			{
 				if (player.OneTimeVehicleId != null)
 				{
-					VehicleUtil.GetById(player.OneTimeVehicleId.Value).Delete();
+					Util.GetById(player.OneTimeVehicleId.Value).Delete();
 				}
 
 				CVehicle vehicle = (CVehicle)NAPI.Vehicle.CreateVehicle((uint)response.VehicleHash, player.Position, player.Heading, 0, 0, player.Name);
