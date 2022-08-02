@@ -16,5 +16,5 @@
   "api-threading-debugging": true,
   "allow-cef-debugging": true,
   "broadcast-threads": 8,
-  "sync-rate": 100
+  "sync-rate": 20
 }

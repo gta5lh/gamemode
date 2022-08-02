@@ -31,14 +31,6 @@ namespace Gamemode.Game.Gang
 				player.SetSkin(gangId == 0 ? PedHash.Tramp01 : (PedHash)setFractionResponse.Skin);
 				player.CustomRemoveAllWeapons();
 				NAPI.ClientEvent.TriggerClientEvent(player, "ExperienceUpdated", player.CurrentExperience, player.CurrentExperience, player.RequiredExperience);
-
-				if (gangId != 0)
-				{
-					foreach (Weapon weapon in Util.WeaponsByGangId[gangId])
-					{
-						player.CustomGiveWeapon((WeaponHash)weapon.Hash, weapon.Amount);
-					}
-				}
 			});
 
 			return setFractionResponse.Name;
